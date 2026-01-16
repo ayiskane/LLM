@@ -5,16 +5,14 @@ export type CourtRegion = 'Fraser' | 'Interior' | 'North' | 'Vancouver Island' |
 export interface CourtContacts {
   crown_email?: string;
   jcm_scheduling_email?: string;
+  scheduling_email?: string;
   registry_email?: string;
   criminal_registry_email?: string;
-  civil_registry_email?: string;
-  family_registry_email?: string;
-  small_claims_email?: string;
-  traffic_email?: string;
   bail_crown_email?: string;
   bail_jcm_email?: string;
-  scheduling_email?: string;
   transcripts_email?: string;
+  interpreter_email?: string;
+  fax_filing?: string;
 }
 
 export interface Court {

@@ -1,35 +1,24 @@
-import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
-import "./globals.css";
-
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+import type { Metadata, Viewport } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "BC Legal Directory",
-  description: "Contact directory for BC courts, RCMP, correctional facilities, and legal aid",
+  title: 'BC Legal Directory',
+  description: 'Contact directory for BC courts, RCMP, correctional facilities, and legal services',
+  manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
-    title: "BC Legal Directory",
+    statusBarStyle: 'black-translucent',
+    title: 'BC Legal',
   },
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "cover",
+  themeColor: '#09090b',
 };
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
@@ -37,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${geistSans.className} antialiased bg-zinc-950 text-white`}>
+    <html lang="en">
+      <body className="font-sans antialiased bg-zinc-950">
         {children}
       </body>
     </html>

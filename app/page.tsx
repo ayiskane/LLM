@@ -4,15 +4,19 @@ import { useState, useEffect, useMemo } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Court, CourtRegion, CourtContacts } from '@/types/database';
 import { 
-  Search, ChevronLeft, ChevronDown, ChevronRight, 
+  Search, ChevronLeft, ChevronRight, 
   Copy, Check, Phone, Mail, X, MoreHorizontal,
-  Building2, MapPin, Scale
+  Building2, MapPin, Scale, Home, Users, Shield, Briefcase
 } from 'lucide-react';
 
 // Regions for filtering
 const REGIONS: CourtRegion[] = ['Fraser', 'Interior', 'North', 'Vancouver Island', 'Vancouver Coastal'];
 
-export default function Home() {
+// Navigation tabs
+type NavTab = 'home' | 'courts' | 'police' | 'custody' | 'services';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState<NavTab>('courts');
   const [courts, setCourts] = useState<Court[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -79,122 +83,211 @@ export default function Home() {
     );
   }
 
-  // Main courts list view
+  // Main app with tabs
   return (
-    <div className="h-screen flex flex-col bg-zinc-950 text-white">
+    <div className="h-screen flex flex-col bg-zinc-950 text-white overflow-hidden">
       {/* Header */}
-      <header className="flex-shrink-0 px-4 pt-12 pb-4 bg-gradient-to-b from-zinc-900 to-zinc-950">
+      <header className="flex-shrink-0 px-4 pt-safe pb-4 bg-gradient-to-b from-zinc-900 to-zinc-950">
         <h1 className="text-2xl font-bold mb-4">BC Legal Directory</h1>
         
-        {/* Search */}
-        <div className="relative">
-          <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
-          <input
-            type="text"
-            placeholder="Search courts..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
-          />
-          {searchQuery && (
-            <button 
-              onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500"
-            >
-              <X size={18} />
-            </button>
-          )}
-        </div>
+        {/* Search - only show on courts tab */}
+        {activeTab === 'courts' && (
+          <>
+            <div className="relative">
+              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+              <input
+                type="text"
+                placeholder="Search courts..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-700"
+              />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500"
+                >
+                  <X size={18} />
+                </button>
+              )}
+            </div>
 
-        {/* Region Filter */}
-        <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-4 px-4">
-          <button
-            onClick={() => setSelectedRegion('All')}
-            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
-              selectedRegion === 'All' 
-                ? 'bg-white text-black' 
-                : 'bg-zinc-800 text-zinc-400'
-            }`}
-          >
-            All
-          </button>
-          {REGIONS.map(region => (
-            <button
-              key={region}
-              onClick={() => setSelectedRegion(region)}
-              className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
-                selectedRegion === region 
-                  ? 'bg-white text-black' 
-                  : 'bg-zinc-800 text-zinc-400'
-              }`}
-            >
-              {region}
-            </button>
-          ))}
-        </div>
+            {/* Region Filter */}
+            <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+              <button
+                onClick={() => setSelectedRegion('All')}
+                className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
+                  selectedRegion === 'All' 
+                    ? 'bg-white text-black' 
+                    : 'bg-zinc-800 text-zinc-400'
+                }`}
+              >
+                All
+              </button>
+              {REGIONS.map(region => (
+                <button
+                  key={region}
+                  onClick={() => setSelectedRegion(region)}
+                  className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
+                    selectedRegion === region 
+                      ? 'bg-white text-black' 
+                      : 'bg-zinc-800 text-zinc-400'
+                  }`}
+                >
+                  {region}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </header>
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto min-h-0 px-4 pb-8">
-        {loading ? (
-          <div className="flex items-center justify-center h-32">
-            <div className="text-zinc-500">Loading courts...</div>
-          </div>
-        ) : (
+      <main className="flex-1 overflow-y-auto min-h-0 px-4 pb-4">
+        {activeTab === 'courts' && (
           <>
-            {/* Stats */}
-            <div className="text-sm text-zinc-500 mb-4">
-              {filteredCourts.length} courts found
-              {selectedRegion !== 'All' && ` in ${selectedRegion}`}
-            </div>
-
-            {/* Staffed Courthouses */}
-            {staffedCourts.length > 0 && (
-              <div className="mb-6">
-                <h2 className="text-xs uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
-                  <Building2 size={14} />
-                  Staffed Courthouses ({staffedCourts.length})
-                </h2>
-                <div className="space-y-2">
-                  {staffedCourts.map(court => (
-                    <CourtCard 
-                      key={court.id} 
-                      court={court} 
-                      onClick={() => setSelectedCourt(court)} 
-                    />
-                  ))}
+            {loading ? (
+              <div className="flex items-center justify-center h-32">
+                <div className="text-zinc-500">Loading courts...</div>
+              </div>
+            ) : (
+              <>
+                {/* Stats */}
+                <div className="text-sm text-zinc-500 mb-4">
+                  {filteredCourts.length} courts found
+                  {selectedRegion !== 'All' && ` in ${selectedRegion}`}
                 </div>
-              </div>
-            )}
 
-            {/* Circuit Courts */}
-            {circuitCourts.length > 0 && (
-              <div>
-                <h2 className="text-xs uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
-                  <MapPin size={14} />
-                  Circuit Courts ({circuitCourts.length})
-                </h2>
-                <div className="space-y-2">
-                  {circuitCourts.map(court => (
-                    <CourtCard 
-                      key={court.id} 
-                      court={court} 
-                      onClick={() => setSelectedCourt(court)} 
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+                {/* Staffed Courthouses */}
+                {staffedCourts.length > 0 && (
+                  <div className="mb-6">
+                    <h2 className="text-xs uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
+                      <Building2 size={14} />
+                      Staffed Courthouses ({staffedCourts.length})
+                    </h2>
+                    <div className="space-y-2">
+                      {staffedCourts.map(court => (
+                        <CourtCard 
+                          key={court.id} 
+                          court={court} 
+                          onClick={() => setSelectedCourt(court)} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-            {filteredCourts.length === 0 && (
-              <div className="text-center text-zinc-500 py-8">
-                No courts found matching your search.
-              </div>
+                {/* Circuit Courts */}
+                {circuitCourts.length > 0 && (
+                  <div>
+                    <h2 className="text-xs uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
+                      <MapPin size={14} />
+                      Circuit Courts ({circuitCourts.length})
+                    </h2>
+                    <div className="space-y-2">
+                      {circuitCourts.map(court => (
+                        <CourtCard 
+                          key={court.id} 
+                          court={court} 
+                          onClick={() => setSelectedCourt(court)} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {filteredCourts.length === 0 && (
+                  <div className="text-center text-zinc-500 py-8">
+                    No courts found matching your search.
+                  </div>
+                )}
+              </>
             )}
           </>
         )}
+
+        {activeTab === 'home' && (
+          <div className="text-center py-12">
+            <Scale size={48} className="mx-auto text-zinc-600 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">BC Legal Directory</h2>
+            <p className="text-zinc-400 mb-6">Quick access to BC courts, police cells, custody facilities, and legal services.</p>
+            <div className="grid grid-cols-2 gap-3">
+              <button onClick={() => setActiveTab('courts')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
+                <Building2 size={24} className="mx-auto mb-2 text-emerald-500" />
+                <span className="text-sm">Courts</span>
+              </button>
+              <button onClick={() => setActiveTab('police')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
+                <Shield size={24} className="mx-auto mb-2 text-blue-500" />
+                <span className="text-sm">Police</span>
+              </button>
+              <button onClick={() => setActiveTab('custody')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
+                <Users size={24} className="mx-auto mb-2 text-amber-500" />
+                <span className="text-sm">Custody</span>
+              </button>
+              <button onClick={() => setActiveTab('services')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
+                <Briefcase size={24} className="mx-auto mb-2 text-purple-500" />
+                <span className="text-sm">Services</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'police' && (
+          <div className="text-center py-12 text-zinc-500">
+            <Shield size={48} className="mx-auto mb-4 opacity-50" />
+            <p>Police & RCMP contacts coming soon</p>
+          </div>
+        )}
+
+        {activeTab === 'custody' && (
+          <div className="text-center py-12 text-zinc-500">
+            <Users size={48} className="mx-auto mb-4 opacity-50" />
+            <p>Correctional facilities coming soon</p>
+          </div>
+        )}
+
+        {activeTab === 'services' && (
+          <div className="text-center py-12 text-zinc-500">
+            <Briefcase size={48} className="mx-auto mb-4 opacity-50" />
+            <p>Legal Aid & services coming soon</p>
+          </div>
+        )}
       </main>
+
+      {/* Bottom Navigation */}
+      <nav className="flex-shrink-0 flex border-t border-zinc-800 bg-zinc-900 pb-safe">
+        <NavButton icon={Home} label="Home" active={activeTab === 'home'} onClick={() => setActiveTab('home')} />
+        <NavButton icon={Building2} label="Courts" active={activeTab === 'courts'} onClick={() => setActiveTab('courts')} />
+        <NavButton icon={Shield} label="Police" active={activeTab === 'police'} onClick={() => setActiveTab('police')} />
+        <NavButton icon={Users} label="Custody" active={activeTab === 'custody'} onClick={() => setActiveTab('custody')} />
+        <NavButton icon={Briefcase} label="Services" active={activeTab === 'services'} onClick={() => setActiveTab('services')} />
+      </nav>
+
+      {/* Toast notification */}
+      {copiedField && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 px-4 py-2 bg-emerald-600 text-white rounded-full text-sm shadow-lg z-50">
+          Copied to clipboard!
+        </div>
+      )}
     </div>
+  );
+}
+
+// Navigation Button Component
+function NavButton({ icon: Icon, label, active, onClick }: { 
+  icon: typeof Home; 
+  label: string; 
+  active: boolean; 
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex-1 flex flex-col items-center py-3 ${active ? 'text-white' : 'text-zinc-500'}`}
+    >
+      <Icon size={20} />
+      <span className="text-xs mt-1">{label}</span>
+    </button>
   );
 }
 
@@ -265,7 +358,7 @@ function CourtDetailView({
     ? court.provincial_contacts 
     : court.supreme_contacts;
 
-  // Reset to provincial when court changes
+  // Reset to appropriate court level when court changes
   useEffect(() => {
     if (court.has_provincial) {
       setCourtLevel('provincial');
@@ -275,9 +368,9 @@ function CourtDetailView({
   }, [court.id, court.has_provincial, court.has_supreme, setCourtLevel]);
 
   return (
-    <div className="h-screen flex flex-col bg-zinc-950 text-white">
+    <div className="h-screen flex flex-col bg-zinc-950 text-white overflow-hidden">
       {/* Header */}
-      <header className="flex-shrink-0 px-4 pt-12 pb-4 bg-gradient-to-b from-zinc-900 to-zinc-950">
+      <header className="flex-shrink-0 px-4 pt-safe pb-4 bg-gradient-to-b from-zinc-900 to-zinc-950">
         {/* Back button and title */}
         <div className="flex items-start gap-3 mb-3">
           <button onClick={onBack} className="mt-1 text-zinc-400 hover:text-white">
@@ -378,12 +471,12 @@ function CourtDetailView({
         )}
 
         {/* Registry & JCM Section */}
-        {contacts && (contacts.registry_email || contacts.criminal_registry_email || contacts.jcm_scheduling_email || contacts.family_registry_email || contacts.civil_registry_email) && (
+        {contacts && (contacts.registry_email || contacts.criminal_registry_email || contacts.jcm_scheduling_email || contacts.scheduling_email) && (
           <ContactSection 
             title="Registry & JCM" 
             color="emerald"
             contacts={contacts}
-            fields={['registry_email', 'criminal_registry_email', 'civil_registry_email', 'family_registry_email', 'small_claims_email', 'traffic_email', 'jcm_scheduling_email', 'scheduling_email']}
+            fields={['registry_email', 'criminal_registry_email', 'jcm_scheduling_email', 'scheduling_email', 'fax_filing']}
             copiedField={copiedField}
             onCopy={onCopy}
             showOptionsFor={showOptionsFor}
@@ -419,13 +512,13 @@ function CourtDetailView({
           />
         )}
 
-        {/* Transcripts */}
-        {contacts && contacts.transcripts_email && (
+        {/* Other - Transcripts & Interpreters */}
+        {contacts && (contacts.transcripts_email || contacts.interpreter_email) && (
           <ContactSection 
             title="Other" 
             color="purple"
             contacts={contacts}
-            fields={['transcripts_email']}
+            fields={['transcripts_email', 'interpreter_email']}
             copiedField={copiedField}
             onCopy={onCopy}
             showOptionsFor={showOptionsFor}
@@ -506,16 +599,14 @@ function ContactSection({
   const fieldLabels: Record<string, string> = {
     registry_email: 'Registry',
     criminal_registry_email: 'Criminal Registry',
-    civil_registry_email: 'Civil Registry',
-    family_registry_email: 'Family Registry',
-    small_claims_email: 'Small Claims',
-    traffic_email: 'Traffic',
     jcm_scheduling_email: 'JCM Scheduling',
     scheduling_email: 'Scheduling',
     crown_email: 'Crown Counsel',
     bail_crown_email: 'Bail Crown',
     bail_jcm_email: 'Bail JCM',
-    transcripts_email: 'Transcripts'
+    transcripts_email: 'Transcripts',
+    interpreter_email: 'Interpreter Request',
+    fax_filing: 'Fax Filing'
   };
 
   const activeFields = fields.filter(f => contacts[f as keyof CourtContacts]);
@@ -588,7 +679,7 @@ function OptionsPopup({
       />
       
       {/* Popup */}
-      <div className="fixed bottom-0 left-0 right-0 bg-zinc-900 rounded-t-2xl z-50 p-4 pb-8">
+      <div className="fixed bottom-0 left-0 right-0 bg-zinc-900 rounded-t-2xl z-50 p-4 pb-safe">
         <div className="w-12 h-1 bg-zinc-700 rounded-full mx-auto mb-4" />
         
         <p className="text-sm text-zinc-400 text-center mb-4 truncate px-4">
