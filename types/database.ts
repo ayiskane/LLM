@@ -14,8 +14,6 @@ export const REGION_CODES: Record<CourtRegion, string> = {
 // Regional Virtual Bail Crown contacts
 export const REGIONAL_VB_CONTACTS: Record<string, string> = {
   'R1': 'Region1.VirtualBail@gov.bc.ca',
-  'R2': 'BCPSReVOII2@gov.bc.ca',
-  'R3': 'BCPSReVOII3@gov.bc.ca',
   'R4': 'Region4.VirtualBail@gov.bc.ca',
   'R5': 'Region5.VirtualBail@gov.bc.ca'
 };

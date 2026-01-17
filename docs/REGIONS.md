@@ -50,10 +50,10 @@
 | Region | Email |
 |--------|-------|
 | R1 (Island) | Region1.VirtualBail@gov.bc.ca |
-| R2 (Van Coastal) | BCPSReVOII2@gov.bc.ca |
-| R3 (Fraser) | BCPSReVOII3@gov.bc.ca |
 | R4 (Interior) | Region4.VirtualBail@gov.bc.ca |
 | R5 (North) | Region5.VirtualBail@gov.bc.ca |
+
+*Note: R2 (Vancouver Coastal) and R3 (Fraser) use court-specific contacts instead.*
 
 ## Court-Specific Virtual Bail Contacts (Fraser - R3)
 
