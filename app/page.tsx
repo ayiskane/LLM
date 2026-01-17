@@ -21,7 +21,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<CourtRegion | 'All'>('All');
+  const [hideCircuit, setHideCircuit] = useState(false);
   const [selectedCourt, setSelectedCourt] = useState<Court | null>(null);
+  const [hubCourt, setHubCourt] = useState<Court | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [showOptionsFor, setShowOptionsFor] = useState<string | null>(null);
   const [courtLevel, setCourtLevel] = useState<'provincial' | 'supreme'>('provincial');
@@ -45,16 +47,17 @@ export default function App() {
     fetchCourts();
   }, []);
 
-  // Filter courts based on search and region
+  // Filter courts based on search, region, and circuit filter
   const filteredCourts = useMemo(() => {
     return courts.filter(court => {
       const matchesSearch = searchQuery === '' || 
         court.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         court.city?.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesRegion = selectedRegion === 'All' || court.region === selectedRegion;
-      return matchesSearch && matchesRegion;
+      const matchesCircuit = !hideCircuit || !court.is_circuit;
+      return matchesSearch && matchesRegion && matchesCircuit;
     });
-  }, [courts, searchQuery, selectedRegion]);
+  }, [courts, searchQuery, selectedRegion, hideCircuit]);
 
   // Separate staffed and circuit courts
   const staffedCourts = filteredCourts.filter(c => !c.is_circuit);
@@ -67,12 +70,29 @@ export default function App() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  // Select a court and fetch hub court if it's a circuit court
+  const selectCourt = (court: Court) => {
+    setSelectedCourt(court);
+    
+    if (court.is_circuit && court.hub_court_name) {
+      // Find the hub court from loaded courts
+      const hub = courts.find(c => 
+        c.name.toLowerCase().includes(court.hub_court_name!.toLowerCase().replace(' law courts', '').replace(' provincial court', ''))
+      );
+      setHubCourt(hub || null);
+    } else {
+      setHubCourt(null);
+    }
+  };
+
   // If a court is selected, show the detail view
   if (selectedCourt) {
     return (
       <CourtDetailView 
-        court={selectedCourt} 
-        onBack={() => setSelectedCourt(null)}
+        court={selectedCourt}
+        hubCourt={hubCourt}
+        allCourts={courts}
+        onBack={() => { setSelectedCourt(null); setHubCourt(null); }}
         copiedField={copiedField}
         onCopy={copyToClipboard}
         showOptionsFor={showOptionsFor}
@@ -137,6 +157,18 @@ export default function App() {
                   {region}
                 </button>
               ))}
+              {/* Circuit Court Toggle */}
+              <button
+                onClick={() => setHideCircuit(!hideCircuit)}
+                className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors flex items-center gap-1.5 ${
+                  hideCircuit 
+                    ? 'bg-amber-500 text-black' 
+                    : 'bg-zinc-800 text-zinc-400'
+                }`}
+              >
+                <MapPin size={12} />
+                {hideCircuit ? 'Circuit Hidden' : 'Hide Circuit'}
+              </button>
             </div>
           </>
         )}
@@ -170,7 +202,7 @@ export default function App() {
                         <CourtCard 
                           key={court.id} 
                           court={court} 
-                          onClick={() => setSelectedCourt(court)} 
+                          onClick={() => selectCourt(court)} 
                         />
                       ))}
                     </div>
@@ -189,7 +221,7 @@ export default function App() {
                         <CourtCard 
                           key={court.id} 
                           court={court} 
-                          onClick={() => setSelectedCourt(court)} 
+                          onClick={() => selectCourt(court)} 
                         />
                       ))}
                     </div>
@@ -336,6 +368,8 @@ function CourtCard({ court, onClick }: { court: Court; onClick: () => void }) {
 // Court Detail View Component
 function CourtDetailView({ 
   court, 
+  hubCourt,
+  allCourts,
   onBack, 
   copiedField, 
   onCopy,
@@ -345,6 +379,8 @@ function CourtDetailView({
   setCourtLevel
 }: { 
   court: Court;
+  hubCourt: Court | null;
+  allCourts: Court[];
   onBack: () => void;
   copiedField: string | null;
   onCopy: (text: string, field: string) => void;
@@ -353,19 +389,21 @@ function CourtDetailView({
   courtLevel: 'provincial' | 'supreme';
   setCourtLevel: (level: 'provincial' | 'supreme') => void;
 }) {
-  const showToggle = court.has_provincial && court.has_supreme;
+  // For circuit courts, use the hub court's contacts
+  const contactSource = court.is_circuit && hubCourt ? hubCourt : court;
+  const showToggle = contactSource.has_provincial && contactSource.has_supreme;
   const contacts: CourtContacts | null = courtLevel === 'provincial' 
-    ? court.provincial_contacts 
-    : court.supreme_contacts;
+    ? contactSource.provincial_contacts 
+    : contactSource.supreme_contacts;
 
   // Reset to appropriate court level when court changes
   useEffect(() => {
-    if (court.has_provincial) {
+    if (contactSource.has_provincial) {
       setCourtLevel('provincial');
-    } else if (court.has_supreme) {
+    } else if (contactSource.has_supreme) {
       setCourtLevel('supreme');
     }
-  }, [court.id, court.has_provincial, court.has_supreme, setCourtLevel]);
+  }, [court.id, contactSource.has_provincial, contactSource.has_supreme, setCourtLevel]);
 
   return (
     <div className="h-screen flex flex-col bg-zinc-950 text-white overflow-hidden">
@@ -401,29 +439,29 @@ function CourtDetailView({
           <p className="text-sm text-zinc-400 ml-9 mb-3">{court.address}</p>
         )}
 
-        {/* Quick Actions */}
+        {/* Quick Actions - use hub court info for circuit courts */}
         <div className="flex gap-2 ml-9">
-          {court.phone && (
+          {(contactSource.phone || court.phone) && (
             <a 
-              href={`tel:${court.phone}`}
+              href={`tel:${contactSource.phone || court.phone}`}
               className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-zinc-800 rounded-lg text-sm hover:bg-zinc-700"
             >
               <Phone size={14} />
               Main
             </a>
           )}
-          {court.fax && (
+          {(contactSource.fax || court.fax) && (
             <button 
-              onClick={() => onCopy(court.fax!, 'fax')}
+              onClick={() => onCopy((contactSource.fax || court.fax)!, 'fax')}
               className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-zinc-800 rounded-lg text-sm hover:bg-zinc-700"
             >
               {copiedField === 'fax' ? <Check size={14} /> : <Copy size={14} />}
               Fax
             </button>
           )}
-          {court.sheriff_phone && (
+          {(contactSource.sheriff_phone || court.sheriff_phone) && (
             <a 
-              href={`tel:${court.sheriff_phone}`}
+              href={`tel:${contactSource.sheriff_phone || court.sheriff_phone}`}
               className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-zinc-800 rounded-lg text-sm hover:bg-zinc-700"
             >
               <Phone size={14} />
@@ -465,7 +503,13 @@ function CourtDetailView({
         {court.is_circuit && (
           <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl">
             <p className="text-sm text-amber-400">
-              <strong>Circuit Court:</strong> Contact {court.hub_court_name} for registry services.
+              <strong>Circuit Court</strong>
+            </p>
+            <p className="text-sm text-amber-400/80 mt-1">
+              {hubCourt 
+                ? `Contacts below are from ${hubCourt.name} (hub court)`
+                : `Contact ${court.hub_court_name} for registry services`
+              }
             </p>
           </div>
         )}
