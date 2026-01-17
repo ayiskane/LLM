@@ -6,11 +6,25 @@
 | Time | Email | Note |
 |------|-------|------|
 | **☀️ Daytime** | Region1.VirtualBail@gov.bc.ca | Regular weekday |
-| **🌙 After-Hours** | VictoriaCrown.Public@gov.bc.ca | Evenings, weekends, holidays |
+| **🌙 After-Hours** | VictoriaCrown.Public@gov.bc.ca | Evenings, weekends, holidays (remote - no fax) |
 
 **RABC:** Chloe Rathjen - chloe.rathjen@gov.bc.ca / 250-940-8522
 
-**Areas:** Victoria, Colwood, Western Communities, Duncan, Nanaimo, Campbell River, Courtenay, Port Alberni, Port Hardy, Powell River, Tofino, Gold River
+**VR8 (South Island):** Victoria, Colwood/Western Communities, Duncan
+**VR9 (North Island):** Campbell River, Courtenay, Nanaimo, Port Alberni, Port Hardy, Powell River
+
+#### R1 Crown Office Generic Emails (for scheduling, not VB)
+| Location | Email | Phone |
+|----------|-------|-------|
+| Campbell River | CampbellRiver.CrownSchedule@gov.bc.ca | 250-286-7544 |
+| Courtenay | Courtenay.CrownSchedule@gov.bc.ca | 250-334-1120 |
+| Nanaimo | Nanaimo.CrownSchedule@gov.bc.ca | 250-741-3711 |
+| Port Alberni | PtAlberni.CrownSchedule@gov.bc.ca | 250-720-2433 |
+| Port Hardy | PortHardy.CrownSchedule@gov.bc.ca | 250-949-8644 |
+| Powell River | PowellRiver.Crown@gov.bc.ca | 604-485-3645 |
+| Colwood | Colwood.Crown@gov.bc.ca | 250-391-2866 |
+| Duncan | BCPS.Duncan.Reception@gov.bc.ca | 250-746-1229 |
+| Victoria | VictoriaCrown.Public@gov.bc.ca | 250-387-4481 |
 
 ---
 
@@ -18,10 +32,11 @@
 | Court | Email | Areas |
 |-------|-------|-------|
 | Vancouver (222 Main) | 222MainCrownBail@gov.bc.ca | Vancouver, Burnaby |
+| Downtown Community Court | 222MainCrownBail@gov.bc.ca | DCC files (own bail process) |
 | North Vancouver | NorthVanCrown@gov.bc.ca | North Van, West Van, Squamish, Whistler, Pemberton |
 | Richmond | RichmondCrown@gov.bc.ca | Richmond |
-| Sechelt | SecheltCrown@gov.bc.ca | Sechelt, Gibsons, Sunshine Coast |
-| Vancouver Youth | VancouverYouthCrown@gov.bc.ca | Vancouver Youth |
+| Sechelt | SecheltCrown@gov.bc.ca | Sechelt, Sunshine Coast (heard in North Van) |
+| Vancouver Youth | VancouverYouthCrown@gov.bc.ca | Youth files (own bail process) |
 | ReVOII Team | BCPSReVOII2@gov.bc.ca | Repeat Violent Offender |
 
 ---
@@ -42,20 +57,24 @@
 | Time | Email | Note |
 |------|-------|------|
 | **☀️ Daytime** | Region4.VirtualBail@gov.bc.ca | Regular weekday |
-| **🌙 After-Hours** | AGBCPSReg4BailKelownaGen@gov.bc.ca | Evenings, weekends, holidays |
+| **🌙 After-Hours** | AGBCPSReg4BailKelownaGen@gov.bc.ca | Evenings, weekends, holidays (remote - no fax) |
 
-**Areas:** Kamloops, Kelowna, Vernon, Penticton, Salmon Arm, Cranbrook, Nelson, Trail, Castlegar, Merritt, Lillooet, Revelstoke, Golden, Invermere, Fernie, Grand Forks, Princeton, Clearwater, Ashcroft, Chase
+**RABC:** Pamela Robertson - pamela.robertson@gov.bc.ca / 778-940-0050
+
+**VR3:** Kelowna, Penticton, Cranbrook, Nelson (and surrounding: Oliver, Keremeos, Osoyoos, Summerland, Princeton, Castlegar, Trail, Grand Forks, Rossland, Creston, Fernie, Golden, Invermere, Nakusp)
+**VR4:** Kamloops, Salmon Arm, Vernon (and surrounding: Ashcroft, Chase, Clearwater, Lillooet, Merritt, Revelstoke, Falkland, Armstrong, Lumby)
 
 ---
 
 ### R5 - North (Regional)
 | Time | Email | Note |
 |------|-------|------|
-| **All Hours** | Region5.VirtualBail@gov.bc.ca | Day, evening, weekend, holidays |
+| **☀️🌙 All Hours** | Region5.VirtualBail@gov.bc.ca | Day, evening, weekend, holidays |
 
 **RABC:** Jacqueline Ettinger - Jacqueline.ettinger@gov.bc.ca / 250-570-0422
 
-**Areas:** Prince George, Quesnel, Williams Lake, Vanderhoof, Fort St. John, Dawson Creek, Fort Nelson, Terrace, Prince Rupert, Smithers, Kitimat, Burns Lake, Mackenzie, 100 Mile House
+**VR1 (Prince George/Cariboo):** Prince George, Quesnel, Vanderhoof, Williams Lake
+**VR2 (Peace/Northwest):** Dawson Creek, Fort Nelson, Fort St. John, Prince Rupert, Smithers, Terrace
 
 ---
 
@@ -108,8 +127,19 @@
 
 | Region | Format |
 |--------|--------|
-| R1 | `URGENT IC Daytime Program – (Reason) – Detachment – Date` |
+| R1 Daytime | `URGENT IC Daytime Program – (Reason) – Detachment – Date` |
+| R1 Evening | `URGENT IC – (Reason) – Detachment – Date` |
 | R2 | `URGENT IC – Accused Name/File No. – Date` |
 | R3 | `URGENT IC Daytime Program: (reason) – Detachment – Date` |
-| R4 | `URGENT IC VB – (Reason) – Location – Date` |
+| R4 | `URGENT IC – (Reason) – Detachment – Date` |
 | R5 | `URGENT IC VB – (Reason) – VR1/VR2 Location – Date` |
+
+---
+
+## RABCs (Regional Administrative Bail Coordinators)
+
+| Region | Name | Email | Phone |
+|--------|------|-------|-------|
+| R1 | Chloe Rathjen | chloe.rathjen@gov.bc.ca | 250-940-8522 |
+| R4 | Pamela Robertson | pamela.robertson@gov.bc.ca | 778-940-0050 |
+| R5 | Jacqueline Ettinger | Jacqueline.ettinger@gov.bc.ca | 250-570-0422 |

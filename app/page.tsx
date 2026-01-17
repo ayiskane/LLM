@@ -679,10 +679,10 @@ function BailPage({
         daytime: 'Region1.VirtualBail@gov.bc.ca',
         daytimeNote: 'Regular weekday',
         afterHours: 'VictoriaCrown.Public@gov.bc.ca',
-        afterHoursNote: 'Evenings, weekends, holidays',
+        afterHoursNote: 'Evenings, weekends, holidays (remote - no fax)',
         rabc: { name: 'Chloe Rathjen', email: 'chloe.rathjen@gov.bc.ca', phone: '250-940-8522' },
         subjectLine: 'URGENT IC Daytime Program – (Reason) – Detachment – Date',
-        vrs: ['VR8 (South Island)', 'VR9 (North Island)'],
+        vrs: ['VR8 (South Island: Victoria, Colwood, Duncan)', 'VR9 (North Island: Nanaimo, Courtenay, Campbell River, Port Alberni, Port Hardy, Powell River)'],
         areas: ['Victoria', 'Colwood', 'Western Communities', 'Duncan', 'Nanaimo', 'Campbell River', 'Courtenay', 'Port Alberni', 'Port Hardy', 'Powell River', 'Tofino', 'Gold River']
       },
       {
@@ -691,10 +691,11 @@ function BailPage({
         daytime: 'Region4.VirtualBail@gov.bc.ca',
         daytimeNote: 'Regular weekday',
         afterHours: 'AGBCPSReg4BailKelownaGen@gov.bc.ca',
-        afterHoursNote: 'Evenings, weekends, holidays',
-        subjectLine: 'URGENT IC VB – (Reason) – Location – Date',
-        vrs: ['VR3 (Kelowna)', 'VR4 (Kamloops)'],
-        areas: ['Kamloops', 'Kelowna', 'Vernon', 'Penticton', 'Salmon Arm', 'Cranbrook', 'Nelson', 'Trail', 'Castlegar', 'Merritt', 'Lillooet', 'Revelstoke', 'Golden', 'Invermere', 'Fernie', 'Grand Forks', 'Princeton', 'Clearwater', 'Ashcroft', 'Chase']
+        afterHoursNote: 'Evenings, weekends, holidays (remote - no fax)',
+        rabc: { name: 'Pamela Robertson', email: 'pamela.robertson@gov.bc.ca', phone: '778-940-0050' },
+        subjectLine: 'URGENT IC – (Reason) – Detachment – Date',
+        vrs: ['VR3 (Kelowna, Penticton, Cranbrook, Nelson)', 'VR4 (Kamloops, Salmon Arm, Vernon)'],
+        areas: ['Kamloops', 'Kelowna', 'Vernon', 'Penticton', 'Salmon Arm', 'Cranbrook', 'Nelson', 'Trail', 'Castlegar', 'Merritt', 'Lillooet', 'Revelstoke', 'Golden', 'Invermere', 'Fernie', 'Grand Forks', 'Princeton', 'Clearwater', 'Ashcroft', 'Chase', 'Oliver', 'Keremeos', 'Osoyoos', 'Summerland', 'Falkland', 'Armstrong', 'Lumby', 'Nakusp', 'Rossland', 'Creston']
       },
       {
         region: 'R5',
@@ -703,7 +704,7 @@ function BailPage({
         daytimeNote: 'All bail matters (day/evening/weekend/holidays)',
         rabc: { name: 'Jacqueline Ettinger', email: 'Jacqueline.ettinger@gov.bc.ca', phone: '250-570-0422' },
         subjectLine: 'URGENT IC VB – (Reason) – VR1/VR2 Location – Date',
-        vrs: ['VR1 (Prince George/Cariboo)', 'VR2 (Peace/Northwest)'],
+        vrs: ['VR1 (Prince George, Quesnel, Vanderhoof, Williams Lake)', 'VR2 (Dawson Creek, Fort Nelson, Fort St. John, Prince Rupert, Smithers, Terrace)'],
         areas: ['Prince George', 'Quesnel', 'Williams Lake', 'Vanderhoof', 'Fort St. John', 'Dawson Creek', 'Fort Nelson', 'Terrace', 'Prince Rupert', 'Smithers', 'Kitimat', 'Burns Lake', 'Mackenzie', '100 Mile House']
       }
     ],
