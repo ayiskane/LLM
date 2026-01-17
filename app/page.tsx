@@ -677,30 +677,34 @@ function BailPage({
         region: 'R1',
         name: 'Vancouver Island',
         daytime: 'Region1.VirtualBail@gov.bc.ca',
-        evening: 'VictoriaCrown.Public@gov.bc.ca',
-        eveningNote: 'Remote - no fax',
+        daytimeNote: 'Regular weekday',
+        afterHours: 'VictoriaCrown.Public@gov.bc.ca',
+        afterHoursNote: 'Evenings, weekends, holidays',
         rabc: { name: 'Chloe Rathjen', email: 'chloe.rathjen@gov.bc.ca', phone: '250-940-8522' },
         subjectLine: 'URGENT IC Daytime Program – (Reason) – Detachment – Date',
-        vrs: ['VR8 (South Island)', 'VR9 (North Island)']
+        vrs: ['VR8 (South Island)', 'VR9 (North Island)'],
+        areas: ['Victoria', 'Colwood', 'Western Communities', 'Duncan', 'Nanaimo', 'Campbell River', 'Courtenay', 'Port Alberni', 'Port Hardy', 'Powell River', 'Tofino', 'Gold River']
       },
       {
         region: 'R4',
         name: 'Interior',
         daytime: 'Region4.VirtualBail@gov.bc.ca',
+        daytimeNote: 'Regular weekday',
+        afterHours: 'AGBCPSReg4BailKelownaGen@gov.bc.ca',
+        afterHoursNote: 'Evenings, weekends, holidays',
         subjectLine: 'URGENT IC VB – (Reason) – Location – Date',
-        vrs: ['VR3 (Kelowna)', 'VR4 (Kamloops)']
+        vrs: ['VR3 (Kelowna)', 'VR4 (Kamloops)'],
+        areas: ['Kamloops', 'Kelowna', 'Vernon', 'Penticton', 'Salmon Arm', 'Cranbrook', 'Nelson', 'Trail', 'Castlegar', 'Merritt', 'Lillooet', 'Revelstoke', 'Golden', 'Invermere', 'Fernie', 'Grand Forks', 'Princeton', 'Clearwater', 'Ashcroft', 'Chase']
       },
       {
         region: 'R5',
         name: 'North',
         daytime: 'Region5.VirtualBail@gov.bc.ca',
-        evening: 'Claire.ducluzeau@gov.bc.ca',
-        eveningNote: '1-9pm',
-        weekend: 'Terence.lawrence@gov.bc.ca',
-        weekendNote: 'Sat-Tue',
+        daytimeNote: 'All bail matters (day/evening/weekend/holidays)',
         rabc: { name: 'Jacqueline Ettinger', email: 'Jacqueline.ettinger@gov.bc.ca', phone: '250-570-0422' },
         subjectLine: 'URGENT IC VB – (Reason) – VR1/VR2 Location – Date',
-        vrs: ['VR1 (Prince George/Cariboo)', 'VR2 (Peace/Northwest)']
+        vrs: ['VR1 (Prince George/Cariboo)', 'VR2 (Peace/Northwest)'],
+        areas: ['Prince George', 'Quesnel', 'Williams Lake', 'Vanderhoof', 'Fort St. John', 'Dawson Creek', 'Fort Nelson', 'Terrace', 'Prince Rupert', 'Smithers', 'Kitimat', 'Burns Lake', 'Mackenzie', '100 Mile House']
       }
     ],
     // Court-specific contacts (R2, R3)
@@ -709,11 +713,11 @@ function BailPage({
         name: 'Vancouver Coastal',
         subjectLine: 'URGENT IC – Accused Name/File No. – Date',
         courts: [
-          { court: 'Vancouver Provincial (222 Main)', email: '222MainCrownBail@gov.bc.ca' },
-          { court: 'North Vancouver', email: 'NorthVanCrown@gov.bc.ca' },
-          { court: 'Richmond', email: 'RichmondCrown@gov.bc.ca' },
-          { court: 'Sechelt', email: 'SecheltCrown@gov.bc.ca', note: 'Heard in North Van' },
-          { court: 'Vancouver Youth (Robson)', email: 'VancouverYouthCrown@gov.bc.ca', note: 'Own bail process' },
+          { court: 'Vancouver Provincial (222 Main)', email: '222MainCrownBail@gov.bc.ca', areas: ['Vancouver', 'Burnaby'] },
+          { court: 'North Vancouver', email: 'NorthVanCrown@gov.bc.ca', areas: ['North Vancouver', 'West Vancouver', 'Squamish', 'Whistler', 'Pemberton'] },
+          { court: 'Richmond', email: 'RichmondCrown@gov.bc.ca', areas: ['Richmond'] },
+          { court: 'Sechelt', email: 'SecheltCrown@gov.bc.ca', note: 'Heard in North Van', areas: ['Sechelt', 'Gibsons', 'Sunshine Coast'] },
+          { court: 'Vancouver Youth (Robson)', email: 'VancouverYouthCrown@gov.bc.ca', note: 'Own bail process', areas: ['Vancouver Youth'] },
           { court: 'ReVOII Team', email: 'BCPSReVOII2@gov.bc.ca', note: 'Repeat Violent Offender' },
         ]
       },
@@ -721,11 +725,11 @@ function BailPage({
         name: 'Fraser',
         subjectLine: 'URGENT IC Daytime Program: (reason) – Detachment – Date',
         courts: [
-          { court: 'Abbotsford', email: 'Abbotsford.VirtualBail@gov.bc.ca' },
-          { court: 'Chilliwack', email: 'Chilliwack.VirtualBail@gov.bc.ca' },
-          { court: 'New Westminster', email: 'NewWestProv.VirtualBail@gov.bc.ca' },
-          { court: 'Port Coquitlam', email: 'Poco.VirtualBail@gov.bc.ca' },
-          { court: 'Surrey', email: 'Surrey.VirtualBail@gov.bc.ca' },
+          { court: 'Abbotsford', email: 'Abbotsford.VirtualBail@gov.bc.ca', areas: ['Abbotsford', 'Mission'] },
+          { court: 'Chilliwack', email: 'Chilliwack.VirtualBail@gov.bc.ca', areas: ['Chilliwack', 'Hope', 'Agassiz'] },
+          { court: 'New Westminster', email: 'NewWestProv.VirtualBail@gov.bc.ca', areas: ['New Westminster', 'Burnaby'] },
+          { court: 'Port Coquitlam', email: 'Poco.VirtualBail@gov.bc.ca', areas: ['Port Coquitlam', 'Coquitlam', 'Port Moody', 'Maple Ridge', 'Pitt Meadows'] },
+          { court: 'Surrey', email: 'Surrey.VirtualBail@gov.bc.ca', areas: ['Surrey', 'Langley', 'Delta', 'White Rock'] },
           { court: 'ReVOII Team', email: 'BCPSReVOII3@gov.bc.ca', note: 'Repeat Violent Offender' },
         ]
       }
@@ -806,7 +810,7 @@ function BailPage({
                   <span className="text-xs font-medium text-red-400">{region.region}</span>
                   <span className="text-xs text-zinc-500 ml-2">{region.name}</span>
                 </div>
-                <span className="text-[10px] text-zinc-600">Regional</span>
+                <span className="text-[10px] text-zinc-600">Provincial (BCPS)</span>
               </div>
               
               {/* VRs */}
@@ -822,37 +826,29 @@ function BailPage({
                 className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
               >
                 <div>
-                  <p className="text-xs text-zinc-500">Daytime VB</p>
-                  <p className="text-sm text-white">{region.daytime}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] px-1.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">☀️ DAY</span>
+                    <p className="text-xs text-zinc-500">{region.daytimeNote}</p>
+                  </div>
+                  <p className="text-sm text-white mt-0.5">{region.daytime}</p>
                 </div>
                 {copiedField === `${region.region}-daytime` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
               </button>
 
-              {/* Evening */}
-              {region.evening && (
+              {/* After-Hours */}
+              {region.afterHours && (
                 <button
-                  onClick={() => onCopy(region.evening!, `${region.region}-evening`)}
+                  onClick={() => onCopy(region.afterHours!, `${region.region}-afterhours`)}
                   className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left border-t border-zinc-800/30"
                 >
                   <div>
-                    <p className="text-xs text-zinc-500">Evening VB {region.eveningNote && <span className="text-zinc-600">({region.eveningNote})</span>}</p>
-                    <p className="text-sm text-white">{region.evening}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-indigo-500/20 text-indigo-400 rounded">🌙 AFTER-HOURS</span>
+                      <p className="text-xs text-zinc-500">{region.afterHoursNote}</p>
+                    </div>
+                    <p className="text-sm text-white mt-0.5">{region.afterHours}</p>
                   </div>
-                  {copiedField === `${region.region}-evening` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
-                </button>
-              )}
-
-              {/* Weekend */}
-              {region.weekend && (
-                <button
-                  onClick={() => onCopy(region.weekend!, `${region.region}-weekend`)}
-                  className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left border-t border-zinc-800/30"
-                >
-                  <div>
-                    <p className="text-xs text-zinc-500">Weekend VB {region.weekendNote && <span className="text-zinc-600">({region.weekendNote})</span>}</p>
-                    <p className="text-sm text-white">{region.weekend}</p>
-                  </div>
-                  {copiedField === `${region.region}-weekend` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+                  {copiedField === `${region.region}-afterhours` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
                 </button>
               )}
 
@@ -883,11 +879,12 @@ function BailPage({
       {(selectedRegion === 'all' || selectedRegion === 'R2') && (
         <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 overflow-hidden">
           <div className="px-3 py-2 border-b border-zinc-800/50 flex items-center justify-between">
-            <div>
+            <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-blue-400">R2</span>
-              <span className="text-xs text-zinc-500 ml-2">Vancouver Coastal</span>
+              <span className="text-xs text-zinc-500">Vancouver Coastal</span>
+              <span className="text-[10px] px-1.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">☀️ DAY</span>
             </div>
-            <span className="text-[10px] text-zinc-600">Court-Specific</span>
+            <span className="text-[10px] text-zinc-600">Provincial (BCPS)</span>
           </div>
           <div className="divide-y divide-zinc-800/30">
             {bailContacts.courtSpecific['R2'].courts.map(c => (
@@ -913,11 +910,12 @@ function BailPage({
       {(selectedRegion === 'all' || selectedRegion === 'R3') && (
         <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 overflow-hidden">
           <div className="px-3 py-2 border-b border-zinc-800/50 flex items-center justify-between">
-            <div>
+            <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-emerald-400">R3</span>
-              <span className="text-xs text-zinc-500 ml-2">Fraser</span>
+              <span className="text-xs text-zinc-500">Fraser</span>
+              <span className="text-[10px] px-1.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">☀️ DAY</span>
             </div>
-            <span className="text-[10px] text-zinc-600">Court-Specific</span>
+            <span className="text-[10px] text-zinc-600">Provincial (BCPS)</span>
           </div>
           <div className="divide-y divide-zinc-800/30">
             {bailContacts.courtSpecific['R3'].courts.map(c => (
