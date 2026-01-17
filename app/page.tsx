@@ -736,6 +736,42 @@ function BailPage({
       { area: 'Vancouver Coastal', email: 'CSBVancouverCoastal.SheriffVirtualBail@gov.bc.ca' },
       { area: 'Fraser Region', email: 'CSBFraser.SheriffVirtualBail@gov.bc.ca' },
       { area: 'Surrey', email: 'CSBSurrey.SheriffVirtualBail@gov.bc.ca' },
+    ],
+    // Federal Crown (PPSC) contacts
+    federal: [
+      {
+        region: 'Vancouver Coastal',
+        areas: [
+          { area: 'Vancouver & Burnaby', email: 'Van.detention.van@ppsc-sppc.gc.ca', phone: '604-666-2141', org: 'PPSC 222 Main' },
+          { area: 'Richmond', email: 'ppscsupportstaff@mtclaw.ca', phone: '604-590-8855', org: 'MTC Law' },
+          { area: 'North Shore, Squamish, Sechelt, Whistler', email: 'NorthShoreandCRC@ppsc-sppc.gc.ca', org: 'PPSC North Van' },
+          { area: 'Haida Gwaii', email: 'Tanis.Johnston@ppsc-sppc.gc.ca', phone: '604-666-5250', org: 'PPSC BC Regional' },
+        ]
+      },
+      {
+        region: 'Vancouver Island',
+        areas: [
+          { area: 'Victoria & Colwood', email: 'Vicinfo@joneslaw.ca', phone: '250-220-6942', org: 'Jones & Co.' },
+          { area: 'Nanaimo & Duncan', email: 'Naninfo@joneslaw.ca', phone: '250-714-1113', org: 'Jones & Co.' },
+          { area: 'Campbell River, Courtenay, Port Alberni, Port Hardy', email: 'Naninfo@joneslaw.ca', phone: '250-714-1113', org: 'Jones & Co.' },
+        ]
+      },
+      {
+        region: 'Fraser',
+        areas: [
+          { area: 'Surrey, Langley, Delta, White Rock', email: 'PPSC.SurreyInCustody-EnDetentionSurrey.SPPC@ppsc-sppc.gc.ca', phone: '236-456-0015', org: 'PPSC Surrey' },
+          { area: 'Port Coquitlam & New Westminster', email: 'ppscsupportstaff@mtclaw.ca', phone: '604-590-8855', org: 'MTC Law' },
+          { area: 'Chilliwack & Abbotsford', email: 'jir@jmldlaw.com', phone: '604-514-8203', org: 'JM LeDressay' },
+        ]
+      },
+      {
+        region: 'Interior',
+        areas: [
+          { area: 'Kamloops, Ashcroft, Chase, Clearwater, Lillooet, Merritt, Salmon Arm', email: 'ppscsupportstaff@mtclaw.ca', phone: '604-590-8855', org: 'MTC Law' },
+          { area: 'Kelowna, Penticton, Vernon & area', email: 'jir@jmldlaw.com', phone: '604-514-8203', org: 'JM LeDressay' },
+          { area: 'Kootenays (Cranbrook, Nelson, Trail, etc.)', email: 'PPSC.SurreyInCustody-EnDetentionSurrey.SPPC@ppsc-sppc.gc.ca', phone: '604-354-9146', org: 'PPSC Surrey' },
+        ]
+      }
     ]
   };
 
@@ -743,7 +779,7 @@ function BailPage({
     <div className="space-y-4">
       {/* Region Filter */}
       <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
-        {['all', 'R1', 'R2', 'R3', 'R4', 'R5', 'sheriff'].map(r => (
+        {['all', 'R1', 'R2', 'R3', 'R4', 'R5', 'sheriff', 'federal'].map(r => (
           <button
             key={r}
             onClick={() => setSelectedRegion(r)}
@@ -753,7 +789,7 @@ function BailPage({
                 : 'bg-zinc-800 text-zinc-400'
             }`}
           >
-            {r === 'all' ? 'All Regions' : r === 'sheriff' ? 'Sheriffs' : r}
+            {r === 'all' ? 'All' : r === 'sheriff' ? 'Sheriffs' : r === 'federal' ? 'Federal' : r}
           </button>
         ))}
       </div>
@@ -925,6 +961,39 @@ function BailPage({
               </button>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Federal Crown (PPSC) */}
+      {(selectedRegion === 'all' || selectedRegion === 'federal') && (
+        <div className="space-y-3">
+          <div className="px-1">
+            <p className="text-xs font-medium text-purple-400">Federal Crown (PPSC)</p>
+            <p className="text-[10px] text-zinc-600">For federal offenses (drugs, etc.)</p>
+          </div>
+          {bailContacts.federal.map(region => (
+            <div key={region.region} className="rounded-xl border border-purple-500/30 bg-purple-500/5 overflow-hidden">
+              <div className="px-3 py-2 border-b border-zinc-800/50">
+                <span className="text-xs font-medium text-purple-400">{region.region}</span>
+              </div>
+              <div className="divide-y divide-zinc-800/30">
+                {region.areas.map(a => (
+                  <button
+                    key={a.area}
+                    onClick={() => onCopy(a.email, `federal-${a.area}`)}
+                    className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
+                  >
+                    <div className="flex-1 min-w-0 pr-2">
+                      <p className="text-xs text-zinc-500">{a.area}</p>
+                      <p className="text-sm text-white truncate">{a.email}</p>
+                      <p className="text-[10px] text-zinc-600">{a.org} {a.phone && `• ${a.phone}`}</p>
+                    </div>
+                    {copiedField === `federal-${a.area}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
