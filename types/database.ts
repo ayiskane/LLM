@@ -2,6 +2,31 @@
 
 export type CourtRegion = 'Fraser' | 'Interior' | 'North' | 'Vancouver Island' | 'Vancouver Coastal';
 
+// Region code mapping
+export const REGION_CODES: Record<CourtRegion, string> = {
+  'Vancouver Island': 'R1',
+  'Vancouver Coastal': 'R2',
+  'Fraser': 'R3',
+  'Interior': 'R4',
+  'North': 'R5'
+};
+
+// Regional Virtual Bail Crown contacts
+export const REGIONAL_VB_CONTACTS: Record<string, string> = {
+  'R1': 'Region1.VirtualBail@gov.bc.ca',
+  'R2': 'BCPSReVOII2@gov.bc.ca',
+  'R3': 'BCPSReVOII3@gov.bc.ca',
+  'R4': 'Region4.VirtualBail@gov.bc.ca',
+  'R5': 'Region5.VirtualBail@gov.bc.ca'
+};
+
+// VR codes by region
+export const VR_CODES_BY_REGION: Record<string, string[]> = {
+  'R1': ['VR8', 'VR9'],
+  'R4': ['VR3', 'VR4'],
+  'R5': ['VR1', 'VR2']
+};
+
 export interface CourtContacts {
   crown_email?: string;
   jcm_scheduling_email?: string;
