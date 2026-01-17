@@ -10,34 +10,94 @@
 | R4 | Interior | VR3, VR4 |
 | R5 | North | VR1, VR2 |
 
+---
+
 ## Virtual Room (VR) Assignments
 
-### VR1 (North - R5)
-- Prince George
-- Quesnel
-- Vanderhoof
-- Williams Lake
+### VR1 (R5 North - Prince George & Cariboo Catchments)
+**Hub:** Prince George
 
-### VR2 (North - R5)
-- Dawson Creek
-- Fort Nelson
-- Fort St. John
-- Prince Rupert
-- Smithers
-- Terrace
+| Court | Code | Registry Email |
+|-------|------|----------------|
+| Prince George | PG | csbpg.criminalregistry@gov.bc.ca |
+| Anahim Lake | AL | Office15231@gov.bc.ca |
+| 100 Mile House | OMH | Office15231@gov.bc.ca |
+| Fort St. James | FSJ | csbpg.criminalregistry@gov.bc.ca |
+| Fraser Lake | FL | csbpg.criminalregistry@gov.bc.ca |
+| Kwadacha | KWA | Office15216@gov.bc.ca |
+| Mackenzie | MAC | Office15216@gov.bc.ca |
+| McBride | MCB | Office15215@gov.bc.ca |
+| Quesnel | QUE | Office15230@gov.bc.ca |
+| Tsay Keh Dene | TKD | csbpg.criminalregistry@gov.bc.ca |
+| Valemount | VAL | Office15215@gov.bc.ca |
+| Vanderhoof | VHF | csbpg.criminalregistry@gov.bc.ca |
+| Williams Lake | WL | Office15231@gov.bc.ca |
 
-### VR3 (Interior - R4)
-- Kelowna
+### VR2 (R5 North - Northwest & Peace Catchments)
+**Hubs:** Terrace, Fort St. John
 
-### VR4 (Interior - R4)
-- Kamloops
+| Court | Code | Registry Email |
+|-------|------|----------------|
+| Atlin | ATL | Office15228@gov.bc.ca |
+| Burns Lake | BL | Office15219@gov.bc.ca |
+| Chetwynd | CHE | Office15226@gov.bc.ca |
+| Dawson Creek | DC | Office15226@gov.bc.ca |
+| Dease Lake | DL | Office15222@gov.bc.ca |
+| Fort Nelson | FN | Office15229@gov.bc.ca |
+| Fort St. John | FOS | Office15228@gov.bc.ca |
+| Good Hope Lake | GHL | Office15228@gov.bc.ca |
+| Hazelton | HAZ | Office15224@gov.bc.ca |
+| Houston | HOU | Office15224@gov.bc.ca |
+| Kitimat | KIT | Office15222@gov.bc.ca |
+| Lower Post | LP | Office15228@gov.bc.ca |
+| Masset | MAS | VCMassetCrt@gov.bc.ca |
+| New Aiyansh | NEA | Office15222@gov.bc.ca |
+| Prince Rupert | PR | Office15220@gov.bc.ca |
+| Queen Charlotte | QCC | Office15220@gov.bc.ca |
+| Smithers | SMI | Office15224@gov.bc.ca |
+| Stewart | STE | Office15222@gov.bc.ca |
+| Terrace | TER | Office15222@gov.bc.ca |
+| Tumbler Ridge | TR | Office15226@gov.bc.ca |
 
-### VR8 (South Island - R1)
+### VR3 (R4 Interior - Kelowna Catchment)
+**Hub:** Kelowna
+
+| Court | Code | Registry Email |
+|-------|------|----------------|
+| Kelowna | KEL | CSB.KelownaCriminal@gov.bc.ca |
+| Castlegar | CAS | NelsonCourtRegistry@gov.bc.ca |
+| Cranbrook | CLB | cranbrookcourtregistry@gov.bc.ca |
+| Creston | CRE | cranbrookcourtregistry@gov.bc.ca |
+| Fernie | FER | cranbrookcourtregistry@gov.bc.ca |
+| Golden | GOL | GoldenCourtRegistry@gov.bc.ca |
+| Grand Forks | GRF | VCRosslandCrt@gov.bc.ca |
+| Invermere | INV | cranbrookcourtregistry@gov.bc.ca |
+| Nakusp | NAK | NelsonCourtRegistry@gov.bc.ca |
+| Nelson | NEL | NelsonCourtRegistry@gov.bc.ca |
+| Penticton | PEN | PentictonCourtRegistry@gov.bc.ca |
+| Princeton | PRI | PentictonCourtRegistry@gov.bc.ca |
+| Rossland | ROS | VCRosslandCrt@gov.bc.ca |
+| Sparwood | SPA | cranbrookcourtregistry@gov.bc.ca |
+
+### VR4 (R4 Interior - Kamloops Catchment)
+**Hub:** Kamloops
+
+| Court | Code | Registry Email |
+|-------|------|----------------|
+| Kamloops | KAM | JAGCSBKamloopsScheduling@gov.bc.ca |
+| Clearwater | CLW | JAGCSBKamloopsScheduling@gov.bc.ca |
+| Lillooet | LIL | JAGCSBKamloopsScheduling@gov.bc.ca |
+| Merritt | MER | JAGCSBKamloopsScheduling@gov.bc.ca |
+| Revelstoke | REV | JAGCSBSalmonArmScheduling@gov.bc.ca |
+| Salmon Arm | SAA | JAGCSBSalmonArmScheduling@gov.bc.ca |
+| Vernon | VER | JAGCSBVernonScheduling@gov.bc.ca |
+
+### VR8 (R1 Island - South Island)
 - Colwood / Western Communities
 - Duncan
 - Victoria
 
-### VR9 (North Island - R1)
+### VR9 (R1 Island - North Island)
 - Campbell River
 - Courtenay
 - Nanaimo
@@ -133,14 +193,11 @@ When parsing contact PDFs, look for these patterns:
 - `R5_*.pdf` or `North*.pdf` or `Region 5*.pdf` → North
 - `*DAYTIME*.pdf` → Daytime VB contacts
 - `*EVENING*.pdf` → Evening VB contacts
+- `Registry_Contacts*.pdf` → Court registry emails
 
 **By content:**
 - `VR#` in label → Virtual Room assignment
 - `VB E-Mail Proxy:` → Virtual Bail contact email
 - `ReVOII` → Repeat Violent Offender Intervention Initiative team
 - `RABC` → Regional Administrative Bail Coordinator
-- `*Crown*.pdf` → Crown counsel contacts
-- `*Bail*.pdf` → Bail-specific contacts
-- `*Sheriff*.pdf` → Sheriff/custody contacts
-- `*Registry*.pdf` → Court registry contacts
-- `*JCM*.pdf` → Judicial Case Manager contacts
+- `Office#####@gov.bc.ca` → Generic registry email (use court code to identify)
