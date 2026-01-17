@@ -416,6 +416,11 @@ function CourtDetailView({
                   {court.access_code}
                 </button>
               )}
+              {court.virtual_courtroom_code && (
+                <span className="text-xs px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded">
+                  {court.virtual_courtroom_code}
+                </span>
+              )}
               <span className="text-xs px-2 py-0.5 bg-zinc-800 text-zinc-400 rounded">
                 {court.region}
               </span>
