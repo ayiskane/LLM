@@ -635,24 +635,22 @@ function ContactSection({
       
       {/* Fax Filing Sub-section */}
       {faxFiling && (
-        <>
-          <div className="px-3 py-2 border-t border-zinc-800/50">
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500">Fax Filing</h4>
-          </div>
-          <button
-            onClick={() => onCopy(faxFiling, 'fax_filing')}
-            className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 active:bg-zinc-800 transition-colors text-left"
-          >
+        <button
+          onClick={() => onCopy(faxFiling, 'fax_filing')}
+          className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 active:bg-zinc-800 transition-colors text-left border-t border-zinc-800/50"
+        >
+          <div className="flex-1 min-w-0 pr-2">
+            <p className="text-xs text-zinc-500">Fax Filing</p>
             <p className="text-sm text-white">{faxFiling}</p>
-            <div className="flex items-center">
-              {copiedField === 'fax_filing' ? (
-                <Check size={16} className="text-emerald-500" />
-              ) : (
-                <Copy size={16} className="text-zinc-500" />
-              )}
-            </div>
-          </button>
-        </>
+          </div>
+          <div className="flex items-center">
+            {copiedField === 'fax_filing' ? (
+              <Check size={16} className="text-emerald-500" />
+            ) : (
+              <Copy size={16} className="text-zinc-500" />
+            )}
+          </div>
+        </button>
       )}
     </div>
   );
