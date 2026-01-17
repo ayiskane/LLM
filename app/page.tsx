@@ -6,14 +6,14 @@ import { Court, CourtRegion, CourtContacts } from '@/types/database';
 import { 
   Search, ChevronLeft, ChevronRight,
   Copy, Check, X,
-  Building2, MapPin, Scale, Home, Users, Shield, Briefcase
+  Building2, MapPin, Scale, Home, Users, Shield, Briefcase, Gavel
 } from 'lucide-react';
 
 // Regions for filtering
 const REGIONS: CourtRegion[] = ['Fraser', 'Interior', 'North', 'Vancouver Island', 'Vancouver Coastal'];
 
 // Navigation tabs
-type NavTab = 'home' | 'courts' | 'police' | 'custody' | 'services';
+type NavTab = 'home' | 'courts' | 'bail' | 'police' | 'custody' | 'services';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('courts');
@@ -235,11 +235,15 @@ export default function App() {
           <div className="text-center py-12">
             <Scale size={48} className="mx-auto text-zinc-600 mb-4" />
             <h2 className="text-xl font-semibold mb-2">BC Legal Directory</h2>
-            <p className="text-zinc-400 mb-6">Quick access to BC courts, police cells, custody facilities, and legal services.</p>
+            <p className="text-zinc-400 mb-6">Quick access to BC courts, bail contacts, police cells, and custody facilities.</p>
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => setActiveTab('courts')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
                 <Building2 size={24} className="mx-auto mb-2 text-emerald-500" />
                 <span className="text-sm">Courts</span>
+              </button>
+              <button onClick={() => setActiveTab('bail')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
+                <Gavel size={24} className="mx-auto mb-2 text-red-500" />
+                <span className="text-sm">Bail</span>
               </button>
               <button onClick={() => setActiveTab('police')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
                 <Shield size={24} className="mx-auto mb-2 text-blue-500" />
@@ -248,10 +252,6 @@ export default function App() {
               <button onClick={() => setActiveTab('custody')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
                 <Users size={24} className="mx-auto mb-2 text-amber-500" />
                 <span className="text-sm">Custody</span>
-              </button>
-              <button onClick={() => setActiveTab('services')} className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700">
-                <Briefcase size={24} className="mx-auto mb-2 text-purple-500" />
-                <span className="text-sm">Services</span>
               </button>
             </div>
           </div>
@@ -264,17 +264,14 @@ export default function App() {
           </div>
         )}
 
+        {activeTab === 'bail' && (
+          <BailPage copiedField={copiedField} onCopy={copyToClipboard} />
+        )}
+
         {activeTab === 'custody' && (
           <div className="text-center py-12 text-zinc-500">
             <Users size={48} className="mx-auto mb-4 opacity-50" />
             <p>Correctional facilities coming soon</p>
-          </div>
-        )}
-
-        {activeTab === 'services' && (
-          <div className="text-center py-12 text-zinc-500">
-            <Briefcase size={48} className="mx-auto mb-4 opacity-50" />
-            <p>Legal Aid & services coming soon</p>
           </div>
         )}
       </main>
@@ -283,9 +280,9 @@ export default function App() {
       <nav className="flex-shrink-0 flex border-t border-zinc-800 bg-zinc-900 pb-safe">
         <NavButton icon={Home} label="Home" active={activeTab === 'home'} onClick={() => setActiveTab('home')} />
         <NavButton icon={Building2} label="Courts" active={activeTab === 'courts'} onClick={() => setActiveTab('courts')} />
+        <NavButton icon={Gavel} label="Bail" active={activeTab === 'bail'} onClick={() => setActiveTab('bail')} />
         <NavButton icon={Shield} label="Police" active={activeTab === 'police'} onClick={() => setActiveTab('police')} />
         <NavButton icon={Users} label="Custody" active={activeTab === 'custody'} onClick={() => setActiveTab('custody')} />
-        <NavButton icon={Briefcase} label="Services" active={activeTab === 'services'} onClick={() => setActiveTab('services')} />
       </nav>
 
       {/* Toast notification */}
@@ -661,3 +658,275 @@ function ContactSection({
   );
 }
 
+
+// Bail Page Component
+function BailPage({ 
+  copiedField, 
+  onCopy 
+}: { 
+  copiedField: string | null; 
+  onCopy: (text: string, field: string) => void;
+}) {
+  const [selectedRegion, setSelectedRegion] = useState<string>('all');
+
+  // Bail contact data
+  const bailContacts = {
+    // Regional contacts (R1, R4, R5)
+    regional: [
+      {
+        region: 'R1',
+        name: 'Vancouver Island',
+        daytime: 'Region1.VirtualBail@gov.bc.ca',
+        evening: 'VictoriaCrown.Public@gov.bc.ca',
+        eveningNote: 'Remote - no fax',
+        rabc: { name: 'Chloe Rathjen', email: 'chloe.rathjen@gov.bc.ca', phone: '250-940-8522' },
+        subjectLine: 'URGENT IC Daytime Program – (Reason) – Detachment – Date',
+        vrs: ['VR8 (South Island)', 'VR9 (North Island)']
+      },
+      {
+        region: 'R4',
+        name: 'Interior',
+        daytime: 'Region4.VirtualBail@gov.bc.ca',
+        subjectLine: 'URGENT IC VB – (Reason) – Location – Date',
+        vrs: ['VR3 (Kelowna)', 'VR4 (Kamloops)']
+      },
+      {
+        region: 'R5',
+        name: 'North',
+        daytime: 'Region5.VirtualBail@gov.bc.ca',
+        evening: 'Claire.ducluzeau@gov.bc.ca',
+        eveningNote: '1-9pm',
+        weekend: 'Terence.lawrence@gov.bc.ca',
+        weekendNote: 'Sat-Tue',
+        rabc: { name: 'Jacqueline Ettinger', email: 'Jacqueline.ettinger@gov.bc.ca', phone: '250-570-0422' },
+        subjectLine: 'URGENT IC VB – (Reason) – VR1/VR2 Location – Date',
+        vrs: ['VR1 (Prince George/Cariboo)', 'VR2 (Peace/Northwest)']
+      }
+    ],
+    // Court-specific contacts (R2, R3)
+    courtSpecific: {
+      'R2': {
+        name: 'Vancouver Coastal',
+        subjectLine: 'URGENT IC – Accused Name/File No. – Date',
+        courts: [
+          { court: 'Vancouver Provincial (222 Main)', email: '222MainCrownBail@gov.bc.ca' },
+          { court: 'North Vancouver', email: 'NorthVanCrown@gov.bc.ca' },
+          { court: 'Richmond', email: 'RichmondCrown@gov.bc.ca' },
+          { court: 'Sechelt', email: 'SecheltCrown@gov.bc.ca', note: 'Heard in North Van' },
+          { court: 'Vancouver Youth (Robson)', email: 'VancouverYouthCrown@gov.bc.ca', note: 'Own bail process' },
+          { court: 'ReVOII Team', email: 'BCPSReVOII2@gov.bc.ca', note: 'Repeat Violent Offender' },
+        ]
+      },
+      'R3': {
+        name: 'Fraser',
+        subjectLine: 'URGENT IC Daytime Program: (reason) – Detachment – Date',
+        courts: [
+          { court: 'Abbotsford', email: 'Abbotsford.VirtualBail@gov.bc.ca' },
+          { court: 'Chilliwack', email: 'Chilliwack.VirtualBail@gov.bc.ca' },
+          { court: 'New Westminster', email: 'NewWestProv.VirtualBail@gov.bc.ca' },
+          { court: 'Port Coquitlam', email: 'Poco.VirtualBail@gov.bc.ca' },
+          { court: 'Surrey', email: 'Surrey.VirtualBail@gov.bc.ca' },
+          { court: 'ReVOII Team', email: 'BCPSReVOII3@gov.bc.ca', note: 'Repeat Violent Offender' },
+        ]
+      }
+    },
+    // Sheriff coordinators
+    sheriffs: [
+      { area: '222 Main Street', email: 'CSB222MainStreet.SheriffVirtualBail@gov.bc.ca' },
+      { area: 'Vancouver Coastal', email: 'CSBVancouverCoastal.SheriffVirtualBail@gov.bc.ca' },
+      { area: 'Fraser Region', email: 'CSBFraser.SheriffVirtualBail@gov.bc.ca' },
+      { area: 'Surrey', email: 'CSBSurrey.SheriffVirtualBail@gov.bc.ca' },
+    ]
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Region Filter */}
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+        {['all', 'R1', 'R2', 'R3', 'R4', 'R5', 'sheriff'].map(r => (
+          <button
+            key={r}
+            onClick={() => setSelectedRegion(r)}
+            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
+              selectedRegion === r 
+                ? 'bg-red-500 text-white' 
+                : 'bg-zinc-800 text-zinc-400'
+            }`}
+          >
+            {r === 'all' ? 'All Regions' : r === 'sheriff' ? 'Sheriffs' : r}
+          </button>
+        ))}
+      </div>
+
+      {/* Regional Contacts (R1, R4, R5) */}
+      {(selectedRegion === 'all' || ['R1', 'R4', 'R5'].includes(selectedRegion)) && (
+        <>
+          {bailContacts.regional
+            .filter(r => selectedRegion === 'all' || r.region === selectedRegion)
+            .map(region => (
+            <div key={region.region} className="rounded-xl border border-red-500/30 bg-red-500/5 overflow-hidden">
+              <div className="px-3 py-2 border-b border-zinc-800/50 flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-medium text-red-400">{region.region}</span>
+                  <span className="text-xs text-zinc-500 ml-2">{region.name}</span>
+                </div>
+                <span className="text-[10px] text-zinc-600">Regional</span>
+              </div>
+              
+              {/* VRs */}
+              {region.vrs && (
+                <div className="px-3 py-1.5 border-b border-zinc-800/30 bg-zinc-900/30">
+                  <p className="text-[10px] text-zinc-500">{region.vrs.join(' • ')}</p>
+                </div>
+              )}
+              
+              {/* Daytime */}
+              <button
+                onClick={() => onCopy(region.daytime, `${region.region}-daytime`)}
+                className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
+              >
+                <div>
+                  <p className="text-xs text-zinc-500">Daytime VB</p>
+                  <p className="text-sm text-white">{region.daytime}</p>
+                </div>
+                {copiedField === `${region.region}-daytime` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+              </button>
+
+              {/* Evening */}
+              {region.evening && (
+                <button
+                  onClick={() => onCopy(region.evening!, `${region.region}-evening`)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left border-t border-zinc-800/30"
+                >
+                  <div>
+                    <p className="text-xs text-zinc-500">Evening VB {region.eveningNote && <span className="text-zinc-600">({region.eveningNote})</span>}</p>
+                    <p className="text-sm text-white">{region.evening}</p>
+                  </div>
+                  {copiedField === `${region.region}-evening` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+                </button>
+              )}
+
+              {/* Weekend */}
+              {region.weekend && (
+                <button
+                  onClick={() => onCopy(region.weekend!, `${region.region}-weekend`)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left border-t border-zinc-800/30"
+                >
+                  <div>
+                    <p className="text-xs text-zinc-500">Weekend VB {region.weekendNote && <span className="text-zinc-600">({region.weekendNote})</span>}</p>
+                    <p className="text-sm text-white">{region.weekend}</p>
+                  </div>
+                  {copiedField === `${region.region}-weekend` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+                </button>
+              )}
+
+              {/* RABC */}
+              {region.rabc && (
+                <button
+                  onClick={() => onCopy(region.rabc!.email, `${region.region}-rabc`)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left border-t border-zinc-800/30"
+                >
+                  <div>
+                    <p className="text-xs text-zinc-500">RABC: {region.rabc.name}</p>
+                    <p className="text-sm text-white">{region.rabc.email}</p>
+                  </div>
+                  {copiedField === `${region.region}-rabc` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+                </button>
+              )}
+
+              {/* Subject line hint */}
+              <div className="px-3 py-2 border-t border-zinc-800/30 bg-zinc-900/50">
+                <p className="text-[10px] text-zinc-600">Subject: {region.subjectLine}</p>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
+
+      {/* Court-Specific Contacts (R2, R3) */}
+      {(selectedRegion === 'all' || selectedRegion === 'R2') && (
+        <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 overflow-hidden">
+          <div className="px-3 py-2 border-b border-zinc-800/50 flex items-center justify-between">
+            <div>
+              <span className="text-xs font-medium text-blue-400">R2</span>
+              <span className="text-xs text-zinc-500 ml-2">Vancouver Coastal</span>
+            </div>
+            <span className="text-[10px] text-zinc-600">Court-Specific</span>
+          </div>
+          <div className="divide-y divide-zinc-800/30">
+            {bailContacts.courtSpecific['R2'].courts.map(c => (
+              <button
+                key={c.court}
+                onClick={() => onCopy(c.email, `R2-${c.court}`)}
+                className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
+              >
+                <div>
+                  <p className="text-xs text-zinc-500">{c.court} {c.note && <span className="text-zinc-600">• {c.note}</span>}</p>
+                  <p className="text-sm text-white">{c.email}</p>
+                </div>
+                {copiedField === `R2-${c.court}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+              </button>
+            ))}
+          </div>
+          <div className="px-3 py-2 border-t border-zinc-800/30 bg-zinc-900/50">
+            <p className="text-[10px] text-zinc-600">Subject: {bailContacts.courtSpecific['R2'].subjectLine}</p>
+          </div>
+        </div>
+      )}
+
+      {(selectedRegion === 'all' || selectedRegion === 'R3') && (
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 overflow-hidden">
+          <div className="px-3 py-2 border-b border-zinc-800/50 flex items-center justify-between">
+            <div>
+              <span className="text-xs font-medium text-emerald-400">R3</span>
+              <span className="text-xs text-zinc-500 ml-2">Fraser</span>
+            </div>
+            <span className="text-[10px] text-zinc-600">Court-Specific</span>
+          </div>
+          <div className="divide-y divide-zinc-800/30">
+            {bailContacts.courtSpecific['R3'].courts.map(c => (
+              <button
+                key={c.court}
+                onClick={() => onCopy(c.email, `R3-${c.court}`)}
+                className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
+              >
+                <div>
+                  <p className="text-xs text-zinc-500">{c.court} {c.note && <span className="text-zinc-600">• {c.note}</span>}</p>
+                  <p className="text-sm text-white">{c.email}</p>
+                </div>
+                {copiedField === `R3-${c.court}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+              </button>
+            ))}
+          </div>
+          <div className="px-3 py-2 border-t border-zinc-800/30 bg-zinc-900/50">
+            <p className="text-[10px] text-zinc-600">Subject: {bailContacts.courtSpecific['R3'].subjectLine}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Sheriff Coordinators */}
+      {(selectedRegion === 'all' || selectedRegion === 'sheriff') && (
+        <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 overflow-hidden">
+          <div className="px-3 py-2 border-b border-zinc-800/50">
+            <span className="text-xs font-medium text-amber-400">Sheriff VB Coordinators</span>
+          </div>
+          <div className="divide-y divide-zinc-800/30">
+            {bailContacts.sheriffs.map(s => (
+              <button
+                key={s.area}
+                onClick={() => onCopy(s.email, `sheriff-${s.area}`)}
+                className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
+              >
+                <div>
+                  <p className="text-xs text-zinc-500">{s.area}</p>
+                  <p className="text-sm text-white">{s.email}</p>
+                </div>
+                {copiedField === `sheriff-${s.area}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
