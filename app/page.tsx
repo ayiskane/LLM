@@ -665,30 +665,23 @@ function ContactSection({
           const value = contacts[field as keyof CourtContacts] as string;
           const fieldKey = `${field}-${value}`;
           return (
-            <div key={field} className="flex items-center justify-between px-3 py-2.5">
+            <button
+              key={field}
+              onClick={() => onCopy(value, fieldKey)}
+              className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 active:bg-zinc-800 transition-colors text-left"
+            >
               <div className="flex-1 min-w-0 pr-2">
                 <p className="text-xs text-zinc-500">{fieldLabels[field]}</p>
                 <p className="text-sm text-white truncate">{value}</p>
               </div>
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => onCopy(value, fieldKey)}
-                  className="p-2 hover:bg-zinc-800 rounded-lg"
-                >
-                  {copiedField === fieldKey ? (
-                    <Check size={16} className="text-emerald-500" />
-                  ) : (
-                    <Copy size={16} className="text-zinc-500" />
-                  )}
-                </button>
-                <button
-                  onClick={() => setShowOptionsFor(fieldKey)}
-                  className="p-2 hover:bg-zinc-800 rounded-lg"
-                >
-                  <MoreHorizontal size={16} className="text-zinc-500" />
-                </button>
+              <div className="flex items-center">
+                {copiedField === fieldKey ? (
+                  <Check size={16} className="text-emerald-500" />
+                ) : (
+                  <Copy size={16} className="text-zinc-500" />
+                )}
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
