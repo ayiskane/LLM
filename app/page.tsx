@@ -825,19 +825,31 @@ function BailPage({
     <div className="space-y-4">
       {/* Region Filter */}
       <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
-        {['all', 'R1', 'R2', 'R3', 'R4', 'R5', 'sheriff', 'federal'].map(r => (
-          <button
-            key={r}
-            onClick={() => setSelectedRegion(r)}
-            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
-              selectedRegion === r 
-                ? 'bg-red-500 text-white' 
-                : 'bg-zinc-800 text-zinc-400'
-            }`}
-          >
-            {r === 'all' ? 'All' : r === 'sheriff' ? 'Sheriffs' : r === 'federal' ? 'Federal' : r}
-          </button>
-        ))}
+        {(() => {
+          const filters = [
+            { id: 'all', label: 'All' },
+            { id: 'R1', label: 'Island' },
+            { id: 'R2', label: 'Van Coastal' },
+            { id: 'R3', label: 'Fraser' },
+            { id: 'R4', label: 'Interior' },
+            { id: 'R5', label: 'North' },
+            { id: 'sheriff', label: 'Sheriffs' },
+            { id: 'federal', label: 'Federal' },
+          ];
+          return filters.map(f => (
+            <button
+              key={f.id}
+              onClick={() => setSelectedRegion(f.id)}
+              className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
+                selectedRegion === f.id 
+                  ? 'bg-red-500 text-white' 
+                  : 'bg-zinc-800 text-zinc-400'
+              }`}
+            >
+              {f.label}
+            </button>
+          ));
+        })()}
       </div>
 
       {/* Regional Contacts (R1, R4, R5) */}
@@ -1047,6 +1059,7 @@ function BailPage({
     </div>
   );
 }
+
 
 
 
