@@ -1022,40 +1022,65 @@ function BailPage({
       )}
 
       {/* Federal Crown (PPSC) */}
-      {(selectedRegion === 'all' || selectedRegion === 'federal') && (
-        <div className="space-y-3">
-          <div className="px-1">
-            <div className="flex items-center gap-2">
-              <p className="text-xs font-medium text-purple-400">Federal Crown (PPSC)</p>
-              <span className="text-[10px] px-1.5 py-0.5 bg-purple-500/20 text-purple-400 rounded">☀️🌙 ALL HOURS</span>
+      {(() => {
+        // Map provincial region codes to federal region names
+        const regionToFederalMap: Record<string, string> = {
+          'R1': 'Vancouver Island',
+          'R2': 'Vancouver Coastal',
+          'R3': 'Fraser',
+          'R4': 'Interior',
+          // R5 (North) has no federal contacts defined
+        };
+        
+        // Determine which federal regions to show
+        const showAllFederal = selectedRegion === 'all' || selectedRegion === 'federal';
+        const matchingFederalRegion = regionToFederalMap[selectedRegion];
+        
+        // Filter federal contacts based on selection
+        const filteredFederal = showAllFederal 
+          ? bailContacts.federal 
+          : matchingFederalRegion 
+            ? bailContacts.federal.filter(r => r.region === matchingFederalRegion)
+            : [];
+        
+        // Only render if there are federal contacts to show
+        if (filteredFederal.length === 0) return null;
+        
+        return (
+          <div className="space-y-3">
+            <div className="px-1">
+              <div className="flex items-center gap-2">
+                <p className="text-xs font-medium text-purple-400">Federal Crown (PPSC)</p>
+                <span className="text-[10px] px-1.5 py-0.5 bg-purple-500/20 text-purple-400 rounded">☀️🌙 ALL HOURS</span>
+              </div>
+              <p className="text-[10px] text-zinc-600">For federal offenses (CDSA, firearms, etc.) • Same contacts for daytime & evening</p>
             </div>
-            <p className="text-[10px] text-zinc-600">For federal offenses (CDSA, firearms, etc.) • Same contacts for daytime & evening</p>
+            {filteredFederal.map(region => (
+              <div key={region.region} className="rounded-xl border border-purple-500/30 bg-purple-500/5 overflow-hidden">
+                <div className="px-3 py-2 border-b border-zinc-800/50">
+                  <span className="text-xs font-medium text-purple-400">{region.region}</span>
+                </div>
+                <div className="divide-y divide-zinc-800/30">
+                  {region.areas.map(a => (
+                    <button
+                      key={a.area}
+                      onClick={() => onCopy(a.email, `federal-${a.area}`)}
+                      className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
+                    >
+                      <div className="flex-1 min-w-0 pr-2">
+                        <p className="text-xs text-zinc-500">{a.area}</p>
+                        <p className="text-sm text-white truncate">{a.email}</p>
+                        <p className="text-[10px] text-zinc-600">{a.org} {a.phone && `• ${a.phone}`}</p>
+                      </div>
+                      {copiedField === `federal-${a.area}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-          {bailContacts.federal.map(region => (
-            <div key={region.region} className="rounded-xl border border-purple-500/30 bg-purple-500/5 overflow-hidden">
-              <div className="px-3 py-2 border-b border-zinc-800/50">
-                <span className="text-xs font-medium text-purple-400">{region.region}</span>
-              </div>
-              <div className="divide-y divide-zinc-800/30">
-                {region.areas.map(a => (
-                  <button
-                    key={a.area}
-                    onClick={() => onCopy(a.email, `federal-${a.area}`)}
-                    className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-zinc-800/50 text-left"
-                  >
-                    <div className="flex-1 min-w-0 pr-2">
-                      <p className="text-xs text-zinc-500">{a.area}</p>
-                      <p className="text-sm text-white truncate">{a.email}</p>
-                      <p className="text-[10px] text-zinc-600">{a.org} {a.phone && `• ${a.phone}`}</p>
-                    </div>
-                    {copiedField === `federal-${a.area}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-zinc-500" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
