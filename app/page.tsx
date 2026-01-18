@@ -503,20 +503,32 @@ function CourtDetailView({
         })()}
 
         {/* Registry & JCM/Scheduling Section */}
-        {contacts && (contacts.registry_email || contacts.criminal_registry_email || contacts.jcm_scheduling_email || contacts.scheduling_email || contacts.fax_filing) && (
-          <ContactSection 
-            title={courtLevel === 'provincial' ? "Registry & JCM" : "Registry & Scheduling"}
-            color="emerald"
-            contacts={contacts}
-            fields={courtLevel === 'provincial' 
-              ? ['registry_email', 'criminal_registry_email', 'jcm_scheduling_email'] 
-              : ['registry_email', 'criminal_registry_email', 'scheduling_email']
+        {contacts && (contacts.registry_email || contacts.criminal_registry_email || contacts.jcm_scheduling_email || contacts.scheduling_email || contacts.fax_filing) && (() => {
+          // Build fields array, excluding registry_email if it's the same as criminal_registry_email
+          const registryFields = courtLevel === 'provincial'
+            ? ['registry_email', 'criminal_registry_email', 'jcm_scheduling_email']
+            : ['registry_email', 'criminal_registry_email', 'scheduling_email'];
+          
+          // Filter out registry_email if it matches criminal_registry_email
+          const filteredFields = registryFields.filter(field => {
+            if (field === 'registry_email' && contacts.registry_email && contacts.criminal_registry_email) {
+              return contacts.registry_email !== contacts.criminal_registry_email;
             }
-            faxFiling={courtLevel === 'supreme' ? contacts.fax_filing : undefined}
-            copiedField={copiedField}
-            onCopy={onCopy}
-          />
-        )}
+            return true;
+          });
+
+          return (
+            <ContactSection 
+              title={courtLevel === 'provincial' ? "Registry & JCM" : "Registry & Scheduling"}
+              color="emerald"
+              contacts={contacts}
+              fields={filteredFields}
+              faxFiling={courtLevel === 'supreme' ? contacts.fax_filing : undefined}
+              copiedField={copiedField}
+              onCopy={onCopy}
+            />
+          );
+        })()}
 
         {/* Crown Section */}
         {contacts && contacts.crown_email && (
@@ -1035,6 +1047,7 @@ function BailPage({
     </div>
   );
 }
+
 
 
 
