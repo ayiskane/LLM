@@ -104,8 +104,8 @@ export default function App() {
   return (
     <div className="h-screen flex flex-col bg-zinc-950 text-white overflow-hidden">
       {/* Header */}
-      <header className="flex-shrink-0 px-4 pt-safe pb-4 bg-gradient-to-b from-zinc-900 to-zinc-950">
-        <h1 className="text-2xl font-bold mb-4">BC Legal Directory</h1>
+      <header className="flex-shrink-0 px-4 pt-2 pb-3 bg-gradient-to-b from-zinc-900 to-zinc-950">
+        <h1 className="text-xl font-bold mb-3">BC Legal Directory</h1>
         
         {/* Search - only show on courts tab */}
         {activeTab === 'courts' && (
@@ -1047,6 +1047,7 @@ function BailPage({
     </div>
   );
 }
+
 
 
 
