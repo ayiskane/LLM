@@ -355,7 +355,7 @@ function CourtCard({ court, onClick }: { court: Court; onClick: () => void }) {
   );
 }
 
-// Court Detail View Component
+// Court Detail View Component - Updated
 function CourtDetailView({ 
   court, 
   hubCourt,
@@ -391,48 +391,69 @@ function CourtDetailView({
     }
   }, [court.id, contactSource.has_provincial, contactSource.has_supreme, setCourtLevel]);
 
+  // Open address in maps app
+  const openInMaps = (address: string) => {
+    const encodedAddress = encodeURIComponent(address);
+    // This URL works on both iOS (opens Apple Maps) and Android (opens Google Maps)
+    window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank');
+  };
+
   return (
     <div className="h-screen flex flex-col bg-zinc-950 text-white overflow-hidden">
+      {/* Back button row - separate from header content */}
+      <div className="flex-shrink-0 px-4 pt-safe">
+        <button 
+          onClick={onBack} 
+          className="flex items-center gap-1 py-3 text-zinc-400 hover:text-white transition-colors"
+        >
+          <ChevronLeft size={20} />
+          <span className="text-sm">Courts</span>
+        </button>
+      </div>
+
       {/* Header */}
-      <header className="flex-shrink-0 px-4 pt-safe pb-4 bg-gradient-to-b from-zinc-900 to-zinc-950">
-        {/* Back button and title */}
-        <div className="flex items-start gap-3 mb-3">
-          <button onClick={onBack} className="mt-1 text-zinc-400 hover:text-white">
-            <ChevronLeft size={24} />
-          </button>
-          <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold leading-tight">{court.name}</h1>
-            <div className="flex items-center gap-2 mt-1 flex-wrap">
-              {court.access_code && (
-                <button 
-                  onClick={() => onCopy(court.access_code!, 'access_code')}
-                  className="text-xs px-2 py-1 bg-amber-500/20 text-amber-400 rounded flex items-center gap-1"
-                  title={court.access_code_notes || 'Access code'}
-                >
-                  {copiedField === 'access_code' ? <Check size={12} /> : null}
-                  {court.access_code}
-                </button>
-              )}
-              {court.virtual_courtroom_code && (
-                <span className="text-xs px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded">
-                  {court.virtual_courtroom_code}
-                </span>
-              )}
-              <span className="text-xs px-2 py-0.5 bg-zinc-800 text-zinc-400 rounded">
-                {court.region}
-              </span>
-            </div>
-          </div>
+      <header className="flex-shrink-0 px-4 pb-4">
+        {/* Title */}
+        <h1 className="text-xl font-bold leading-tight">{court.name}</h1>
+        
+        {/* Badges row */}
+        <div className="flex items-center gap-2 mt-2 flex-wrap">
+          {court.access_code && (
+            <button 
+              onClick={() => onCopy(court.access_code!, 'access_code')}
+              className="text-xs px-2 py-1 bg-amber-500/20 text-amber-400 rounded flex items-center gap-1 hover:bg-amber-500/30 transition-colors"
+              title={court.access_code_notes || 'Access code'}
+            >
+              {copiedField === 'access_code' ? <Check size={12} /> : null}
+              {court.access_code}
+            </button>
+          )}
+          {court.virtual_courtroom_code && (
+            <span className="text-xs px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded">
+              {court.virtual_courtroom_code}
+            </span>
+          )}
+          <span className="text-xs px-2 py-0.5 bg-zinc-800 text-zinc-400 rounded">
+            {court.region}
+          </span>
         </div>
 
-        {/* Address */}
+        {/* Address - tappable to open in maps */}
         {court.address && (
-          <p className="text-sm text-zinc-400 ml-9 mb-3">{court.address}</p>
+          <button
+            onClick={() => openInMaps(court.address!)}
+            className="flex items-center gap-2 mt-3 text-left group"
+          >
+            <MapPin size={14} className="text-zinc-500 flex-shrink-0 group-hover:text-blue-400 transition-colors" />
+            <span className="text-sm text-zinc-400 group-hover:text-blue-400 transition-colors underline decoration-zinc-600 group-hover:decoration-blue-400">
+              {court.address}
+            </span>
+          </button>
         )}
 
         {/* Provincial/Supreme Toggle */}
         {showToggle && (
-          <div className="flex mt-4 ml-9 p-1 bg-zinc-800 rounded-lg">
+          <div className="flex mt-4 p-1 bg-zinc-800 rounded-lg">
             <button
               onClick={() => setCourtLevel('provincial')}
               className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
@@ -552,6 +573,7 @@ function CourtDetailView({
     </div>
   );
 }
+
 
 // Contact Section Component
 function ContactSection({
@@ -1006,3 +1028,4 @@ function BailPage({
     </div>
   );
 }
+
