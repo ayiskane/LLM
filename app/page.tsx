@@ -481,19 +481,26 @@ function CourtDetailView({
       {/* Content */}
       <main className="flex-1 overflow-y-auto min-h-0 p-4 space-y-4">
         {/* Circuit Court Notice */}
-        {court.is_circuit && (
-          <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl">
-            <p className="text-sm text-amber-400">
-              <strong>Circuit Court</strong>
-            </p>
-            <p className="text-sm text-amber-400/80 mt-1">
-              {hubCourt 
-                ? `Contacts below are from ${hubCourt.name} (hub court)`
-                : `Contact ${court.hub_court_name} for registry services`
-              }
-            </p>
-          </div>
-        )}
+        {court.is_circuit && (() => {
+          // Get region code
+          const regionCodes: Record<string, string> = {
+            'Vancouver Island': 'R1',
+            'Vancouver Coastal': 'R2',
+            'Fraser': 'R3',
+            'Interior': 'R4',
+            'North': 'R5'
+          };
+          const regionCode = regionCodes[court.region] || '';
+          const hubName = hubCourt?.name || court.hub_court_name || 'the hub court';
+          
+          return (
+            <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+              <p className="text-sm text-amber-400">
+                <strong>{regionCode} Circuit Court</strong>: Please contact {hubName}.
+              </p>
+            </div>
+          );
+        })()}
 
         {/* Registry & JCM/Scheduling Section */}
         {contacts && (contacts.registry_email || contacts.criminal_registry_email || contacts.jcm_scheduling_email || contacts.scheduling_email || contacts.fax_filing) && (
@@ -1028,4 +1035,5 @@ function BailPage({
     </div>
   );
 }
+
 
