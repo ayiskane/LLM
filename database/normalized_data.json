@@ -1838,124 +1838,132 @@
   ],
   "ms_teams_links": [
     {
-      "court": "Quesnel",
-      "courtroom": null,
-      "conference_id": "512 863 082#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 1
+      "court": "Abbotsford",
+      "courtroom": "JCM FXD List",
+      "conference_id": "138 892 86#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2QyN2E0ZGEtMjMyZS00MzgzLWEzZDAtYTE2YzhhN2E4MzJi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22453547bd-7b99-47fa-90e6-59e19d7d5f41%22%7d"
     },
     {
       "court": "Abbotsford",
       "courtroom": null,
       "conference_id": "138 892 86#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 2
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2MxNDQ3MGItYzI2My00MGU3LWFlMjMtZjY1NWYxMTYwMmEy%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%221b20611a-e121-4fb9-90e3-ae1427649a54%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 201 (IAR)",
       "conference_id": "631 620 353#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 3
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmE5Nzk4OWUtMjFiMC00ZDQ4LWExYjAtYTQ2NTljOTFjNGM0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220eeec636-9dfc-4161-b892-1fb91cfc3ddd%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 202",
       "conference_id": "445 393 748#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 4
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDE0Y2M4NTEtNGVhMC00OTNjLTgyOWYtNTZlNDMxZjNhNGM4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e36a5008-8d87-472d-a421-4d4a80e77cf8%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 203",
       "conference_id": "450 797 759#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 5
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjE5NDk3MTItMjU0OC00M2FjLThmYTMtZDRjZDY2NGNmMGQ4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2272f93463-c61f-4071-a104-c81d11c3735a%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 204 (Bail)",
       "conference_id": "342 802 541#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 6
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWQ4N2JmNWQtYzE2YS00MjdiLTk3YjAtMTFiNjZiZjY3MDUw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22afa5ea57-3606-424c-8afc-707a3c1f9dd6%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 301",
       "conference_id": "727 595 19#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 7
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGE3MjdiY2YtMGVhNC00ZjAxLTkxYjgtZDkwMWU5OTYwZDc2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2207e8e2be-141a-45c0-9f26-d7d3e1e97e0f%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 302",
+      "conference_id": "629 018 7#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjNhYTI0MDgtMzEyNi00ZGM4LWE2Y2QtOGIxYTdmZDU5MjZm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227a479ee6-de18-4de6-863d-d0f4d0205838%22%7d"
+    },
+    {
+      "court": "Abbotsford",
+      "courtroom": "CR 303",
       "conference_id": "542 800 159#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 8
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGM4NDc1OGQtMWI4ZC00NGM4LWFkNWQtNTcwNmE2ZTQ2YjM2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22de154b71-c06c-4ad9-903f-593a98aa2d2f%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 304",
       "conference_id": "984 670 456#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 9
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTE2MWIyOGMtZDRkNC00YTRmLWFjOTQtM2NlYzA3ZGUyMTYy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a9e48c8c-6413-480a-b46a-c06dd69aa31f%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 305",
       "conference_id": "276 726 712#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 10
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWJjMzQwMzYtY2E0MS00MTFkLThmMTAtNTYwYzJkM2RlMDZi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ad451a8d-7e67-4792-92e2-b7b61fbad4fa%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 306 (Family Remand)",
       "conference_id": "196 429 444#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 11
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWUxYWE4NzItODk0YS00MGI3LTk4ZWEtM2Y0NWE1Mzc0ZDRl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22db685a3e-d998-460d-a0d2-9c5d382ac71b%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 401",
       "conference_id": "883 095 480#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 12
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmExZmExOGQtYTMzMS00NjMzLTljNDYtYzI2ZmRmMDU1OTQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223282fcc0-45b6-4955-8b2e-d2138e13bca6%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 402",
       "conference_id": "692 229 645#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 13
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjRjNTY4YjktYWQ5ZS00YjlkLWFjZWQtZDU5NjhjNTY0MjYx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c30156da-058b-4465-ad56-722119618fb5%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 403",
       "conference_id": "160 382 81#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 14
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDE2ZjI3OWEtNTM5OS00YTJjLWFiMmEtNzA2OWEzYzFhOWIw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22676bad05-f38f-401a-8ae5-d7e922fcb3ea%22%7d"
     },
     {
       "court": "Abbotsford",
-      "courtroom": null,
+      "courtroom": "CR 404",
       "conference_id": "117 947 266#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 15
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTUyMzE5MjMtMWVlMy00YzhlLTk0MDEtNjMyYWE3M2M1NmYw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224dad716a-8c46-4851-968d-815064f261d5%22%7d"
     },
     {
       "court": "Abbotsford",
@@ -1963,1103 +1971,991 @@
       "conference_id": "414 202 059#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 16
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGYyZjk5ZmEtYzdiZS00MjU3LTk0ODctODNlNmRiNTMzNWI4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22afa5ea57-3606-424c-8afc-707a3c1f9dd6%22%7d"
     },
     {
-      "court": "Quesnel",
-      "courtroom": null,
-      "conference_id": "532 718 803#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 17
-    },
-    {
-      "court": "Quesnel",
-      "courtroom": null,
-      "conference_id": "388 791 638#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 18
+      "court": "Anahim Lake",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6648",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjY5ZWVmYzctZDg0Mi00ODI4LWExYTktZTc5MmZhOTk3OTYy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22288951a3-fcf1-4764-a7df-c83a4060cc82%22%7d"
     },
     {
       "court": "Burns Lake",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "843 485 941#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 19
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDBmNTZiMzQtODVjZS00NWU2LThhNjgtNWExMzdhZTNiNDBh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f3fac869-08df-4711-87ee-a59f5dfc67a4%22%7d"
+    },
+    {
+      "court": "Campbell River",
+      "courtroom": "JCM FXD List",
+      "conference_id": "796 965 864#",
+      "phone": "+1 250-900-4440",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmE2NDE1YzEtZTI0Ny00NGUxLTk4NDUtNWQxMGRhNmJmYzNj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227003d09a-479b-45b3-bc73-319a81dce3be%22%7d"
     },
     {
       "court": "Campbell River",
       "courtroom": null,
       "conference_id": "796 965 864#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 20
+      "phone": "+1 250-900-4440",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_NGNkODk3ODUtOWMzYi00OGRmLWI2ZDktNzFiZjBmMmZlN2Yw%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522e0e3846b-f37d-48f8-b7e5-8f4cf7584c57%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412255939154%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=qbQVkLAkfnJVqfthbTE%2FIor%2BEhLjyxXXced6a%2B4ZRho%3D&reserved=0"
     },
     {
       "court": "Campbell River",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "324 573 228#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 21
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDAzOWE0NzUtZWUxMy00ZGEyLTg2MDUtMGE4MjkwZWIyYjky%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22cd9fed01-1c85-4a16-9ac0-595dafa57439%22%7d"
     },
     {
       "court": "Campbell River",
-      "courtroom": null,
+      "courtroom": "CR 002",
       "conference_id": "958 926 815#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 22
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzJjZjc1NzEtOTFlZC00NWM4LWJiMWItNGYwY2FmODIwNDkw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22711faff5-eee3-4f90-8f63-b74e5c984fbc%22%7d"
     },
     {
       "court": "Campbell River",
-      "courtroom": null,
+      "courtroom": "CR 003",
       "conference_id": "559 307 51#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 23
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGU3YjllMTgtMjlmMS00NzU1LWIzOGUtMDllYTEzODQzNzhl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227567d1a7-26c0-408d-8ad2-8cf4740606e2%22%7d"
     },
     {
       "court": "Castlegar",
-      "courtroom": null,
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjdiZmNjMzItOTcwYi00YmMwLWJiYTEtMjI3ZGQxMjY0NjJh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220df2e084-9256-403e-a200-38c173e7490e%22%7d"
+    },
+    {
+      "court": "Castlegar",
+      "courtroom": "CR 001",
       "conference_id": "346 309 222#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 24
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjI1MjE4ZmItMjQ4ZS00NDczLTljNGUtZmYwYWQ5MGFkZTI2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ec46f12e-9d90-49d5-8f51-ddc0c3825ea2%22%7d"
     },
     {
-      "court": "Chetwynd",
-      "courtroom": null,
-      "conference_id": "523 763 937#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 25
+      "court": "Chilliwack",
+      "courtroom": "JCM FXD List",
+      "conference_id": "562 139 269#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTM3NWYzNzctZGMxZS00Y2VmLTg4MmQtMzdhMDFmNWVmMzg1%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%221b20611a-e121-4fb9-90e3-ae1427649a54%22%7d"
     },
     {
       "court": "Chilliwack",
       "courtroom": null,
       "conference_id": "562 139 269#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 26
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzAyZTY1OTEtYjA4MC00MGEyLTllNzQtOWVmZWMyOWQ2NmQy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22bc06967e-4cdc-43eb-b7cd-ece203f0922e%22%7d"
     },
     {
       "court": "Chilliwack",
-      "courtroom": null,
+      "courtroom": "CR 200",
       "conference_id": "444 614 301#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 27
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGMyODg0M2UtNDNjZC00YjI4LTk2OWUtYWUzNDYzZjcwYjkw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%226c1e32e3-7ca2-487c-b749-7a216290b8e5%22%7d"
     },
     {
       "court": "Chilliwack",
-      "courtroom": null,
+      "courtroom": "CR 201",
       "conference_id": "767 022 700#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 28
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTA2YTljN2UtZjk4MC00YzI4LTgzODUtMmUwYWZkMjI0MmFl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c71410cf-e081-4b70-a626-6d55d96930d3%22%7d"
     },
     {
       "court": "Chilliwack",
-      "courtroom": null,
+      "courtroom": "CR 202",
       "conference_id": "350 207 934#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 29
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTUwZGYyNzItYjJlNS00OGM3LTgxZWItYjQxNWRlOTZiNDMx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22df813ec5-1b86-4fef-acce-21407aa3304c%22%7d"
     },
     {
       "court": "Chilliwack",
-      "courtroom": null,
+      "courtroom": "CR 203",
+      "conference_id": "652 694 6#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODAzMzJlODktMjQwZC00M2JmLWFlNzgtZGE4OWU4MThiMzU5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2286154334-e671-4c0b-93a6-49bbc9569c6d%22%7d"
+    },
+    {
+      "court": "Chilliwack",
+      "courtroom": "CR 204",
       "conference_id": "941 712 583#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 30
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTc3MTYwOWEtNjI4OS00NWNkLWFmNjItNzY4YzhiNTlhNDhj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229aab8124-a117-421a-ae80-a5e11aa13166%22%7d"
     },
     {
       "court": "Chilliwack",
-      "courtroom": null,
+      "courtroom": "CR 205",
       "conference_id": "702 691 531#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 31
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Nzc2MjFhMGQtODJjNy00YzkzLWJjNjgtNjI0OTEyNmI4ZjM3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227c8a668d-6873-4cab-a142-b8dd36bf84a4%22%7d"
     },
     {
-      "court": "Chilliwack",
-      "courtroom": null,
-      "conference_id": "851 800 358#",
+      "court": "Courtenay",
+      "courtroom": "CR 200",
+      "conference_id": "925 049 356#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 32
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTYyNmZmNTYtY2MyYS00NTU2LTk0ZmItYTA2ZjBhZjZhOWUy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%226524ffb2-1e75-4d82-8e62-9e7a67823216%22%7d"
+    },
+    {
+      "court": "Courtenay",
+      "courtroom": "CR 216 (IAR)",
+      "conference_id": "979 135 388#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2EyZDI4YmMtYTdiZC00MTlhLTk5MWYtZTNkMGY0MDFkNDhl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22dc466edd-9eff-4e8f-80de-b513139cfa1b%22%7d"
+    },
+    {
+      "court": "Courtenay",
+      "courtroom": "CR 222 (Family Remand)",
+      "conference_id": "847 001 743#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yjc3ZDM0MmEtZTFlMy00ZDZiLWFlZDMtNWIxMjQzNTc4Yzk0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f26e718c-d269-4088-8dad-a30fbb3a1f4f%22%7d"
+    },
+    {
+      "court": "Clearwater",
+      "courtroom": "CR 001",
+      "conference_id": "421 982 576#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzZiNDVkOWEtNWYwNS00YmQxLThkNTMtODYzOTNiZmY0NmUy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225359324f-6532-46fc-a6f7-d587287a97a5%22%7d"
     },
     {
       "court": "Clearwater",
       "courtroom": null,
-      "conference_id": "421 982 576#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 33
-    },
-    {
-      "court": "Courtenay",
-      "courtroom": null,
-      "conference_id": "925 049 356#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 34
-    },
-    {
-      "court": "Courtenay",
-      "courtroom": null,
-      "conference_id": "979 135 388#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 35
-    },
-    {
-      "court": "Courtenay",
-      "courtroom": null,
-      "conference_id": "847 001 743#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 36
-    },
-    {
-      "court": "Fernie",
-      "courtroom": null,
       "conference_id": "431 042 257#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 37
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTFkZGJmMGItZDZlZi00ZmJlLWFjYTgtYTJkNmFhYWNiMzA3%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22a8dc9f9a-7a42-4168-9d22-f686e0ec9f9e%22%7d"
     },
     {
-      "court": "Golden",
-      "courtroom": null,
+      "court": "Cranbrook",
+      "courtroom": "CR 110",
       "conference_id": "720 252 582#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 38
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWMzOTc0MjYtNWY3YS00OTcyLWE2MGQtMDM4NGY3NjMzZmNm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225593d3f5-3199-4ad8-8725-1ad3fd8e4907%22%7d"
     },
     {
-      "court": "Golden",
-      "courtroom": null,
+      "court": "Cranbrook",
+      "courtroom": "CR 112",
       "conference_id": "621 716 639#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 39
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTVlOWU4MDEtOGJmMi00NzA1LWFhODQtMTllYTg3M2MyMjhh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%226fd98c15-c2b9-4176-b228-8c555a0a360d%22%7d"
     },
     {
-      "court": "Golden",
-      "courtroom": null,
+      "court": "Cranbrook",
+      "courtroom": "CR 122 (Family Remand)",
       "conference_id": "769 312 662#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 40
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmRjMWE3OTktYjA2My00YjM1LTgzNmMtM2E1YTEzZGIyODIy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c8fb3611-7eb9-4007-9da7-7d2536efd0dc%22%7d"
     },
     {
-      "court": "Golden",
-      "courtroom": null,
+      "court": "Cranbrook",
+      "courtroom": "CR 143",
       "conference_id": "897 037 100#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 41
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTM2NTRmMzktOTc3NS00NzdlLTg1ZTYtNTU0MjFmY2NlOTcz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220c76a458-bd76-41c4-be6a-19050ef0a994%22%7d"
     },
     {
-      "court": "Golden",
-      "courtroom": null,
+      "court": "Cranbrook",
+      "courtroom": "CR 224",
       "conference_id": "999 456 97#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 42
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTk2Y2M0ZTYtYTgwNi00OTA4LWIyZDctZDhjYzMxMWFlYmVl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22766c44b8-72c0-4a01-a7c4-1a89594755d3%22%7d"
     },
     {
-      "court": "Golden",
-      "courtroom": null,
+      "court": "Cranbrook",
+      "courtroom": "CR 242",
       "conference_id": "796 741 472#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 43
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDNhMTI1NzAtYmFiNy00ODk3LTgzNjYtZGQyOTU1MjMyNzg2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22397e23d2-631c-408d-8c27-4e8923c51be1%22%7d"
+    },
+    {
+      "court": "Creston",
+      "courtroom": "CR 001",
+      "conference_id": "708 253 045#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDBjNWYyODEtNjU2YS00ZGVkLTk1NWQtMjljNTFlN2VmMTlh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2200ad2c07-afc6-4cb7-8036-542f1e79023e%22%7d"
     },
     {
       "court": "Creston",
       "courtroom": null,
-      "conference_id": "708 253 045#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 44
-    },
-    {
-      "court": "Prince Rupert",
-      "courtroom": null,
-      "conference_id": "868 638 140#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 45
-    },
-    {
-      "court": "Dawson Creek",
-      "courtroom": null,
       "conference_id": "403 352 480#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 46
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTdlOWEwOWQtNjNkNC00ZDI5LWE1ZDgtMTZlZWUwNmM4Njhk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221238da1f-a262-45cd-a1d2-f6ba6d00ba79%22%7d"
     },
     {
       "court": "Dawson Creek",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "152 991 469#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 47
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTdlOWEwOWQtNjNkNC00ZDI5LWE1ZDgtMTZlZWUwNmM4Njhk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221238da1f-a262-45cd-a1d2-f6ba6d00ba79%22%7d"
     },
     {
       "court": "Dawson Creek",
-      "courtroom": null,
+      "courtroom": "CR 002",
       "conference_id": "466 256 56#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 48
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODFmODc3MzctM2Y3Zi00NTFiLWI0MDQtNTJiMmYwNGRmMmYw%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22ee87b580-420f-453d-88ea-719f05bab412%22%7d"
     },
     {
-      "court": "Dawson Creek",
-      "courtroom": null,
-      "conference_id": "269 959 292#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 49
+      "court": "Daajing Giids",
+      "courtroom": "CR 001",
+      "conference_id": "868 638 140#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWQyNjM3ZWItMDM5Ny00ZWRjLTliMWItMjkwYTkyNzgyMTQ0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221d486634-b5e0-4db8-8317-4693870e9d7d%22%7d"
     },
     {
-      "court": "Dawson Creek",
-      "courtroom": null,
-      "conference_id": "810 098 93#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 50
-    },
-    {
-      "court": "Duncan",
+      "court": "Daajing Giids",
       "courtroom": null,
       "conference_id": "568 987 952#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 51
+      "phone": "+1 250-900-4440",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzlkY2I4MzEtNDAzMC00NzgyLWIzNDgtMjBkY2VhZGU1Mzk1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22cd1a2d2b-6a3d-4516-b2d6-9d02a359d6c2%22%7d"
     },
     {
       "court": "Duncan",
-      "courtroom": null,
+      "courtroom": "CR 001",
+      "conference_id": "440 450 232",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTM3YWRkNDYtYzg1OC00NWM1LWIxNjEtMjdiZmY0YTE4YTk0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ee2b50e5-1076-425e-abd3-3309c2222735%22%7d"
+    },
+    {
+      "court": "Duncan",
+      "courtroom": "CR 002 (Family Remand)",
       "conference_id": "261 512 925#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 52
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_YmVmMjYyNDgtMzFjMi00MzlmLWI5YWQtNjlhYTAyMDRkZDZh%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522e0e3846b-f37d-48f8-b7e5-8f4cf7584c57%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412255939154%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=e83S5CnPUX5A03zgzgQHK%2BPD%2BO8S0N9pU02YZ1vATz0%3D&reserved=0"
     },
     {
       "court": "Duncan",
-      "courtroom": null,
+      "courtroom": "CR 003 (IAR)",
       "conference_id": "409 770 573#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 53
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTZiM2FlYjYtNmZhNi00MjRiLWFkYzgtZWVhNmJhYjgxMGMy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2240ef5079-7561-4e3a-8293-013eb324afc2%22%7d"
     },
     {
       "court": "Duncan",
-      "courtroom": null,
+      "courtroom": "CR 126",
       "conference_id": "495 071 267#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 54
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODhhNzc0ZWEtNDJhYS00MGE1LTllZjctNDZkN2MyMmMwNzlk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229d1df6a3-9d35-4dbc-9b31-dc7e08ddf7eb%22%7d"
+    },
+    {
+      "court": "Dawson Creek",
+      "courtroom": "CR 003",
+      "conference_id": "269 959 292#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmExNjJkMjQtODgzMS00YzA1LThlMzUtMTFjNjk2YWUxYWU0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220cba7b1b-2fe0-4b72-83e8-bcf8ff0ce84c%22%7d"
     },
     {
       "court": "Fernie",
-      "courtroom": null,
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGU1MGIyYWItNzU1OS00ZjYyLWE5YjktMjlhMjFhYmRjMTZl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22bd4f7ff2-5b31-4819-8d09-e5200788585f%22%7d"
+    },
+    {
+      "court": "Fernie",
+      "courtroom": "CR 201",
       "conference_id": "927 312 007#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 55
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzY5Yjg2MzItYTQ0NS00ZTc1LWI3NGMtNWY2NzYzYjAyMmZk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22566fe497-0e52-4bfd-a2b6-0a3020a86cfd%22%7d"
     },
     {
       "court": "Fort Nelson",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "853 780 771#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 56
-    },
-    {
-      "court": "Fort St. James",
-      "courtroom": null,
-      "conference_id": "166 873 724#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 57
-    },
-    {
-      "court": "Dawson Creek",
-      "courtroom": null,
-      "conference_id": "510 160 636#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 58
-    },
-    {
-      "court": "Dawson Creek",
-      "courtroom": null,
-      "conference_id": "349 010 367#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 59
-    },
-    {
-      "court": "Dawson Creek",
-      "courtroom": null,
-      "conference_id": "360 997 139#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 60
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjJkNTQ4NTYtM2Y3Mi00NTQ4LTkyYzQtOGFkMGUyODRmMjky%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d2762212-b33f-4f86-b947-d184754cd98f%22%7d"
     },
     {
       "court": "Fraser Lake",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "129 460 90#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 61
-    },
-    {
-      "court": "Ganges",
-      "courtroom": null,
-      "conference_id": "923 783 680#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 62
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTRkYjcyNzktOGFmYi00NTgyLWJkNmYtMTk0MjZjMjljYTYw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ebc91aee-0853-4dee-99dc-140c3577dc65%22%7d"
     },
     {
       "court": "Golden",
-      "courtroom": null,
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": null,
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2ViNzc2NjUtYjNlZS00MmZjLTk1MWYtN2QxYTIyNDIxNjAw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22fe1e3094-bf0f-4906-b299-926eb42a63b1%22%7d"
+    },
+    {
+      "court": "Golden",
+      "courtroom": "CR 001",
       "conference_id": "387 751 163#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 63
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2Y1MTViYmItMThmNS00ODVhLWExMDktMDY4NDA1NjE3NjQ4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c80080e8-5a14-46e1-b4c9-2b3173eb7f64%22%7d"
     },
     {
       "court": "Golden",
-      "courtroom": null,
+      "courtroom": "CR 01A",
       "conference_id": "198 985 992#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 64
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTdmM2IyOTItNjNlNi00YWMyLWI2ZGMtNDkwZDJlYTlkMmMz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2250c74135-6b39-40dc-8a82-fc88d4fa0348%22%7d"
     },
     {
       "court": "Grand Forks",
-      "courtroom": null,
-      "conference_id": "853 278 04#",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 65
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTdhZGI5MmQtMjJiMi00ZWJhLWI0OGQtMzRiNWNlZTE5NzFl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225b1de096-d4ab-4b47-b1b0-91d7a57b53ff%22%7d"
     },
     {
       "court": "Hazelton",
-      "courtroom": null,
+      "courtroom": "CR 123",
       "conference_id": "732 018 12#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 66
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWQxYTk5YTItMjIyNy00OGZkLThmYjMtNDEyOGFiOWJhNjhj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2226e6f843-6dc3-42a6-9620-cf72c5b84843%22%7d"
     },
     {
       "court": "Houston",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "300 630 022#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 67
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGNmOTg0NmEtYjYyOC00MmNmLTk4ZjYtNWEzYWZjMjRmMDgw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22374b1c18-4a98-46eb-a34e-48177cb077b3%22%7d"
     },
     {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "369 454 76#",
+      "court": "Invermere",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 68
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWUwMzkxMDQtMTA2NS00NzJmLThjZGUtMTViYzcyMDgxODEz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22597d16b0-1eff-4bc4-94a1-0dfe70b8f53a%22%7d"
     },
     {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "732 076 358#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 69
-    },
-    {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "365 751 988#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 70
-    },
-    {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "618 706 537#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 71
-    },
-    {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "453 417 829#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 72
-    },
-    {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "938 770 945#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 73
-    },
-    {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "210 409 821#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 74
-    },
-    {
-      "court": "Cranbrook",
-      "courtroom": null,
-      "conference_id": "634 183 845#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 75
+      "court": "Kamloops",
+      "courtroom": "JCM FXD List",
+      "conference_id": "821 318 895#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWMzY2RmOGUtODYxMC00MDBmLThlYjItMjk5NzhmNWQzY2Mz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a6d2cc44-b834-49a6-b879-e01513d2174b%22%7d"
     },
     {
       "court": "Kamloops",
       "courtroom": null,
       "conference_id": "821 318 895#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 76
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTI5YWY4OTQtZDQyMy00NjgyLTgxY2MtMmIzNmY5ZTZjNTdi%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22a8dc9f9a-7a42-4168-9d22-f686e0ec9f9e%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 2A",
       "conference_id": "884 948 439#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 77
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Zjg5ZmM0MDUtY2Q3Mi00M2I4LWI1YTMtYTIzNGU5MzU1YzQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227a96180f-aa5b-4b8c-b987-fc22c8f1a3dc%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 2B",
       "conference_id": "330 955 573#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 78
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjRmZTFiMGUtMzBjZS00M2ZjLWIxMjYtYWE4MmYyNmM1Mjlm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228de0d930-87fd-42ab-9977-53be36540ae3%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 2C (IAR)",
       "conference_id": "611 394 603#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 79
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDk5MGQxODgtOGI1Yi00YWM5LTg3ZWEtOTFlMWMyYmZiYWU0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2249bf33a2-257f-4f77-bf3f-7a5aa5665630%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 2D",
       "conference_id": "807 341 598#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 80
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2IyZTRhNmYtMDYyYy00NzhlLTgxZmItZTEyMzI0YTk3ZjEw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22aa5b99da-fc43-47f8-b0b9-d2c108f47b7c%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 2F",
       "conference_id": "706 870 52#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 81
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmQ3MTU1MzQtMzQ4OC00NmI1LWFkYzEtMTIwNTBiMDNkNjgx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c7a94c67-f0ed-414e-bf99-c015c3172dcf%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 3A",
       "conference_id": "514 396 367#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 82
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjhlMjkwYTctOTBiZi00YjYyLWE1MDgtZTJmNGQ0ZDA0N2Zm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223690a304-1273-45eb-be58-347695858676%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 3B",
       "conference_id": "800 088 061#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 83
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjY2YTQ5MmMtMWUwOS00ZThjLTllMzgtODYwYTliZDFiMGZl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224c2fff87-a408-470f-93f0-9762ec2ea6af%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 3C",
       "conference_id": "784 145 306#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 84
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWQxNDZmODQtMTMxYi00NzNjLWEzYTgtMjRiNmNlY2E4ZTc2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e34d811e-cdab-49ca-8de0-f4d3d4cdc872%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 3D",
       "conference_id": "518 345 70#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 85
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzcwMjYyNmUtMzA0Ni00MzhkLWI3NDgtZTEzZmIxMDNjNTk1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e66da9e9-7883-44a5-bac0-3dcffcbb5278%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 5A",
       "conference_id": "975 918 722#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 86
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzdiZGE1MDYtMzBmMy00M2Y2LWJjNjEtOTU3M2Q0YmM1ZGM1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2299c2dcfa-798a-4593-9264-8f456bb5a73a%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 5B",
       "conference_id": "353 246 460#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 87
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmRhNWJhOTgtZmIyZi00NTJlLWE5ZjAtOTMzMmJjNTA0ZjMy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2227b47628-d151-49dc-a92f-4018fc3f6d52%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 5C",
       "conference_id": "697 177 987#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 88
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzY3ZmViOWQtNzVkYi00NWUyLWJhMTUtNzY1M2U5MmM3YTM5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d027698b-5362-4049-abd7-3432403ddde4%22%7d"
     },
     {
       "court": "Kamloops",
-      "courtroom": null,
+      "courtroom": "CR 5D",
       "conference_id": "239 573 84#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 89
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTU5OTQ2ZGEtZWZkMS00NWM2LTkwY2ItYjUzNGRiZjgwMjNk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c19b9041-7ff2-44e0-a65b-b68b667a6f82%22%7d"
+    },
+    {
+      "court": "Kelowna",
+      "courtroom": "JCM FXD List",
+      "conference_id": "105 913 790#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzdhYjEzNjctZDc3My00YzljLTg1NGItM2RmYjNkYWIwMGM3%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22a8dc9f9a-7a42-4168-9d22-f686e0ec9f9e%22%7d"
     },
     {
       "court": "Kelowna",
       "courtroom": null,
       "conference_id": "105 913 790#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 90
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjdkNTU2YjgtYWM3Yy00YTc2LWE4ZjEtZGM3MjZmMzc1OGI0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a9de3e9d-d230-4485-8981-07595af8f582%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "417 902 984#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 91
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTQ5ZGYxOGItNTY1Zi00MzQ2LWIxMDYtMGM2MmQzOWJkNGE4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2289250a16-7ff4-4a7c-970c-3e7f5fd34e42%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
-      "conference_id": "183 869 428#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 92
-    },
-    {
-      "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 003",
       "conference_id": "539 536 696#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 93
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWMwZjUzZjktMjRlOC00NTQwLTllYjMtN2E0MTgyMGM5YWEw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d3615170-a7a1-4c10-a7d9-12532dd927b6%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 004",
       "conference_id": "104 734 247#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 94
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGZlMzc0YzUtMWZjMy00MGRkLThlZTEtOTcwYTc5NDBjMzA1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2233529bdd-cc60-4ec1-a82a-67295909166f%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 005",
       "conference_id": "944 637 647#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 95
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2RjNWUyZDUtOGMwMC00ZTgwLWFmY2EtZDA4ODQ1YjE5YWQ5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%226ecb7a75-bf0e-46af-ab2a-8aad649fc395%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 006",
       "conference_id": "509 339 604#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 96
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzQ2ZDYzZTItN2RlNC00NjFkLTkzMWYtMTI1NjllMzE5NjY3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22aeab953d-4848-4812-9342-1f053042dba0%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 007",
       "conference_id": "555 594 108#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 97
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjYzODVhZDgtM2RjYy00ODc2LWFiMTAtMTIyZWU0MmE3YTFi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22547dac74-dc03-4c99-a1a3-6999aca3e138%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 008",
       "conference_id": "653 088 465#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 98
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzE3NTg4ZjMtNDM5NS00YjU4LTlmYjItMTdmMWMyMjc4MjQ4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229184a299-eb6f-4a26-81ee-48c900c22477%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 009",
       "conference_id": "859 850 730#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 99
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWUxMWQzNDEtMjZiYS00YTQyLWJlYmMtNTc3ZDhiZDJjYzI3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22137e616f-2b21-4263-af1f-f3da50c0f927%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 100",
       "conference_id": "509 417 625#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 100
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWE2NjgzMTAtZjhkNy00MmJmLTg3ODgtY2EzOWJkMTFmZTk3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d7d12883-070d-4e81-9d40-55eb30d9743f%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 159",
       "conference_id": "960 131 068#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 101
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjgwMDcwZWMtY2M2Mi00ZmVhLWEyYTMtNGMwNWY2YzZiNDI4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229b550f8a-89c7-4413-98ef-61b201de96ba%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 300",
       "conference_id": "636 016 038#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 102
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjQ5NTdhOTYtZjJkYi00NzdjLWFkYjAtYzRhOGUxZmNkOTgy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228023bfcf-9469-4c18-b41f-dd1ec3a508d0%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 350",
       "conference_id": "580 972 67#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 103
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTQ1NzRjOWQtNDJkMS00MWI4LTlmZGUtYWZiYmZlMjY3NGNl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f7d04d8c-29a7-489e-bbed-bc6fbfc89ddc%22%7d"
     },
     {
       "court": "Kelowna",
-      "courtroom": null,
+      "courtroom": "CR 515",
       "conference_id": "662 149 641#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 104
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWYxZjdjNzQtOTZiYS00MzQyLTgzZDctMTMwYmI2MmY3NGVl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22567eabca-90ad-424b-b0b8-560b3ea781d8%22%7d"
     },
     {
       "court": "Kitimat",
-      "courtroom": null,
-      "conference_id": "357 831 278#",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 105
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDg4ODVjMDUtZWIyYy00OTRmLWJlMTYtMWViYmM4ODRiYWUy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2228e593e6-3bf1-4264-b650-73fd516b515c%22%7d"
     },
     {
-      "court": "Kitimat",
-      "courtroom": null,
-      "conference_id": "659 501 734#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 106
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "373 697 38#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 107
-    },
-    {
-      "court": "Kamloops",
-      "courtroom": null,
+      "court": "Lillooet",
+      "courtroom": "CR 001",
       "conference_id": "952 538 820#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 108
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yzc5YjY3NWItOGExNi00NWM5LWI0MGYtZGFkMjI4Yjc4YjIx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229cf36754-2867-4eae-9793-88f61b3f4b58%22%7d"
     },
     {
       "court": "Mackenzie",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "853 614 809#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 109
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWQ4Y2JhMmYtYmM2MC00OTBmLTg1MDUtZmYwNjcyMmVkMzY5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22661fd256-acee-4e60-9769-50240904da5a%22%7d"
     },
     {
       "court": "Masset",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "790 510 703#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 110
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDA5ZmMwODEtNjk1Mi00Y2NlLWJhYTItYzcyZDE4NDk3NzAw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22dbae3c47-4f45-4c79-9a82-5c7ffe808d01%22%7d"
     },
     {
       "court": "McBride",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "880 338 174#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 111
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWY0ZTcwYzItNzUxMS00MTMyLWJlMWItMTJjMjAzYzgyZTJj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22cf8f044d-e8cd-4e4a-a816-6329c86a3f1c%22%7d"
+    },
+    {
+      "court": "Merritt",
+      "courtroom": "CR 001",
+      "conference_id": "214 075 888#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODYwN2UyMmQtMjU5NC00ZDAyLTk3NzMtNWYzNGZhOWU5Mjlm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2273cc4632-df57-4244-b431-3ba181658ed5%22%7d"
     },
     {
       "court": "Merritt",
       "courtroom": null,
-      "conference_id": "214 075 888#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 112
-    },
-    {
-      "court": "Nakusp",
-      "courtroom": null,
-      "conference_id": "945 173 483#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 113
-    },
-    {
-      "court": "Port Alberni",
-      "courtroom": null,
       "conference_id": "134 975 221#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 114
+      "phone": "+1 250-900-4440",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_OTFjOGYwNmQtZWQ5ZS00ODc4LWFjODMtZTk3NWFjZWI4MTE2%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522e0e3846b-f37d-48f8-b7e5-8f4cf7584c57%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412255939154%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=5HSDgE3q3o8BGN8JMdaIR%2BKy9CRxABH1WRZsYcoGmCc%3D&reserved=0"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 109",
       "conference_id": "782 551 028#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 115
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjdkNzQ4ZWUtMDZlZi00ZGZmLWExNTQtNjQ5MmUwODRkZTQz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221c3c59d3-0c87-4b5d-811e-b8b660b7506b%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 208",
       "conference_id": "416 121 20#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 116
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Mjg0MjViN2MtMTc5NS00YmUwLWIzNDYtODk0ZTJmNjAwMzNk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e4adc9a0-24b9-4759-97c1-7f26a4254a4a%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 222",
       "conference_id": "241 262 73#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 117
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWFiNTFjZTctZWU1OS00YTEyLTg0YTUtMzlmZGNlZDYyMWRh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e06ea8c0-a423-464d-9b19-a6ce90ef721e%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 227",
       "conference_id": "712 653 472#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 118
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTljNGYxYzYtNDAzYy00NTI2LTg3MDgtOThmOWRkMjRhODMx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a24fca72-583e-473e-b38f-b194339a3129%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 232",
       "conference_id": "417 197 155#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 119
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDdkNjFlOGUtMzI2NS00NjcwLWE0ZjgtYmIxNTVlYTA2MTYy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22be865ce9-c92e-4c7c-9de0-81cbaf70097b%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 305",
       "conference_id": "479 417 487#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 120
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzM5ZWI4MjMtZDkxZS00NDEwLTk1ZDUtNzJlNDZiN2NlMzhi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2265b6f848-4c9c-4964-8752-9340fe89449e%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 306",
       "conference_id": "234 916 148#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 121
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2ZiYWRkMjAtNzBlMS00NjMyLTkxNWEtOTI2MDc2ODk4MjQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229bd10a62-d50a-47f7-be2d-c22b8906288c%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
+      "courtroom": "CR 309",
       "conference_id": "429 640 786#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 122
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDFlYmZlYjEtZTA3ZS00YjIxLThjZGItNzJlMGE4YTU2MGQw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d874aa98-64af-498d-a4a9-92a95f099d16%22%7d"
     },
     {
       "court": "Nanaimo",
-      "courtroom": null,
-      "conference_id": "591 250 399#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 123
-    },
-    {
-      "court": "Nanaimo",
-      "courtroom": null,
-      "conference_id": "436 341 550#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 124
-    },
-    {
-      "court": "Castlegar",
       "courtroom": null,
       "conference_id": "467 850 043#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 125
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGExZDcxNjItYjhmZC00NjI2LThmNmYtMDE2N2Y2NTMwMDJj%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22a8dc9f9a-7a42-4168-9d22-f686e0ec9f9e%22%7d"
     },
     {
-      "court": "Grand Forks",
-      "courtroom": null,
-      "conference_id": "570 514 391#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 126
-    },
-    {
-      "court": "Grand Forks",
-      "courtroom": null,
+      "court": "Nelson",
+      "courtroom": "CR 001 (IAR)",
       "conference_id": "166 486 055#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 127
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTgwYjQzYTAtNzAyYS00MjNlLWFmMDYtNzczOThjOTM0ZTk2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d7ab1534-577b-4d38-9c5a-c27a136c27a5%22%7d"
     },
     {
-      "court": "Grand Forks",
-      "courtroom": null,
+      "court": "Nelson",
+      "courtroom": "CR 002",
       "conference_id": "146 137 458#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 128
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGJiN2FkZjEtMzY5MC00Mjk0LWIzYzYtNTlkNzgyNDJkZWNh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2240ccf9fa-054a-48f9-a196-8fb484507d08%22%7d"
+    },
+    {
+      "court": "Nelson",
+      "courtroom": "CR 003",
+      "conference_id": "248 160 458#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWQyYjg3MGMtNWM5NS00ZWZjLWJiNmEtNTRlYTQ1YTBjMGJi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2247dde88c-f8e1-422a-aa91-78f63abc199f%22%7d"
     },
     {
       "court": "Nelson",
       "courtroom": null,
-      "conference_id": "248 160 458#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 129
-    },
-    {
-      "court": "New Westminster",
-      "courtroom": null,
       "conference_id": "673 715 681#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 130
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTM0Zjg4MjAtYmIwZi00ZjE0LWE3MDAtMzdmMzUwZmM0YTBj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223123a46d-eb44-407d-9237-e91e208bd8a9%22%7d"
+    },
+    {
+      "court": "New Westminster",
+      "courtroom": "JCM FXD List",
+      "conference_id": "199 310 385#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmRjOWJjYTgtMjM5ZS00ZGM1LTg1ZjktN2MxMGIyYzEwMWZm%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%221b20611a-e121-4fb9-90e3-ae1427649a54%22%7d"
     },
     {
       "court": "New Westminster",
       "courtroom": null,
       "conference_id": "199 310 385#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 131
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmYxMTcyMDAtODFkYy00ZTQ4LWIyZmEtZjA3NWFjMzcwOGU5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223d1b625f-62bf-4014-a950-89b5eefd785d%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 101",
       "conference_id": "725 235 053#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 132
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWU2MDc0NTItYjdmZi00OTg1LWJmZmYtYmRkNmYyYmNiMzRk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a0fe59a7-4ec6-41fe-bcd2-e75279564b16%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 102",
       "conference_id": "838 641 295#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 133
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGQzYjVmNDItOGE4Yi00ODI5LWJhYzYtMjY5ZGRlOTQ4ZjQw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2203cbe6f1-2adc-43fa-a26c-4cc3dd59430d%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
-      "conference_id": "864 997 415#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 134
-    },
-    {
-      "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 205",
       "conference_id": "914 002 064#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 135
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODc0MTc0ZDYtM2UzNC00YWJjLTg2OWUtMzNkYjllZTc4YTJh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f60ed82a-7d88-4612-9055-cf10785bd90c%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 206",
       "conference_id": "677 038 211#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 136
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzNiMTdmMTAtYTg0OC00MjBmLTlhNjUtZmYxMmUyMDJiY2Zm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22611b7b5d-2acb-4e99-9991-f52c6616fe94%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 207",
       "conference_id": "921 296 905#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 137
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzZlZWJiM2QtMGQ0Ny00MjNlLTlmYzUtNzk3NGFlNWRjOTUy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c9111deb-44b4-4c53-a8ff-c7227728d256%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 208",
       "conference_id": "771 505 325#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 138
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjdlZTBhOWItYTY0MC00MDc2LWI5YjctOGY2OGI1YTY4ZWE3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220f83ce4e-75ed-41a8-8aa3-4c7453b5984c%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 209",
       "conference_id": "417 352 670#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 139
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTYwZmJjNmEtYzhiYS00ZWVlLWI0N2UtYzhjMDhhMzRmZjM0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22bae55b37-98b9-433a-98bc-ccb03d25a384%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 210",
       "conference_id": "737 552 265#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 140
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWY0Y2IzYTQtMjFmYy00MDcxLTg3MTQtOWY3YmZkNjliNzk4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220b738979-c334-4979-b72e-75f3cc7167ef%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 211",
       "conference_id": "935 363 58#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 141
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDc0ZGU5NDMtNTEyNi00OGU4LWE2OTItMjU2ZTk0YTlhZTRj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c12d7cd0-c6b5-4c53-964d-066b7fb867c9%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 212",
       "conference_id": "947 070 272#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 142
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTkzOGQ4ODgtODk3Ni00ZTAxLWFjNTktMmYyZTE2ZDUzMGZm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2239f47a25-7c5a-4c02-b86e-ae04a6ea0d5b%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 213 (IAR)",
       "conference_id": "858 013 802#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 143
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzZmZWRmNTctYWE0Mi00M2ZlLWFmOTEtOTQ5MjRiZTkyZjY0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22eacafdd7-7367-4f43-84a6-a83c88661d6c%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 411",
       "conference_id": "552 401 811#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 144
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzYwNTIyZWUtYjlmZS00MWM0LTkyOTItZGY3NTc2OGVhNzVl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223a9c6c14-eb95-4c56-98c9-81728828b63a%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 412",
       "conference_id": "501 121 085#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 145
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDZjZWI5MzYtMzk0NS00NmE3LWJmOGYtMDJjMDdjNDdhYzQy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2247e0b34f-ec4d-403a-83c4-b6c58d13d767%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 413",
       "conference_id": "392 981 406#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 146
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzkzYTFhM2QtZjRkZC00MTc0LWFmZDktYzQ4Y2M3ZGM5YTFm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22287a91c6-d9d1-4e0e-b69d-c63b181a905d%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 414",
       "conference_id": "784 918 334#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 147
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTA1NzczYmMtY2MyNy00NGQ0LWIxNmMtMGY4YmRmY2ViZjNk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227e6c55dc-a4f3-470f-81ac-8cc48b362da2%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 415",
       "conference_id": "443 449 47#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 148
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTQ0MTFlNDgtMGMzOS00ZTMyLWEwMGUtZGU3YWNhYTJjMmVk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22141ad7a7-0e17-4dcd-852a-3ff4a93ce30a%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 416",
       "conference_id": "411 791 369#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 149
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTNhNWQxY2QtNWYwNC00ZDJkLWEwYmQtYzkwN2JiODExY2U4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223a1ffce3-1159-4022-9dfe-d02aaf003ab9%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 417",
       "conference_id": "148 454 887#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 150
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWVmYmFlMDMtOTJlZC00ZGUxLWEzZWYtMDRkZWEyOTFmZTJk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22851970d3-a20d-49f5-a05d-74a1261c5dab%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 418",
       "conference_id": "907 320 491#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 151
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODk3OTRlZTktYTI0Ny00M2VkLTlmNTMtNTBiNTdhMmMwNWE0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227b809cbe-b1c7-4e2a-8cea-b135863dbe3a%22%7d"
     },
     {
       "court": "New Westminster",
-      "courtroom": null,
+      "courtroom": "CR 419",
       "conference_id": "802 411 460#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 152
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2YyZjJmNWUtZmJkNS00OGRjLWJhOTYtZWNiZjcwYmQzNjc0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228032c5ff-f05b-42b2-aae6-ba04d31bd814%22%7d"
     },
     {
       "court": "North Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 001 (Bail)",
       "conference_id": "698 136 48#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 153
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODY2MjUxMTUtMjA5NS00NmRkLWJjM2MtNWEyMTgwOTRhODMz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2216b70133-7b1d-4316-a2fa-4e494e04e2c7%22%7d"
     },
     {
       "court": "North Vancouver",
@@ -3067,511 +2963,431 @@
       "conference_id": "657 198 089#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 154
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzRkYmJlMDctZDBjZS00YzJkLTgwMWYtNjQ4OWY3ZTg0MjFh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2216b70133-7b1d-4316-a2fa-4e494e04e2c7%22%7d"
     },
     {
-      "court": "Sechelt",
-      "courtroom": null,
+      "court": "North Vancouver",
+      "courtroom": "CR 002 (ASC)",
+      "conference_id": "461 130 2#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmVkYWIyNTYtY2VhOS00NDAxLWI4MGItYTRiZTExNDdjNzE0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22459707c3-f510-4438-b49a-e59c3b864455%22%7d"
+    },
+    {
+      "court": "North Vancouver",
+      "courtroom": "CR 003",
       "conference_id": "764 967 106#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 155
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2E3ZDg4YWMtYzkzNC00MDUxLThjMTUtYjQ1ZTJlZTg4ZjQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b8826c3b-641b-4222-9a58-6f6ce0c31846%22%7d"
     },
     {
-      "court": "Sechelt",
-      "courtroom": null,
+      "court": "North Vancouver",
+      "courtroom": "CR 004",
       "conference_id": "307 291 074#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 156
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmRlYWJlMGMtNDhiNS00NjAzLTk3NWItOTk2OWRhZDhjZTk5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2209db75e0-fc59-498f-9947-9b80befe9ba4%22%7d"
     },
     {
-      "court": "Sechelt",
-      "courtroom": null,
+      "court": "North Vancouver",
+      "courtroom": "CR 005",
       "conference_id": "863 653 738#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 157
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzZkMTNmYWEtYzJiYi00NmE4LThkODItYzY0OTAyNTM3MDg5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d2f722f4-eb6d-4fcc-bf6d-dacfe16ab05d%22%7d"
     },
     {
-      "court": "Sechelt",
-      "courtroom": null,
-      "conference_id": "638 164 601#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 158
-    },
-    {
-      "court": "Sechelt",
-      "courtroom": null,
+      "court": "North Vancouver",
+      "courtroom": "JCM FXD List",
       "conference_id": "894 763 344#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 159
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_YTQ1YjNiNTgtNjc0ZS00OTI5LTkwM2EtYTIyZmY2NWUxNjQ4%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%25225a54b161-f8cc-4e14-ab81-334b962e7f44%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412255782941%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=tH9zBMLTt1HJR986ISlU%2FqCZA1wqvXEIp4A9XKuAino%3D&reserved=0"
     },
     {
-      "court": "Pemberton",
-      "courtroom": null,
-      "conference_id": "996 622 836#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 160
+      "court": "Penticton",
+      "courtroom": "JCM FXD List",
+      "conference_id": "195 724 746#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODlhMGYzM2MtYTQyOS00MDllLTljYzctMzc2YjhmM2JjMDhj%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22a8dc9f9a-7a42-4168-9d22-f686e0ec9f9e%22%7d"
     },
     {
       "court": "Penticton",
       "courtroom": null,
       "conference_id": "195 724 746#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 161
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTNiNWNmNWUtMTExMi00NTQwLWFkZmEtMjRiMDUzMjAxNGU1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2254eb38b4-2dd2-42a2-a9ed-ac3df751a0f1%22%7d"
     },
     {
       "court": "Penticton",
-      "courtroom": null,
+      "courtroom": "CR 100",
       "conference_id": "896 343 603#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 162
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzZjZmVlMjctODM4My00M2M1LTliNjQtZmNmMTYwMjczN2Uw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2211b2ce6e-bdd5-4f3d-b2dd-b7915b3fd99a%22%7d"
     },
     {
       "court": "Penticton",
-      "courtroom": null,
+      "courtroom": "CR 200 (Family Remand)",
       "conference_id": "525 813 92#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 163
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGFhNTJhZjUtODc2MS00MTk2LWI2NjQtMGZlZWYyZGQzZWQ5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22062221fa-403f-4ddb-bdfa-dd0f9d28e28e%22%7d"
     },
     {
       "court": "Penticton",
-      "courtroom": null,
+      "courtroom": "CR 201",
       "conference_id": "579 172 781#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 164
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzFkMzZkZGQtYmEyZC00MjQ3LThhNWItNGY4NDE1ZDUwNDUy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22cd6ede3c-7193-43c4-840f-c3136c00722f%22%7d"
     },
     {
-      "court": "Penticton",
-      "courtroom": null,
-      "conference_id": "675 356 507#",
+      "court": "Port Alberni",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 165
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODhhMzQxOGYtNTNjNS00YzY0LTgwNjMtYTllZjBmZDE5Y2Y1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22832b8597-9de6-4964-866e-fc8c87d1f2fd%22%7d"
     },
     {
-      "court": "Nanaimo",
-      "courtroom": null,
+      "court": "Port Alberni",
+      "courtroom": "CR 001",
       "conference_id": "494 687 761#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 166
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTgzZTRjMjQtMjc4YS00OWVhLWE3OTItODIwMzk0N2MyZTE5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a68680c8-fc32-4b8d-be4a-482b05a41bb7%22%7d"
     },
     {
-      "court": "Nanaimo",
-      "courtroom": null,
+      "court": "Port Alberni",
+      "courtroom": "CR 002",
       "conference_id": "128 623 546#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 167
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODA3ZGFjNGQtZWI2Yy00ZTljLWI2ZWQtODIwZjk1YmY0Mjlj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22dd5203aa-4951-44fd-9595-d1134b19a353%22%7d"
     },
     {
-      "court": "Nanaimo",
-      "courtroom": null,
+      "court": "Port Alberni",
+      "courtroom": "CR 003 (IAR)",
       "conference_id": "165 091 248#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 168
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmY1Yzc4YWItZjY3OC00NzhmLWI5YmMtZjQwYmMxYTM5MzQ3%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%221b20611a-e121-4fb9-90e3-ae1427649a54%22%7d"
+    },
+    {
+      "court": "Port Coquitlam",
+      "courtroom": "JCM FXD List",
+      "conference_id": "703 149 09#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2U0YTdiMWUtMmE2NS00YTMyLWFlMDQtNGM2YTZmZTlmNDAy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224799e9a4-8246-48ca-97cb-db3fa71ac5fe%22%7d"
     },
     {
       "court": "Port Coquitlam",
       "courtroom": null,
       "conference_id": "703 149 09#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 169
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmZkYjlhMGItMTkxMC00MmJiLTlmZGMtNDRiNjFjYzIyY2Rm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225b4813d2-c4d7-4275-93f6-9a6f05830a66%22%7d"
     },
     {
       "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "679 788 260#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 170
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "907 587 854#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 171
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "492 745 97#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 172
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "351 173 324#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 173
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "368 852 598#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 174
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "786 419 997#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 175
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "459 376 965#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 176
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "615 943 390#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 177
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "810 732 678#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 178
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
+      "courtroom": "CR 008",
       "conference_id": "183 628 890#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 179
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGM0OTk0MDYtNDE0Mi00MGQxLWFiNWUtOGE1ZGFlNTkwMmIw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22098904db-ed95-410b-af45-7ba9e36ba3a8%22%7d"
     },
     {
       "court": "Port Coquitlam",
-      "courtroom": null,
+      "courtroom": "CR 009",
       "conference_id": "663 475 845#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 180
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDcwZWU3YzEtZGU3OC00MWRiLWE5NjktODBjNjE3NzBlZGM3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227766ab9c-b724-451f-ac4c-c7f39ce946db%22%7d"
     },
     {
       "court": "Port Coquitlam",
-      "courtroom": null,
+      "courtroom": "CR 010",
       "conference_id": "647 274 315#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 181
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "624 448 247#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 182
-    },
-    {
-      "court": "Port Coquitlam",
-      "courtroom": null,
-      "conference_id": "131 566 11#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 183
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmM1YjIyN2EtNGNhNi00MmIzLWIxMjYtNjgyZTRjN2RhMGUz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224568c758-cf7d-4913-9c3d-5c4875ef5746%22%7d"
     },
     {
       "court": "Port Hardy",
-      "courtroom": null,
+      "courtroom": "CR 001",
       "conference_id": "794 200 761#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 184
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTcwYzE5NWYtOWU2NC00NjBjLWIyN2UtZDczMDgzMWQyNTAx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22caded149-7ec0-4f45-be91-836a6806e7af%22%7d"
     },
     {
-      "court": "Port Hardy",
-      "courtroom": null,
-      "conference_id": "218 049 320#",
+      "court": "Port Coquitlam",
+      "courtroom": "CR 011",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 185
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWM2YWVhZWEtN2IwOC00YTlhLWEzZDAtYjAzYjk5NjJhZGFi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ed644a35-b058-411a-885e-d01b8d313ebe%22%7d"
     },
     {
-      "court": "Powell River",
-      "courtroom": null,
-      "conference_id": "767 610 49#",
+      "court": "Port Coquitlam",
+      "courtroom": "Virtual Bail Triage",
+      "conference_id": "131 566 11#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 186
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjlhMDE2NjEtMjZiZS00MTIxLWEzZWQtZjNmN2U0YTc1ZTE1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d40f0e5d-26ba-45ff-88dd-354f32039cb4%22%7d"
     },
     {
-      "court": "Powell River",
-      "courtroom": null,
-      "conference_id": "124 942 35#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 187
-    },
-    {
-      "court": "Powell River",
-      "courtroom": null,
-      "conference_id": "268 071 196#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 188
+      "court": "Prince George",
+      "courtroom": "JCM FXD List",
+      "conference_id": "351 742 576#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjZlNWQ2MGYtNWRkYS00YzkxLTk3YWEtNzZkMWI0YjRlMGVh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224471e9d9-bfd6-40a2-aa98-db164690d381%22%7d"
     },
     {
       "court": "Prince George",
       "courtroom": null,
       "conference_id": "351 742 576#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 189
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDM2NDhmYTktOGNkMi00ODZjLWI3ZDMtY2U5ZWQ2NDUyN2E5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22089f5686-c635-4d54-a5bd-bcf5ed0c6098%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
-      "conference_id": "296 612 077#",
+      "courtroom": "CR 101",
+      "conference_id": "188 861 831#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 190
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_ZjcxM2VlMTEtOTg3Yy00MzI5LWJlYmUtMjRhZjkzYTM4ZjU3%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522ee87b580-420f-453d-88ea-719f05bab412%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412256095379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=fODiNXx5EVgYU%2BiDjtbULKULxuP2DICzBVV10ymcN2k%3D&reserved=0"
+    },
+    {
+      "court": "Powell River",
+      "courtroom": "CR 104",
+      "conference_id": "767 610 49#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_OTUxMTU3NGQtYzI3OS00YTczLWFjZWEtNDEyOGQ2ZDI2ZTUz%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252288c2f485-81c9-4402-a143-70d7ce08aec5%2522%252c%2522Oid%2522%253a%2522f368161c-d9f1-4bae-b742-1facb42e5c40%2522%257d&data=04%7C01%7Cjulie.lauritzen%40gov.bc.ca%7C3aa4fd09ab274576ca9e08d9902d7614%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637699348275044527%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=6AO8QtWBvWZrquSc9%2Bz4CQYgSfcOwml5FEHIjYMzVd0%3D&reserved=0"
+    },
+    {
+      "court": "Powell River",
+      "courtroom": "CR 111",
+      "conference_id": "124 942 35#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGU1ODM4NzYtMDFiZi00ZjY4LTk4ZGItNTE3ZDFiMTliNDAw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22bae2bda4-0c3a-463d-a206-7ea2a62bc78a%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 102",
       "conference_id": "881 451 017#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 191
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTBlODdlZjAtZmYxYy00MjIwLTk1NmYtZjYzMGZlMzIzZjc5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224e9f278d-ba01-4e86-9f4f-dabf51bd6861%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 103 (IAR)",
       "conference_id": "292 781 999#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 192
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjIyMDliZDMtMDVmMC00YzExLThhMTYtMGM3ZjI4ZjNkY2Qw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%227fd265bf-69b6-4d44-ae1b-1f11a6c2d555%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 104",
       "conference_id": "477 396 128#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 193
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGZiMjg5NTQtNjBjMC00MDVkLThhODItZjUwOTkxNDM1OTdk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22dd3b1629-8e46-45fc-8818-eb95e312d01c%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 111",
       "conference_id": "964 985 116#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 194
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmUxNzlmNDUtYTdiYS00OGE5LWFjZDItMDhmMDc1MTFlNmJj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f017e30e-f082-483a-a147-4e674c8a08d4%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 305",
       "conference_id": "923 928 956#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 195
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDE2NDM5OTktOWQ3NS00MTViLTg1Y2EtZDVkNzkyMDc3MWZk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b6144603-68cb-4b50-91c5-17a1a6ee9241%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 306",
       "conference_id": "733 335 253#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 196
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDlkNDg3ZWYtZjM0Ny00ZTFhLThhMzEtNTA3YzQyNzIyN2Zj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c2e8e21d-2a7e-44c4-974f-be7ca6e199bc%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 307",
       "conference_id": "969 575 89#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 197
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODU0NTc4ZDEtZjQwMi00Njg1LTg5MzMtYmFmYTBlNThmNWJi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221a9711c3-f8cf-4a4b-a4af-b5c7a0f1de62%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 308",
       "conference_id": "395 376 062#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 198
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTY1NjA4NDgtMDE4Ni00NjliLWE0YmMtYmU5ZTliNzU5NTA5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b12bf092-3b6f-43d1-840d-e937e783f535%22%7d"
     },
     {
       "court": "Prince George",
-      "courtroom": null,
+      "courtroom": "CR 309",
       "conference_id": "750 622 106#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 199
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWFlMmU3NzAtZDY3OS00MDg4LTk3ZTMtOGI1NDVmMWM1YmFi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c0b3dcce-7d38-4a91-8e74-7c8cec3eb6e3%22%7d"
+    },
+    {
+      "court": "Prince Rupert",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDVlNzY5NDItMGNhMC00YzhiLWIwZTgtN2QwMWY0YzM3MTYw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22834a703e-3e68-4a52-aa2e-fb82ca6a2421%22%7d"
+    },
+    {
+      "court": "Prince Rupert",
+      "courtroom": "CR 200",
+      "conference_id": "852 079 90#",
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2JmMzM0NDItNTI3ZS00ZWVhLTliNTQtNTQxNGM4YTUzYzgy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22fd626eec-f365-47ee-8ee3-b35fbecfb625%22%7d"
+    },
+    {
+      "court": "Prince Rupert",
+      "courtroom": "CR 300",
+      "conference_id": "477 052 596#",
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjMyZTU4NWEtY2QxYi00MDMzLTk5NzUtY2JjODlmNDBjMDJl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22bac538d7-75b0-421d-8e84-cdc614f84cec%22%7d"
+    },
+    {
+      "court": "Prince Rupert",
+      "courtroom": "CR 302",
+      "conference_id": "287 253 812#",
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDczZmEyODItNzU3MC00ODg1LTg0ZDAtMzBkMDc5MTI5MzI1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ca98406d-0b77-467c-a0df-d48ddb54d064%22%7d"
+    },
+    {
+      "court": "Princeton",
+      "courtroom": "CR 001",
+      "conference_id": "786 060 185#",
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGZkZDkxMGQtZGJlMC00YTdiLWFkNGMtODFkYTQ4NzE4NTI3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220ec75fce-5810-4a0c-8cc5-c86ed787f354%22%7d"
     },
     {
       "court": "Prince George",
       "courtroom": null,
-      "conference_id": "186 351 498#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 200
-    },
-    {
-      "court": "Prince Rupert",
-      "courtroom": null,
-      "conference_id": "326 758 409#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 201
-    },
-    {
-      "court": "Prince Rupert",
-      "courtroom": null,
-      "conference_id": "852 079 90#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 202
-    },
-    {
-      "court": "Prince Rupert",
-      "courtroom": null,
-      "conference_id": "477 052 596#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 203
-    },
-    {
-      "court": "Prince Rupert",
-      "courtroom": null,
-      "conference_id": "287 253 812#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 204
-    },
-    {
-      "court": "Penticton",
-      "courtroom": null,
-      "conference_id": "786 060 185#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 205
-    },
-    {
-      "court": "Williams Lake",
-      "courtroom": null,
       "conference_id": "710 140 453#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 206
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_YTY1NDZlNDItOTIxYS00NTYxLWFlN2UtZTcxNmFhYTEzOTI4%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522ee87b580-420f-453d-88ea-719f05bab412%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412256095379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=PcHpHeBb1bbivJTlrRovCMlBEfJe7M18Lb4B%2BRB9rI0%3D&reserved=0"
     },
     {
-      "court": "100 Mile House",
-      "courtroom": null,
+      "court": "Quesnel",
+      "courtroom": "CR 023 (Family Remand)",
       "conference_id": "214 517 661#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 207
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjQ3MTNmMDEtYTIxYS00OWI1LWE3MDctYmQ5ZjhkZDY5MjNj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223f040ea7-c623-4f69-b289-511f14de24ee%22%7d"
     },
     {
       "court": "Quesnel",
-      "courtroom": null,
+      "courtroom": "CR 114",
       "conference_id": "222 318 801#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 208
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjhlMjBkZWQtYTYxMi00MWRhLTkwZDgtODY1YmJiNGU1MDg1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c4939c2c-b7c0-4bfc-9ae9-ca027945114a%22%7d"
     },
     {
       "court": "Quesnel",
-      "courtroom": null,
+      "courtroom": "CR 117",
       "conference_id": "882 098 250#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 209
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDhkYjIyNGQtYTFjZi00OGJjLWE1ZTEtZGIwZDc0ZjQ4YTYw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22119e253d-53b1-486a-960f-a20424b17567%22%7d"
     },
     {
       "court": "Revelstoke",
-      "courtroom": null,
+      "courtroom": "CR 201",
       "conference_id": "775 517 542#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 210
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2I0ZDExOWMtZjBjOS00NzlkLWJjZDAtZDU4OWE3ODVmNmQ1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221c98d836-5b1a-4101-a7ee-2093502ca84e%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "JCM FXD List",
       "conference_id": "183 584 17#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 211
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDliZGI2MWQtYmI3OS00Mzg2LTg2ZGYtZWM0NGE1MTc3Nzkz%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%225a54b161-f8cc-4e14-ab81-334b962e7f44%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 102",
       "conference_id": "965 859 825#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 212
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzUwNjk4M2UtNjQyNy00NTJhLWJjMjctMzU4NjBlZjE4NmU1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228f8b3000-6f3e-4eaa-973e-bb023d735f3e%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 103",
       "conference_id": "291 863 91#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 213
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmYyZjA4MjYtNDEyMS00Yjg0LThlYmMtOTkwMDUzZmJjNWFk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220307f67e-7aa0-4c61-bbb6-37d5785c2e5b%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 104",
       "conference_id": "927 842 116#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 214
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzI5MTRiNjQtMmU1Ny00NmMzLWI3YzktMjk1NTg2OWY0N2Ix%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221f7f802a-243c-478b-bd86-03561748333d%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 105",
       "conference_id": "117 128 571#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 215
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Zjc2MmNjN2EtMzgzNi00MzE0LTgwZGEtNDNiZWEyODdkYTMy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b16cbd66-da96-49a5-b664-bce1a7935e06%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 106",
       "conference_id": "374 145 425#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 216
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzFhMWI4YTYtZDZiMi00NzE4LWE2ZTktMzIxZDIzMWMwZDM4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ae62ce78-4e33-465f-ae8e-39a60c3cd2db%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 107 (Family Remand)",
       "conference_id": "438 499 544#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 217
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWZmZTlmNzgtNmJiYi00Yzg0LWJjYjQtOTBkMGUzZWQ3MDYy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2223998c75-0666-4377-b6ec-e053e2641073%22%7d"
     },
     {
       "court": "Richmond",
@@ -3579,335 +3395,247 @@
       "conference_id": "300 911 530#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 218
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTBmNDgzMzItMmIxNS00NDRhLWEyNWQtNjQ4MDc5NTNkMDQ4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2223998c75-0666-4377-b6ec-e053e2641073%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 108",
       "conference_id": "903 692 109#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 219
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmEyNGRkYzUtY2E0ZC00NzVlLTgzZWQtM2E5ZjVhNjE4ODA1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22328d7dc9-db96-4c24-8505-e7ccdf400288%22%7d"
     },
     {
       "court": "Richmond",
-      "courtroom": null,
+      "courtroom": "CR 201",
       "conference_id": "291 705 258#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 220
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjhhNzU0NzgtNWQ5Ni00MGI3LWIyYmQtYzZlZThlMTkzMDcz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a1b19800-c701-4cb6-8fcc-02bb5aa6b8ef%22%7d"
     },
     {
-      "court": "Nelson",
-      "courtroom": null,
+      "court": "Rossland",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTZmMmQxYjYtNjQxNi00ZDlkLWFkYTgtZjhiYzMyNTUyZmY0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2206fb8015-f4c7-4802-a4d9-91350d9be9e7%22%7d"
+    },
+    {
+      "court": "Rossland",
+      "courtroom": "CR 001",
       "conference_id": "863 809 663#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 221
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDNjY2Y0NjMtNmExZC00ZGI5LTg3ZTEtYWE2NTk5NDQ0Nzdj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22293db206-3b04-4506-9030-7601e72aae9c%22%7d"
     },
     {
-      "court": "Nelson",
-      "courtroom": null,
+      "court": "Rossland",
+      "courtroom": "CR 002 (Family Remand)",
       "conference_id": "736 762 210#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 222
-    },
-    {
-      "court": "Nelson",
-      "courtroom": null,
-      "conference_id": "439 858 554#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 223
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Mjk4MTYwZjQtZjU3Ny00MTU3LWE1ZjMtYjRjYzI4YzNiZmVl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2283f908e1-8863-4139-8639-b3ec95cbd0c5%22%7d"
     },
     {
       "court": "Salmon Arm",
-      "courtroom": null,
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjAyYmJkODItNjQ4NC00NzFhLWJmNWQtN2FkZDcyN2I1M2Q4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228fb19c06-e724-4c4c-bed7-d06d07861402%22%7d"
+    },
+    {
+      "court": "Salmon Arm",
+      "courtroom": "CR 200",
       "conference_id": "390 099 177#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 224
-    },
-    {
-      "court": "Salmon Arm",
-      "courtroom": null,
-      "conference_id": "768 282 909#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 225
-    },
-    {
-      "court": "Salmon Arm",
-      "courtroom": null,
-      "conference_id": "594 564 897#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 226
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTI1Zjk0MGMtOGFlZC00NGZkLWIwMWQtN2U1Njk4Nzg5MjRl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2281dc09d5-bea1-4b92-8c24-d6ff459e6bcf%22%7d"
     },
     {
       "court": "Sechelt",
-      "courtroom": null,
+      "courtroom": "CR 001 (Family Remand)",
       "conference_id": "438 061 494#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 227
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGQ1YmY0YzEtMTEyZi00MTVjLWExZTItYWFjNTkzMjJiNzUx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22308c8040-0eb3-44cf-8ca1-0aad1e1c550a%22%7d"
+    },
+    {
+      "court": "Sechelt",
+      "courtroom": "CR 002",
+      "conference_id": "235 121 321#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmQ4OWJhYWUtZTY2ZS00MDA5LThmNWYtM2M2MWY0OTNhNmI5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e1d01850-ad05-4ff8-b010-5b33d9989560%22%7d"
     },
     {
       "court": "Sechelt",
       "courtroom": null,
-      "conference_id": "235 121 321#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 228
-    },
-    {
-      "court": "Prince Rupert",
-      "courtroom": null,
       "conference_id": "817 063 909#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 229
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_MjI1NjgyM2ItMWY0YS00MGJjLWE1ZTYtZjQyYTcyMTc4ZmY0%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522ee87b580-420f-453d-88ea-719f05bab412%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412256095379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=yaR1NfishdNmPrwaWFb47liv75TuS9GkRuG8%2BFspfYY%3D&reserved=0"
     },
     {
       "court": "Smithers",
-      "courtroom": null,
+      "courtroom": "CR 101",
       "conference_id": "960 514 963#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 230
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODlhOGVmMTgtZWM3MC00YTljLWEwYzQtM2U5YzZmNGVmYmM4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ae485f17-48d3-47b2-ac9f-532a5e179b8c%22%7d"
     },
     {
       "court": "Smithers",
-      "courtroom": null,
+      "courtroom": "CR 153",
       "conference_id": "120 276 17#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 231
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjE4MTkxZjctMGUzNi00MDcwLTg2MTUtNWMxZWZkNjg4NTFj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2254986807-d0ad-45cb-b2ab-d4363bb3ec94%22%7d"
     },
     {
       "court": "Smithers",
-      "courtroom": null,
+      "courtroom": "CR 159",
       "conference_id": "180 490 279#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 232
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTJkNmZlYTUtMTM4OS00MTQ1LWJiZmItNWU5ZWU3NGIyMzc1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f90cdae4-21dd-45bd-afe3-3fa6ccb432d8%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Sparwood",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
+      "phone": "+1 778-725-6348",
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWI0OTJjN2UtZTc2NS00MjdmLWFhNzYtZDY4ZWM5ZDc3M2Rl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22df85d6ca-9233-431e-9528-39b5a670e19a%22%7d"
+    },
+    {
+      "court": "Sparwood",
+      "courtroom": "CR 204",
       "conference_id": "501 167 806#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 233
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTFjM2E5ZjctYTVmMi00Yzc1LWIxMmMtNzdhNzViOTA3ZmY2%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%221b20611a-e121-4fb9-90e3-ae1427649a54%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "365 414 910#",
+      "courtroom": "CR 100 (IAR)",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 234
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzhmNDhlMDAtMDNhZC00YTk4LWFiMDktNzVhY2JiY2IxM2Q3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224632e989-3028-47f9-8254-2087470b3815%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "456 907 073#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 235
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "566 168 232#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 236
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "481 046 151#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 237
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "518 376 777#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 238
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 101",
       "conference_id": "498 943 198#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 239
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2Y3NzFlNmEtYjJiMC00MzFmLWIzMDktODUyNjRmMWIzOTcz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f7ccaf87-b038-45d5-9205-9866c73a3005%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 102 (DSP)",
       "conference_id": "230 268 796#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 240
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Zjk5OWNkN2UtOWNlNi00ZjM0LTg5MTUtYjNiNGExZGQ3ZDg3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2234f5fb0a-53a1-4997-83b4-a85c8c61d248%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 103",
       "conference_id": "662 873 335#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 241
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmQwYjgzMDQtMDU3NC00ZGYyLTk5NTUtYWZiODhkZGJjOTNk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b0436035-d7fb-4560-b7a9-920637f7441a%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 104 (DVC)",
       "conference_id": "330 925 728#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 242
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGI5YmIzM2UtNTM1OS00NWYxLWJmODQtNTQ3M2YxYTc5YzYz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22091b47c9-9708-4b36-8aaf-3605ecec84c6%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 105",
       "conference_id": "941 745 729#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 243
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2ZhNDUxMjgtYmVhNC00MTdhLTgwMWMtMzczYzJjMTRhMmU4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22fe33f5b0-7db2-430d-8ce7-ff25e332d851%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "557 323 698#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 244
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "977 831 566#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 245
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "409 841 398#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 246
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 109",
       "conference_id": "776 920 300#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 247
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjAyNjVkMTEtZTMwMi00N2U1LWJlMjAtYTAxZThkM2QzZGQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229e3080c0-58eb-416a-bcf0-68ecd30fd5db%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 110",
       "conference_id": "447 361 682#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 248
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWM0ODI1MDQtZDQxZC00MGMxLThhYTAtMTYyOTkyNmI0N2M1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b11321a1-1edb-4dac-ad1f-b77aa8f93058%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 308",
       "conference_id": "776 827 667#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 249
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWNjMTcwM2EtNGQ3Yi00ZDM3LTg4OTUtMjgwZTAzODJiZWI0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228fc07c16-e14f-411c-9703-4ce4cc69f5da%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 309",
       "conference_id": "380 023 982#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 250
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjNlZDgxMDAtOWRmOC00MDZjLWE4YmUtMzEyOGRmZjY3YWIx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22425b2f92-7909-45ef-a4b6-fbfd9372f6a2%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "335 295 024#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 251
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "303 635 265#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 252
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "888 498 28#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 253
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 313",
       "conference_id": "177 656 270#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 254
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTU2Yjg2MmItZWNjYi00MGZjLWI3OTMtZTI3MGQ5OGVjZDEy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c13dfb5a-2920-40c9-b8bc-a8bce4911b10%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 314",
       "conference_id": "252 320 110#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 255
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGEwZTNlOTUtM2Q1MC00MDNlLTk2ZjMtMzA2NTZiY2FlYjc1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b325f5e4-a06e-4ee5-8caa-dcae130369cf%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 315",
       "conference_id": "793 788 114#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 256
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmJkOWVkOWUtNDcwZS00ZjE5LWFjOTgtNzcwMTMyNDY1MWRh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22450b874e-0946-4b94-b3a9-1db6c6436867%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 316",
       "conference_id": "819 188 776#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 257
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDQ3Zjc1NTEtOWI0Yi00OWQ2LThjYTQtNzJkYzI4OTM2ZDll%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223c5f24b2-8331-468f-8ec0-ebc6fe6e1716%22%7d"
     },
     {
       "court": "Surrey",
-      "courtroom": null,
+      "courtroom": "CR 317",
       "conference_id": "998 782 285#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 258
-    },
-    {
-      "court": "Surrey",
-      "courtroom": null,
-      "conference_id": "623 012 692#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 259
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjU1MjBkZGItMzk4Ny00ZjZlLThhZTYtMDkwODg4MWNmOGRi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229350736b-4de3-413b-8c89-2a3f6018a859%22%7d"
     },
     {
       "court": "Surrey",
@@ -3915,887 +3643,623 @@
       "conference_id": "136 442 754#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 260
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODFmNDBkYjItZDA2Yi00ODMxLWI2MDMtMzEyMDczZDc0YmUw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229e0db822-80db-45af-9a26-70fb214c1f84%22%7d"
     },
     {
       "court": "Terrace",
-      "courtroom": null,
-      "conference_id": "488 155 004#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 261
-    },
-    {
-      "court": "Terrace",
-      "courtroom": null,
+      "courtroom": "CR 001 (Family Remand)",
       "conference_id": "751 766 318#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 262
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzNkOTkzMzAtZjIzMC00YzM0LTg2ZDQtNDI4ODczMmVkN2Nh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a8c30892-285c-47aa-a1b5-7b99a16bab27%22%7d"
     },
     {
       "court": "Terrace",
-      "courtroom": null,
+      "courtroom": "CR 002",
       "conference_id": "356 054 896#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 263
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODQ1OWMxNzMtYTIzYi00Y2IzLWIyYzItNjA3YzM3YTM3YmQw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b1053619-3eee-44ab-a207-6091d3819bf3%22%7d"
     },
     {
       "court": "Terrace",
-      "courtroom": null,
+      "courtroom": "CR 003",
       "conference_id": "938 103 078#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 264
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmY3OTdmNTgtMDczNC00Y2JhLTkxMzAtN2RkYWNkMmUwYzcy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%222a2e4b22-65d0-4d9f-ae56-2e7812cede41%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Tofino",
+      "courtroom": "CR 202",
       "conference_id": "644 785 637#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 265
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjQzMTYyZWItYzIzNS00Yjk5LWFlNDYtZTQ4MzEyZWI0YTMx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f7fb89c3-989a-4813-9f30-e17b6ad1ee22%22%7d"
     },
     {
-      "court": "Prince George",
-      "courtroom": null,
-      "conference_id": "628 652 28#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 266
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Ucluelet",
+      "courtroom": "CR 201",
       "conference_id": "716 067 176#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 267
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTA5ZTRiZmQtNmE3Ny00ZGU3LThlY2YtZDdkZTgxZjMwNWQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22163b4587-5dc9-41f0-bb0f-8d80edce6638%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Valemount",
+      "courtroom": "CR 001",
       "conference_id": "488 623 15#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 268
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjE2ZDA3MzEtYmI0ZC00ZDliLWEwMDktYzhkODllNjdiMWQ4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225f154925-f6e9-477a-832e-7fe80931eeb3%22%7d"
+    },
+    {
+      "court": "Tsay Keh Dene",
+      "courtroom": "CR 003",
+      "conference_id": "628 652 28#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Nzk0OTg3YWEtODYyMS00ZjhmLWJhMjEtOGJhYzlhYWZiYTU2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2277d0b770-b60b-4921-8a62-331e2d2f7d89%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 10",
       "conference_id": "846 483 762#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 269
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzEzNTIzZDktNDU1NS00MGYzLTkxN2QtMmU1NGRmYWEwZWI2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b922e3c4-de59-4b29-8dde-177db1418b76%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 11",
       "conference_id": "156 958 88#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 270
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmUwOWQ2MWYtYTBhMS00OGVkLWEyOWMtNDYwMzI5MTM3ZjM1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c649993c-4324-4c62-9da6-a7d695c75eb9%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 12",
       "conference_id": "355 715 369#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 271
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTlmZjExNDUtM2UxMS00ZDE4LTg1NjktMGE5ODk5NDllOTY2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229f1154cc-1de3-4c21-94bd-4adca9de0442%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 14",
       "conference_id": "774 664 673#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 272
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDFlM2VlYWYtMzcxYS00ZDdjLWEzM2UtMTRjNmMwM2I2Yzk4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221f6d4cb8-a3a6-4c7a-b5b3-9536e742d880%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 15",
       "conference_id": "171 179 460#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 273
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yzg2OGM0MzYtYTQ2My00MmY3LTgzNDEtMmVhOGI4N2I3NmNm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220bb77753-b7d2-4366-b12d-f882ec4004d5%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 16",
       "conference_id": "812 542 284#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 274
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGIzY2JkMDUtZDliZC00Nzg2LTllNWEtMTg0MTJiNjViYjBi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229986cc66-8267-4197-9866-ad3029f35290%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 17",
       "conference_id": "455 183 014#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 275
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTRmZjI4MzAtMmMyMy00YTU1LWIxNWItZjRiNjExMDNiNGE3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ffd5d393-9adc-4661-8f39-aaf149d9314a%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 18",
       "conference_id": "777 176 827#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 276
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzE4MzU1NGItNGI1MC00OGI3LWE5MTktYjUzZGEzZTE0ODZk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220ae64c45-36f5-410e-8762-9758840d0681%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 20",
       "conference_id": "947 608 47#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 277
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2IyYTlkMzctNjMyMy00ZTVmLTkzN2ItOTFhZTQ3ZWEwNjNm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2201a98af6-bca4-45bd-8b2b-0c1df9a26784%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 30",
       "conference_id": "977 285 590#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 278
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Mzg0MDBkY2QtZjdkZC00MDFkLWI5NTUtYThhZjk4MmIxZmZi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229d6f3ce4-82c7-45c0-937d-242c0c198c4d%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 31",
       "conference_id": "872 892 44#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 279
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTk3MmI3MjktZDQxNC00ZWMyLTgxMDktODY5OGM0ZWI1OWQ5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22373d88d0-de66-4e5e-808a-05dc121cfb13%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 32",
+      "conference_id": "250 660 215#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmRkMmMyMTgtNTFhMy00MDA5LWI3NjUtZjZhM2ZkMzZjN2Q3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22422c8e48-8c36-4aea-b8c8-0a9b7644f455%22%7d"
+    },
+    {
+      "court": "Vancouver",
+      "courtroom": "CR 33",
       "conference_id": "469 525 425#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 280
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGU2Yzk0MzMtMmI5YS00OGNhLTg1YmYtZjUzMDM2ZTdkZDdl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e8377528-76fc-4f21-885f-e95df140b183%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 34",
       "conference_id": "299 484 760#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 281
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTZkMGVhMTgtZmJhOS00NjIyLWExZjUtN2JkNjU1M2U4ZWE4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2273d34278-820e-4c43-8765-fe4088ff2918%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 35",
       "conference_id": "228 915 47#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 282
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGM2NGY4MzMtY2Q3Ny00NTc4LWIwMjEtYzM4NmU4MGM5OWU1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2261dff8a5-9c94-4595-b649-e9c9af535479%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 40",
       "conference_id": "777 820 037#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 283
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZThjNjRjMjItOTBkNi00M2ZjLTkxMTctMDFkOTYxMzkzMTZl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2216d39b4b-8c45-4da3-8eeb-97aaceb2d820%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 41",
       "conference_id": "384 849 027#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 284
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjU4ZGNhZGQtM2NiMy00Y2Y2LWE4ZTUtNmY3YTdjNzA4NjM3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22763e820a-6ff1-445f-ab07-9be097963a50%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 42",
       "conference_id": "866 762 433#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 285
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDM4YjQ0YzAtOTU2MS00Y2U0LWFiMDktOTFlYTYwNTUwYzMz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228e8db805-f028-44c1-9c86-bafbfd009599%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 43",
       "conference_id": "364 340 981#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 286
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTA3YTdhNmMtOTI0Zi00MmYzLThjNWItNTE4MTUyZjM4NTUz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2246cea6b5-86bb-4f18-bd7d-5b026b68ae99%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 44",
       "conference_id": "211 381 175#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 287
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjI3NWFhODItYjZkNi00YjM1LTgyMTctYTA0MWRmNWNiNDYy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b0786533-f35d-493d-8ad5-dcfffe47d27f%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 45",
       "conference_id": "433 167 282#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 288
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDg4N2U5YzAtMzJkNC00ZTBjLTlmYmMtZGZiYzYxMjNiZDFl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2241c69b05-7b47-4a39-a82b-e585ebc6ebb3%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 46",
       "conference_id": "936 688 86#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 289
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDA4MDVhNzQtMWRhYi00ZTg5LWJlMDUtMjVmYTcwMmFlZjc4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22b7c02d5b-16b2-4934-b735-8f3ed088f363%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 51",
       "conference_id": "911 991 25#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 290
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmEwZmQ1MzItZWVmNy00OWMxLThjMzItZmZlZTRlZDc4OGVk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f42d4a46-3188-4115-9cfd-df5713bb75de%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 52",
+      "conference_id": "857",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWY5MjUzODItODBkZS00OWVmLWI1Y2EtZjk0ZTRlYzU3MDc1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22abc82eee-1723-49dc-b66e-32350caaf194%22%7d"
+    },
+    {
+      "court": "Vancouver",
+      "courtroom": "CR 53",
       "conference_id": "351 821 161#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 291
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODE1MDYyMzktMzMwMS00YTVlLWJlNTAtNTBlNWEyNGY0Yjc4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220d6da5fe-2be6-43af-bc75-b1ab5db41871%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 54",
       "conference_id": "359 638 417#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 292
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmUwYTM2ZmMtMGMxNC00MTM0LWJlY2UtYmNiZjE0MDVkZjQ5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2202c03a73-b186-429f-bdb0-358ae41565bb%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 55",
       "conference_id": "819 909 337#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 293
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmVkZmExZjgtNmUwMy00MTg3LWJkMWMtZDA0ZGUwMGRiNWVk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224761383e-f7f3-4177-bfaa-fdb01cf0093c%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 62",
       "conference_id": "626 888 590#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 294
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWZiZjNkYTctYzZkMC00MjQ2LWE1MWYtM2E2OGQ1ZWM1YjA1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22a8203060-6731-4b2f-a288-8cc33e14d9de%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 63",
+      "conference_id": "236 260 981#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2JkOTRkMWItMGQ5OS00M2E1LTg0YzctOTNiZjdhMTMwZDEz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22df2db813-ebd6-4249-807a-ad994895ef9f%22%7d"
+    },
+    {
+      "court": "Vancouver",
+      "courtroom": "CR 64",
       "conference_id": "189 207 437#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 295
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWU5Y2RlNzUtNTNiMC00MzZjLWFjMGMtYmM5NWExZTg4MDgw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225c4b2b27-968d-4646-add1-ac2673c9d57d%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 65",
       "conference_id": "378 248 015#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 296
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjRlOTBmN2MtNDM3OS00M2FkLWI5NGQtNWY1ZDQzZGUyOGYz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e0b3401e-e2b4-47ae-b074-4842ece29465%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 66",
+      "conference_id": "834 840 0#",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzllOWY0ZmUtYWI5NS00NzExLThlOWYtZTE1MzI0NTA0NzZk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%224a88fe3a-b0cb-40c2-9a2e-73d198bfb73e%22%7d"
+    },
+    {
+      "court": "Vancouver",
+      "courtroom": "CR 67",
       "conference_id": "492 370 398#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 297
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGUyOWY4OTYtMTU4MS00YjU2LWEyYTgtNjcwZjYzNDFhMTcw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22762ec0ff-3d73-4eef-841a-ad84f832560c%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 71",
       "conference_id": "195 469 29#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 298
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjE0YzlmY2QtYzBkYi00ZGJhLTliZTQtMDRkZDJmZTI0YjYy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f104d813-4fdf-456a-95c9-0c61d125a63f%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 72",
       "conference_id": "675 588 912#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 299
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWE2YWE1YTUtMzExNC00NmEwLWExYzktNDk2MTFmZWYyMTZj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22dc73db5b-107b-420c-b1bf-d371c5c3caab%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 73",
       "conference_id": "809 699 083#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 300
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2RmMDgxODktY2ZjMy00NDEzLTkyMTMtY2MyYzM2MDZkOGUy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2266ea325e-1fa0-460d-a516-23426037b615%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 74",
       "conference_id": "395 811 676#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 301
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDdlMzQ0OWUtZmYxYi00MDI4LWJlOGUtZmM2YjcyOTkyZDA2%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22486ebb9b-6bec-42b7-8c5d-d023417eb275%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 75",
       "conference_id": "110 747 199#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 302
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTM3YjRjMzYtODkzNy00NjZjLTk1YWYtOTE4M2IxZjFiZDYw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22bfed7daf-1f07-49ce-a4d6-9319053127b0%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "610 513 968#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 303
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "288 647 256#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 304
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "733 578 918#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 305
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 301",
       "conference_id": "415 747 599#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 306
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjEyNzUzMzYtNzkwMS00OWRlLWI0ZmUtNzkwNzQ0MWI0YmQw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2206d81c30-ab5a-46cd-b877-c9ec7dd250cd%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 302",
       "conference_id": "888 634 360#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 307
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDgwOTcxZTgtMDQzZi00ZmJmLTljY2YtMzFlMGU0ODgzNjgz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2284c34eb8-6de7-45e8-b1ca-6c0d20cbd834%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
+      "courtroom": "CR 303",
       "conference_id": "134 890 397#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 308
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "791 926 760#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 309
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjEwYzE1YjUtYTk0YS00ZjFlLThhZTItYzE3MjE3ZDBmZWNh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2251c1a771-80e4-49f3-b181-de0bbe6a6676%22%7d"
     },
     {
       "court": "Vancouver",
       "courtroom": null,
       "conference_id": "996 571 359#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 310
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjdkYWMzMWItMTMxOS00MzE4LWJlNDktODc0NTY1MzYyMjQ5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22aec83161-9d91-4e65-a650-995255a2c93a%22%7d"
     },
     {
       "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "181 066 25#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 311
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "157 117 369#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 312
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "177 313 286#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 313
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "497 678 373#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 314
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "152 514 259#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 315
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "813 559 320#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 316
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "489 688 979#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 317
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "596 356 94#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 318
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "762 036 631#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 319
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "677 668 511#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 320
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "688 414 349#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 321
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "332 911 056#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 322
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "398 971 87#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 323
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "332 315 693#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 324
+      "courtroom": "JCM FXD List",
+      "conference_id": "494 797 67#",
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmNjYTRkOTItN2E2My00Y2VkLWIzYTYtY2UyMzg5ZGZiZTI5%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%225a54b161-f8cc-4e14-ab81-334b962e7f44%22%7d"
     },
     {
       "court": "Vancouver",
       "courtroom": null,
       "conference_id": "494 797 67#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 325
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2IwZGYxOTgtYjExZi00YWJjLTg3MTgtZmRlZDYxNGVjYzA3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228f1965cf-dc85-4a07-91eb-e136a8af8b3b%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "267 177 390#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 326
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "181 266 727#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 327
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "918 111 650#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 328
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "861 725 610#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 329
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "459 885 972#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 330
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "621 449 645#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 331
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "316 696 618#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 332
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "964 208 631#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 333
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "861 361 733#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 334
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "428 622 687#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 335
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "814 427 626#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 336
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "670 037 357#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 337
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "418 849 187#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 338
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "524 209 157#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 339
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "504 560 498#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 340
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "692 805 20#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 341
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "237 730 953#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 342
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "821 560 396#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 343
-    },
-    {
-      "court": "Vancouver",
-      "courtroom": null,
-      "conference_id": "347 660 252#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 344
-    },
-    {
-      "court": "Prince George",
-      "courtroom": null,
+      "court": "Vanderhoof",
+      "courtroom": "CR 001",
       "conference_id": "652 794 347#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 345
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDAwOWQyYTctZjk4YS00ZjkxLWE1NjctM2FmZmUzNTFmNTJm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22376f8f55-9932-4469-a4ed-6505491c9724%22%7d"
     },
     {
-      "court": "Salmon Arm",
+      "court": "Vanderhoof",
       "courtroom": null,
       "conference_id": "129 059 476#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 346
+      "phone": "+1 604-335-9540",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2U5YzBkNmItOTBhOC00YmU4LTg1YWItYzcxMGE2NTVhYWVh%40thread.v2/0?context=%7b%22Tid%22%3a%2231f46098-c051-41a9-960a-bac008b08894%22%2c%22Oid%22%3a%22a8dc9f9a-7a42-4168-9d22-f686e0ec9f9e%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Vernon",
+      "courtroom": "CR 103",
       "conference_id": "904 612 629#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 347
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWVhM2EyM2QtNjdiOS00YTliLWJiYzktYjcxYzQ1MDdiMmNi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2277b0c081-5220-4cd6-8580-c386af80bb85%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Vernon",
+      "courtroom": "CR 201 (Family Remand)",
       "conference_id": "851 615 665#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 348
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTA0NDE1N2ItMDEzZC00MjYxLWE4ZDEtN2IxOWYxZGY1MmUz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ef97e496-82ab-49c1-96bf-3705d9b0a041%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Vernon",
+      "courtroom": "CR 202",
       "conference_id": "506 939 743#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 349
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTI1ZDJiMjEtOWU4Ny00NmQ4LWE5NWYtZjQyNjViOWFlMTRl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c0faf5c5-262e-45ba-9506-4853a0eb1608%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Vernon",
+      "courtroom": "CR 301",
       "conference_id": "776 861 695#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 350
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDVkMmI1OTgtYjhkZi00NjdjLTlkNzQtMWM5NWI4NjI4ODZh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220ece89d0-29d2-4584-ad9d-8761e4d62aea%22%7d"
     },
     {
-      "court": "Vancouver",
-      "courtroom": null,
+      "court": "Vernon",
+      "courtroom": "CR 302",
       "conference_id": "921 591 964#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 351
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDIxNTJlNTQtMzcyOC00YjcwLTk0OWItZTAyMjc4MzdlNThj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%226037a032-2d86-4b1f-b91f-7f5b86af5b8f%22%7d"
+    },
+    {
+      "court": "Victoria",
+      "courtroom": "JCM FXD List",
+      "conference_id": "715 080 283#",
+      "phone": "+1 250-900-4440",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://can01.safelinks.protection.outlook.com/ap/t-59584e83/?url=https%3A%2F%2Fteams.microsoft.com%2Fl%2Fmeetup-join%2F19%253ameeting_MGZkNGZlNDgtMTNjMi00YTg3LTg1ZmItMmY1MjMwZGFiYjE4%2540thread.v2%2F0%3Fcontext%3D%257b%2522Tid%2522%253a%252231f46098-c051-41a9-960a-bac008b08894%2522%252c%2522Oid%2522%253a%2522e0e3846b-f37d-48f8-b7e5-8f4cf7584c57%2522%257d&data=04%7C01%7Cdaniel.tsang%40gov.bc.ca%7C1df42e96965e46990cbd08d9c413f44c%7C6fdb52003d0d4a8ab036d3685e359adc%7C0%7C0%7C637756412255939154%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=h8vBAku%2FyBuIUCzkLwSIdW3a039dI6Q7Hl3tDo9jp78%3D&reserved=0"
     },
     {
       "court": "Victoria",
       "courtroom": null,
       "conference_id": "715 080 283#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 352
+      "phone": "+1 250-900-4440",
+      "toll_free": "(844) 884-5561",
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTg0NWY4YTktMzIwNC00ZTM0LTk0MDctNTAxZjNmNjc4ZWZi%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2247193b4b-71f2-4c2b-ba33-a710e63ea42a%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 101",
       "conference_id": "513 827 80#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 353
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjkyNDAxOTQtZWZhNC00MDhmLTk5YTAtZWM3ZTA4MWU0OWMx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f1b1066a-0b61-410d-a2e7-20d4edc4d756%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 102",
       "conference_id": "404 326 078#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 354
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTg2YTk5MWQtZTM0OS00OTZiLWI5YTItYjQ0YTYwYjg3NTMw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%220b38132b-dbaa-4957-b147-78754bbc4eba%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 103 (IAR)",
       "conference_id": "426 281 508#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 355
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjM4NDNlMjgtM2M5NS00ZTAwLTgwODgtZGQyNWQ1NTEyY2Ew%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22ed4bfc01-1475-4b1e-b87d-239abb6d8cce%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 104",
       "conference_id": "113 775 176#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 356
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODE4Mjg0NjctZTY3My00YzhkLTg4YmEtMzNmMjFlZjQzMGE0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d94e31e9-4f5b-4b15-a416-d9e9b2a74a56%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 201",
       "conference_id": "362 684 889#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 357
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTM0NDVmNTItZjI2MC00NGRkLWI5ODEtMmM2NDcxOTJhNzI5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%228a05fd49-3e3a-4460-8661-00558efda4f8%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 202",
       "conference_id": "178 597 169#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 358
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDg2YmMxMzQtZTRiMi00MGY4LWI4OWYtMTE2MDFhZmRjOTlh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2249d3bf33-87e7-475c-83f6-7b25f032662b%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
-      "conference_id": "429 121 746#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 359
-    },
-    {
-      "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 301",
       "conference_id": "175 789 708#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 360
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTIyNzJjYmQtNDRhYS00NDU3LWEzZTktYzJlNjBkYTQwYTE0%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2210588b71-d95d-416d-accf-df20a1adce66%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 302",
       "conference_id": "942 554 837#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 361
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGZhYWU0MTItNzA3YS00OGE4LWFjOWEtMDJiODI0YTRmMjQ1%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%225599aeb4-d63d-4a70-a910-ea09c52588ee%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 303",
       "conference_id": "969 689 940#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 362
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODI0MTNjZjItNzJjZC00MWJjLWJjOWEtZDNiYzY0M2QyYjE4%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22f137e45b-c709-4f99-b0ed-7a37cc3b7fc4%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 401",
       "conference_id": "571 759 120#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 363
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzM5Y2NhNGQtMWI3OS00YzE1LTlhMDctMzQ5MDg2NDVjN2Fj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22430ee3c2-fb4f-487a-a9da-fa29944d1161%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 402",
       "conference_id": "121 554 124#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 364
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODY2NTFlMjctZWM5ZC00YzljLWI3MjgtZGY5NDU5MmIxZTg3%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22e3dbff27-ebb3-4683-bd0c-6078cd89912d%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 403",
       "conference_id": "482 862 171#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 365
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGE3NmQzYTMtODk1MS00NDliLWIyNmQtYjk4MGIxOGIwMGMy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d4e45803-1415-40ed-b0d2-f82f15949c73%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 404",
       "conference_id": "860 280 578#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 366
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDJkMjY2YjctZmY3Yi00MDAwLTkxNDEtZmQ3MDY5ZTdhNjYx%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2212a90679-bb28-4ea7-ab61-a89e3337a068%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 526",
       "conference_id": "679 062 028#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 367
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGJkNTFlOGYtM2NmOS00NTM4LWI4M2QtY2VkZGY5Nzk3MDNj%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22fbf6fb8e-35d0-4a43-bd34-540eb4d287e1%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 527",
       "conference_id": "596 634 377#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 368
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yzg5YTJjM2UtMTUyOS00YTE1LWIwM2ItZjVlNWU2MGQyY2U5%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2248d6e5ef-f6a3-4e1d-8040-085814d0b72a%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 533",
       "conference_id": "262 852 895#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 369
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzFjY2E4MzktZDkwOS00MmQ0LTlhNzUtZmE1Zjc3MGU1ODMy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22916d10b0-89db-4181-8d03-e3025380a792%22%7d"
     },
     {
       "court": "Victoria",
-      "courtroom": null,
+      "courtroom": "CR 601",
       "conference_id": "866 428 62#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 370
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjQ3ODYyNjktMzcyMC00NDdmLWJiZmMtZmI4MThkODBiMTQw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%221a4ca0bb-769f-4ad7-80f0-ac01c4a3b5dc%22%7d"
     },
     {
       "court": "Victoria",
@@ -4803,111 +4267,71 @@
       "conference_id": "787 097 137#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 371
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWI3MGUyMzctMjVjMy00ZGU3LTkzNmItN2MyODQ5Zjk5NDFk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%223d1108dd-e44f-4e2c-93b3-e2be77941b93%22%7d"
     },
     {
-      "court": "Victoria",
-      "courtroom": null,
-      "conference_id": "450 095 994#",
+      "court": "Western Communities",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 372
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2E4NjMxZDAtMGNiNC00MzI1LWIzMGMtMWNmY2JhN2Q5Mjgz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%2294009503-772a-466a-be5d-b092134b92fe%22%7d"
     },
     {
-      "court": "Victoria",
-      "courtroom": null,
-      "conference_id": "929 176 188#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 373
-    },
-    {
-      "court": "Victoria",
-      "courtroom": null,
-      "conference_id": "893 653 923#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 374
-    },
-    {
-      "court": "Nanaimo",
-      "courtroom": null,
-      "conference_id": "540 013 22#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 375
-    },
-    {
-      "court": "Nanaimo",
-      "courtroom": null,
-      "conference_id": "609 169 979#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 376
-    },
-    {
-      "court": "Duncan",
-      "courtroom": null,
+      "court": "Western Communities",
+      "courtroom": "CR 001",
       "conference_id": "580 405 774#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 377
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjM1OTMwZWUtMjYyMC00Mjc2LTlmM2YtYTQ3YTk5NThmNDgw%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d5b2dd83-876f-4fd2-a191-827ef7c90390%22%7d"
     },
     {
-      "court": "Duncan",
-      "courtroom": null,
+      "court": "Western Communities",
+      "courtroom": "CR 001A",
       "conference_id": "878 670 781#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 378
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmZmMjYwYzItZDNlZi00YzAxLWI3MGMtN2IwMGVlMmU1NjRm%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22d88adcef-a514-40d9-83eb-bfa80e95af7b%22%7d"
     },
     {
-      "court": "Duncan",
-      "courtroom": null,
-      "conference_id": "974 111 253#",
+      "court": "Western Communities",
+      "courtroom": "CR 002",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 379
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWIxYjdjMzMtOTZiNy00MDMwLWJlNDMtNzYwNzFiOTkwZGYz%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22faac30c4-1068-489d-a63c-1611a5bf01fa%22%7d"
     },
     {
-      "court": "Duncan",
-      "courtroom": null,
-      "conference_id": "671 901 338#",
+      "court": "Williams Lake",
+      "courtroom": "JCM FXD List",
+      "conference_id": null,
       "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 380
+      "toll_free": null,
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2ZkZmNlMzUtYTVkMC00NjUzLWE1ZWYtYzgwNjY3YTkwZTMy%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22c45c3bd7-db8c-4dc0-bf7a-b5747934b4bd%22%7d"
     },
     {
-      "court": "Quesnel",
-      "courtroom": null,
+      "court": "Williams Lake",
+      "courtroom": "CR 112",
       "conference_id": "943 917 072#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 381
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTFjNzcxMWUtMWYxZS00YzY4LWE2YmQtNmQ0MTcxMmFlY2Zk%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22498e4545-1d17-486b-bcaa-9f728dde292d%22%7d"
     },
     {
-      "court": "Quesnel",
-      "courtroom": null,
+      "court": "Williams Lake",
+      "courtroom": "CR 401",
       "conference_id": "928 390 94#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 382
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTY5YmI0ODItZmMzOC00MzNlLWJiNmQtZTA4M2I3OGExYjFl%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%22519da28a-5c51-4015-a584-dd53c75cb767%22%7d"
     },
     {
-      "court": "Quesnel",
-      "courtroom": null,
+      "court": "Williams Lake",
+      "courtroom": "CR 410",
       "conference_id": "807 472 273#",
       "phone": "+1 778-725-6348",
       "toll_free": "(844) 636-7837",
-      "id": 383
-    },
-    {
-      "court": "Quesnel",
-      "courtroom": null,
-      "conference_id": "555 412 024#",
-      "phone": "+1 778-725-6348",
-      "toll_free": "(844) 636-7837",
-      "id": 384
+      "teams_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWMzOWU4MDEtMzFlOC00MTcwLWI1ZTMtZjJjY2MwMjI2MDFh%40thread.v2/0?context=%7b%22Tid%22%3a%2288c2f485-81c9-4402-a143-70d7ce08aec5%22%2c%22Oid%22%3a%229a344f05-d6bd-462e-a4ee-9c2b19d2194e%22%7d"
     }
   ],
   "programs": [
