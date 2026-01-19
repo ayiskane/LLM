@@ -2135,7 +2135,112 @@
       "id": 10
     }
   ],
-  "federal_crown_contacts": [],
+  "federal_crown_contacts": [
+    {
+      "region": "R1",
+      "area": "Victoria & Colwood",
+      "firm": "Jones & Co",
+      "email": "Vicinfo@joneslaw.ca",
+      "phone": "250-220-6942",
+      "id": 1
+    },
+    {
+      "region": "R1",
+      "area": "Nanaimo & Duncan",
+      "firm": "Jones & Co",
+      "email": "Naninfo@joneslaw.ca",
+      "phone": "250-714-1113",
+      "id": 2
+    },
+    {
+      "region": "R1",
+      "area": "Campbell River, Courtenay, Port Alberni, Port Hardy, Tofino",
+      "firm": "Jones & Co",
+      "email": "Naninfo@joneslaw.ca",
+      "phone": "250-714-1113",
+      "id": 3
+    },
+    {
+      "region": "R3",
+      "area": "Surrey, Langley, Delta, White Rock",
+      "firm": "PPSC Surrey Office",
+      "email": "PPSC.SurreyInCustody-EnDetentionSurrey.SPPC@ppsc-sppc.gc.ca",
+      "phone": "236-456-0015",
+      "id": 4
+    },
+    {
+      "region": "R3",
+      "area": "Port Coquitlam & New Westminster",
+      "firm": "MTC Law",
+      "email": "pbachra@mtclaw.ca",
+      "phone": "604-590-8855",
+      "id": 5
+    },
+    {
+      "region": "R3",
+      "area": "Chilliwack & Abbotsford",
+      "firm": "JM LeDressay & Associates",
+      "email": "jir@jmldlaw.com",
+      "phone": "604-514-8203",
+      "id": 6
+    },
+    {
+      "region": "R4",
+      "area": "Kamloops, Ashcroft, Chase, Clearwater, Lillooet, Lytton, Merritt, Salmon Arm",
+      "firm": "MTC Law",
+      "email": "pbachra@mtclaw.ca",
+      "phone": "604-590-8855",
+      "id": 7
+    },
+    {
+      "region": "R4",
+      "area": "Kelowna, Penticton, Oliver, Osoyoos, Summerland, Princeton, Vernon",
+      "firm": "JM LeDressay & Associates",
+      "email": "jir@jmldlaw.com",
+      "phone": "604-514-8203",
+      "id": 8
+    },
+    {
+      "region": "R4",
+      "area": "Kootenays (Castlegar, Cranbrook, Creston, Fernie, Golden, Grand Forks, Invermere, Nakusp, Nelson, Rossland, Trail)",
+      "firm": "PPSC Surrey Office",
+      "email": "VAN.Detention.VAN@ppsc-sppc.gc.ca",
+      "phone": "604-354-9146",
+      "id": 9
+    },
+    {
+      "region": "R5",
+      "area": "Prince George, Smithers, Terrace, Burns Lake, Vanderhoof, Hazelton, Houston, Kitimat",
+      "firm": "Yalowsky Sudeyko Lucky",
+      "email": "Richard@luckylaw.ca",
+      "phone": "250-562-2316",
+      "id": 10
+    },
+    {
+      "region": "R5",
+      "area": "Peace Region (Dawson Creek, Fort Nelson, Fort St. John, Chetwynd)",
+      "firm": "PPSC Main Street",
+      "email": "VAN.Detention.VAN@ppsc-sppc.gc.ca",
+      "phone": "604-666-2141",
+      "id": 11
+    },
+    {
+      "region": "R5",
+      "area": "Masset, Queen Charlotte",
+      "firm": "PPSC BCRO",
+      "email": "Adrienne.Switzer@ppsc-sppc.gc.ca",
+      "phone": "604-230-8632",
+      "id": 12
+    },
+    {
+      "region": "R5",
+      "area": "100 Mile House, McBride, Valemount, Williams Lake",
+      "firm": "MTC Law",
+      "email": "pbachra@mtclaw.ca",
+      "phone": "604-590-8855",
+      "id": 13
+    }
+  ],
   "labc_offices": [
     {
       "location": "Dawson Creek",
@@ -5828,2364 +5933,905 @@
       "contact_hub": "Prince George"
     }
   ],
-  "duty_counsel_lawyers": [
+  "bail_offices": [
     {
+      "region": "R3",
+      "location": "Abbotsford",
+      "email": "Abbotsford.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 1
+    },
+    {
+      "region": "R3",
+      "location": "Chilliwack",
+      "email": "Chilliwack.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 2
+    },
+    {
+      "region": "R3",
+      "location": "New Westminster",
+      "email": "NewWestProv.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 3
+    },
+    {
+      "region": "R3",
+      "location": "Port Coquitlam",
+      "email": "PoCo.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 4
+    },
+    {
+      "region": "R3",
+      "location": "Surrey",
+      "email": "Surrey.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 5
+    },
+    {
+      "region": "R3",
+      "location": "Fraser After-Hours",
+      "email": "Surrey.VirtualBail@gov.bc.ca",
+      "type": "after_hours",
+      "hours": "Evenings, weekends, holidays",
+      "id": 6
+    },
+    {
+      "region": "R4",
+      "location": "Interior Daytime",
+      "email": "Region4.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 7
+    },
+    {
+      "region": "R4",
+      "location": "Interior After-Hours",
+      "email": "AGBCPSReg4BailKelownaGen@gov.bc.ca",
+      "type": "after_hours",
+      "hours": "Evenings, weekends, holidays",
+      "id": 8
+    },
+    {
+      "region": "R1",
+      "location": "Island Daytime",
+      "email": "Region1.VirtualBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 9
+    },
+    {
+      "region": "R1",
+      "location": "Island After-Hours",
+      "email": "VictoriaCrown.Public@gov.bc.ca",
+      "type": "after_hours",
+      "hours": "Evenings, weekends, holidays",
+      "id": 10
+    },
+    {
+      "region": "R5",
+      "location": "North All Hours",
+      "email": "Region5.VirtualBail@gov.bc.ca",
+      "type": "all_hours",
+      "hours": "All bail matters",
+      "id": 11
+    },
+    {
+      "region": "R2",
+      "location": "222 Main/DCC",
+      "email": "222MainCrownBail@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 12
+    },
+    {
+      "region": "R2",
+      "location": "North Vancouver",
+      "email": "NorthVanCrown@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 13
+    },
+    {
+      "region": "R2",
+      "location": "Richmond",
+      "email": "RichmondCrown@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 14
+    },
+    {
+      "region": "R2",
+      "location": "Sechelt",
+      "email": "SecheltCrown@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 15
+    },
+    {
+      "region": "R2",
+      "location": "Vancouver Youth",
+      "email": "VancouverYouthCrown@gov.bc.ca",
+      "type": "daytime",
+      "hours": "Weekday daytime",
+      "id": 16
+    },
+    {
+      "region": "R2",
+      "location": "Vancouver Coastal After-Hours",
+      "email": "222MainCrownBail@gov.bc.ca",
+      "type": "after_hours",
+      "hours": "Evenings, weekends, holidays",
+      "id": 17
+    }
+  ],
+  "evening_crown_contacts": [
+    {
+      "region": "R1",
+      "name": "Island Evening Team",
+      "email": "VictoriaCrown.Public@gov.bc.ca",
+      "type": "team_email",
+      "id": 1
+    },
+    {
+      "region": "R1",
+      "name": "Megan Saben",
+      "role": "Legal Assistant",
+      "email": "Megan.saben@gov.bc.ca",
+      "phone": "236-748-1481",
+      "id": 2
+    },
+    {
+      "region": "R1",
+      "name": "Jillian Pawlow",
+      "role": "Crown Counsel",
+      "email": "Jillian.Pawlow@gov.bc.ca",
+      "phone": "236-478-3732",
+      "id": 3
+    },
+    {
+      "region": "R1",
+      "name": "Mark Halston",
+      "role": "Crown Counsel (Backup)",
+      "email": "Mark.Halston@gov.bc.ca",
+      "phone": "778-405-1775",
+      "mobile": "250-507-9104",
+      "id": 4
+    },
+    {
+      "region": "R4",
+      "name": "Interior Evening Team",
+      "email": "AGBCPSReg4BailKelownaGen@gov.bc.ca",
+      "type": "team_email",
+      "id": 5
+    },
+    {
+      "region": "R4",
+      "name": "Izabel Bonilla",
+      "role": "Legal Assistant",
+      "email": "izabel.bonilla@gov.bc.ca",
+      "phone": "778-943-7129",
+      "id": 6
+    },
+    {
+      "region": "R4",
+      "name": "Traci Denman",
+      "role": "Legal Assistant (Backup)",
+      "email": "Traci.denman@gov.bc.ca",
+      "phone": "778-943-0176",
+      "id": 7
+    },
+    {
+      "region": "R4",
+      "name": "Sheron O'Connor",
+      "role": "Crown Counsel",
+      "email": "Sheron.oconnor@gov.bc.ca",
+      "phone": "250-645-9160",
+      "mobile": "250-570-1422",
+      "id": 8
+    },
+    {
+      "region": "R4",
+      "name": "Bill Hilderman",
+      "role": "Crown Counsel (Backup)",
+      "email": "Bill.hilderman@gov.bc.ca",
+      "phone": "778-824-0097",
+      "id": 9
+    }
+  ],
+  "crown_offices": [
+    {
+      "region": "R1",
+      "courtroom": "VR9",
+      "location": "Campbell River",
+      "email": "CampbellRiver.CrownSchedule@gov.bc.ca",
+      "phone": "250-286-7544",
+      "id": 1
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR9",
+      "location": "Courtenay",
+      "email": "Courtenay.CrownSchedule@gov.bc.ca",
+      "phone": "250-334-1120",
+      "id": 2
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR9",
+      "location": "Nanaimo",
+      "email": "Nanaimo.CrownSchedule@gov.bc.ca",
+      "phone": "250-741-3711",
+      "id": 3
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR9",
+      "location": "Port Alberni",
+      "email": "PtAlberni.CrownSchedule@gov.bc.ca",
+      "phone": "250-720-2433",
+      "id": 4
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR9",
+      "location": "Port Hardy",
+      "email": "PortHardy.CrownSchedule@gov.bc.ca",
+      "phone": "250-949-8644",
+      "id": 5
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR9",
+      "location": "Powell River",
+      "email": "PowellRiver.Crown@gov.bc.ca",
+      "phone": "604-485-3645",
+      "id": 6
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR8",
+      "location": "Colwood",
+      "email": "Colwood.Crown@gov.bc.ca",
+      "phone": "250-391-2866",
+      "id": 7
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR8",
+      "location": "Duncan",
+      "email": "BCPS.Duncan.Reception@gov.bc.ca",
+      "phone": "250-746-1229",
+      "id": 8
+    },
+    {
+      "region": "R1",
+      "courtroom": "VR8",
+      "location": "Victoria",
+      "email": "VictoriaCrown.Public@gov.bc.ca",
+      "phone": "250-387-4481",
+      "id": 9
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR3",
+      "location": "Kelowna",
+      "email": "BCPS.KelownaGen@gov.bc.ca",
+      "phone": "250-470-6822",
+      "id": 10
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR3",
+      "location": "Cranbrook",
+      "email": "BCPS.CranbrookGen@gov.bc.ca",
+      "phone": "250-426-1525",
+      "id": 11
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR3",
+      "location": "Nelson",
+      "email": "BCPS.NelsonGen@gov.bc.ca",
+      "phone": "250-354-6511",
+      "id": 12
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR3",
+      "location": "Penticton",
+      "email": "BCPS.PentictonGen@gov.bc.ca",
+      "phone": "250-487-4455",
+      "id": 13
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR4",
+      "location": "Kamloops",
+      "email": "BCPS.KamloopsGen@gov.bc.ca",
+      "phone": "250-828-4021",
+      "id": 14
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR4",
+      "location": "Salmon Arm",
+      "email": "BCPS.SalmonArmGen@gov.bc.ca",
+      "phone": "250-832-1651",
+      "id": 15
+    },
+    {
+      "region": "R4",
+      "courtroom": "VR4",
+      "location": "Vernon",
+      "email": "BCPS.VernonGen@gov.bc.ca",
+      "phone": "250-503-3643",
+      "id": 16
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR1",
+      "location": "Prince George",
+      "email": "PrGeorge.Crown@gov.bc.ca",
+      "phone": "250-614-2601",
+      "id": 17
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR1",
+      "location": "Quesnel",
+      "email": "Quesnel.Crown@gov.bc.ca",
+      "phone": "250-992-4262",
+      "id": 18
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR1",
+      "location": "Vanderhoof",
+      "email": "Vanderhoof.Crown@gov.bc.ca",
+      "phone": "250-567-6835",
+      "id": 19
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR1",
+      "location": "Williams Lake",
+      "email": "WilliamsLake.Crown@gov.bc.ca",
+      "phone": "250-398-4473",
+      "id": 20
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR2",
+      "location": "Dawson Creek",
+      "email": "DawsonCreek.CrownCounsel@gov.bc.ca",
+      "phone": "250-784-2290",
+      "id": 21
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR2",
+      "location": "Fort Nelson",
+      "email": "FortNelson.Crown@gov.bc.ca",
+      "phone": "250-774-5984",
+      "id": 22
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR2",
+      "location": "Fort St. John",
+      "email": "FtStJohn.Crown@gov.bc.ca",
+      "phone": "250-787-3276",
+      "id": 23
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR2",
+      "location": "Prince Rupert",
+      "email": "PrinceRupert.Crown@gov.bc.ca",
+      "phone": "250-624-7440",
+      "id": 24
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR2",
+      "location": "Smithers",
+      "email": "Smithers.Crown@gov.bc.ca",
+      "phone": "250-847-7364",
+      "id": 25
+    },
+    {
+      "region": "R5",
+      "courtroom": "VR2",
+      "location": "Terrace",
+      "email": "Terrace.Crown@gov.bc.ca",
+      "phone": "250-638-2131",
+      "id": 26
+    }
+  ],
+  "sheriff_cells_access": [
+    {
+      "region": "R3",
+      "location": "Abbotsford",
+      "phone": "604-855-3239",
+      "access": "Virtual, In-person, Telephone",
+      "id": 1
+    },
+    {
+      "region": "R3",
+      "location": "Chilliwack",
+      "phone": "604-795-8328",
+      "access": "Virtual, In-person, Telephone",
+      "id": 2
+    },
+    {
+      "region": "R3",
+      "location": "New Westminster",
+      "phone": "604-660-8545",
+      "access": "Virtual, In-person, Telephone",
+      "id": 3
+    },
+    {
+      "region": "R3",
+      "location": "Port Coquitlam",
+      "phone": "604-927-2195",
+      "access": "Virtual, In-person, Telephone",
+      "id": 4
+    },
+    {
+      "region": "R3",
+      "location": "Surrey",
+      "phone": "236-455-1797 or 604-572-2194",
+      "access": "Virtual, In-person, Telephone",
+      "id": 5
+    },
+    {
+      "region": "R2",
+      "location": "Vancouver Provincial (Level 0)",
+      "phone": "604-775-2522",
+      "access": "Virtual, In-person, Telephone",
+      "id": 6
+    },
+    {
+      "region": "R2",
+      "location": "North Vancouver",
+      "phone": "604-981-0236",
+      "access": "Virtual, In-person, Telephone",
+      "id": 7
+    },
+    {
+      "region": "R2",
+      "location": "Richmond",
+      "phone": "604-660-7769 (QB) or 604-660-3467",
+      "access": "Virtual, In-person, Telephone",
+      "id": 8
+    }
+  ],
+  "registry_contacts": [
+    {
+      "region": "R5",
+      "court": "Prince George Provincial Court",
+      "code": "PG",
+      "email": "csbpg.criminalregistry@gov.bc.ca",
+      "id": 1
+    },
+    {
+      "region": "R5",
+      "court": "Anahim Lake Provincial Court",
+      "code": "AL",
+      "email": "Office15231@gov.bc.ca",
+      "id": 2
+    },
+    {
+      "region": "R5",
+      "court": "100 Mile House Law Courts",
+      "code": "OMH",
+      "email": "Office15231@gov.bc.ca",
+      "id": 3
+    },
+    {
+      "region": "R5",
+      "court": "Fort St James Provincial Court",
+      "code": "FSJ",
+      "email": "csbpg.criminalregistry@gov.bc.ca",
+      "id": 4
+    },
+    {
+      "region": "R5",
+      "court": "Fraser Lake Provincial Court",
+      "code": "FL",
+      "email": "csbpg.criminalregistry@gov.bc.ca",
+      "id": 5
+    },
+    {
+      "region": "R5",
+      "court": "Kwadacha Provincial Court",
+      "code": "KWA",
+      "email": "Office15216@gov.bc.ca",
+      "id": 6
+    },
+    {
+      "region": "R5",
+      "court": "Mackenzie Provincial Court",
+      "code": "MAC",
+      "email": "Office15216@gov.bc.ca",
+      "id": 7
+    },
+    {
+      "region": "R5",
+      "court": "McBride Provincial Court",
+      "code": "MCB",
+      "email": "Office15215@gov.bc.ca",
+      "id": 8
+    },
+    {
+      "region": "R5",
+      "court": "Quesnel Law Courts",
+      "code": "QUE",
+      "email": "Office15230@gov.bc.ca",
+      "id": 9
+    },
+    {
+      "region": "R5",
+      "court": "Tsay Keh Dene Provincial Court",
+      "code": "TKD",
+      "email": "csbpg.criminalregistry@gov.bc.ca",
+      "id": 10
+    },
+    {
+      "region": "R5",
+      "court": "Valemount Provincial Court",
+      "code": "VAL",
+      "email": "Office15215@gov.bc.ca",
+      "id": 11
+    },
+    {
+      "region": "R5",
+      "court": "Vanderhoof Law Courts",
+      "code": "VHF",
+      "email": "csbpg.criminalregistry@gov.bc.ca",
+      "id": 12
+    },
+    {
+      "region": "R5",
+      "court": "Williams Lake Law Courts",
+      "code": "WL",
+      "email": "Office15231@gov.bc.ca",
+      "id": 13
+    },
+    {
+      "region": "R5",
+      "court": "Atlin Provincial Court",
+      "code": "ATL",
+      "email": "Office15228@gov.bc.ca",
+      "id": 14
+    },
+    {
+      "region": "R5",
+      "court": "Burns Lake Provincial Court",
+      "code": "BL",
+      "email": "Office15219@gov.bc.ca",
+      "id": 15
+    },
+    {
+      "region": "R5",
+      "court": "Dease Lake Provincial Court",
+      "code": "DL",
+      "email": "Office15222@gov.bc.ca",
+      "id": 16
+    },
+    {
+      "region": "R5",
+      "court": "Good Hope Lake Provincial Court",
+      "code": "GHL",
+      "email": "Office15228@gov.bc.ca",
+      "id": 17
+    },
+    {
+      "region": "R5",
+      "court": "Hazelton Provincial Court",
+      "code": "HAZ",
+      "email": "Office15224@gov.bc.ca",
+      "id": 18
+    },
+    {
+      "region": "R5",
+      "court": "Houston Provincial Court",
+      "code": "HOU",
+      "email": "Office15224@gov.bc.ca",
+      "id": 19
+    },
+    {
+      "region": "R5",
+      "court": "Kitimat Law Courts",
+      "code": "KIT",
+      "email": "Office15222@gov.bc.ca",
+      "id": 20
+    },
+    {
+      "region": "R5",
+      "court": "Lower Post Provincial Court",
+      "code": "LP",
+      "email": "Office15228@gov.bc.ca",
+      "id": 21
+    },
+    {
+      "region": "R5",
+      "court": "Masset Provincial Court",
+      "code": "MAS",
+      "email": "VCMassetCrt@gov.bc.ca",
+      "id": 22
+    },
+    {
+      "region": "R5",
+      "court": "New Aiyansh Provincial Court",
+      "code": "NEA",
+      "email": "Office15222@gov.bc.ca",
+      "id": 23
+    },
+    {
+      "region": "R5",
+      "court": "Prince Rupert Law Courts",
+      "code": "PR",
+      "email": "Office15220@gov.bc.ca",
+      "id": 24
+    },
+    {
+      "region": "R5",
+      "court": "Queen Charlotte Provincial Court",
+      "code": "QCC",
+      "email": "Office15220@gov.bc.ca",
+      "id": 25
+    },
+    {
+      "region": "R5",
+      "court": "Smithers Law Courts",
+      "code": "SMI",
+      "email": "Office15224@gov.bc.ca",
+      "id": 26
+    },
+    {
+      "region": "R5",
+      "court": "Stewart Law Courts",
+      "code": "STE",
+      "email": "Office15222@gov.bc.ca",
+      "id": 27
+    },
+    {
+      "region": "R5",
+      "court": "Terrace Law Courts",
+      "code": "TER",
+      "email": "Office15222@gov.bc.ca",
+      "id": 28
+    },
+    {
+      "region": "R5",
+      "court": "Chetwynd Provincial Court",
+      "code": "CHE",
+      "email": "Office15226@gov.bc.ca",
+      "id": 29
+    },
+    {
+      "region": "R5",
+      "court": "Dawson Creek Law Courts",
+      "code": "DC",
+      "email": "Office15226@gov.bc.ca",
+      "id": 30
+    },
+    {
+      "region": "R5",
+      "court": "Fort Nelson Law Courts",
+      "code": "FN",
+      "email": "Office15229@gov.bc.ca",
+      "id": 31
+    },
+    {
+      "region": "R5",
+      "court": "Fort St John Law Courts",
+      "code": "FOS",
+      "email": "Office15228@gov.bc.ca",
+      "id": 32
+    },
+    {
+      "region": "R5",
+      "court": "Tumbler Ridge Provincial Court",
+      "code": "TR",
+      "email": "Office15226@gov.bc.ca",
+      "id": 33
+    }
+  ],
+  "justice_centre_links": [
+    {
+      "region": "R2",
+      "name": "Vancouver Coastal Evening & Weekend",
+      "conference_id": "732 076 358",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 1
+    },
+    {
+      "region": "R5",
+      "name": "Northern Region Evening & Weekend",
+      "conference_id": "365 751 988",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 2
+    },
+    {
+      "region": "R3",
+      "name": "Surrey Region Evening & Weekend",
+      "conference_id": "618 706 537",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 3
+    },
+    {
+      "region": "R4",
+      "name": "Interior Region Evening & Weekend",
+      "conference_id": "453 417 829",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 4
+    },
+    {
+      "region": "R3",
+      "name": "Fraser Region Evening & Weekend",
+      "conference_id": "938 770 945",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 5
+    },
+    {
+      "region": "R1",
+      "name": "Island Region Evening & Weekend",
+      "conference_id": "210 409 821",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 6
+    },
+    {
+      "region": "Federal",
+      "name": "Federal 24 Hours",
+      "conference_id": "634 183 845",
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837",
+      "id": 7
+    }
+  ],
+  "vb_triage_links": [
+    {
+      "region": "R3",
+      "location": "Abbotsford Triage",
+      "conference_id": "414 202 059",
       "id": 1,
-      "name": "ALLINGHAM Jordan",
-      "labc_id": "155631",
-      "email": "allinghamlaw@gmail.com",
-      "phone": "604-762-6664",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R3",
+      "location": "Abbotsford CR204",
+      "conference_id": "342 802 541",
       "id": 2,
-      "name": "ANDERSON Brent R.",
-      "labc_id": "155902",
-      "email": "brent@johnsondoyle.com",
-      "phone": "604-928-8331",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R3",
+      "location": "Port Coquitlam Triage",
+      "conference_id": "131 566 11",
       "id": 3,
-      "name": "BELLOWS Robert W.",
-      "labc_id": "169771",
-      "email": "bellowslaw@gmail.com",
-      "phone": "604-551-8524",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R3",
+      "location": "Port Coquitlam CR001",
+      "conference_id": "679 788 260",
       "id": 4,
-      "name": "CARPENTIER Debra",
-      "labc_id": "141267",
-      "email": "debracarpentier@shaw.ca",
-      "phone": "604-730-2840",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R3",
+      "location": "Surrey Triage",
+      "conference_id": "136 442 754",
       "id": 5,
-      "name": "COOPER Edward",
-      "labc_id": "121905",
-      "email": "edcooper@me.com",
-      "phone": "778 772-1818",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R3",
+      "location": "Surrey CR108",
+      "conference_id": "409 841 398",
       "id": 6,
-      "name": "CORRIVEAU Chandra L.",
-      "labc_id": "139715",
-      "email": "changrilaw@gmail.com",
-      "phone": "778-893-5957",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R2",
+      "location": "Vancouver Provincial Triage",
+      "conference_id": "157 117 369",
       "id": 7,
-      "name": "DANIELLS Susan",
-      "labc_id": "168658",
-      "email": "sdaniells.law@gmail.com",
-      "phone": "604-683-3206",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R2",
+      "location": "Vancouver Provincial CR101",
+      "conference_id": "181 066 25",
       "id": 8,
-      "name": "ENRIGHT Ray",
-      "labc_id": "188268",
-      "email": "conmak@shaw.ca",
-      "phone": "604-685-2366",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R2",
+      "location": "North Vancouver Triage",
+      "conference_id": "657 198 089",
       "id": 9,
-      "name": "FAI David",
-      "labc_id": "190652",
-      "email": "davidfai@telus.net",
-      "phone": "604-649-2500",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R2",
+      "location": "North Vancouver CR1",
+      "conference_id": "698 136 48",
       "id": 10,
-      "name": "FARMER Lionel",
-      "labc_id": "140016",
-      "email": "LionelFarmer@telus.net",
-      "phone": "604-773-1439",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R2",
+      "location": "Richmond Triage",
+      "conference_id": "300 911 530",
       "id": 11,
-      "name": "FERGUSON Paul M",
-      "labc_id": "139775",
-      "email": "paul@paulfergusonlaw.com",
-      "phone": "778-233-3833",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R2",
+      "location": "Richmond CR107",
+      "conference_id": "438 499 544",
       "id": 12,
-      "name": "FUMANO Leo",
-      "labc_id": "139777",
-      "email": "lfumano@hotmail.com",
-      "phone": "604-765-0193",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R4",
+      "location": "VR3 (Kelowna, Penticton, Kootenays)",
+      "conference_id": "787 097 137",
       "id": 13,
-      "name": "FUNG Thomas",
-      "labc_id": "136432",
-      "email": "tfung456@gmail.com",
-      "phone": "604-329-3829",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R4",
+      "location": "VR4 (Kamloops, Vernon, Salmon Arm)",
+      "conference_id": "450 095 994",
       "id": 14,
-      "name": "GERVIN Mark",
-      "labc_id": "195560",
-      "email": "mark@gervinlaw.com",
-      "phone": "604-825-7154",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R1",
+      "location": "VR8 (South Island - Victoria, Duncan)",
+      "conference_id": "929 176 188",
       "id": 15,
-      "name": "JOHNSON Ryan M. J.",
-      "labc_id": "156183",
-      "email": "ryan.rj.johnson@gmail.com",
-      "phone": "778-872-3155",
-      "location": null,
-      "region": "Vancouver Coastal"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     },
     {
+      "region": "R1",
+      "location": "VR9 (Nanaimo, North Island)",
+      "conference_id": "893 653 923",
       "id": 16,
-      "name": "LAGEMAAT Anthony J.",
-      "labc_id": "156448",
-      "email": "tony@lagemaatlaw.com",
-      "phone": "604-428-6821",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 17,
-      "name": "MANDANICI Sandra",
-      "labc_id": "139590",
-      "email": "mandanicilaw@gmail.com",
-      "phone": "604-626-3244",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 18,
-      "name": "MINES Michael",
-      "labc_id": "160739",
-      "email": "mail@mineslaw.com",
-      "phone": "604 618-8872",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 19,
-      "name": "MYERS Justin V.",
-      "labc_id": "156178",
-      "email": "justin@myerscolaw.com",
-      "phone": "604-727-7335",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 20,
-      "name": "MYERS Zachary J.",
-      "labc_id": "156260",
-      "email": "zackmyers87@gmail.com",
-      "phone": "604-833-4992",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 21,
-      "name": "NELSON Andrew",
-      "labc_id": "155738",
-      "email": "andrew@johnsondoyle.com",
-      "phone": "778-837-0301",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 22,
-      "name": "NEURAUTER Kristy Lee",
-      "labc_id": "155849",
-      "email": "kristy.neurauter@gmail.com",
-      "phone": "604-880-9422",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 23,
-      "name": "NIEFER Jayde M.",
-      "labc_id": "157096",
-      "email": "jmniefer@gmail.com",
-      "phone": "778-846-1962",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 24,
-      "name": "OCHITWA Carmen J.",
-      "labc_id": "172890",
-      "email": "carmen@ochitwalaw.com",
-      "phone": "604-874-9747",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 25,
-      "name": "OCHITWA Timothy P.",
-      "labc_id": "192773",
-      "email": "tochitwa@gmail.com",
-      "phone": "604-240-4435",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 26,
-      "name": "PERCIVAL Jacqueline A.",
-      "labc_id": "144188",
-      "email": "nw1law@telus.net",
-      "phone": "604-725-4681",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 27,
-      "name": "PICARD Adrian Robert Paul",
-      "labc_id": "155400",
-      "email": "law.picard@gmail.com",
-      "phone": "778-859-1987",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 28,
-      "name": "SHERREN James",
-      "labc_id": "173435",
-      "email": "james_sherren@telus.net",
-      "phone": "604-803-3644",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 29,
-      "name": "TURNER John",
-      "labc_id": "195727",
-      "email": "jbturner@shaw.ca",
-      "phone": "604-626-3348",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 30,
-      "name": "EDER Birgit",
-      "labc_id": "168468",
-      "email": "birgit.eder@gmail.com",
-      "phone": "604-771-7277",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 31,
-      "name": "FITZMAURICE Patrick Michael",
-      "labc_id": "156515",
-      "email": "pmfitzmaurice@gmail.com",
-      "phone": "778-869-3489",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 32,
-      "name": "GLOUBERMAN Adi",
-      "labc_id": "155533",
-      "email": "adiglouberman@gmail.com",
-      "phone": "778-885-4931",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 33,
-      "name": "SPRACKMAN Paul J.",
-      "labc_id": "185397",
-      "email": "psprackman@telus.net",
-      "phone": "604-551-8836",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 34,
-      "name": "TARNOW David C.",
-      "labc_id": "112375",
-      "email": "david@tarnow.ca",
-      "phone": "604-328-7470",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 35,
-      "name": "TARNOW Jason D.",
-      "labc_id": "155597",
-      "email": "jason@tarnow.ca",
-      "phone": "778-866-9520",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 36,
-      "name": "THOMPSON Mark B",
-      "labc_id": "128272",
-      "email": "markthompsonlaw@gmail.com",
-      "phone": "604-244-7700",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 37,
-      "name": "WARREN Eric",
-      "labc_id": "109702",
-      "email": "warren.eder@gmail.com",
-      "phone": "604-720-7261",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 38,
-      "name": "CHAICHIAN Camran S.",
-      "labc_id": "141010",
-      "email": "camranchaichian@hotmail.com",
-      "phone": "778-800-0201",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 39,
-      "name": "CHAMBERS Herb W.",
-      "labc_id": "125124",
-      "email": "hwchambers@shaw.ca",
-      "phone": "604-892-7839",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 40,
-      "name": "FOSTER, Mitch",
-      "labc_id": null,
-      "email": "mitch@mitchfoster.com",
-      "phone": "604-306-6699",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 41,
-      "name": "KHAJURIA, Mansi",
-      "labc_id": null,
-      "email": "Mansi@luckylaw.ca",
-      "phone": "778-829-3990",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 42,
-      "name": "LUCK Sonja",
-      "labc_id": "157085",
-      "email": "sonjaluck@gmail.com",
-      "phone": "604-916-4350",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 43,
-      "name": "PARUK Glen A",
-      "labc_id": "170340",
-      "email": "gparuk@shaw.ca",
-      "phone": "604-921-1949",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 44,
-      "name": "SHORTREED Katherine",
-      "labc_id": "157080",
-      "email": "katherine@ksdefence.ca",
-      "phone": "604-744-1066",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 45,
-      "name": "SMITH Michael D.",
-      "labc_id": "129754",
-      "email": "m_d_smith@mac.com",
-      "phone": "604-561-7875",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 46,
-      "name": "WHYNOT Olivia",
-      "labc_id": "157238",
-      "email": "Olivia.Whynot@outlook.com",
-      "phone": "778-858-7674",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 47,
-      "name": "WALSOFF David James",
-      "labc_id": "143198",
-      "email": "walsoffd@me.com",
-      "phone": "604-725-4357",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 48,
-      "name": "DAVIDSON Justine",
-      "labc_id": "156564",
-      "email": "justine.davidson.law@gmail.com",
-      "phone": "604-365-2421",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 49,
-      "name": "JANICKI Sandi",
-      "labc_id": "156547",
-      "email": "sandi.janicki@gmail.com",
-      "phone": "604-358-4100",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 50,
-      "name": "CORRIVEAU Chandra L.",
-      "labc_id": "139715",
-      "email": "changrilaw@gmail.com",
-      "phone": "778-893-5957",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 51,
-      "name": "LAWRENCE Darcy P.",
-      "labc_id": "149559",
-      "email": "darcy@darcylawrence.com",
-      "phone": "604-885-8182",
-      "location": null,
-      "region": "Vancouver Coastal"
-    },
-    {
-      "id": 52,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "zainali@sternshapraylaw.ca",
-      "phone": "778-834-6023",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 53,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "abdulabdulmalik@adlklaw.com",
-      "phone": "604-375-5160",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 54,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "bowlaw@telus.net",
-      "phone": "604-781-1951",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 55,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "wdburns@telus.net",
-      "phone": "604-218-4154",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 56,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "psslouise@gmail.com",
-      "phone": "236-989-4164",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 57,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "pdelrossi@saslaw.ca",
-      "phone": "604-590-5600",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 58,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "evids987654@gmail.com",
-      "phone": "604-613-0050",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 59,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "alexis.falk@alexisfalklaw.ca",
-      "phone": "604-349-0035",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 60,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "rfredrickson@shaw.ca",
-      "phone": "604-825-1861",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 61,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "edison.heba@telus.net",
-      "phone": "604-818-5081",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 62,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "julia@surreydefence.com",
-      "phone": "778-899-3060",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 63,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "ajaswal.law@gmail.com",
-      "phone": "604-818-0699",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 64,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "graemejose1@gmail.com",
-      "phone": "778-386-4566",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 65,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "gkabanuk@telus.net",
-      "phone": "604 220 6561",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 66,
-      "name": "KANDOLA Raman",
-      "labc_id": "157186",
-      "email": "raman@kandolalaw.ca",
-      "phone": "778-968-2522",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 67,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "robblarmer@gmail.com",
-      "phone": "604-203-9591",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 68,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "jas@helpslaw.com",
-      "phone": "604-782-6553",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 69,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "acquit@telus.net",
-      "phone": "604-240-7485",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 70,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "bobby@bmlawfirm.ca",
-      "phone": "604-785-6967",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 71,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "dbpayn@gmail.com",
-      "phone": "604-767-2120",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 72,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "hrehlan@basralawgroup.com",
-      "phone": "604-788-6731",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 73,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "mani4364@hotmail.com",
-      "phone": "778-316-7654",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 74,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "casey@stgermainlaw.com",
-      "phone": "604-716-8477",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 75,
-      "name": "Surrey",
-      "labc_id": null,
-      "email": "georgexuereb@icloud.com",
-      "phone": "604-783-1956",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 76,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "arnasonlaw1@gmail.com",
-      "phone": "604-996-9675",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 77,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "sarab@ssalawyers.ca",
-      "phone": "604-762-2261",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 78,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "philip@derksenlawyer.com",
-      "phone": "604-832-8395",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 79,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "vincent@moesandmore.com",
-      "phone": "778-242-7077",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 80,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "alexis.falk@alexisfalklaw.ca",
-      "phone": "604-349-0035",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 81,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "sgjmar408@gmail.com",
-      "phone": "604-807-6679",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 82,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "rebecca@ddlaw.ca",
-      "phone": "604-655-1857",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 83,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "dpetri@petrilaw.ca",
-      "phone": "604-996-2362",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 84,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "mardon2@telus.net",
-      "phone": "604-308-2669",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 85,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "ranjrandhawa@hotmail.com",
-      "phone": "604-649-8191",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 86,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "jayse@drugdefence.com",
-      "phone": "604-773-1319",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 87,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "djsch@telus.net",
-      "phone": "604-807-2680",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 88,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "osnowdon@stlegal.ca",
-      "phone": "604-725-6546",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 89,
-      "name": "Abbotsford/Chilliwack",
-      "labc_id": null,
-      "email": "cterepocki@gstlegal.ca",
-      "phone": "604-997-9289",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 90,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "trudy@trudyaulaw.com",
-      "phone": "604-600-5919",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 91,
-      "name": "New Westminster",
-      "labc_id": null,
-      "email": "karen@karenbastow.com",
-      "phone": "604- 600-2942",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 92,
-      "name": "Port Coquitlam",
-      "labc_id": null,
-      "email": "camranchaichian@hotmail.com",
-      "phone": "778-800-0201",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 93,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "psslouise@gmail.com",
-      "phone": "236-989-4164",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 94,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "rfredrickson@shaw.ca",
-      "phone": "604-825-1861",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 95,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "vguo@vguolaw.com",
-      "phone": "604-259-6260",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 96,
-      "name": "Port Coquitlam",
-      "labc_id": null,
-      "email": "stephanie@platformlit.com",
-      "phone": "778-868-3413",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 97,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "pauljanzen@pwjanzenlaw.ca",
-      "phone": "604-612-0828",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 98,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "lisajunglaw@gmail.com",
-      "phone": "604-537-1269",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 99,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "ludfordlaw@gmail.com",
-      "phone": "604-380-0143",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 100,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "karen@karenmirsky.com",
-      "phone": "604-614-6745",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 101,
-      "name": "Port Coquitlam",
-      "labc_id": null,
-      "email": "carmen@ochitwalaw.com",
-      "phone": "604-809-9244",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 102,
-      "name": "Port Coquitlam",
-      "labc_id": null,
-      "email": "gparuk@shaw.ca",
-      "phone": "604-921-1949",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 103,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "larrywpippard@shaw.ca",
-      "phone": "604-728-0847",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 104,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "leerankin@shaw.ca",
-      "phone": "778-988-9648",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 105,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "brocklehurst2008@hotmail.com",
-      "phone": "778-997-2757",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 106,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "dougsoga@begbiecourtlaw.com",
-      "phone": "604-816-9432",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 107,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "psprackman@telus.net",
-      "phone": "604-551-8836",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 108,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "nonac@live.ca",
-      "phone": "604-200-2544",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 109,
-      "name": "New Westminster/Port Coquitlam",
-      "labc_id": null,
-      "email": "roxy@vancouverlegal.ca",
-      "phone": "604-724-8955",
-      "location": null,
-      "region": "Fraser"
-    },
-    {
-      "id": 110,
-      "name": "Weststrate, Blaine",
-      "labc_id": null,
-      "email": "blainewest@shaw.ca",
-      "phone": "250-862-8555",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 111,
-      "name": "Johnson, David Brian",
-      "labc_id": null,
-      "email": "dbjohnson@me.com",
-      "phone": "250-717-6963",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 112,
-      "name": "Newby, Kelly",
-      "labc_id": null,
-      "email": "kelly@klnlaw.ca",
-      "phone": "250-718-7233",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 113,
-      "name": "Stephenson, Michael",
-      "labc_id": null,
-      "email": "mstephensonlawyer@gmail.com",
-      "phone": "250-870-1999",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 114,
-      "name": "Kelly, Joanna Elizabeth",
-      "labc_id": null,
-      "email": "joannakelly@shaw.ca",
-      "phone": "250 215 9209.",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 115,
-      "name": "Newcombe, Michael",
-      "labc_id": null,
-      "email": "newcombelaw@telus.net",
-      "phone": "250-861-8911",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 116,
-      "name": "Walford Helene",
-      "labc_id": null,
-      "email": "hwalfordlaw@shaw.ca",
-      "phone": "250-801-0031",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 117,
-      "name": "Lowe, Melissa",
-      "labc_id": null,
-      "email": "ml@mwslaw.ca",
-      "phone": "778-839-1102",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 118,
-      "name": "Jones, Gavin",
-      "labc_id": null,
-      "email": "assistant@joneslawoffice.ca",
-      "phone": "250 763 8877",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 119,
-      "name": "Kelly, Joanna Elizabeth",
-      "labc_id": null,
-      "email": "joannakelly@shaw.ca",
-      "phone": "250-215-9209",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 120,
-      "name": "Lundman, Kathyrn",
-      "labc_id": null,
-      "email": "klundman57@gmail.com",
-      "phone": "250-328-3302",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 121,
-      "name": "Newby, Kelly",
-      "labc_id": null,
-      "email": "kelnewby@gmail.com",
-      "phone": "250-718-7233",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 122,
-      "name": "Selamaj, Nelson",
-      "labc_id": null,
-      "email": "nelson@selamajlaw.ca",
-      "phone": "250-899-7769",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 123,
-      "name": "Skobalski, Glen",
-      "labc_id": null,
-      "email": "robglen@telus.net",
-      "phone": "250-550-9343",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 124,
-      "name": "Varga, Stanley Paul",
-      "labc_id": null,
-      "email": "paul@vargalaw.ca",
-      "phone": "250-328-2853",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 125,
-      "name": "Yates, Norman",
-      "labc_id": null,
-      "email": "normanyates@gmail.com",
-      "phone": "250-328-9996",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 126,
-      "name": "Walford, Helene",
-      "labc_id": null,
-      "email": "hwalfordlaw@shaw.ca",
-      "phone": "250-801-0031",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 127,
-      "name": "White, Donald James",
-      "labc_id": null,
-      "email": "don@whitelawoffice.ca",
-      "phone": "250-777-2990",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 128,
-      "name": "Armstrong, Murray",
-      "labc_id": null,
-      "email": "ama51@shaw.ca",
-      "phone": "250-851-8461",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 129,
-      "name": "CURRIE Iain A.",
-      "labc_id": "157019",
-      "email": "Iain@currie-law.ca",
-      "phone": "250-572-7186",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 130,
-      "name": "Maxwell, Jeff",
-      "labc_id": null,
-      "email": "Jeff@Maxwelllaw.net",
-      "phone": "778-921-0698",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 131,
-      "name": "Michi, Jay",
-      "labc_id": null,
-      "email": "krystyna@jensenlaw.ca",
-      "phone": "778-220-3573",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 132,
-      "name": "Tate Sheldon",
-      "labc_id": null,
-      "email": "sheldon@tatelaw.ca",
-      "phone": "250-377-1854",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 133,
-      "name": "McNamee, Daniel",
-      "labc_id": null,
-      "email": "daniel@jensenlaw.ca",
-      "phone": "647-648-1035",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 134,
-      "name": "Ching McNamee, Danielle",
-      "labc_id": null,
-      "email": "danielle@smithlitigation.com",
-      "phone": "778-929-5631",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 135,
-      "name": "Johnson, Cameron",
-      "labc_id": null,
-      "email": "cjohnson@cfelaw.ca",
-      "phone": "780-862-2998",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 136,
-      "name": "Kay, Graham",
-      "labc_id": null,
-      "email": "graham@kaylawoffice.com",
-      "phone": "250-819-6611",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 137,
-      "name": "Killoran, Joseph",
-      "labc_id": null,
-      "email": "krystyna@jensenlaw.ca",
-      "phone": "250-682-4767",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 138,
-      "name": "MCLAUGHLIN Courtney A.",
-      "labc_id": "157345",
-      "email": "cmclaughlinlaw@outlook.com",
-      "phone": "250-255-3758",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 139,
-      "name": "Gagnon, Dustin Cory",
-      "labc_id": null,
-      "email": "dustin@gagnonlawcorp.com",
-      "phone": "778-471-7927",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 140,
-      "name": "Jensen, Jeremy",
-      "labc_id": null,
-      "email": "krystyna@jensenlaw.ca",
-      "phone": "250-319-5684",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 141,
-      "name": "Gustafson, John",
-      "labc_id": null,
-      "email": "john@jpgustafsonlaw.com",
-      "phone": "250-572-5718",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 142,
-      "name": "Salmond, Lois E.",
-      "labc_id": null,
-      "email": "brocklehurst2008@hotmail.com",
-      "phone": "778-997-2757",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 143,
-      "name": "Thompson, Christopher H.",
-      "labc_id": null,
-      "email": "chthomp@telus.net",
-      "phone": "250-314-9596",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 144,
-      "name": "Walker Kenneth",
-      "labc_id": null,
-      "email": "kenwalker@wozniakwalker.ca",
-      "phone": "250-374-6226",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 145,
-      "name": "Walker, Lana",
-      "labc_id": null,
-      "email": "lana@smithlitigation.com",
-      "phone": "647-463-8432",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 146,
-      "name": "Avis, Jonathan R.",
-      "labc_id": null,
-      "email": "jonathan@avislaw.ca",
-      "phone": "250-307-0149",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 147,
-      "name": "Jacob, Nick",
-      "labc_id": null,
-      "email": "nick@nicholasjacob.ca",
-      "phone": "250-540-9798",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 148,
-      "name": "Mastop, Claire",
-      "labc_id": null,
-      "email": "clairemastop@gmail.com",
-      "phone": "250-308-2458",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 149,
-      "name": "McPheeters Laura",
-      "labc_id": null,
-      "email": "laura@mcpheeters.ca",
-      "phone": "778-930-2040",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 150,
-      "name": "Pielecki, Ignatius",
-      "labc_id": null,
-      "email": "nacio@telus.net",
-      "phone": "250-308-9199",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 151,
-      "name": "Forbes, Daniel",
-      "labc_id": null,
-      "email": "df@bcdef.ca",
-      "phone": null,
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 152,
-      "name": "Hinman, Tanner",
-      "labc_id": null,
-      "email": "law@tannerhinman.com",
-      "phone": "250-602-0020",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 153,
-      "name": "Simmons, Courtenay",
-      "labc_id": null,
-      "email": "csimmons@csimmonslaw.ca",
-      "phone": "250-540-1432",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 154,
-      "name": "Verdurmen, Dominique C.T.",
-      "labc_id": null,
-      "email": "kelly@verdurmenlaw.com",
-      "phone": "250-833-0914",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 155,
-      "name": "Wark, Roderick W.",
-      "labc_id": null,
-      "email": "rodw@telus.net",
-      "phone": "250-938-2177",
-      "location": null,
-      "region": "Interior"
-    },
-    {
-      "id": 156,
-      "name": "CURRIE Iain A.",
-      "labc_id": "157019",
-      "email": "Iain@currie-law.ca",
-      "phone": "250-572-7186",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 157,
-      "name": "Hinman, Tanner J.",
-      "labc_id": null,
-      "email": "law@tannerhinman.com",
-      "phone": "250-602-0020",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 158,
-      "name": "Jensen, Jeremy",
-      "labc_id": null,
-      "email": "jeremy@jensenlaw.ca",
-      "phone": "250-319-5684",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 159,
-      "name": "Johnson, David Brian",
-      "labc_id": null,
-      "email": "dbjohnson@icloud.com",
-      "phone": "250-717-6963",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 160,
-      "name": "Killoran, Joe",
-      "labc_id": null,
-      "email": "joe@jensenlaw.ca",
-      "phone": "250-682-4767",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 161,
-      "name": "Komarysky, Kyle",
-      "labc_id": null,
-      "email": "kyle@jensenlaw.ca",
-      "phone": "780-920-4559",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 162,
-      "name": "Laflamme, Marcel",
-      "labc_id": null,
-      "email": "marcellaflamme@telus.net",
-      "phone": "250-342-1094",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 163,
-      "name": "Lundman, Kathyrn",
-      "labc_id": null,
-      "email": "klundman57@gmail.com",
-      "phone": "250-328-3302",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 164,
-      "name": "MCLAUGHLIN Courtney A.",
-      "labc_id": "157345",
-      "email": "cmclaughlinlaw@outlook.com",
-      "phone": "250-255-3758",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 165,
-      "name": "McNamee, Daniel",
-      "labc_id": null,
-      "email": "daniel@jensenlaw.ca",
-      "phone": "647-648-1035",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 166,
-      "name": "Mctavish, Ian",
-      "labc_id": null,
-      "email": "ianmctavish@mctavishlaw.ca",
-      "phone": "250-832-5334",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 167,
-      "name": "Michi, Jay",
-      "labc_id": null,
-      "email": "jay@jensenlaw.ca",
-      "phone": "778-220-3573",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 168,
-      "name": "Selamaj, Nelson",
-      "labc_id": null,
-      "email": "nelson@selamajlaw.ca",
-      "phone": "250-899-7769",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 169,
-      "name": "Stephenson, Michael",
-      "labc_id": null,
-      "email": "mstephensonlawyer@gmail.com",
-      "phone": "250-870-1999",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 170,
-      "name": "Verdurmen, Dominique C.T.",
-      "labc_id": null,
-      "email": "dominique@verdurmenlaw.com",
-      "phone": "250-833-0914",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 171,
-      "name": "Walford, Helene",
-      "labc_id": null,
-      "email": "hwalfordlaw@shaw.ca",
-      "phone": "250-801-0031",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 172,
-      "name": "Yates, Norman E.",
-      "labc_id": null,
-      "email": "normanyates@gmail.com",
-      "phone": "250-328-9996",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 173,
-      "name": "MAXWELL Jean-Francois Normand",
-      "labc_id": "157101",
-      "email": "Jeff@Maxwelllaw.net",
-      "phone": "778-921-0698",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 174,
-      "name": "Tate, Sheldon",
-      "labc_id": null,
-      "email": "sheldon@tatelaw.ca",
-      "phone": "250-377-1854",
-      "location": null,
-      "region": "Interior Evening"
-    },
-    {
-      "id": 175,
-      "name": "Alberto, Roberto",
-      "labc_id": null,
-      "email": "alberto@ameliastreetlawyers.com",
-      "phone": "250-920-0144",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 176,
-      "name": "Arnold, Jonathan P.",
-      "labc_id": null,
-      "email": "messagejparnold@outlook.com",
-      "phone": "250-858-0140",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 177,
-      "name": "Acker, Nicholas",
-      "labc_id": null,
-      "email": "na@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 178,
-      "name": "Blokmanis,Peter Andris",
-      "labc_id": null,
-      "email": "peter@elevationlegal.ca",
-      "phone": "250-580-4100",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 179,
-      "name": "Bulmer, Thomas",
-      "labc_id": null,
-      "email": "tom@victorialegal.com",
-      "phone": "250-384-7116",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 180,
-      "name": "Brooks, Neil",
-      "labc_id": null,
-      "email": "brooks.neil@gmail.com",
-      "phone": "250-661-1893",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 181,
-      "name": "Costa, M. Elizabete",
-      "labc_id": null,
-      "email": "mec@costalaw.ca",
-      "phone": "250-884-9490",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 182,
-      "name": "Dieno, Raymond G.",
-      "labc_id": null,
-      "email": "ray.dieno@v-law.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 183,
-      "name": "Drury, Robert Ryan",
-      "labc_id": null,
-      "email": "rdrury@clauscriminallaw.com",
-      "phone": "250-361-3000",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 184,
-      "name": "Gustafson, Carl Owen",
-      "labc_id": null,
-      "email": "cog43@shaw.ca",
-      "phone": "250-217-6919",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 185,
-      "name": "Horne, Rolfe S.",
-      "labc_id": null,
-      "email": "moxielawcorp@yahoo.ca",
-      "phone": "604-365-6540",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 186,
-      "name": "Heller, James",
-      "labc_id": null,
-      "email": "jimheller@shaw.ca",
-      "phone": "250-360-1040",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 187,
-      "name": "Johnson, Barclay W.",
-      "labc_id": null,
-      "email": "bwjohnson@shaw.ca",
-      "phone": "778-679-4417",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 188,
-      "name": "Karaszkiewicz, Kirk T.",
-      "labc_id": null,
-      "email": "kirkkaras@shaw.ca",
-      "phone": "250-217-5647",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 189,
-      "name": "Kuczma, Roland",
-      "labc_id": null,
-      "email": "rkuczma@gmail.com",
-      "phone": "250-514-8192",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 190,
-      "name": "Lugosi, Charles",
-      "labc_id": null,
-      "email": "Charles@lugosi-law.com",
-      "phone": "19-761-7000",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 191,
-      "name": "Lynskey, Ben",
-      "labc_id": null,
-      "email": "lynskey@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 192,
-      "name": "McCullough, Kevin George",
-      "labc_id": null,
-      "email": "km@mbdglaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 193,
-      "name": "Mills, Jeremy W.D.",
-      "labc_id": null,
-      "email": "jeremy@donaldjmckay.com",
-      "phone": "250-853-0253",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 194,
-      "name": "Morrison, Marie",
-      "labc_id": null,
-      "email": "marie@mmorrisonlaw.ca",
-      "phone": "250-388-9003",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 195,
-      "name": "Morino, Thomas",
-      "labc_id": null,
-      "email": "tom_morino@hotmail.com",
-      "phone": "250-295-3342",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 196,
-      "name": "Motture Miles",
-      "labc_id": null,
-      "email": "milesmotture@gmail.com",
-      "phone": "778-410-2363",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 197,
-      "name": "Reid, Jennifer Meela",
-      "labc_id": null,
-      "email": "jenslawster@gmail.com",
-      "phone": "778-884-6875",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 198,
-      "name": "Roy, Schuyler",
-      "labc_id": null,
-      "email": "sroy@clauscriminallaw.com",
-      "phone": "778-677-4578",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 199,
-      "name": "Schwartz, Richard A.",
-      "labc_id": null,
-      "email": "raschwartz@shaw.ca",
-      "phone": "250-812-3807",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 200,
-      "name": "Suntok, Stephen N.",
-      "labc_id": null,
-      "email": "stevesuntok@gmail.com",
-      "phone": "250-884-7299",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 201,
-      "name": "Sutton, Chantelle",
-      "labc_id": null,
-      "email": "cs@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 202,
-      "name": "TAIT Alexander P.",
-      "labc_id": "109124",
-      "email": "aptait@shaw.ca",
-      "phone": "250-360-0555",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 203,
-      "name": "Tollefson, Claire",
-      "labc_id": null,
-      "email": "cmtollefsonlaw@shaw.ca",
-      "phone": "250-881-5877",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 204,
-      "name": "White, Cynthia",
-      "labc_id": null,
-      "email": "cynthia.white@shaw.ca",
-      "phone": "250-886-4015",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 205,
-      "name": "Watt, Jordan",
-      "labc_id": null,
-      "email": "jw@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 206,
-      "name": "Alexander P. Tait",
-      "labc_id": null,
-      "email": "aptait@shaw.ca",
-      "phone": "250-812-8005",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 207,
-      "name": "Barclay W. Johnson",
-      "labc_id": null,
-      "email": "bwjohnson@shaw.ca",
-      "phone": "778-679-4417",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 208,
-      "name": "Ben Lynskey",
-      "labc_id": null,
-      "email": "bl@mwslaw.ca",
-      "phone": "778-679-9580",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 209,
-      "name": "Cara Hunt",
-      "labc_id": null,
-      "email": "cara@carahunt.ca",
-      "phone": "778-350-4868",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 210,
-      "name": "Claire Tollefson",
-      "labc_id": null,
-      "email": "cmtollefsonlaw@shaw.ca",
-      "phone": "250-881-5877",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 211,
-      "name": "Cynthia White",
-      "labc_id": null,
-      "email": "cynthiawhitelaw@outlook.com",
-      "phone": "250-886-4015",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 212,
-      "name": "Elizabete M. Costa",
-      "labc_id": null,
-      "email": "mec@costalaw.ca",
-      "phone": "250-884-9490",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 213,
-      "name": "James Heller",
-      "labc_id": null,
-      "email": "jimheller@shaw.ca",
-      "phone": "250-360-10401",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 214,
-      "name": "Jennifer Reid",
-      "labc_id": null,
-      "email": "jenslawster@gmail.com",
-      "phone": "778-884-6875",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 215,
-      "name": "Jordan Watt",
-      "labc_id": null,
-      "email": "jw@mwslaw.ca",
-      "phone": "250-886-8358",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 216,
-      "name": "Kirk T. Karaszkiewicz",
-      "labc_id": null,
-      "email": "kirkkaras@shaw.ca",
-      "phone": "250-217-5647",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 217,
-      "name": "Kevin George McCullough",
-      "labc_id": null,
-      "email": "km@mwslaw.ca",
-      "phone": "778-678-2225",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 218,
-      "name": "Marion West",
-      "labc_id": null,
-      "email": "mlwest500@gmail.com",
-      "phone": "604-768-8396",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 219,
-      "name": "Peter Blokmanis",
-      "labc_id": null,
-      "email": "peter@elevationlegal.ca",
-      "phone": "250-580-4100",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 220,
-      "name": "Richard A. Schwartz",
-      "labc_id": null,
-      "email": "raschwartz@shaw.ca",
-      "phone": "250-812-3807",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 221,
-      "name": "Robert S. Ramsay",
-      "labc_id": null,
-      "email": "robertstevenramsay@gmail.com",
-      "phone": "250-715-5619",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 222,
-      "name": "Roberto Alberto",
-      "labc_id": null,
-      "email": "alberto@ameliastreetlawyers.com",
-      "phone": "250-920-0144",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 223,
-      "name": "Rolfe S. Horne",
-      "labc_id": null,
-      "email": "moxielawcorp@yahoo.ca",
-      "phone": "604-365-6540",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 224,
-      "name": "Ryan Drury",
-      "labc_id": null,
-      "email": "rdrury@clauscriminallaw.com",
-      "phone": "250-361-3000",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 225,
-      "name": "Simon Knott",
-      "labc_id": null,
-      "email": "simknott1@gmail.com",
-      "phone": "250-597-1820",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 226,
-      "name": "Anita Szabo",
-      "labc_id": null,
-      "email": "canmorelawyer@gmail.com",
-      "phone": "403-688-2422",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 227,
-      "name": "Julia Hunter",
-      "labc_id": null,
-      "email": "juliahunter@strategic-law.ca",
-      "phone": "250-884-3930",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 228,
-      "name": "Nick Acker",
-      "labc_id": null,
-      "email": "na@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 229,
-      "name": "Justin Dosanjh",
-      "labc_id": null,
-      "email": "jd@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 230,
-      "name": "Cheyne Hodson",
-      "labc_id": null,
-      "email": "ch@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 231,
-      "name": "Schuyler ROY",
-      "labc_id": null,
-      "email": "sroy@clauscriminallaw.com",
-      "phone": "778-677-4578",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 232,
-      "name": "Thomas Morino",
-      "labc_id": null,
-      "email": "tom_morino@hotmail.com",
-      "phone": "250-295-3342",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 233,
-      "name": "Thomas W. Bulmer",
-      "labc_id": null,
-      "email": "tom@victorialegal.com",
-      "phone": "250-384-7116",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 234,
-      "name": "Andrew Uhlman",
-      "labc_id": null,
-      "email": "andrew@uhlmanlaw.com",
-      "phone": "250-361-6405",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 235,
-      "name": "Tim Russell",
-      "labc_id": null,
-      "email": "km@mwslaw.ca",
-      "phone": "250-480-1529",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 236,
-      "name": "Jonathan Arnold",
-      "labc_id": null,
-      "email": "messagejparnold@outlook.com",
-      "phone": "250-858-0140",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 237,
-      "name": "Winkel, Megan",
-      "labc_id": null,
-      "email": "megan@bcdefence.ca",
-      "phone": "778-676-1311",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 238,
-      "name": "Steve Suntok",
-      "labc_id": null,
-      "email": "stevesuntok@gmail.com",
-      "phone": "250-884-7299",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 239,
-      "name": "Arends, James K.",
-      "labc_id": null,
-      "email": "arendslaw@shaw.ca",
-      "phone": "778-744-3310",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 240,
-      "name": "Screech, Martin",
-      "labc_id": null,
-      "email": "screech@sll.ca",
-      "phone": "250-381-4040",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 241,
-      "name": "Bradshaw, Kelly",
-      "labc_id": null,
-      "email": "kelly@kingbradshaw.com",
-      "phone": "250-753-6617",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 242,
-      "name": "Wright, C. James",
-      "labc_id": null,
-      "email": "wright-law@telus.net",
-      "phone": "250-751-5853",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 243,
-      "name": "Waugh, Kendra",
-      "labc_id": null,
-      "email": "kendra@bcdefence.ca",
-      "phone": "250-802-8080",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 244,
-      "name": "Ritzker, Michael",
-      "labc_id": null,
-      "email": "mikeritzker@gmail.com",
-      "phone": "250-668-9377",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 245,
-      "name": "Kerr-Donohue, Kathleen",
-      "labc_id": null,
-      "email": "kathleen@bcdefence.ca",
-      "phone": "250-713-8080",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 246,
-      "name": "Littley, Stephen T.",
-      "labc_id": null,
-      "email": "kimberley.littleylaw@gmail.com",
-      "phone": "250-753-5372",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 247,
-      "name": "Shelling Louis",
-      "labc_id": null,
-      "email": "jlshelling@telus.net",
-      "phone": "888-283-3933",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 248,
-      "name": "Turner, Julia",
-      "labc_id": null,
-      "email": "julia@bcdefence.ca",
-      "phone": "250-616-3493",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 249,
-      "name": "Cara Hunt",
-      "labc_id": null,
-      "email": "cara@carahunt.ca",
-      "phone": "778-350-4868",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 250,
-      "name": "Norm Yates",
-      "labc_id": null,
-      "email": "normanyates@gmail.com",
-      "phone": "250-328-9996",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 251,
-      "name": "Zertuche de Iturbide Octavio",
-      "labc_id": null,
-      "email": "zertuche@zertuchelaw.com",
-      "phone": "250-889-8377",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 252,
-      "name": "Angelique Penhall",
-      "labc_id": null,
-      "email": "angie.penhall@shaw.ca",
-      "phone": "250-850-5466",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 253,
-      "name": "Kathleen McGuire",
-      "labc_id": null,
-      "email": "Kathleen.mcguire@pkmlaw.ca",
-      "phone": "604-315-5551",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 254,
-      "name": "Murray L. Gendreau",
-      "labc_id": null,
-      "email": "mljgendreau@shaw.ca",
-      "phone": "250-730-1355",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 255,
-      "name": "Robert D. Miller",
-      "labc_id": null,
-      "email": "mmmiller@shaw.ca",
-      "phone": "250-334-7354",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 256,
-      "name": "Robert Yeo",
-      "labc_id": null,
-      "email": "ryeolaw@shaw.ca",
-      "phone": "250-703-6994; 250-334-4155",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 257,
-      "name": "Herb Chambers",
-      "labc_id": null,
-      "email": "hwchambers@shaw.ca",
-      "phone": "604-892-7839",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 258,
-      "name": "Thomas Vincent Martin",
-      "labc_id": null,
-      "email": "quadlaw@hotmail.com",
-      "phone": "250-285-2021",
-      "location": null,
-      "region": "Island"
-    },
-    {
-      "id": 259,
-      "name": "GILSON Brian G",
-      "labc_id": "175273",
-      "email": "gilsonlaw@gmail.com",
-      "phone": "250-563-7330",
-      "location": null,
-      "region": "Northern"
-    },
-    {
-      "id": 260,
-      "name": "JOSEPHY Beatrix L.",
-      "labc_id": "111500",
-      "email": "bjosephy@gmail.com",
-      "phone": "250-561-1808",
-      "location": null,
-      "region": "Northern"
-    },
-    {
-      "id": 261,
-      "name": "GRIFFITH-ZAHNER Martin",
-      "labc_id": "144824",
-      "email": "mgriffithzahner@gmail.com",
-      "phone": "250 600-3555",
-      "location": null,
-      "region": "Northern"
-    },
-    {
-      "id": 262,
-      "name": "GRIFFITH-ZAHNER Martin",
-      "labc_id": "144824",
-      "email": "mgriffithzahner@gmail.com",
-      "phone": "250 600-3555",
-      "location": null,
-      "region": "Northern"
+      "phone": "+1 778-725-6348",
+      "toll_free": "(844) 636-7837"
     }
   ]
 }
