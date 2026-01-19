@@ -1,122 +1,55 @@
--- BC Legal Reference Database - Complete Data Import (UPDATED)
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- BC LEGAL REFERENCE DATABASE - COMPLETE IMPORT
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- 25 Tables | 3,271 Records
 -- Generated: 2025-01-19
--- Total Records: 907+
--- 
--- HOW TO USE:
--- 1. Go to your Supabase Dashboard: https://supabase.com/dashboard
--- 2. Click on "SQL Editor" in the left sidebar
--- 3. Create a new query
--- 4. Paste this entire file
--- 5. Click "Run" to execute
+--
+-- HOW TO RUN:
+-- 1. Go to Supabase Dashboard → SQL Editor
+-- 2. Paste this entire file
+-- 3. Click "Run"
+-- ═══════════════════════════════════════════════════════════════════════════════
 
--- ============================================
--- ENABLE EXTENSIONS
--- ============================================
+-- Enable extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 
--- ============================================
--- DROP AND RECREATE TABLES
--- ============================================
-
--- Bail Offices (NEW)
-DROP TABLE IF EXISTS bail_offices CASCADE;
-CREATE TABLE bail_offices (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    location VARCHAR(255),
-    email VARCHAR(255),
-    type VARCHAR(50),
-    hours TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Federal Crown Contacts (NEW)
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- DROP ALL EXISTING TABLES
+-- ═══════════════════════════════════════════════════════════════════════════════
+DROP TABLE IF EXISTS courts CASCADE;
+DROP TABLE IF EXISTS police_cells CASCADE;
+DROP TABLE IF EXISTS correctional_facilities CASCADE;
+DROP TABLE IF EXISTS bail_contacts CASCADE;
+DROP TABLE IF EXISTS bail_coordinators CASCADE;
+DROP TABLE IF EXISTS crown_contacts CASCADE;
 DROP TABLE IF EXISTS federal_crown_contacts CASCADE;
-CREATE TABLE federal_crown_contacts (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    area TEXT,
-    firm VARCHAR(255),
-    email VARCHAR(255),
-    phone VARCHAR(50),
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Evening Crown Contacts (NEW)
+DROP TABLE IF EXISTS labc_offices CASCADE;
+DROP TABLE IF EXISTS labc_navigators CASCADE;
+DROP TABLE IF EXISTS forensic_clinics CASCADE;
+DROP TABLE IF EXISTS indigenous_justice_centres CASCADE;
+DROP TABLE IF EXISTS ms_teams_links CASCADE;
+DROP TABLE IF EXISTS programs CASCADE;
+DROP TABLE IF EXISTS access_codes CASCADE;
+DROP TABLE IF EXISTS circuit_courts CASCADE;
+DROP TABLE IF EXISTS bail_offices CASCADE;
 DROP TABLE IF EXISTS evening_crown_contacts CASCADE;
-CREATE TABLE evening_crown_contacts (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    name VARCHAR(255),
-    role VARCHAR(100),
-    email VARCHAR(255),
-    phone VARCHAR(50),
-    mobile VARCHAR(50),
-    type VARCHAR(50),
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Crown Offices (NEW)
 DROP TABLE IF EXISTS crown_offices CASCADE;
-CREATE TABLE crown_offices (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    courtroom VARCHAR(20),
-    location VARCHAR(255),
-    email VARCHAR(255),
-    phone VARCHAR(50),
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Sheriff Cells Access (NEW)
 DROP TABLE IF EXISTS sheriff_cells_access CASCADE;
-CREATE TABLE sheriff_cells_access (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    location VARCHAR(255),
-    phone VARCHAR(100),
-    access TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Registry Contacts (NEW)
 DROP TABLE IF EXISTS registry_contacts CASCADE;
-CREATE TABLE registry_contacts (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    court VARCHAR(255),
-    code VARCHAR(10),
-    email VARCHAR(255),
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Justice Centre Links (NEW)
 DROP TABLE IF EXISTS justice_centre_links CASCADE;
-CREATE TABLE justice_centre_links (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(20),
-    name VARCHAR(255),
-    conference_id VARCHAR(50),
-    phone VARCHAR(50),
-    toll_free VARCHAR(50),
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- VB Triage Links (NEW)
 DROP TABLE IF EXISTS vb_triage_links CASCADE;
-CREATE TABLE vb_triage_links (
-    id SERIAL PRIMARY KEY,
-    region VARCHAR(10),
-    location VARCHAR(255),
-    conference_id VARCHAR(50),
-    phone VARCHAR(50),
-    toll_free VARCHAR(50),
-    created_at TIMESTAMP DEFAULT NOW()
-);
+DROP TABLE IF EXISTS fnha_mental_health_providers CASCADE;
+DROP TABLE IF EXISTS indigenous_resources CASCADE;
+DROP TABLE IF EXISTS legal_aid CASCADE;
+DROP TABLE IF EXISTS rcmp CASCADE;
 
--- Courts
-CREATE TABLE IF NOT EXISTS courts (
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- CREATE TABLES
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- Courts (82 records)
+CREATE TABLE courts (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     region VARCHAR(50),
@@ -130,8 +63,8 @@ CREATE TABLE IF NOT EXISTS courts (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Police Cells
-CREATE TABLE IF NOT EXISTS police_cells (
+-- Police Cells (106 records)
+CREATE TABLE police_cells (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     region VARCHAR(50),
@@ -143,8 +76,8 @@ CREATE TABLE IF NOT EXISTS police_cells (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Correctional Facilities
-CREATE TABLE IF NOT EXISTS correctional_facilities (
+-- Correctional Facilities (44 records)
+CREATE TABLE correctional_facilities (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     type VARCHAR(50),
@@ -155,8 +88,8 @@ CREATE TABLE IF NOT EXISTS correctional_facilities (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Bail Contacts
-CREATE TABLE IF NOT EXISTS bail_contacts (
+-- Bail Contacts (7 records)
+CREATE TABLE bail_contacts (
     id SERIAL PRIMARY KEY,
     region VARCHAR(10) NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -166,8 +99,8 @@ CREATE TABLE IF NOT EXISTS bail_contacts (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Bail Coordinators
-CREATE TABLE IF NOT EXISTS bail_coordinators (
+-- Bail Coordinators (4 records)
+CREATE TABLE bail_coordinators (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     region VARCHAR(100) NOT NULL,
@@ -177,8 +110,8 @@ CREATE TABLE IF NOT EXISTS bail_coordinators (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Crown Contacts
-CREATE TABLE IF NOT EXISTS crown_contacts (
+-- Crown Contacts (10 records)
+CREATE TABLE crown_contacts (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     region VARCHAR(50),
@@ -190,8 +123,19 @@ CREATE TABLE IF NOT EXISTS crown_contacts (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- LABC Offices
-CREATE TABLE IF NOT EXISTS labc_offices (
+-- Federal Crown Contacts (13 records)
+CREATE TABLE federal_crown_contacts (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    area TEXT,
+    firm VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- LABC Offices (11 records)
+CREATE TABLE labc_offices (
     id SERIAL PRIMARY KEY,
     location VARCHAR(255),
     region VARCHAR(50),
@@ -202,8 +146,8 @@ CREATE TABLE IF NOT EXISTS labc_offices (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- LABC Navigators
-CREATE TABLE IF NOT EXISTS labc_navigators (
+-- LABC Navigators (8 records)
+CREATE TABLE labc_navigators (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(50),
@@ -212,8 +156,8 @@ CREATE TABLE IF NOT EXISTS labc_navigators (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Forensic Clinics
-CREATE TABLE IF NOT EXISTS forensic_clinics (
+-- Forensic Clinics (7 records)
+CREATE TABLE forensic_clinics (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     address TEXT,
@@ -222,8 +166,8 @@ CREATE TABLE IF NOT EXISTS forensic_clinics (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Indigenous Justice Centres
-CREATE TABLE IF NOT EXISTS indigenous_justice_centres (
+-- Indigenous Justice Centres (10 records)
+CREATE TABLE indigenous_justice_centres (
     id SERIAL PRIMARY KEY,
     location VARCHAR(255) NOT NULL,
     phone VARCHAR(50),
@@ -232,8 +176,20 @@ CREATE TABLE IF NOT EXISTS indigenous_justice_centres (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Programs
-CREATE TABLE IF NOT EXISTS programs (
+-- MS Teams Links (405 records)
+CREATE TABLE ms_teams_links (
+    id SERIAL PRIMARY KEY,
+    court VARCHAR(255),
+    courtroom VARCHAR(100),
+    conference_id VARCHAR(50),
+    phone VARCHAR(50),
+    toll_free VARCHAR(50),
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Programs (18 records)
+CREATE TABLE programs (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     location VARCHAR(255),
@@ -246,8 +202,8 @@ CREATE TABLE IF NOT EXISTS programs (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Access Codes
-CREATE TABLE IF NOT EXISTS access_codes (
+-- Access Codes (18 records)
+CREATE TABLE access_codes (
     id SERIAL PRIMARY KEY,
     court VARCHAR(255) NOT NULL,
     code VARCHAR(50),
@@ -255,8 +211,8 @@ CREATE TABLE IF NOT EXISTS access_codes (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Circuit Courts
-CREATE TABLE IF NOT EXISTS circuit_courts (
+-- Circuit Courts (48 records)
+CREATE TABLE circuit_courts (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     region VARCHAR(50),
@@ -264,166 +220,112 @@ CREATE TABLE IF NOT EXISTS circuit_courts (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- ============================================
+-- Bail Offices (17 records)
+CREATE TABLE bail_offices (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    location VARCHAR(255),
+    email VARCHAR(255),
+    type VARCHAR(50),
+    hours TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Evening Crown Contacts (9 records)
+CREATE TABLE evening_crown_contacts (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    name VARCHAR(255),
+    role VARCHAR(100),
+    email VARCHAR(255),
+    phone VARCHAR(50),
+    mobile VARCHAR(50),
+    type VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Crown Offices (26 records)
+CREATE TABLE crown_offices (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    courtroom VARCHAR(20),
+    location VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Sheriff Cells Access (8 records)
+CREATE TABLE sheriff_cells_access (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    location VARCHAR(255),
+    phone VARCHAR(100),
+    access TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Registry Contacts (33 records)
+CREATE TABLE registry_contacts (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    court VARCHAR(255),
+    code VARCHAR(10),
+    email VARCHAR(255),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Justice Centre Links (7 records)
+CREATE TABLE justice_centre_links (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(20),
+    name VARCHAR(255),
+    conference_id VARCHAR(50),
+    phone VARCHAR(50),
+    toll_free VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- VB Triage Links (16 records)
+CREATE TABLE vb_triage_links (
+    id SERIAL PRIMARY KEY,
+    region VARCHAR(10),
+    location VARCHAR(255),
+    conference_id VARCHAR(50),
+    phone VARCHAR(50),
+    toll_free VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- FNHA Mental Health Providers (2135 records)
+CREATE TABLE fnha_mental_health_providers (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    designation VARCHAR(50),
+    region VARCHAR(50),
+    phone VARCHAR(50),
+    virtual_care BOOLEAN DEFAULT FALSE,
+    availability VARCHAR(100),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Indigenous Resources (229 records)
+CREATE TABLE indigenous_resources (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    region VARCHAR(50),
+    location VARCHAR(255),
+    phone VARCHAR(50),
+    email VARCHAR(255),
+    website TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
 -- INSERT DATA
--- ============================================
-
-
--- BAIL OFFICES (17 records)
-TRUNCATE TABLE bail_offices RESTART IDENTITY CASCADE;
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Abbotsford', 'Abbotsford.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Chilliwack', 'Chilliwack.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'New Westminster', 'NewWestProv.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Port Coquitlam', 'PoCo.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Surrey', 'Surrey.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Fraser After-Hours', 'Surrey.VirtualBail@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R4', 'Interior Daytime', 'Region4.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R4', 'Interior After-Hours', 'AGBCPSReg4BailKelownaGen@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R1', 'Island Daytime', 'Region1.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R1', 'Island After-Hours', 'VictoriaCrown.Public@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R5', 'North All Hours', 'Region5.VirtualBail@gov.bc.ca', 'all_hours', 'All bail matters');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', '222 Main/DCC', '222MainCrownBail@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'North Vancouver', 'NorthVanCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Richmond', 'RichmondCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Sechelt', 'SecheltCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Vancouver Youth', 'VancouverYouthCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
-INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Vancouver Coastal After-Hours', '222MainCrownBail@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
-
--- FEDERAL CROWN CONTACTS (13 records)
-TRUNCATE TABLE federal_crown_contacts RESTART IDENTITY CASCADE;
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R1', 'Victoria & Colwood', 'Jones & Co', 'Vicinfo@joneslaw.ca', '250-220-6942');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R1', 'Nanaimo & Duncan', 'Jones & Co', 'Naninfo@joneslaw.ca', '250-714-1113');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R1', 'Campbell River, Courtenay, Port Alberni, Port Hardy, Tofino', 'Jones & Co', 'Naninfo@joneslaw.ca', '250-714-1113');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R3', 'Surrey, Langley, Delta, White Rock', 'PPSC Surrey Office', 'PPSC.SurreyInCustody-EnDetentionSurrey.SPPC@ppsc-sppc.gc.ca', '236-456-0015');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R3', 'Port Coquitlam & New Westminster', 'MTC Law', 'pbachra@mtclaw.ca', '604-590-8855');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R3', 'Chilliwack & Abbotsford', 'JM LeDressay & Associates', 'jir@jmldlaw.com', '604-514-8203');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R4', 'Kamloops, Ashcroft, Chase, Clearwater, Lillooet, Lytton, Merritt, Salmon Arm', 'MTC Law', 'pbachra@mtclaw.ca', '604-590-8855');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R4', 'Kelowna, Penticton, Oliver, Osoyoos, Summerland, Princeton, Vernon', 'JM LeDressay & Associates', 'jir@jmldlaw.com', '604-514-8203');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R4', 'Kootenays (Castlegar, Cranbrook, Creston, Fernie, Golden, Grand Forks, Invermere, Nakusp, Nelson, Rossland, Trail)', 'PPSC Surrey Office', 'VAN.Detention.VAN@ppsc-sppc.gc.ca', '604-354-9146');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', 'Prince George, Smithers, Terrace, Burns Lake, Vanderhoof, Hazelton, Houston, Kitimat', 'Yalowsky Sudeyko Lucky', 'Richard@luckylaw.ca', '250-562-2316');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', 'Peace Region (Dawson Creek, Fort Nelson, Fort St. John, Chetwynd)', 'PPSC Main Street', 'VAN.Detention.VAN@ppsc-sppc.gc.ca', '604-666-2141');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', 'Masset, Queen Charlotte', 'PPSC BCRO', 'Adrienne.Switzer@ppsc-sppc.gc.ca', '604-230-8632');
-INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', '100 Mile House, McBride, Valemount, Williams Lake', 'MTC Law', 'pbachra@mtclaw.ca', '604-590-8855');
-
--- EVENING CROWN CONTACTS (9 records)
-TRUNCATE TABLE evening_crown_contacts RESTART IDENTITY CASCADE;
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Island Evening Team', NULL, 'VictoriaCrown.Public@gov.bc.ca', NULL, NULL, 'team_email');
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Megan Saben', 'Legal Assistant', 'Megan.saben@gov.bc.ca', '236-748-1481', NULL, NULL);
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Jillian Pawlow', 'Crown Counsel', 'Jillian.Pawlow@gov.bc.ca', '236-478-3732', NULL, NULL);
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Mark Halston', 'Crown Counsel (Backup)', 'Mark.Halston@gov.bc.ca', '778-405-1775', '250-507-9104', NULL);
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Interior Evening Team', NULL, 'AGBCPSReg4BailKelownaGen@gov.bc.ca', NULL, NULL, 'team_email');
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Izabel Bonilla', 'Legal Assistant', 'izabel.bonilla@gov.bc.ca', '778-943-7129', NULL, NULL);
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Traci Denman', 'Legal Assistant (Backup)', 'Traci.denman@gov.bc.ca', '778-943-0176', NULL, NULL);
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Sheron O''Connor', 'Crown Counsel', 'Sheron.oconnor@gov.bc.ca', '250-645-9160', '250-570-1422', NULL);
-INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Bill Hilderman', 'Crown Counsel (Backup)', 'Bill.hilderman@gov.bc.ca', '778-824-0097', NULL, NULL);
-
--- CROWN OFFICES (26 records)
-TRUNCATE TABLE crown_offices RESTART IDENTITY CASCADE;
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Campbell River', 'CampbellRiver.CrownSchedule@gov.bc.ca', '250-286-7544');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Courtenay', 'Courtenay.CrownSchedule@gov.bc.ca', '250-334-1120');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Nanaimo', 'Nanaimo.CrownSchedule@gov.bc.ca', '250-741-3711');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Port Alberni', 'PtAlberni.CrownSchedule@gov.bc.ca', '250-720-2433');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Port Hardy', 'PortHardy.CrownSchedule@gov.bc.ca', '250-949-8644');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Powell River', 'PowellRiver.Crown@gov.bc.ca', '604-485-3645');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR8', 'Colwood', 'Colwood.Crown@gov.bc.ca', '250-391-2866');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR8', 'Duncan', 'BCPS.Duncan.Reception@gov.bc.ca', '250-746-1229');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR8', 'Victoria', 'VictoriaCrown.Public@gov.bc.ca', '250-387-4481');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Kelowna', 'BCPS.KelownaGen@gov.bc.ca', '250-470-6822');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Cranbrook', 'BCPS.CranbrookGen@gov.bc.ca', '250-426-1525');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Nelson', 'BCPS.NelsonGen@gov.bc.ca', '250-354-6511');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Penticton', 'BCPS.PentictonGen@gov.bc.ca', '250-487-4455');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR4', 'Kamloops', 'BCPS.KamloopsGen@gov.bc.ca', '250-828-4021');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR4', 'Salmon Arm', 'BCPS.SalmonArmGen@gov.bc.ca', '250-832-1651');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR4', 'Vernon', 'BCPS.VernonGen@gov.bc.ca', '250-503-3643');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Prince George', 'PrGeorge.Crown@gov.bc.ca', '250-614-2601');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Quesnel', 'Quesnel.Crown@gov.bc.ca', '250-992-4262');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Vanderhoof', 'Vanderhoof.Crown@gov.bc.ca', '250-567-6835');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Williams Lake', 'WilliamsLake.Crown@gov.bc.ca', '250-398-4473');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Dawson Creek', 'DawsonCreek.CrownCounsel@gov.bc.ca', '250-784-2290');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Fort Nelson', 'FortNelson.Crown@gov.bc.ca', '250-774-5984');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Fort St. John', 'FtStJohn.Crown@gov.bc.ca', '250-787-3276');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Prince Rupert', 'PrinceRupert.Crown@gov.bc.ca', '250-624-7440');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Smithers', 'Smithers.Crown@gov.bc.ca', '250-847-7364');
-INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Terrace', 'Terrace.Crown@gov.bc.ca', '250-638-2131');
-
--- SHERIFF CELLS ACCESS (8 records)
-TRUNCATE TABLE sheriff_cells_access RESTART IDENTITY CASCADE;
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Abbotsford', '604-855-3239', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Chilliwack', '604-795-8328', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'New Westminster', '604-660-8545', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Port Coquitlam', '604-927-2195', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Surrey', '236-455-1797 or 604-572-2194', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R2', 'Vancouver Provincial (Level 0)', '604-775-2522', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R2', 'North Vancouver', '604-981-0236', 'Virtual, In-person, Telephone');
-INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R2', 'Richmond', '604-660-7769 (QB) or 604-660-3467', 'Virtual, In-person, Telephone');
-
--- REGISTRY CONTACTS (33 records)
-TRUNCATE TABLE registry_contacts RESTART IDENTITY CASCADE;
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Prince George Provincial Court', 'PG', 'csbpg.criminalregistry@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Anahim Lake Provincial Court', 'AL', 'Office15231@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', '100 Mile House Law Courts', 'OMH', 'Office15231@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fort St James Provincial Court', 'FSJ', 'csbpg.criminalregistry@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fraser Lake Provincial Court', 'FL', 'csbpg.criminalregistry@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Kwadacha Provincial Court', 'KWA', 'Office15216@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Mackenzie Provincial Court', 'MAC', 'Office15216@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'McBride Provincial Court', 'MCB', 'Office15215@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Quesnel Law Courts', 'QUE', 'Office15230@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Tsay Keh Dene Provincial Court', 'TKD', 'csbpg.criminalregistry@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Valemount Provincial Court', 'VAL', 'Office15215@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Vanderhoof Law Courts', 'VHF', 'csbpg.criminalregistry@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Williams Lake Law Courts', 'WL', 'Office15231@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Atlin Provincial Court', 'ATL', 'Office15228@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Burns Lake Provincial Court', 'BL', 'Office15219@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Dease Lake Provincial Court', 'DL', 'Office15222@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Good Hope Lake Provincial Court', 'GHL', 'Office15228@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Hazelton Provincial Court', 'HAZ', 'Office15224@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Houston Provincial Court', 'HOU', 'Office15224@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Kitimat Law Courts', 'KIT', 'Office15222@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Lower Post Provincial Court', 'LP', 'Office15228@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Masset Provincial Court', 'MAS', 'VCMassetCrt@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'New Aiyansh Provincial Court', 'NEA', 'Office15222@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Prince Rupert Law Courts', 'PR', 'Office15220@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Queen Charlotte Provincial Court', 'QCC', 'Office15220@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Smithers Law Courts', 'SMI', 'Office15224@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Stewart Law Courts', 'STE', 'Office15222@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Terrace Law Courts', 'TER', 'Office15222@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Chetwynd Provincial Court', 'CHE', 'Office15226@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Dawson Creek Law Courts', 'DC', 'Office15226@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fort Nelson Law Courts', 'FN', 'Office15229@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fort St John Law Courts', 'FOS', 'Office15228@gov.bc.ca');
-INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Tumbler Ridge Provincial Court', 'TR', 'Office15226@gov.bc.ca');
-
--- JUSTICE CENTRE LINKS (7 records)
-TRUNCATE TABLE justice_centre_links RESTART IDENTITY CASCADE;
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R2', 'Vancouver Coastal Evening & Weekend', '732 076 358', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R5', 'Northern Region Evening & Weekend', '365 751 988', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R3', 'Surrey Region Evening & Weekend', '618 706 537', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R4', 'Interior Region Evening & Weekend', '453 417 829', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R3', 'Fraser Region Evening & Weekend', '938 770 945', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R1', 'Island Region Evening & Weekend', '210 409 821', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('Federal', 'Federal 24 Hours', '634 183 845', '+1 778-725-6348', '(844) 636-7837');
-
--- VB TRIAGE LINKS (16 records)
-TRUNCATE TABLE vb_triage_links RESTART IDENTITY CASCADE;
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Abbotsford Triage', '414 202 059', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Abbotsford CR204', '342 802 541', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Port Coquitlam Triage', '131 566 11', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Port Coquitlam CR001', '679 788 260', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Surrey Triage', '136 442 754', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Surrey CR108', '409 841 398', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Vancouver Provincial Triage', '157 117 369', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Vancouver Provincial CR101', '181 066 25', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'North Vancouver Triage', '657 198 089', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'North Vancouver CR1', '698 136 48', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Richmond Triage', '300 911 530', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Richmond CR107', '438 499 544', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R4', 'VR3 (Kelowna, Penticton, Kootenays)', '787 097 137', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R4', 'VR4 (Kamloops, Vernon, Salmon Arm)', '450 095 994', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R1', 'VR8 (South Island - Victoria, Duncan)', '929 176 188', '+1 778-725-6348', '(844) 636-7837');
-INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R1', 'VR9 (Nanaimo, North Island)', '893 653 923', '+1 778-725-6348', '(844) 636-7837');
+-- ═══════════════════════════════════════════════════════════════════════════════
 
 -- COURTS (82 records)
-TRUNCATE TABLE courts RESTART IDENTITY CASCADE;
 INSERT INTO courts (name, crown_email, jcm_scheduling_email, court_registry_email, criminal_registry_email, bail_crown_email, bail_jcm_email, interpreter_request_email) VALUES ('100 Mile House', 'WilliamsLake.Crown@gov.bc.ca', 'Cariboo.Scheduling@provincialcourt.bc.ca', 'Office15231@gov.bc.ca', '', '', '', '');
 INSERT INTO courts (name, crown_email, jcm_scheduling_email, court_registry_email, criminal_registry_email, bail_crown_email, bail_jcm_email, interpreter_request_email) VALUES ('Abbotsford (Provincial)', 'BCPS.Abbotsford.Reception@gov.bc.ca', 'Abbotsford.CriminalScheduling@provincialcourt.bc.ca', '', 'AbbotsfordCriminalRegistry@gov.bc.ca', 'Abbotsford.VirtualBail@gov.bc.ca', 'Abbotsford.VirtualHybridBail@provincialcourt.bc.ca', 'Tina.Nguyen@gov.bc.ca
 Sheila.Hedd@gov.bc.ca
@@ -511,7 +413,6 @@ INSERT INTO courts (name, crown_email, jcm_scheduling_email, court_registry_emai
 INSERT INTO courts (name, crown_email, jcm_scheduling_email, court_registry_email, criminal_registry_email, bail_crown_email, bail_jcm_email, interpreter_request_email) VALUES ('Williams Lake (Supreme)', '', 'sc.scheduling_pg@bccourts.ca', '[Fax Filing: 250-398-4264]', '', '', '', '');
 
 -- POLICE CELLS (106 records)
-TRUNCATE TABLE police_cells RESTART IDENTITY CASCADE;
 INSERT INTO police_cells (name, phone1, phone2, phone3, phone4) VALUES ('100 Mile House RCMP', '7783329565.0', '7783329520.0', '2503952456.0', '');
 INSERT INTO police_cells (name, phone1, phone2, phone3, phone4) VALUES ('Abbotsford CH', '6048553239.0', '', '', '');
 INSERT INTO police_cells (name, phone1, phone2, phone3, phone4) VALUES ('Abbotsford PD', '6048644773.0', '', '', '');
@@ -620,7 +521,6 @@ INSERT INTO police_cells (name, phone1, phone2, phone3, phone4) VALUES ('White R
 INSERT INTO police_cells (name, phone1, phone2, phone3, phone4) VALUES ('Williams Lake RCMP', '2503928728.0', '2503928737.0', '', '');
 
 -- CORRECTIONAL FACILITIES (44 records)
-TRUNCATE TABLE correctional_facilities RESTART IDENTITY CASCADE;
 INSERT INTO correctional_facilities (name, type) VALUES ('*** CALL CINDY TO REGISTER AS LAWYER FOR BC CORRECTIONS:', 'provincial');
 INSERT INTO correctional_facilities (name, type) VALUES ('Name', 'provincial');
 INSERT INTO correctional_facilities (name, type) VALUES ('ACCW (General)', 'provincial');
@@ -667,7 +567,6 @@ INSERT INTO correctional_facilities (name, type) VALUES ('VIRCC (CDN)', 'provinc
 INSERT INTO correctional_facilities (name, type) VALUES ('William Head Institution', 'federal');
 
 -- BAIL CONTACTS (7 records)
-TRUNCATE TABLE bail_contacts RESTART IDENTITY CASCADE;
 INSERT INTO bail_contacts (region, name, email, type, notes) VALUES ('R1', 'Region 1 Virtual Bail', 'Region1.virtualbail@gov.bc.ca', 'daytime', NULL);
 INSERT INTO bail_contacts (region, name, email, type, notes) VALUES ('R1', 'Victoria Crown', 'VictoriaCrown.Public@gov.bc.ca', 'evening', NULL);
 INSERT INTO bail_contacts (region, name, email, type, notes) VALUES ('R2', '222 Main Crown Bail', '222MainCrownBail@gov.bc.ca', 'daytime', NULL);
@@ -677,14 +576,12 @@ INSERT INTO bail_contacts (region, name, email, type, notes) VALUES ('R4', 'Regi
 INSERT INTO bail_contacts (region, name, email, type, notes) VALUES ('R5', 'Region 5 Virtual Bail', 'Region5.virtualbail@gov.bc.ca', 'all_hours', NULL);
 
 -- BAIL COORDINATORS (4 records)
-TRUNCATE TABLE bail_coordinators RESTART IDENTITY CASCADE;
 INSERT INTO bail_coordinators (name, region, email, phone, is_backup) VALUES ('Chloe Rathjen', 'R1 Island', 'chloe.rathjen@gov.bc.ca', '250-940-8522', FALSE);
 INSERT INTO bail_coordinators (name, region, email, phone, is_backup) VALUES ('Pamela Robertson', 'R4 Interior', 'pamela.robertson@gov.bc.ca', '778-940-0050', FALSE);
 INSERT INTO bail_coordinators (name, region, email, phone, is_backup) VALUES ('Angie Fryer', 'R4 Interior (Backup)', 'angie.fryer@gov.bc.ca', '250-312-511', FALSE);
 INSERT INTO bail_coordinators (name, region, email, phone, is_backup) VALUES ('Jacqueline Ettinger', 'R5 North', 'jacqueline.ettinger@gov.bc.ca', '250-570-0422', FALSE);
 
 -- CROWN CONTACTS (10 records)
-TRUNCATE TABLE crown_contacts RESTART IDENTITY CASCADE;
 INSERT INTO crown_contacts (name, region, email, phone) VALUES ('Jennifer Watkins', 'R1_daytime', 'jennifer.watkins@gov.bc.ca', '250-739-8644');
 INSERT INTO crown_contacts (name, region, email, phone) VALUES ('Rebecca Sutherland', 'R1_daytime', 'rebecca.sutherland@gov.bc.ca', '778-974-5159');
 INSERT INTO crown_contacts (name, region, email, phone) VALUES ('Custody
@@ -699,8 +596,22 @@ Bonnie Macdonald', 'R4_daytime', 'bonnie.macdonald@gov.bc.ca', '250-371-7624 250
 INSERT INTO crown_contacts (name, region, email, phone) VALUES ('Robyn Sampson', 'R4_daytime', 'robyn.sampson@gov.bc.ca', '778-362-4993');
 INSERT INTO crown_contacts (name, region, email, phone) VALUES ('Marie Lafrance', 'R4_daytime', 'marie.lafrance@gov.bc.ca', '250-312-6519');
 
+-- FEDERAL CROWN CONTACTS (13 records)
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R1', 'Victoria & Colwood', 'Jones & Co', 'Vicinfo@joneslaw.ca', '250-220-6942');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R1', 'Nanaimo & Duncan', 'Jones & Co', 'Naninfo@joneslaw.ca', '250-714-1113');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R1', 'Campbell River, Courtenay, Port Alberni, Port Hardy, Tofino', 'Jones & Co', 'Naninfo@joneslaw.ca', '250-714-1113');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R3', 'Surrey, Langley, Delta, White Rock', 'PPSC Surrey Office', 'PPSC.SurreyInCustody-EnDetentionSurrey.SPPC@ppsc-sppc.gc.ca', '236-456-0015');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R3', 'Port Coquitlam & New Westminster', 'MTC Law', 'pbachra@mtclaw.ca', '604-590-8855');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R3', 'Chilliwack & Abbotsford', 'JM LeDressay & Associates', 'jir@jmldlaw.com', '604-514-8203');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R4', 'Kamloops, Ashcroft, Chase, Clearwater, Lillooet, Lytton, Merritt, Salmon Arm', 'MTC Law', 'pbachra@mtclaw.ca', '604-590-8855');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R4', 'Kelowna, Penticton, Oliver, Osoyoos, Summerland, Princeton, Vernon', 'JM LeDressay & Associates', 'jir@jmldlaw.com', '604-514-8203');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R4', 'Kootenays (Castlegar, Cranbrook, Creston, Fernie, Golden, Grand Forks, Invermere, Nakusp, Nelson, Rossland, Trail)', 'PPSC Surrey Office', 'VAN.Detention.VAN@ppsc-sppc.gc.ca', '604-354-9146');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', 'Prince George, Smithers, Terrace, Burns Lake, Vanderhoof, Hazelton, Houston, Kitimat', 'Yalowsky Sudeyko Lucky', 'Richard@luckylaw.ca', '250-562-2316');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', 'Peace Region (Dawson Creek, Fort Nelson, Fort St. John, Chetwynd)', 'PPSC Main Street', 'VAN.Detention.VAN@ppsc-sppc.gc.ca', '604-666-2141');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', 'Masset, Queen Charlotte', 'PPSC BCRO', 'Adrienne.Switzer@ppsc-sppc.gc.ca', '604-230-8632');
+INSERT INTO federal_crown_contacts (region, area, firm, email, phone) VALUES ('R5', '100 Mile House, McBride, Valemount, Williams Lake', 'MTC Law', 'pbachra@mtclaw.ca', '604-590-8855');
+
 -- LABC OFFICES (11 records)
-TRUNCATE TABLE labc_offices RESTART IDENTITY CASCADE;
 INSERT INTO labc_offices (location, type, phone, email, hours) VALUES ('Dawson Creek', 'intake', '250-782-7366', 'Intake.DawsonCreek@legalaid.bc.ca', 'Mon,Tue,Thurs: 8:30am-12pm, 1pm-3:30pm');
 INSERT INTO labc_offices (location, type, phone, email, hours) VALUES ('Fort St James', 'intake', '1-866-614-6999', 'Intake.Vanderhoof.FtStJames@legalaid.bc.ca', 'Alternating Mondays 9am-4pm');
 INSERT INTO labc_offices (location, type, phone, email, hours) VALUES ('Fort St John', 'intake', '250-785-8089', 'Intake.FtStJohn@legalaid.bc.ca', 'Mon,Wed: 8:30am-12pm, 1pm-4:30pm');
@@ -714,7 +625,6 @@ INSERT INTO labc_offices (location, type, phone, email, hours) VALUES ('Duty Cou
 INSERT INTO labc_offices (location, type, phone, email, hours) VALUES ('Duty Counsel Team', 'email', NULL, 'DutyCounsel@legalaid.bc.ca', NULL);
 
 -- LABC NAVIGATORS (8 records)
-TRUNCATE TABLE labc_navigators RESTART IDENTITY CASCADE;
 INSERT INTO labc_navigators (name, phone, email, courts) VALUES ('Conor', '236-333-1260', 'conor.navigator@legalaid.bc.ca', 'Victoria, Nanaimo, VR8, VR9');
 INSERT INTO labc_navigators (name, phone, email, courts) VALUES ('Courtney', '236-788-7372', 'courtney.navigator@legalaid.bc.ca', 'Surrey');
 INSERT INTO labc_navigators (name, phone, email, courts) VALUES ('Hana', '604-364-6541', 'hana.navigator@legalaid.bc.ca', 'VR4, VR2, Kamloops');
@@ -725,7 +635,6 @@ INSERT INTO labc_navigators (name, phone, email, courts) VALUES ('Navneet', '236
 INSERT INTO labc_navigators (name, phone, email, courts) VALUES ('Shewaye', '236-788-9268', 'shewaye.navigator@legalaid.bc.ca', 'PoCo, New Westminster');
 
 -- FORENSIC CLINICS (7 records)
-TRUNCATE TABLE forensic_clinics RESTART IDENTITY CASCADE;
 INSERT INTO forensic_clinics (name, address, phone, email) VALUES ('Kamloops Forensic Regional Clinic', '5-1315 Summit Drive, Kamloops, BC V2C 5R9', '250-377-2660', 'KamloopsAdmitting@phsa.ca');
 INSERT INTO forensic_clinics (name, address, phone, email) VALUES ('Kelowna Forensic Regional Clinic', '#115-1835 Gordon Drive, Kelowna, BC V1Y 3H5', '778-940-2100', 'KelownaAdmitting@phsa.ca');
 INSERT INTO forensic_clinics (name, address, phone, email) VALUES ('Nanaimo Forensic Regional Clinic', '101-190 Wallace Street, Nanaimo, BC V9R 5B1', '250-739-5000', 'NanaimoAdmitting@phsa.ca');
@@ -735,7 +644,6 @@ INSERT INTO forensic_clinics (name, address, phone, email) VALUES ('Vancouver Fo
 INSERT INTO forensic_clinics (name, address, phone, email) VALUES ('Victoria Forensic Regional Clinic', '2840 Nanaimo Street, Victoria, BC V8T 4W9', '250-213-4500', 'VictoriaAdmitting@phsa.ca');
 
 -- INDIGENOUS JUSTICE CENTRES (10 records)
-TRUNCATE TABLE indigenous_justice_centres RESTART IDENTITY CASCADE;
 INSERT INTO indigenous_justice_centres (location, phone, email, website) VALUES ('Chilliwack', '778-704-1355', 'chilliwackinfo@bcfnjc.com', NULL);
 INSERT INTO indigenous_justice_centres (location, phone, email, website) VALUES ('Kelowna', '236-763-6881', 'kelownainfo@bcfnjc.com', NULL);
 INSERT INTO indigenous_justice_centres (location, phone, email, website) VALUES ('Merritt', '236-575-3004', 'merrittinfo@bcfnjc.com', NULL);
@@ -748,7 +656,6 @@ INSERT INTO indigenous_justice_centres (location, phone, email, website) VALUES 
 INSERT INTO indigenous_justice_centres (location, phone, email, website) VALUES ('Virtual', '1-866-786-0081', 'virtual@bcfnjc.com', NULL);
 
 -- PROGRAMS (18 records)
-TRUNCATE TABLE programs RESTART IDENTITY CASCADE;
 INSERT INTO programs (name, location, phone, gender, indigenous_only, in_residence, application_by, notes) VALUES ('Talitha Koum', 'Coquitlam', '6044923393.0', 'All', FALSE, FALSE, 'Phone Call', '');
 INSERT INTO programs (name, location, phone, gender, indigenous_only, in_residence, application_by, notes) VALUES ('Glory House', 'Mission', '6043803665.0', '', FALSE, FALSE, 'Phone Call', '');
 INSERT INTO programs (name, location, phone, gender, indigenous_only, in_residence, application_by, notes) VALUES ('Lydia Home', 'Mission', '6042533323.0', '', FALSE, FALSE, 'Phone Call', '');
@@ -770,7 +677,6 @@ INSERT INTO programs (name, location, phone, gender, indigenous_only, in_residen
 INSERT INTO programs (name, location, phone, gender, indigenous_only, in_residence, application_by, notes) VALUES ('Phoenix', '', '', '', FALSE, FALSE, '', 'Will take people with SA records');
 
 -- ACCESS CODES (18 records)
-TRUNCATE TABLE access_codes RESTART IDENTITY CASCADE;
 INSERT INTO access_codes (court, code, notes) VALUES ('Chilliwack', '512.0', '');
 INSERT INTO access_codes (court, code, notes) VALUES ('Court of Appeal', '', '');
 INSERT INTO access_codes (court, code, notes) VALUES ('Cranbrook', '', '');
@@ -791,7 +697,6 @@ INSERT INTO access_codes (court, code, notes) VALUES ('Vancouver 222 Main', '235
 INSERT INTO access_codes (court, code, notes) VALUES ('Vancouver Supreme', '314.0', '');
 
 -- CIRCUIT COURTS (48 records)
-TRUNCATE TABLE circuit_courts RESTART IDENTITY CASCADE;
 INSERT INTO circuit_courts (name, region, contact_hub) VALUES ('100 Mile House', '', 'Williams Lake');
 INSERT INTO circuit_courts (name, region, contact_hub) VALUES ('Ahousaht', 'R1 - Island', 'Port Alberni');
 INSERT INTO circuit_courts (name, region, contact_hub) VALUES ('Alexis Creek', '', 'Williams Lake');
@@ -841,35 +746,605 @@ INSERT INTO circuit_courts (name, region, contact_hub) VALUES ('Tumbler Ridge', 
 INSERT INTO circuit_courts (name, region, contact_hub) VALUES ('Ucluelet', 'R1 - Island', 'Port Alberni');
 INSERT INTO circuit_courts (name, region, contact_hub) VALUES ('Vanderhoof', '', 'Prince George');
 
--- ============================================
--- CREATE INDEXES
--- ============================================
 
-CREATE INDEX IF NOT EXISTS idx_courts_name_trgm ON courts USING gin (name gin_trgm_ops);
-CREATE INDEX IF NOT EXISTS idx_police_cells_name_trgm ON police_cells USING gin (name gin_trgm_ops);
-CREATE INDEX IF NOT EXISTS idx_crown_offices_location_trgm ON crown_offices USING gin (location gin_trgm_ops);
+-- MS TEAMS LINKS (405 records)
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'island', '929 176 188#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'island', '893 653 923#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'interior', '787 097 137#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'interior', '450 095 994#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'vancouver', '157 117 369#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'vancouver', '181 066 25#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'surrey', '136 442 754#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'surrey', '409 841 398#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '732 076 358#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '365 751 988#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '618 706 537#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '453 417 829#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '938 770 945#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '210 409 821#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'justice_centres', '634 183 845#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '512 863 082#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '138 892 86#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '631 620 353#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '445 393 748#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '450 797 759#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '342 802 541#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '727 595 19#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '629 018 7#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '542 800 159#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '984 670 456#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '276 726 712#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '196 429 444#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '883 095 480#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '160 382 81#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '117 947 266#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '414 202 059#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '532 718 803#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '388 791 638#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '843 485 941#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '796 965 864#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '324 573 228#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '958 926 815#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '559 307 51#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '346 309 222#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '523 763 937#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '562 139 269#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '444 614 301#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '767 022 700#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '350 207 934#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '652 694 6#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '941 712 583#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '702 691 531#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '851 800 358#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '421 982 576#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '925 049 356#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '979 135 388#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '847 001 743#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '431 042 257#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '720 252 582#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '621 716 639#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '769 312 662#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '897 037 100#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '999 456 97#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '796 741 472#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '708 253 045#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '868 638 140#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '403 352 480#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '152 991 469#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '466 256 56#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '269 959 292#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '810 098 93#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '568 987 952#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '440 450 232', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '261 512 925#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '409 770 573#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '495 071 267#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '927 312 007#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '853 780 771#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '166 873 724#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '510 160 636#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '349 010 367#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '360 997 139#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '129 460 90#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '923 783 680#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '387 751 163#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '198 985 992#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '853 278 04#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '732 018 12#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '300 630 022#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '369 454 76#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '732 076 358#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '365 751 988#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '618 706 537#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '453 417 829#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '938 770 945#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '210 409 821#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '634 183 845#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '821 318 895#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '884 948 439#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '330 955 573#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '611 394 603#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '807 341 598#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '706 870 52#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '514 396 367#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '800 088 061#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '784 145 306#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '518 345 70#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '975 918 722#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '353 246 460#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '697 177 987#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '239 573 84#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '105 913 790#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '417 902 984#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '183 869 428#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '539 536 696#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '104 734 247#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '944 637 647#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '509 339 604#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '555 594 108#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '653 088 465#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '859 850 730#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '509 417 625#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '960 131 068#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '636 016 038#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '580 972 67#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '662 149 641#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '357 831 278#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '659 501 734#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '373 697 38#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '952 538 820#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '853 614 809#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '790 510 703#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '880 338 174#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '214 075 888#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '945 173 483#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '134 975 221#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '782 551 028#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '416 121 20#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '241 262 73#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '712 653 472#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '417 197 155#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '479 417 487#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '234 916 148#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '429 640 786#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '591 250 399#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '436 341 550#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '467 850 043#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '570 514 391#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '166 486 055#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '146 137 458#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '248 160 458#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '673 715 681#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '199 310 385#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '725 235 053#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '838 641 295#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '914 002 064#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '677 038 211#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '921 296 905#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '771 505 325#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '417 352 670#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '737 552 265#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '935 363 58#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '947 070 272#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '858 013 802#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '552 401 811#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '501 121 085#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '392 981 406#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '784 918 334#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '443 449 47#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '411 791 369#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '148 454 887#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '907 320 491#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '802 411 460#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '698 136 48#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '657 198 089#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '461 130 2#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '764 967 106#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '307 291 074#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '863 653 738#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '638 164 601#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '894 763 344#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '996 622 836#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '195 724 746#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '896 343 603#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '525 813 92#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '579 172 781#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '675 356 507#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '494 687 761#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '128 623 546#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '165 091 248#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '703 149 09#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '679 788 260#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '907 587 854#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '492 745 97#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '351 173 324#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '368 852 598#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '786 419 997#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '459 376 965#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '615 943 390#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '810 732 678#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '183 628 890#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '663 475 845#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '647 274 315#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '624 448 247#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '131 566 11#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '794 200 761#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '218 049 320#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '767 610 49#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '124 942 35#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '268 071 196#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '351 742 576#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '296 612 077#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '188 861 831#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '881 451 017#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '292 781 999#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '477 396 128#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '964 985 116#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '923 928 956#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '733 335 253#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '969 575 89#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '395 376 062#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '750 622 106#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '186 351 498#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '326 758 409#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '852 079 90#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '477 052 596#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '287 253 812#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '786 060 185#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '710 140 453#
+100', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '214 517 661#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '222 318 801#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '882 098 250#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '775 517 542#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '183 584 17#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '965 859 825#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '291 863 91#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '927 842 116#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '117 128 571#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '374 145 425#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '438 499 544#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '300 911 530#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '903 692 109#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '291 705 258#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '863 809 663#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '736 762 210#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '439 858 554#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '390 099 177#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '768 282 909#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '594 564 897#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '438 061 494#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '235 121 321#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '817 063 909#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '960 514 963#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '120 276 17#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '180 490 279#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '501 167 806#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '365 414 910#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '456 907 073#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '566 168 232#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '481 046 151#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '498 943 198#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '230 268 796#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '662 873 335#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '330 925 728#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '941 745 729#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '557 323 698#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '977 831 566#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '409 841 398#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '776 920 300#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '447 361 682#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '776 827 667#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '380 023 982#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '335 295 024#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '303 635 265#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '888 498 28#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '177 656 270#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '252 320 110#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '793 788 114#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '819 188 776#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '998 782 285#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '623 012 692#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '136 442 754#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '488 155 004#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '751 766 318#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '356 054 896#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '938 103 078#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '644 785 637#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '628 652 28#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '716 067 176#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '488 623 15#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '846 483 762#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '156 958 88#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '355 715 369#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '774 664 673#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '171 179 460#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '812 542 284#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '455 183 014#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '777 176 827#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '947 608 47#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '977 285 590#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '872 892 44#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '250 660 215#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '469 525 425#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '299 484 760#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '228 915 47#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '777 820 037#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '384 849 027#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '866 762 433#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '364 340 981#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '211 381 175#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '433 167 282#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '936 688 86#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '911 991 25#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '857', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '351 821 161#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '359 638 417#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '819 909 337#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '626 888 590#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '236 260 981#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '189 207 437#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '378 248 015#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '834 840 0#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '492 370 398#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '195 469 29#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '675 588 912#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '809 699 083#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '395 811 676#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '110 747 199#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '610 513 968#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '288 647 256#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '733 578 918#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '415 747 599#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '888 634 360#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '134 890 397#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '791 926 760#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '996 571 359#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '996 571 359#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '181 066 25#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '157 117 369#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '177 313 286#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '497 678 373#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '152 514 259#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '813 559 320#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '489 688 979#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '596 356 94#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '762 036 631#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '677 668 511#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '688 414 349#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '332 911 056#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '398 971 87#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '332 315 693#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '494 797 67#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '267 177 390#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '181 266 727#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '918 111 650#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '861 725 610#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '459 885 972#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '621 449 645#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '316 696 618#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '964 208 631#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '861 361 733#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '428 622 687#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '814 427 626#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '670 037 357#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '418 849 187#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '524 209 157#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '504 560 498#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '692 805 20#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '237 730 953#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '821 560 396#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '347 660 252#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '652 794 347#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '129 059 476#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '904 612 629#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '851 615 665#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '506 939 743#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '776 861 695#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '921 591 964#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '715 080 283#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '513 827 80#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '404 326 078#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '426 281 508#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '113 775 176#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '362 684 889#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '429 121 746#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '175 789 708#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '942 554 837#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '969 689 940#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '571 759 120#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '121 554 124#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '482 862 171#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '860 280 578#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '596 634 377#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '262 852 895#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '866 428 62#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '787 097 137#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '450 095 994#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '929 176 188#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '893 653 923#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '540 013 22#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '609 169 979#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '580 405 774#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '878 670 781#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '974 111 253#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '671 901 338#
+2025', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '943 917 072#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '928 390 94#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '807 472 273#', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO ms_teams_links (court, courtroom, conference_id, phone, toll_free) VALUES (NULL, 'pp_amalgamated', '555 412 024#
+2025', '+1 778-725-6348', '(844) 636-7837');
 
--- ============================================
--- VERIFY IMPORT
--- ============================================
+-- BAIL OFFICES (17 records)
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Abbotsford', 'Abbotsford.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Chilliwack', 'Chilliwack.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'New Westminster', 'NewWestProv.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Port Coquitlam', 'PoCo.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Surrey', 'Surrey.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R3', 'Fraser After-Hours', 'Surrey.VirtualBail@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R4', 'Interior Daytime', 'Region4.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R4', 'Interior After-Hours', 'AGBCPSReg4BailKelownaGen@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R1', 'Island Daytime', 'Region1.VirtualBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R1', 'Island After-Hours', 'VictoriaCrown.Public@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R5', 'North All Hours', 'Region5.VirtualBail@gov.bc.ca', 'all_hours', 'All bail matters');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', '222 Main/DCC', '222MainCrownBail@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'North Vancouver', 'NorthVanCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Richmond', 'RichmondCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Sechelt', 'SecheltCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Vancouver Youth', 'VancouverYouthCrown@gov.bc.ca', 'daytime', 'Weekday daytime');
+INSERT INTO bail_offices (region, location, email, type, hours) VALUES ('R2', 'Vancouver Coastal After-Hours', '222MainCrownBail@gov.bc.ca', 'after_hours', 'Evenings, weekends, holidays');
 
+-- EVENING CROWN CONTACTS (9 records)
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Island Evening Team', NULL, 'VictoriaCrown.Public@gov.bc.ca', NULL, NULL, 'team_email');
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Megan Saben', 'Legal Assistant', 'Megan.saben@gov.bc.ca', '236-748-1481', NULL, NULL);
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Jillian Pawlow', 'Crown Counsel', 'Jillian.Pawlow@gov.bc.ca', '236-478-3732', NULL, NULL);
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R1', 'Mark Halston', 'Crown Counsel (Backup)', 'Mark.Halston@gov.bc.ca', '778-405-1775', '250-507-9104', NULL);
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Interior Evening Team', NULL, 'AGBCPSReg4BailKelownaGen@gov.bc.ca', NULL, NULL, 'team_email');
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Izabel Bonilla', 'Legal Assistant', 'izabel.bonilla@gov.bc.ca', '778-943-7129', NULL, NULL);
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Traci Denman', 'Legal Assistant (Backup)', 'Traci.denman@gov.bc.ca', '778-943-0176', NULL, NULL);
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Sheron O''Connor', 'Crown Counsel', 'Sheron.oconnor@gov.bc.ca', '250-645-9160', '250-570-1422', NULL);
+INSERT INTO evening_crown_contacts (region, name, role, email, phone, mobile, type) VALUES ('R4', 'Bill Hilderman', 'Crown Counsel (Backup)', 'Bill.hilderman@gov.bc.ca', '778-824-0097', NULL, NULL);
 
--- ============================================
+-- CROWN OFFICES (26 records)
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Campbell River', 'CampbellRiver.CrownSchedule@gov.bc.ca', '250-286-7544');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Courtenay', 'Courtenay.CrownSchedule@gov.bc.ca', '250-334-1120');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Nanaimo', 'Nanaimo.CrownSchedule@gov.bc.ca', '250-741-3711');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Port Alberni', 'PtAlberni.CrownSchedule@gov.bc.ca', '250-720-2433');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Port Hardy', 'PortHardy.CrownSchedule@gov.bc.ca', '250-949-8644');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR9', 'Powell River', 'PowellRiver.Crown@gov.bc.ca', '604-485-3645');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR8', 'Colwood', 'Colwood.Crown@gov.bc.ca', '250-391-2866');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR8', 'Duncan', 'BCPS.Duncan.Reception@gov.bc.ca', '250-746-1229');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R1', 'VR8', 'Victoria', 'VictoriaCrown.Public@gov.bc.ca', '250-387-4481');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Kelowna', 'BCPS.KelownaGen@gov.bc.ca', '250-470-6822');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Cranbrook', 'BCPS.CranbrookGen@gov.bc.ca', '250-426-1525');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Nelson', 'BCPS.NelsonGen@gov.bc.ca', '250-354-6511');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR3', 'Penticton', 'BCPS.PentictonGen@gov.bc.ca', '250-487-4455');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR4', 'Kamloops', 'BCPS.KamloopsGen@gov.bc.ca', '250-828-4021');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR4', 'Salmon Arm', 'BCPS.SalmonArmGen@gov.bc.ca', '250-832-1651');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R4', 'VR4', 'Vernon', 'BCPS.VernonGen@gov.bc.ca', '250-503-3643');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Prince George', 'PrGeorge.Crown@gov.bc.ca', '250-614-2601');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Quesnel', 'Quesnel.Crown@gov.bc.ca', '250-992-4262');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Vanderhoof', 'Vanderhoof.Crown@gov.bc.ca', '250-567-6835');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR1', 'Williams Lake', 'WilliamsLake.Crown@gov.bc.ca', '250-398-4473');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Dawson Creek', 'DawsonCreek.CrownCounsel@gov.bc.ca', '250-784-2290');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Fort Nelson', 'FortNelson.Crown@gov.bc.ca', '250-774-5984');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Fort St. John', 'FtStJohn.Crown@gov.bc.ca', '250-787-3276');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Prince Rupert', 'PrinceRupert.Crown@gov.bc.ca', '250-624-7440');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Smithers', 'Smithers.Crown@gov.bc.ca', '250-847-7364');
+INSERT INTO crown_offices (region, courtroom, location, email, phone) VALUES ('R5', 'VR2', 'Terrace', 'Terrace.Crown@gov.bc.ca', '250-638-2131');
+
+-- SHERIFF CELLS ACCESS (8 records)
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Abbotsford', '604-855-3239', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Chilliwack', '604-795-8328', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'New Westminster', '604-660-8545', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Port Coquitlam', '604-927-2195', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R3', 'Surrey', '236-455-1797 or 604-572-2194', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R2', 'Vancouver Provincial (Level 0)', '604-775-2522', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R2', 'North Vancouver', '604-981-0236', 'Virtual, In-person, Telephone');
+INSERT INTO sheriff_cells_access (region, location, phone, access) VALUES ('R2', 'Richmond', '604-660-7769 (QB) or 604-660-3467', 'Virtual, In-person, Telephone');
+
+-- REGISTRY CONTACTS (33 records)
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Prince George Provincial Court', 'PG', 'csbpg.criminalregistry@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Anahim Lake Provincial Court', 'AL', 'Office15231@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', '100 Mile House Law Courts', 'OMH', 'Office15231@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fort St James Provincial Court', 'FSJ', 'csbpg.criminalregistry@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fraser Lake Provincial Court', 'FL', 'csbpg.criminalregistry@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Kwadacha Provincial Court', 'KWA', 'Office15216@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Mackenzie Provincial Court', 'MAC', 'Office15216@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'McBride Provincial Court', 'MCB', 'Office15215@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Quesnel Law Courts', 'QUE', 'Office15230@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Tsay Keh Dene Provincial Court', 'TKD', 'csbpg.criminalregistry@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Valemount Provincial Court', 'VAL', 'Office15215@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Vanderhoof Law Courts', 'VHF', 'csbpg.criminalregistry@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Williams Lake Law Courts', 'WL', 'Office15231@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Atlin Provincial Court', 'ATL', 'Office15228@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Burns Lake Provincial Court', 'BL', 'Office15219@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Dease Lake Provincial Court', 'DL', 'Office15222@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Good Hope Lake Provincial Court', 'GHL', 'Office15228@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Hazelton Provincial Court', 'HAZ', 'Office15224@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Houston Provincial Court', 'HOU', 'Office15224@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Kitimat Law Courts', 'KIT', 'Office15222@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Lower Post Provincial Court', 'LP', 'Office15228@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Masset Provincial Court', 'MAS', 'VCMassetCrt@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'New Aiyansh Provincial Court', 'NEA', 'Office15222@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Prince Rupert Law Courts', 'PR', 'Office15220@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Queen Charlotte Provincial Court', 'QCC', 'Office15220@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Smithers Law Courts', 'SMI', 'Office15224@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Stewart Law Courts', 'STE', 'Office15222@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Terrace Law Courts', 'TER', 'Office15222@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Chetwynd Provincial Court', 'CHE', 'Office15226@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Dawson Creek Law Courts', 'DC', 'Office15226@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fort Nelson Law Courts', 'FN', 'Office15229@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Fort St John Law Courts', 'FOS', 'Office15228@gov.bc.ca');
+INSERT INTO registry_contacts (region, court, code, email) VALUES ('R5', 'Tumbler Ridge Provincial Court', 'TR', 'Office15226@gov.bc.ca');
+
+-- JUSTICE CENTRE LINKS (7 records)
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R2', 'Vancouver Coastal Evening & Weekend', '732 076 358', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R5', 'Northern Region Evening & Weekend', '365 751 988', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R3', 'Surrey Region Evening & Weekend', '618 706 537', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R4', 'Interior Region Evening & Weekend', '453 417 829', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R3', 'Fraser Region Evening & Weekend', '938 770 945', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('R1', 'Island Region Evening & Weekend', '210 409 821', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO justice_centre_links (region, name, conference_id, phone, toll_free) VALUES ('Federal', 'Federal 24 Hours', '634 183 845', '+1 778-725-6348', '(844) 636-7837');
+
+-- VB TRIAGE LINKS (16 records)
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Abbotsford Triage', '414 202 059', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Abbotsford CR204', '342 802 541', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Port Coquitlam Triage', '131 566 11', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Port Coquitlam CR001', '679 788 260', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Surrey Triage', '136 442 754', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R3', 'Surrey CR108', '409 841 398', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Vancouver Provincial Triage', '157 117 369', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Vancouver Provincial CR101', '181 066 25', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'North Vancouver Triage', '657 198 089', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'North Vancouver CR1', '698 136 48', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Richmond Triage', '300 911 530', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R2', 'Richmond CR107', '438 499 544', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R4', 'VR3 (Kelowna, Penticton, Kootenays)', '787 097 137', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R4', 'VR4 (Kamloops, Vernon, Salmon Arm)', '450 095 994', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R1', 'VR8 (South Island - Victoria, Duncan)', '929 176 188', '+1 778-725-6348', '(844) 636-7837');
+INSERT INTO vb_triage_links (region, location, conference_id, phone, toll_free) VALUES ('R1', 'VR9 (Nanaimo, North Island)', '893 653 923', '+1 778-725-6348', '(844) 636-7837');
+
 -- FNHA MENTAL HEALTH PROVIDERS (2135 records)
--- ============================================
-
-DROP TABLE IF EXISTS fnha_mental_health_providers CASCADE;
-CREATE TABLE fnha_mental_health_providers (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    designation VARCHAR(50),
-    region VARCHAR(50),
-    phone VARCHAR(50),
-    virtual_care BOOLEAN DEFAULT FALSE,
-    availability VARCHAR(100),
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
 INSERT INTO fnha_mental_health_providers (name, designation, region, phone, virtual_care, availability) VALUES ('Berry, Jenna', 'RSW', 'Fraser', '(403) 561-3198', TRUE, 'Accepting new clients');
 INSERT INTO fnha_mental_health_providers (name, designation, region, phone, virtual_care, availability) VALUES ('Fernyhough, Lynda', 'CCC', 'Fraser', '(604) 999-7927', TRUE, 'Accepting new clients');
 INSERT INTO fnha_mental_health_providers (name, designation, region, phone, virtual_care, availability) VALUES ('Heer, Harjinder Kaur', 'RCC', 'Fraser', '(778) 899-3174', TRUE, 'Accepting new clients');
@@ -3006,22 +3481,7 @@ INSERT INTO fnha_mental_health_providers (name, designation, region, phone, virt
 INSERT INTO fnha_mental_health_providers (name, designation, region, phone, virtual_care, availability) VALUES ('Romano - Inglis , Soroya', 'RCC', 'Vancouver', '(604) 928-4588', FALSE, 'Waitlist');
 INSERT INTO fnha_mental_health_providers (name, designation, region, phone, virtual_care, availability) VALUES ('Sweetgrass, Magdalena', 'RSW', 'Vancouver', '(604) 360-6530', FALSE, 'Accepting new clients');
 
--- ============================================
 -- INDIGENOUS RESOURCES (229 records)
--- ============================================
-
-DROP TABLE IF EXISTS indigenous_resources CASCADE;
-CREATE TABLE indigenous_resources (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    region VARCHAR(50),
-    location VARCHAR(255),
-    phone VARCHAR(50),
-    email VARCHAR(255),
-    website TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
 INSERT INTO indigenous_resources (name, region, location, phone, email, website) VALUES ('Penticton BC Ooknakane Friendship Centre', 'Interior', 'Penticton', '250-490-3504', 'balance@friendshipcentre.ca', NULL);
 INSERT INTO indigenous_resources (name, region, location, phone, email, website) VALUES ('Penticton Aboriginal Friendship Centre Society Location', 'Interior', 'Penticton', '250-490-3504', 'balance@friendshipcentre.ca', NULL);
 INSERT INTO indigenous_resources (name, region, location, phone, email, website) VALUES ('Ooknakane Friendship Centre front desk', 'Interior', NULL, '250-493-6822', NULL, 'http://accesscentre.org/services/');
@@ -3252,12 +3712,46 @@ INSERT INTO indigenous_resources (name, region, location, phone, email, website)
 INSERT INTO indigenous_resources (name, region, location, phone, email, website) VALUES ('Urban Native Housing Program', 'Northern', NULL, '250-992-3306', 'reception@dqchs.org', 'https://www.dqchs.org/');
 INSERT INTO indigenous_resources (name, region, location, phone, email, website) VALUES ('Rural and Native Housing Program', 'Northern', NULL, '250-992-3306', 'reception@dqchs.org', 'https://www.dqchs.org/');
 
--- Create indexes
-CREATE INDEX IF NOT EXISTS idx_fnha_name_trgm ON fnha_mental_health_providers USING gin (name gin_trgm_ops);
-CREATE INDEX IF NOT EXISTS idx_fnha_region ON fnha_mental_health_providers(region);
-CREATE INDEX IF NOT EXISTS idx_indig_name_trgm ON indigenous_resources USING gin (name gin_trgm_ops);
-CREATE INDEX IF NOT EXISTS idx_indig_region ON indigenous_resources(region);
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- CREATE INDEXES FOR SEARCH
+-- ═══════════════════════════════════════════════════════════════════════════════
 
--- Verify
-SELECT 'fnha_mental_health_providers' as table_name, COUNT(*) as records FROM fnha_mental_health_providers
-UNION ALL SELECT 'indigenous_resources', COUNT(*) FROM indigenous_resources;
+CREATE INDEX idx_courts_name_trgm ON courts USING gin (name gin_trgm_ops);
+CREATE INDEX idx_police_cells_name_trgm ON police_cells USING gin (name gin_trgm_ops);
+CREATE INDEX idx_crown_offices_location ON crown_offices(location);
+CREATE INDEX idx_fnha_region ON fnha_mental_health_providers(region);
+CREATE INDEX idx_fnha_name_trgm ON fnha_mental_health_providers USING gin (name gin_trgm_ops);
+CREATE INDEX idx_indigenous_region ON indigenous_resources(region);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- VERIFY IMPORT
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+SELECT 'courts' as table_name, COUNT(*) as records FROM courts
+UNION ALL SELECT 'police_cells', COUNT(*) FROM police_cells
+UNION ALL SELECT 'correctional_facilities', COUNT(*) FROM correctional_facilities
+UNION ALL SELECT 'bail_contacts', COUNT(*) FROM bail_contacts
+UNION ALL SELECT 'bail_coordinators', COUNT(*) FROM bail_coordinators
+UNION ALL SELECT 'crown_contacts', COUNT(*) FROM crown_contacts
+UNION ALL SELECT 'federal_crown_contacts', COUNT(*) FROM federal_crown_contacts
+UNION ALL SELECT 'labc_offices', COUNT(*) FROM labc_offices
+UNION ALL SELECT 'labc_navigators', COUNT(*) FROM labc_navigators
+UNION ALL SELECT 'forensic_clinics', COUNT(*) FROM forensic_clinics
+UNION ALL SELECT 'indigenous_justice_centres', COUNT(*) FROM indigenous_justice_centres
+UNION ALL SELECT 'programs', COUNT(*) FROM programs
+UNION ALL SELECT 'access_codes', COUNT(*) FROM access_codes
+UNION ALL SELECT 'circuit_courts', COUNT(*) FROM circuit_courts
+UNION ALL SELECT 'bail_offices', COUNT(*) FROM bail_offices
+UNION ALL SELECT 'evening_crown_contacts', COUNT(*) FROM evening_crown_contacts
+UNION ALL SELECT 'crown_offices', COUNT(*) FROM crown_offices
+UNION ALL SELECT 'sheriff_cells_access', COUNT(*) FROM sheriff_cells_access
+UNION ALL SELECT 'registry_contacts', COUNT(*) FROM registry_contacts
+UNION ALL SELECT 'justice_centre_links', COUNT(*) FROM justice_centre_links
+UNION ALL SELECT 'vb_triage_links', COUNT(*) FROM vb_triage_links
+UNION ALL SELECT 'fnha_mental_health_providers', COUNT(*) FROM fnha_mental_health_providers
+UNION ALL SELECT 'indigenous_resources', COUNT(*) FROM indigenous_resources
+ORDER BY table_name;
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- IMPORT COMPLETE!
+-- ═══════════════════════════════════════════════════════════════════════════════
