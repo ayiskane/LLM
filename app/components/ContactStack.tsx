@@ -28,7 +28,7 @@ function ContactItem({ label, email, onCopy }: { label: string; email: string; o
       className="py-2.5 px-3 rounded-lg bg-slate-800/30 hover:bg-slate-800/60 transition-colors cursor-pointer active:bg-slate-700/50"
       onClick={handleCopy}
     >
-      <div className="text-xs text-slate-400 mb-0.5">{label}</div>
+      <div className="text-[9px] font-mono text-slate-400 mb-0.5 uppercase tracking-wide">{label}</div>
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm text-slate-200 break-all">{email}</span>
         {copied ? (
@@ -84,7 +84,7 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
 
   return (
     <div className="space-y-1.5">
-      <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wide px-1">Court Contacts</h4>
+      <h4 className="text-[10px] font-mono text-slate-400 uppercase tracking-wider px-1">Court Contacts</h4>
       {Object.entries(contactMap).map(([label, email]) => (
         <ContactItem 
           key={label} 
@@ -159,7 +159,7 @@ export function CrownContactsStack({
 
   return (
     <div className="space-y-1.5">
-      <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wide px-1">Crown Contacts</h4>
+      <h4 className="text-[10px] font-mono text-slate-400 uppercase tracking-wider px-1">Crown Contacts</h4>
       {crownContacts.map((contact) => (
         <CrownContactItem 
           key={contact.category}
@@ -286,4 +286,5 @@ export function TopContactsPreview({
     </div>
   );
 }
+
 
