@@ -4,8 +4,10 @@
 
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS rcc_support_contacts CASCADE;
+DROP TABLE IF EXISTS rcc_support_contact_centres CASCADE;
 DROP TABLE IF EXISTS rcc_support_roles CASCADE;
 DROP TABLE IF EXISTS rcc_support_organizations CASCADE;
+DROP TABLE IF EXISTS rcc_constants CASCADE;
 
 -- =============================================
 -- SUPPORT ROLES
@@ -64,65 +66,107 @@ CREATE TABLE rcc_support_contacts (
     email_secondary VARCHAR(255),                  -- Some have gov + org email
     phone VARCHAR(50),
     
-    -- Centre assignment (NULL if serves multiple or all)
-    centre_short_name VARCHAR(20),                 -- e.g., 'SPSC', 'NFPC' - matches correctional_centres.short_name
-    centres_served VARCHAR(100),                   -- For contacts serving multiple centres, e.g., 'SPSC, NFPC'
-    
     notes TEXT,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- =============================================
+-- CONTACT TO CENTRE MAPPING (Many-to-Many)
+-- centre_id matches id from lib/constants/correctional-centres.ts
+-- =============================================
+CREATE TABLE rcc_support_contact_centres (
+    id SERIAL PRIMARY KEY,
+    contact_id INTEGER NOT NULL REFERENCES rcc_support_contacts(id) ON DELETE CASCADE,
+    centre_id INTEGER NOT NULL,                    -- Matches id in correctional-centres.ts constants
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    UNIQUE(contact_id, centre_id)
+);
+
+-- Reference for centre_id values (from lib/constants/correctional-centres.ts):
+-- Provincial:
+--   1 = VIRCC (Victoria)
+--   2 = NCC (Nanaimo)
+--   3 = OCC (Oliver)
+--   4 = KRCC (Kamloops)
+--   5 = PGRCC (Prince George)
+--   6 = SPSC (Surrey)
+--   7 = NFPC (Port Coquitlam)
+--   8 = FRCC (Maple Ridge)
+--   9 = ACCW (Maple Ridge)
+--   10 = FMCC (Chilliwack)
+-- Federal:
+--   11 = FVI (Abbotsford)
+--   12 = KENT (Agassiz)
+--   13 = MATSQUI (Abbotsford)
+--   14 = MISSION-MED (Mission)
+--   15 = MISSION-MIN (Mission)
+--   16 = MOUNTAIN (Agassiz)
+--   17 = PACIFIC (Abbotsford)
+--   18 = WILLIAM-HEAD (Victoria)
+
 -- Indexes
-CREATE INDEX idx_rcc_contacts_centre ON rcc_support_contacts(centre_short_name);
 CREATE INDEX idx_rcc_contacts_role ON rcc_support_contacts(role_id);
 CREATE INDEX idx_rcc_contacts_org ON rcc_support_contacts(organization_id);
 CREATE INDEX idx_rcc_contacts_active ON rcc_support_contacts(is_active);
+CREATE INDEX idx_rcc_contact_centres_contact ON rcc_support_contact_centres(contact_id);
+CREATE INDEX idx_rcc_contact_centres_centre ON rcc_support_contact_centres(centre_id);
 
 -- =============================================
 -- INSERT CONTACTS FROM CHEATSHEET
 -- =============================================
 
--- Get role and org IDs for inserts
-INSERT INTO rcc_support_contacts (name, is_individual, role_id, organization_id, email, phone, centre_short_name, centres_served) VALUES
--- CTT Contacts
-('Maeve O''Sullivan', TRUE, 
+-- Maeve O'Sullivan - CTT at ACCW
+INSERT INTO rcc_support_contacts (name, is_individual, role_id, organization_id, email)
+VALUES ('Maeve O''Sullivan', TRUE, 
     (SELECT id FROM rcc_support_roles WHERE code = 'CTT'),
     (SELECT id FROM rcc_support_organizations WHERE short_name = 'PHSA'),
-    'Maeve.osullivan@phsa.ca', NULL, 'ACCW', NULL),
+    'Maeve.osullivan@phsa.ca');
+INSERT INTO rcc_support_contact_centres (contact_id, centre_id)
+VALUES ((SELECT id FROM rcc_support_contacts WHERE name = 'Maeve O''Sullivan'), 9); -- ACCW
 
-('Laura Burkholder', TRUE,
+-- Laura Burkholder - CTT at NFPC
+INSERT INTO rcc_support_contacts (name, is_individual, role_id, organization_id, email)
+VALUES ('Laura Burkholder', TRUE,
     (SELECT id FROM rcc_support_roles WHERE code = 'CTT'),
     (SELECT id FROM rcc_support_organizations WHERE short_name = 'PHSA'),
-    'Laura.Burkholder@phsa.ca', NULL, 'NFPC', NULL),
+    'Laura.Burkholder@phsa.ca');
+INSERT INTO rcc_support_contact_centres (contact_id, centre_id)
+VALUES ((SELECT id FROM rcc_support_contacts WHERE name = 'Laura Burkholder'), 7); -- NFPC
 
-('Ashley Lafortune', TRUE,
+-- Ashley Lafortune - CTT at SPSC
+INSERT INTO rcc_support_contacts (name, is_individual, role_id, organization_id, email, phone)
+VALUES ('Ashley Lafortune', TRUE,
     (SELECT id FROM rcc_support_roles WHERE code = 'CTT'),
     (SELECT id FROM rcc_support_organizations WHERE short_name = 'PHSA'),
-    'ashley.lafortune@phsa.ca', '236-994-7733', 'SPSC', NULL),
+    'ashley.lafortune@phsa.ca', '236-994-7733');
+INSERT INTO rcc_support_contact_centres (contact_id, centre_id)
+VALUES ((SELECT id FROM rcc_support_contacts WHERE name = 'Ashley Lafortune'), 6); -- SPSC
 
--- Community Reintegration Contacts
-('Sean Perry', TRUE,
+-- Sean Perry - CR at SPSC and NFPC (serves multiple)
+INSERT INTO rcc_support_contacts (name, is_individual, role_id, organization_id, email, email_secondary, phone)
+VALUES ('Sean Perry', TRUE,
     (SELECT id FROM rcc_support_roles WHERE code = 'CR'),
     (SELECT id FROM rcc_support_organizations WHERE short_name = 'Connective'),
-    'sean.perry@connective.ca', '604-468-3406', NULL, 'SPSC, NFPC'),
+    'sean.perry@connective.ca', 'Sean.Perry@gov.bc.ca', '604-468-3406');
+INSERT INTO rcc_support_contact_centres (contact_id, centre_id)
+VALUES 
+    ((SELECT id FROM rcc_support_contacts WHERE name = 'Sean Perry'), 6), -- SPSC
+    ((SELECT id FROM rcc_support_contacts WHERE name = 'Sean Perry'), 7); -- NFPC
 
-('SPSC Community Reintegration Office', FALSE,
+-- SPSC Community Reintegration Office
+INSERT INTO rcc_support_contacts (name, is_individual, role_id, organization_id, email, phone)
+VALUES ('SPSC Community Reintegration Office', FALSE,
     (SELECT id FROM rcc_support_roles WHERE code = 'CR'),
     (SELECT id FROM rcc_support_organizations WHERE short_name = 'BCC'),
-    'SPSC.Reintegration@gov.bc.ca', '604-572-2170', 'SPSC', NULL);
-
--- Update Sean Perry with secondary email
-UPDATE rcc_support_contacts 
-SET email_secondary = 'Sean.Perry@gov.bc.ca' 
-WHERE name = 'Sean Perry';
+    'SPSC.Reintegration@gov.bc.ca', '604-572-2170');
+INSERT INTO rcc_support_contact_centres (contact_id, centre_id)
+VALUES ((SELECT id FROM rcc_support_contacts WHERE name = 'SPSC Community Reintegration Office'), 6); -- SPSC
 
 -- =============================================
 -- SYSTEM-WIDE RCC CONSTANTS
 -- =============================================
-DROP TABLE IF EXISTS rcc_constants CASCADE;
-
 CREATE TABLE rcc_constants (
     id SERIAL PRIMARY KEY,
     key VARCHAR(100) NOT NULL UNIQUE,
@@ -141,7 +185,7 @@ INSERT INTO rcc_constants (key, value, description) VALUES
 -- HELPFUL VIEWS
 -- =============================================
 
--- View: Contacts with role and org names
+-- View: Contacts with role, org names, and centre IDs
 CREATE OR REPLACE VIEW rcc_contacts_full AS
 SELECT 
     c.id,
@@ -154,14 +198,16 @@ SELECT
     c.email,
     c.email_secondary,
     c.phone,
-    c.centre_short_name,
-    c.centres_served,
+    ARRAY_AGG(cc.centre_id ORDER BY cc.centre_id) AS centre_ids,
     c.notes,
     c.is_active
 FROM rcc_support_contacts c
 LEFT JOIN rcc_support_roles r ON c.role_id = r.id
 LEFT JOIN rcc_support_organizations o ON c.organization_id = o.id
-WHERE c.is_active = TRUE;
+LEFT JOIN rcc_support_contact_centres cc ON c.id = cc.contact_id
+WHERE c.is_active = TRUE
+GROUP BY c.id, c.name, c.is_individual, r.code, r.name, o.name, o.short_name, 
+         c.email, c.email_secondary, c.phone, c.notes, c.is_active;
 
 -- =============================================
 -- VERIFY DATA
@@ -170,7 +216,9 @@ SELECT 'Roles' as table_name, COUNT(*) as count FROM rcc_support_roles
 UNION ALL
 SELECT 'Organizations', COUNT(*) FROM rcc_support_organizations
 UNION ALL
-SELECT 'Contacts', COUNT(*) FROM rcc_support_contacts;
+SELECT 'Contacts', COUNT(*) FROM rcc_support_contacts
+UNION ALL
+SELECT 'Contact-Centre Links', COUNT(*) FROM rcc_support_contact_centres;
 
--- Show all contacts
+-- Show all contacts with their centres
 SELECT * FROM rcc_contacts_full;
