@@ -154,21 +154,25 @@ export default function App() {
 
     setLoading(true);
     const supabase = createClient();
-    const searchTerm = `%${q}%`;
 
     try {
-      // 1. Search courts
-      const { data: courtsData } = await supabase
-        .from('courts')
-        .select('*, regions(name)')
-        .or(`name.ilike.${searchTerm},address.ilike.${searchTerm}`)
-        .order('name')
-        .limit(10);
+      // 1. Search courts using smart search (handles aliases like "Abby" -> "Abbotsford")
+      const { data: courtsData } = await supabase.rpc('smart_search_courts', { search_term: q });
 
-      const courts: Court[] = (courtsData || []).map((c: any) => ({
-        ...c,
-        region_name: c.regions?.name
-      }));
+      // Get region names for matched courts
+      let courts: Court[] = [];
+      if (courtsData && courtsData.length > 0) {
+        const courtIds = courtsData.map((c: any) => c.id);
+        const { data: courtsWithRegions } = await supabase
+          .from('courts')
+          .select('*, regions(name)')
+          .in('id', courtIds);
+        
+        courts = (courtsWithRegions || []).map((c: any) => ({
+          ...c,
+          region_name: c.regions?.name
+        }));
+      }
 
       // 2. Get contacts for found courts
       let contacts: Contact[] = [];
@@ -193,13 +197,8 @@ export default function App() {
         }
       }
 
-      // 3. Search sheriff cells by name or catchment
-      const { data: cellsData } = await supabase
-        .from('sheriff_cells')
-        .select('*')
-        .or(`name.ilike.${searchTerm},catchment.ilike.${searchTerm}`)
-        .order('name')
-        .limit(20);
+      // 3. Search sheriff cells using smart search
+      const { data: cellsData } = await supabase.rpc('smart_search_cells', { search_term: q });
 
       // Also get cells linked to found courts
       if (courts.length > 0) {
@@ -243,47 +242,55 @@ export default function App() {
         }));
       }
 
-      // 5. Get bail court info
+      // 5. Get bail court info using smart search
       let bailCourt: BailCourt | null = null;
       let bailContacts: BailContact[] = [];
       let bailTeamsLinks: TeamsLink[] = [];
 
-      if (courts.length > 0) {
+      // Try smart search first
+      const { data: bailSearchResults } = await supabase.rpc('smart_search_bail_courts', { search_term: q });
+      
+      let bailData = null;
+      if (bailSearchResults && bailSearchResults.length > 0) {
+        bailData = bailSearchResults[0];
+      } else if (courts.length > 0) {
+        // Fall back to bail_hub_id lookup
         const bailHubIds = courts.map(c => c.bail_hub_id).filter(Boolean);
-        
-        // First try direct match on bail_courts name
-        const { data: bailData } = await supabase
-          .from('bail_courts')
-          .select('*')
-          .or(`name.ilike.${searchTerm},id.in.(${bailHubIds.join(',')})`)
-          .limit(1)
-          .single();
-        
-        if (bailData) {
-          bailCourt = bailData;
-          
-          // Get bail contacts
-          const { data: bailContactsData } = await supabase
-            .from('bail_contacts')
-            .select('*, contact_roles(name)')
-            .eq('bail_court_id', bailData.id);
-          
-          bailContacts = (bailContactsData || []).map((bc: any) => ({
-            ...bc,
-            role_name: bc.contact_roles?.name
-          }));
-          
-          // Get bail teams links
-          const { data: bailLinksData } = await supabase
-            .from('bail_courts_teams_links')
-            .select('teams_links(*, teams_link_types(name))')
-            .eq('bail_court_id', bailData.id);
-          
-          bailTeamsLinks = (bailLinksData || []).map((bl: any) => ({
-            ...bl.teams_links,
-            type_name: bl.teams_links?.teams_link_types?.name
-          })).filter(Boolean);
+        if (bailHubIds.length > 0) {
+          const { data: hubData } = await supabase
+            .from('bail_courts')
+            .select('*')
+            .in('id', bailHubIds)
+            .limit(1)
+            .single();
+          bailData = hubData;
         }
+      }
+        
+      if (bailData) {
+        bailCourt = bailData;
+        
+        // Get bail contacts
+        const { data: bailContactsData } = await supabase
+          .from('bail_contacts')
+          .select('*, contact_roles(name)')
+          .eq('bail_court_id', bailData.id);
+        
+        bailContacts = (bailContactsData || []).map((bc: any) => ({
+          ...bc,
+          role_name: bc.contact_roles?.name
+        }));
+        
+        // Get bail teams links
+        const { data: bailLinksData } = await supabase
+          .from('bail_courts_teams_links')
+          .select('teams_links(*, teams_link_types(name))')
+          .eq('bail_court_id', bailData.id);
+        
+        bailTeamsLinks = (bailLinksData || []).map((bl: any) => ({
+          ...bl.teams_links,
+          type_name: bl.teams_links?.teams_link_types?.name
+        })).filter(Boolean);
       }
 
       setResults({
