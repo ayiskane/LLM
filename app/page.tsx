@@ -66,19 +66,28 @@ export default function Home() {
   useEffect(() => {
     if (view !== 'detail') return;
     
-    const scrollContainer = detailScrollRef.current;
-    if (!scrollContainer) return;
+    // Small delay to ensure ref is attached
+    const timer = setTimeout(() => {
+      const scrollContainer = detailScrollRef.current;
+      if (!scrollContainer) {
+        console.log('No scroll container found');
+        return;
+      }
+      
+      const handleScroll = () => {
+        const scrollTop = scrollContainer.scrollTop;
+        setIsHeaderCollapsed(scrollTop > 60);
+      };
+      
+      // Initial check
+      handleScroll();
+      
+      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+      return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    }, 100);
     
-    const handleScroll = () => {
-      setIsHeaderCollapsed(scrollContainer.scrollTop > 50);
-    };
-    
-    // Initial check
-    handleScroll();
-    
-    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
-  }, [view, detailCourt]);
+    return () => clearTimeout(timer);
+  }, [view, detailCourt, selectedCourtId]);
 
   // Reset state on detail view entry
   useEffect(() => {
@@ -421,51 +430,56 @@ export default function Home() {
                 <BackButton onClick={handleBack} />
               </div>
 
-              {/* Title Block */}
-              {isHeaderCollapsed ? (
-                /* Collapsed: Name + Tags + Address Icon in one row */
-                <div className="flex items-center gap-2 px-4 pb-2" style={{ borderBottom: `1px solid ${theme.colors.border.subtle}` }}>
-                  <h1 className="text-sm font-semibold text-white flex-1">
-                    {getCourtDisplayName(detailCourt)}
-                  </h1>
-                  <div className="flex items-center gap-1 flex-shrink-0">
-                    {detailCourt.has_provincial && <Tag color="emerald">PC</Tag>}
-                    {detailCourt.has_supreme && <Tag color="purple">SC</Tag>}
-                    {detailCourt.is_circuit && <Tag color="amber">CIR</Tag>}
+              {/* Title Block - with smooth transition */}
+              <div 
+                className="px-4 transition-all duration-300 ease-out"
+                style={{ borderBottom: `1px solid ${theme.colors.border.subtle}` }}
+              >
+                {isHeaderCollapsed ? (
+                  /* Collapsed: Name + Tags + Address Icon in one row */
+                  <div className="flex items-center gap-2 pb-2">
+                    <h1 className="text-sm font-semibold text-white flex-1">
+                      {getCourtDisplayName(detailCourt)}
+                    </h1>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      {detailCourt.has_provincial && <Tag color="emerald">PC</Tag>}
+                      {detailCourt.has_supreme && <Tag color="purple">SC</Tag>}
+                      {detailCourt.is_circuit && <Tag color="amber">CIR</Tag>}
+                    </div>
+                    {detailCourt.address && (
+                      <button 
+                        onClick={() => handleOpenMap(detailCourt.address!)}
+                        className="p-1.5 rounded-md transition-colors flex-shrink-0"
+                        style={{ background: theme.colors.bg.item }}
+                      >
+                        <GeoAlt className="w-4 h-4 text-blue-400" />
+                      </button>
+                    )}
                   </div>
-                  {detailCourt.address && (
-                    <button 
-                      onClick={() => handleOpenMap(detailCourt.address!)}
-                      className="p-1.5 rounded-md transition-colors flex-shrink-0"
-                      style={{ background: theme.colors.bg.item }}
-                    >
-                      <GeoAlt className="w-4 h-4 text-blue-400" />
-                    </button>
-                  )}
-                </div>
-              ) : (
-                /* Expanded: Full layout */
-                <div className="px-4 pb-3" style={{ borderBottom: `1px solid ${theme.colors.border.subtle}` }}>
-                  <h1 className="text-lg font-semibold text-white">
-                    {getCourtDisplayName(detailCourt)}
-                  </h1>
-                  {detailCourt.address && (
-                    <button 
-                      onClick={() => handleOpenMap(detailCourt.address!)}
-                      className="flex items-center gap-1 text-xs mt-1 hover:text-blue-400 transition-colors"
-                      style={{ color: theme.colors.text.subtle }}
-                    >
-                      <GeoAlt className="w-3 h-3" />
-                      <span>{detailCourt.address} {detailCourt.region_code && `· ${detailCourt.region_code} ${detailCourt.region_name}`}</span>
-                    </button>
-                  )}
-                  <div className="flex flex-wrap gap-1 mt-2">
-                    {detailCourt.has_provincial && <Tag color="emerald">PROVINCIAL</Tag>}
-                    {detailCourt.has_supreme && <Tag color="purple">SUPREME</Tag>}
-                    {detailCourt.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
+                ) : (
+                  /* Expanded: Full layout */
+                  <div className="pb-3">
+                    <h1 className="text-lg font-semibold text-white">
+                      {getCourtDisplayName(detailCourt)}
+                    </h1>
+                    {detailCourt.address && (
+                      <button 
+                        onClick={() => handleOpenMap(detailCourt.address!)}
+                        className="flex items-center gap-1 text-xs mt-1 hover:text-blue-400 transition-colors"
+                        style={{ color: theme.colors.text.subtle }}
+                      >
+                        <GeoAlt className="w-3 h-3" />
+                        <span>{detailCourt.address} {detailCourt.region_code && `· ${detailCourt.region_code} ${detailCourt.region_name}`}</span>
+                      </button>
+                    )}
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {detailCourt.has_provincial && <Tag color="emerald">PROVINCIAL</Tag>}
+                      {detailCourt.has_supreme && <Tag color="purple">SUPREME</Tag>}
+                      {detailCourt.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               {/* Quick Nav */}
               <div className="flex gap-2 px-3 py-2 overflow-x-auto scrollbar-hide">
