@@ -164,3 +164,84 @@ export const REGION_NAMES: Record<number, string> = {
   6: 'Federal',
 };
 
+
+
+// Correctional Centre Types
+export interface CorrectionalCentre {
+  id: number;
+  name: string;                         // Full name (e.g., "Vancouver Island Regional Correctional Centre")
+  short_name: string;                   // Abbreviation (e.g., "VIRCC")
+  location: string;                     // City/Area (e.g., "Victoria")
+  
+  // Classification
+  is_federal: boolean;                  // TRUE for CSC federal institutions
+  centre_type: 'provincial' | 'pretrial' | 'women' | 'federal' | null;
+  security_level: 'minimum' | 'medium' | 'maximum' | 'multi' | null;
+  
+  // Contact Information
+  general_phone: string | null;
+  general_phone_option: string | null;  // Phone option to press (e.g., "option 8")
+  general_fax: string | null;
+  
+  // Counsel Designation Notice
+  cdn_fax: string | null;               // Fax for CDN only
+  accepts_cdn_by_fax: boolean;
+  
+  // Visit Requests
+  visit_request_phone: string | null;
+  visit_request_email: string | null;
+  virtual_visit_email: string | null;
+  lawyer_callback_email: string | null;
+  
+  // Callback Windows (when inmates can call back)
+  callback_window_1: string | null;     // e.g., "1000-1035"
+  callback_window_2: string | null;     // e.g., "1730-1805"
+  
+  // Visit Hours
+  visit_hours_inperson: string | null;  // e.g., "0650-21:30"
+  visit_hours_virtual: string | null;   // e.g., "0845-1115, 1315-1830"
+  visit_notes: string | null;           // Special instructions
+  
+  // Disclosure
+  disclosure_format: string | null;     // e.g., "Hard drive", "USB", "Padlock Hard Drive"
+  
+  // Additional Info
+  has_bc_gc_link: boolean;
+  notes: string | null;
+}
+
+// Corrections system-wide constants
+export interface CorrectionsConstant {
+  id: number;
+  key: string;
+  value: string;
+  description: string | null;
+}
+
+// Correctional centre type display names
+export const CENTRE_TYPE_NAMES: Record<string, string> = {
+  'provincial': 'Provincial',
+  'pretrial': 'Pretrial',
+  'women': "Women's",
+  'federal': 'Federal',
+};
+
+// Security level display names
+export const SECURITY_LEVEL_NAMES: Record<string, string> = {
+  'minimum': 'Minimum Security',
+  'medium': 'Medium Security',
+  'maximum': 'Maximum Security',
+  'multi': 'Multi-Level Security',
+};
+
+// Provincial centre short names for quick reference
+export const PROVINCIAL_CENTRES = [
+  'VIRCC', 'NCC', 'OCC', 'KRCC', 'PGRCC', 
+  'SPSC', 'NFPC', 'FRCC', 'ACCW', 'FMCC'
+] as const;
+
+// Federal institution short names for quick reference  
+export const FEDERAL_INSTITUTIONS = [
+  'FVI', 'KENT', 'MATSQUI', 'MISSION-MED', 'MISSION-MIN',
+  'MOUNTAIN', 'PACIFIC', 'WILLIAM-HEAD'
+] as const;
