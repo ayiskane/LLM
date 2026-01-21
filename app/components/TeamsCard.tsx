@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Video, Phone, Copy, Check, ChevronRight, ExternalLink } from 'lucide-react';
+import { CameraVideo, Telephone, Clipboard, Check, ChevronRight, BoxArrowUpRight } from 'react-bootstrap-icons';
 import { Button } from '@/components/ui/button';
 import copy from 'copy-to-clipboard';
 import type { TeamsLink } from '@/types';
@@ -39,7 +39,7 @@ export function TeamsCard({ link, onCopyAll }: TeamsCardProps) {
     <div className="py-2.5 px-3 rounded-lg bg-slate-800/30">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <Video className="w-4 h-4 text-slate-400 flex-shrink-0" />
+          <CameraVideo className="w-4 h-4 text-slate-400 flex-shrink-0" />
           <span className="text-sm font-medium text-slate-200 truncate">{displayName}</span>
         </div>
         
@@ -50,7 +50,7 @@ export function TeamsCard({ link, onCopyAll }: TeamsCardProps) {
             className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 h-7"
             onClick={handleJoin}
           >
-            <ExternalLink className="w-3 h-3 mr-1" />
+            <BoxArrowUpRight className="w-3 h-3 mr-1" />
             Join
           </Button>
         )}
@@ -66,7 +66,7 @@ export function TeamsCard({ link, onCopyAll }: TeamsCardProps) {
             <div className="flex-1 min-w-0 space-y-0.5">
               {link.phone && (
                 <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                  <Phone className="w-3 h-3" />
+                  <Telephone className="w-3 h-3" />
                   <span>{link.phone}</span>
                 </div>
               )}
@@ -85,7 +85,7 @@ export function TeamsCard({ link, onCopyAll }: TeamsCardProps) {
             {copied ? (
               <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
             ) : (
-              <Copy className="w-4 h-4 text-slate-500 flex-shrink-0" />
+              <Clipboard className="w-4 h-4 text-slate-500 flex-shrink-0" />
             )}
           </div>
         </div>
@@ -110,7 +110,7 @@ export function TeamsLinkCountCard({ count, onClick }: TeamsLinkCountCardProps) 
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Video className="w-4 h-4 text-indigo-400" />
+          <CameraVideo className="w-4 h-4 text-indigo-400" />
           <span className="text-sm font-medium text-slate-200">
             {count} MS Teams Link{count !== 1 ? 's' : ''}
           </span>
@@ -139,3 +139,4 @@ export function TeamsList({ links, onCopyAll }: TeamsListProps) {
     </div>
   );
 }
+
