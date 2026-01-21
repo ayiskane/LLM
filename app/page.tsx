@@ -340,7 +340,7 @@ export default function App() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search courts, cells, contacts... (e.g., 'Abby', 'Surrey', 'Victoria')"
+              placeholder="Search courts, cells, contacts... (e.g., 'Abbotsford', 'Surrey', 'Victoria')"
               className="w-full pl-10 pr-4 py-3 border rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               autoFocus
             />
@@ -361,7 +361,7 @@ export default function App() {
             <h2 className="text-2xl font-medium text-gray-600 mb-2">Search BC Courts & Contacts</h2>
             <p className="text-gray-500 mb-6">Enter a court name, city, or search term to find related information</p>
             <div className="flex flex-wrap justify-center gap-2">
-              {['Abby', 'Surrey', 'Victoria', 'Kelowna', 'Prince George'].map(term => (
+              {['Abbotsford', 'Surrey', 'Victoria', 'Kelowna', 'Prince George'].map(term => (
                 <button
                   key={term}
                   onClick={() => setQuery(term)}
@@ -585,3 +585,4 @@ export default function App() {
     </div>
   );
 }
+
