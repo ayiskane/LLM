@@ -194,15 +194,14 @@ export interface RccSupportContact {
   email: string | null;
   email_secondary: string | null;
   phone: string | null;
-  centre_short_name: string | null;
-  centres_served: string | null;
   notes: string | null;
   is_active: boolean;
-  // Joined fields
+  // Joined fields from view
   role_code?: string;
   role_name?: string;
   organization_name?: string;
   organization_short_name?: string;
+  centre_ids?: number[];  // Array of centre IDs from correctional-centres.ts
 }
 
 // RCC Support role codes
@@ -225,3 +224,4 @@ export const RCC_ROLE_NAMES: Record<string, string> = {
   RPO: 'Release Planning Officer',
   CDC: 'Concurrent Disorder Counsellor',
 };
+
