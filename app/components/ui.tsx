@@ -1,12 +1,12 @@
 'use client';
 
 import { memo } from 'react';
-import { Check, Copy, ChevronRight } from 'lucide-react';
+import { Check, Clipboard, ChevronRight } from 'react-bootstrap-icons';
 import { Court, CourtContacts } from '@/types/database';
 
 // Navigation Button Component
 interface NavButtonProps {
-  icon: React.ComponentType<{ size?: number }>;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
   active: boolean;
   onClick: () => void;
@@ -18,7 +18,7 @@ export const NavButton = memo(function NavButton({ icon: Icon, label, active, on
       onClick={onClick}
       className={`flex-1 flex flex-col items-center py-2 ${active ? 'text-white' : 'text-zinc-500'}`}
     >
-      <Icon size={20} />
+      <Icon className="w-5 h-5" />
       <span className="text-xs mt-1">{label}</span>
     </button>
   );
@@ -59,7 +59,7 @@ export const CourtCard = memo(function CourtCard({ court, onClick }: CourtCardPr
               Sup
             </span>
           )}
-          <ChevronRight size={16} className="text-zinc-600 ml-1" />
+          <ChevronRight className="w-4 h-4 text-zinc-600 ml-1" />
         </div>
       </div>
       {court.is_circuit && court.hub_court_name && (
@@ -88,7 +88,7 @@ export const CopyButton = memo(function CopyButton({
   size = 'md'
 }: CopyButtonProps) {
   const isCopied = copiedField === field;
-  const iconSize = size === 'sm' ? 14 : 16;
+  const sizeClass = size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4';
   
   return (
     <button
@@ -96,9 +96,9 @@ export const CopyButton = memo(function CopyButton({
       className="flex items-center justify-center"
     >
       {isCopied ? (
-        <Check size={iconSize} className="text-emerald-500" />
+        <Check className={`${sizeClass} text-emerald-500`} />
       ) : (
-        <Copy size={iconSize} className="text-zinc-500" />
+        <Clipboard className={`${sizeClass} text-zinc-500`} />
       )}
     </button>
   );
@@ -347,3 +347,4 @@ export const RegionFilter = memo(function RegionFilter({
     </div>
   );
 });
+
