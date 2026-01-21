@@ -77,6 +77,9 @@ export interface BailContact {
   availability_name?: string;
 }
 
+// Search intent types
+export type SearchIntent = 'court_lookup' | 'contact_lookup' | 'cell_lookup' | 'teams_lookup' | 'bail_lookup' | 'general';
+
 export interface SearchResults {
   courts: Court[];
   contacts: Contact[];
@@ -85,7 +88,14 @@ export interface SearchResults {
   bailCourt: BailCourt | null;
   bailContacts: BailContact[];
   bailTeamsLinks: TeamsLink[];
-  courtroomFilter?: string | null; // Courtroom number filter (e.g., "204" from "abby 204")
+  
+  // Filter metadata from parsed query
+  courtroomFilter?: string | null;      // "204" from "abby 204"
+  contactTypeFilter?: string | null;    // "crown" from "abby crown"
+  contactTypeLabel?: string | null;     // "Crown" display label
+  cellTypeFilter?: string | null;       // "RCMP" from "abby rcmp"
+  regionFilter?: number | null;         // 3 from "r3 jcm"
+  searchIntent?: SearchIntent;          // What the user is looking for
 }
 
 // Region info
