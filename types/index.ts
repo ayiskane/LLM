@@ -225,3 +225,79 @@ export const RCC_ROLE_NAMES: Record<string, string> = {
   CDC: 'Concurrent Disorder Counsellor',
 };
 
+
+
+// Program Types
+export interface ProgramType {
+  id: number;
+  code: string;
+  name: string;
+  description: string | null;
+}
+
+export interface Program {
+  id: number;
+  name: string;
+  type_id: number | null;
+  location: string | null;
+  region_id: number | null;
+  address: string | null;
+  phone: string | null;
+  phone_secondary: string | null;
+  fax: string | null;
+  email: string | null;
+  website: string | null;
+  gender: 'all' | 'men' | 'women' | null;
+  indigenous_only: boolean;
+  accepts_sa_records: boolean;
+  is_residential: boolean;
+  application_method: 'phone' | 'written' | 'referral' | null;
+  parent_organization: string | null;
+  notes: string | null;
+  is_active: boolean;
+  // Joined fields from view
+  type_code?: string;
+  type_name?: string;
+  region_name?: string;
+}
+
+export interface ProgramContact {
+  id: number;
+  program_id: number;
+  name: string;
+  role: string | null;
+  phone: string | null;
+  email: string | null;
+  is_primary: boolean;
+}
+
+// Program type codes
+export const PROGRAM_TYPE_CODES = {
+  RECOVERY: 'RECOVERY',
+  TREATMENT: 'TREATMENT',
+  DETOX: 'DETOX',
+  FPS: 'FPS',
+  IJC: 'IJC',
+  IJP: 'IJP',
+  PRE_TREATMENT: 'PRE_TREATMENT',
+  POST_TREATMENT: 'POST_TREATMENT',
+  CORRECTIONAL: 'CORRECTIONAL',
+} as const;
+
+export const PROGRAM_TYPE_NAMES: Record<string, string> = {
+  RECOVERY: 'Recovery House',
+  TREATMENT: 'Treatment Centre',
+  DETOX: 'Detox Centre',
+  FPS: 'Forensic Psychiatric Services',
+  IJC: 'Indigenous Justice Centre',
+  IJP: 'Indigenous Justice Program',
+  PRE_TREATMENT: 'Pre-Treatment',
+  POST_TREATMENT: 'Post-Treatment',
+  CORRECTIONAL: 'Correctional Program',
+};
+
+export const APPLICATION_METHODS = {
+  phone: 'Phone Call',
+  written: 'Written Application',
+  referral: 'Referral Required',
+} as const;
