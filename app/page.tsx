@@ -62,37 +62,11 @@ export default function Home() {
     fetchCourtDetails 
   } = useCourtDetails();
 
-  // Scroll handling for collapsing header
-  useEffect(() => {
-    if (view !== 'detail') return;
-    
-    let scrollContainer: HTMLDivElement | null = null;
-    let handleScroll: (() => void) | null = null;
-    
-    // Small delay to ensure ref is attached after render
-    const timer = setTimeout(() => {
-      scrollContainer = detailScrollRef.current;
-      if (!scrollContainer) return;
-      
-      handleScroll = () => {
-        if (scrollContainer) {
-          setIsHeaderCollapsed(scrollContainer.scrollTop > 60);
-        }
-      };
-      
-      // Initial check
-      handleScroll();
-      
-      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
-    }, 50);
-    
-    return () => {
-      clearTimeout(timer);
-      if (scrollContainer && handleScroll) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [view, detailCourt, selectedCourtId]);
+  // Scroll handler for collapsing header - called directly via onScroll prop
+  const handleDetailScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const scrollTop = e.currentTarget.scrollTop;
+    setIsHeaderCollapsed(scrollTop > 60);
+  }, []);
 
   // Reset state on detail view entry
   useEffect(() => {
@@ -499,7 +473,7 @@ export default function Home() {
             </StickyHeader>
 
             {/* Scrollable Content */}
-            <div ref={detailScrollRef} className="flex-1 overflow-y-auto">
+            <div ref={detailScrollRef} className="flex-1 overflow-y-auto" onScroll={handleDetailScroll}>
               <div className="p-3 space-y-2.5 pb-20">
                 {detailCourt.is_circuit && detailCourt.contact_hub_name && (
                   <CircuitWarning courtName={detailCourt.name} hubCourtName={detailCourt.contact_hub_name} />
@@ -627,5 +601,6 @@ function FilterBadge({ color, icon, children }: { color: 'indigo' | 'emerald' | 
     </span>
   );
 }
+
 
 
