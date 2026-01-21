@@ -149,11 +149,11 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
           <span 
             className="flex-1 text-left"
             style={{
-              fontFamily: 'monospace',
-              fontSize: '10px',
+              fontSize: '13px',
               textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: theme.colors.text.muted,
+              letterSpacing: '0.1em',
+              color: theme.colors.text.secondary,
+              fontWeight: 500,
             }}
           >
             {title}
@@ -363,7 +363,7 @@ export function Tag({ children, color, size = 'sm' }: TagProps) {
   return (
     <span 
       className={`${padding} ${fontSize} rounded font-mono`}
-      style={{ background: sectionColors.bg, color: sectionColors.text }}
+      style={{ background: sectionColors.bg, color: sectionColors.text, letterSpacing: '2px' }}
     >
       {children}
     </span>
@@ -472,3 +472,4 @@ export function PageLabel({ children }: PageLabelProps) {
     </span>
   );
 }
+
