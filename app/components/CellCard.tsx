@@ -5,6 +5,41 @@ import type { ShellCell } from '@/types';
 
 // Common abbreviations for court names
 const COURT_ABBREVS: Record<string, string> = {
+  'Abbotsford Law Courts': 'Abbotsford',
+  'Chilliwack Law Courts': 'Chilliwack',
+  'Kelowna Law Courts': 'Kelowna',
+  'Kamloops Law Courts': 'Kamloops',
+  'Nanaimo Law Courts': 'Nanaimo',
+  'New Westminster Law Courts': 'New West',
+  'North Vancouver Law Courts': 'North Van',
+  'Port Coquitlam Law Courts': 'PoCo',
+  'Prince George Law Courts': 'Prince George',
+  'Robson Square Provincial Court': 'Robson Sq',
+  'Surrey Provincial Court': 'Surrey',
+  'Vancouver Law Courts': 'Vancouver',
+  'Victoria Law Courts': 'Victoria',
+  'Vernon Law Courts': 'Vernon',
+  'Cranbrook Law Courts': 'Cranbrook',
+  'Penticton Law Courts': 'Penticton',
+  'Courtenay Law Courts': 'Courtenay',
+  'Duncan Law Courts': 'Duncan',
+  'Salmon Arm Law Courts': 'Salmon Arm',
+  'Nelson Law Courts': 'Nelson',
+  'Terrace Law Courts': 'Terrace',
+  'Prince Rupert Law Courts': 'Prince Rupert',
+  'Williams Lake Law Courts': 'Williams Lake',
+  'Fort St John Law Courts': 'Fort St John',
+  'Dawson Creek Law Courts': 'Dawson Creek',
+  'Quesnel Law Courts': 'Quesnel',
+  'Campbell River Law Courts': 'Campbell River',
+  'Powell River Law Courts': 'Powell River',
+  'Maple Ridge Law Courts': 'Maple Ridge',
+  'Richmond Law Courts': 'Richmond',
+  'Burnaby Law Courts': 'Burnaby',
+  'Coquitlam Law Courts': 'Coquitlam',
+  'Langley Law Courts': 'Langley',
+  'White Rock Law Courts': 'White Rock',
+  // Without "Law Courts" suffix
   'Abbotsford': 'Abbotsford',
   'Chilliwack': 'Chilliwack',
   'Kelowna': 'Kelowna',
@@ -19,54 +54,51 @@ const COURT_ABBREVS: Record<string, string> = {
   'Vancouver': 'Vancouver',
   'Victoria': 'Victoria',
   'Vernon': 'Vernon',
-  'Cranbrook': 'Cranbrook',
-  'Penticton': 'Penticton',
-  'Courtenay': 'Courtenay',
-  'Duncan': 'Duncan',
-  'Salmon Arm': 'Salmon Arm',
-  'Nelson': 'Nelson',
-  'Terrace': 'Terrace',
-  'Prince Rupert': 'Prince Rupert',
-  'Williams Lake': 'Williams Lake',
-  'Fort St John': 'Fort St John',
-  'Dawson Creek': 'Dawson Creek',
-  'Quesnel': 'Quesnel',
-  'Campbell River': 'Campbell River',
-  'Powell River': 'Powell River',
-  'Maple Ridge': 'Maple Ridge',
-  'Richmond': 'Richmond',
-  'Burnaby': 'Burnaby',
-  'Coquitlam': 'Coquitlam',
-  'Langley': 'Langley',
-  'White Rock': 'White Rock',
 };
+
+// Get abbreviated court name
+function getCourtAbbrev(courtName: string): string {
+  // Check exact match first
+  if (COURT_ABBREVS[courtName]) {
+    return COURT_ABBREVS[courtName];
+  }
+  
+  // Try to extract just the city name
+  const cityMatch = courtName.match(/^([A-Za-z\s]+?)(?:\s+(?:Law Courts?|Provincial Court|Court))?$/i);
+  if (cityMatch) {
+    const city = cityMatch[1].trim();
+    if (COURT_ABBREVS[city]) {
+      return COURT_ABBREVS[city];
+    }
+    return city;
+  }
+  
+  return courtName;
+}
 
 // Format cell name for display
 function formatCellName(cell: ShellCell): string {
   const name = cell.name || '';
   
-  // Handle courthouse cells - extract location and format as "Location CH Cells"
+  // Handle courthouse cells - use court_name if available, otherwise extract from name
   if (cell.cell_type === 'CH' || cell.cell_type === 'courthouse' || name.toLowerCase().includes('courthouse')) {
-    // Try to extract the location from the name
-    // Common patterns: "Abbotsford Courthouse", "Abbotsford CH", "Abbotsford Cells", etc.
+    // If we have the court name from the join, use it
+    if (cell.court_name) {
+      const abbrev = getCourtAbbrev(cell.court_name);
+      return `${abbrev} CH Cells`;
+    }
+    
+    // Try to extract the location from the cell name
     let location = name
       .replace(/\s*(Courthouse|CH|Law Courts?|Provincial|Court|Cells?)\s*/gi, '')
       .trim();
     
-    // If we have an abbreviation, use it
-    for (const [full, abbrev] of Object.entries(COURT_ABBREVS)) {
-      if (location.toLowerCase() === full.toLowerCase()) {
-        location = abbrev;
-        break;
-      }
+    if (location) {
+      const abbrev = getCourtAbbrev(location);
+      return `${abbrev} CH Cells`;
     }
     
-    // If location is empty, just show "CH Cells"
-    if (!location) {
-      return 'CH Cells';
-    }
-    
-    return `${location} CH Cells`;
+    return 'CH Cells';
   }
   
   // Check if it's a PD (Police Department)
