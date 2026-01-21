@@ -3,7 +3,7 @@
 import { ReactNode, forwardRef } from 'react';
 import { Clipboard, Check, ChevronDown } from 'react-bootstrap-icons';
 import { motion, AnimatePresence } from 'framer-motion';
-import { theme, SectionColor } from './theme';
+import { theme, SectionColor } from '@/lib/theme';
 
 // =============================================================================
 // BACKGROUND
