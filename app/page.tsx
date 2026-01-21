@@ -22,7 +22,6 @@ import {
   PillButton,
   Toast,
   BackButton,
-  PageLabel,
 } from '@/app/components/ui';
 import { theme } from '@/lib/theme';
 
@@ -390,9 +389,8 @@ export default function Home() {
             className="min-h-screen flex flex-col"
           >
             <StickyHeader>
-              <div className="flex items-center justify-between p-3">
+              <div className="flex items-center p-3">
                 <BackButton onClick={handleBack} />
-                <PageLabel>COURT_DETAIL</PageLabel>
               </div>
 
               {/* Title Block */}
@@ -400,17 +398,20 @@ export default function Home() {
                 <h1 className={`font-semibold text-white transition-all duration-200 ${isHeaderCollapsed ? 'text-base' : 'text-lg'}`}>
                   {getCourtDisplayName(detailCourt)}
                 </h1>
-                {!isHeaderCollapsed && detailCourt.address && (
-                  <p className="text-xs mt-1" style={{ color: theme.colors.text.subtle }}>
-                    {detailCourt.address} {detailCourt.region_code && `· ${detailCourt.region_code} ${detailCourt.region_name}`}
-                  </p>
+                {!isHeaderCollapsed && (
+                  <>
+                    {detailCourt.address && (
+                      <p className="text-xs mt-1" style={{ color: theme.colors.text.subtle }}>
+                        {detailCourt.address} {detailCourt.region_code && `· ${detailCourt.region_code} ${detailCourt.region_name}`}
+                      </p>
+                    )}
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {detailCourt.has_provincial && <Tag color="emerald">PROVINCIAL</Tag>}
+                      {detailCourt.has_supreme && <Tag color="purple">SUPREME</Tag>}
+                      {detailCourt.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
+                    </div>
+                  </>
                 )}
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {isHeaderCollapsed && detailCourt.region_code && <Tag color="blue">{detailCourt.region_code}</Tag>}
-                  {detailCourt.has_provincial && <Tag color="emerald">{isHeaderCollapsed ? 'PROV' : 'PROVINCIAL'}</Tag>}
-                  {detailCourt.has_supreme && <Tag color="purple">{isHeaderCollapsed ? 'SUP' : 'SUPREME'}</Tag>}
-                  {detailCourt.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
-                </div>
               </div>
 
               {/* Quick Nav */}
@@ -554,3 +555,4 @@ function FilterBadge({ color, icon, children }: { color: 'indigo' | 'emerald' | 
     </span>
   );
 }
+
