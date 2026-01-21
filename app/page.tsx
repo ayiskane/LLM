@@ -454,12 +454,12 @@ export default function Home() {
                     <div className="flex flex-wrap items-center gap-1.5 mt-2">
                       {detailCourt.region_code && (
                         <span 
-                          className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1"
+                          className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase"
                           style={{ 
                             background: 'rgba(255,255,255,0.05)', 
                             border: `1px solid ${theme.colors.border.primary}`,
                             color: theme.colors.text.muted,
-                            letterSpacing: '1px'
+                            letterSpacing: '2px'
                           }}
                         >
                           <span>{detailCourt.region_code}</span>
