@@ -194,8 +194,10 @@ export interface CorrectionalCentre {
   lawyer_callback_email: string | null;
   
   // Callback Windows (when inmates can call back)
-  callback_window_1: string | null;     // e.g., "1000-1035"
-  callback_window_2: string | null;     // e.g., "1730-1805"
+  callback_1_start: string | null;      // TIME e.g., "10:00"
+  callback_1_end: string | null;        // TIME e.g., "10:35"
+  callback_2_start: string | null;      // TIME e.g., "17:30"
+  callback_2_end: string | null;        // TIME e.g., "18:05"
   
   // Visit Hours
   visit_hours_inperson: string | null;  // e.g., "0650-21:30"
@@ -245,3 +247,4 @@ export const FEDERAL_INSTITUTIONS = [
   'FVI', 'KENT', 'MATSQUI', 'MISSION-MED', 'MISSION-MIN',
   'MOUNTAIN', 'PACIFIC', 'WILLIAM-HEAD'
 ] as const;
+
