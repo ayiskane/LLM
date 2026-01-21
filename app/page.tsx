@@ -157,7 +157,7 @@ export default function App() {
 
     try {
       // 1. Search courts using smart search (handles aliases like "Abby" -> "Abbotsford")
-      const { data: courtsData } = await supabase.rpc('smart_search_courts', { search_term: q });
+      const { data: courtsData } = await supabase.rpc('search_courts', { search_term: q });
 
       // Get region names for matched courts
       let courts: Court[] = [];
@@ -198,7 +198,7 @@ export default function App() {
       }
 
       // 3. Search sheriff cells using smart search
-      const { data: cellsData } = await supabase.rpc('smart_search_cells', { search_term: q });
+      const { data: cellsData } = await supabase.rpc('search_cells', { search_term: q });
 
       // Also get cells linked to found courts
       if (courts.length > 0) {
@@ -248,7 +248,7 @@ export default function App() {
       let bailTeamsLinks: TeamsLink[] = [];
 
       // Try smart search first
-      const { data: bailSearchResults } = await supabase.rpc('smart_search_bail_courts', { search_term: q });
+      const { data: bailSearchResults } = await supabase.rpc('search_bail_courts', { search_term: q });
       
       let bailData = null;
       if (bailSearchResults && bailSearchResults.length > 0) {
@@ -585,4 +585,5 @@ export default function App() {
     </div>
   );
 }
+
 
