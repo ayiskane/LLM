@@ -246,7 +246,7 @@ INSERT INTO correctional_centres (
     TRUE, 'federal', 'medium',
     '604-859-4841', NULL, '604-850-8228', NULL, FALSE,
     NULL, NULL, NULL, NULL,
-    NULL, NULL,
+    NULL, NULL, NULL, NULL,
     NULL, NULL, NULL,
     NULL, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
     FALSE, NULL
@@ -258,7 +258,7 @@ INSERT INTO correctional_centres (
     TRUE, 'federal', 'medium',
     '604-826-1231', NULL, '604-820-5801', NULL, FALSE,
     NULL, NULL, NULL, NULL,
-    NULL, NULL,
+    NULL, NULL, NULL, NULL,
     NULL, NULL, NULL,
     NULL, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
     FALSE, NULL
@@ -270,7 +270,7 @@ INSERT INTO correctional_centres (
     TRUE, 'federal', 'minimum',
     '604-820-5720', NULL, '604-820-5730', NULL, FALSE,
     NULL, NULL, NULL, NULL,
-    NULL, NULL,
+    NULL, NULL, NULL, NULL,
     NULL, NULL, NULL,
     NULL, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
     FALSE, NULL
@@ -282,7 +282,7 @@ INSERT INTO correctional_centres (
     TRUE, 'federal', 'medium',
     '604-796-2231', NULL, '604-796-1450', NULL, FALSE,
     NULL, NULL, NULL, NULL,
-    NULL, NULL,
+    NULL, NULL, NULL, NULL,
     NULL, NULL, NULL,
     NULL, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
     FALSE, NULL
