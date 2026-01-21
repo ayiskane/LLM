@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { ArrowLeft, Scale, MapPin, Phone, Copy, Check, Building2, Users, ShieldCheck, Video } from 'lucide-react';
+import { ArrowLeft, Scale, MapPin, Phone, Copy, Check, Building2, Users, ShieldCheck, Video, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import copy from 'copy-to-clipboard';
 
@@ -21,15 +21,19 @@ type View = 'search' | 'results' | 'detail';
 // Filter types for results
 type ResultFilter = 'all' | 'courts' | 'contacts' | 'cells' | 'teams';
 
+// Scroll target in detail view
+type ScrollTarget = 'teams' | 'contacts' | null;
+
 export default function Home() {
   const [view, setView] = useState<View>('search');
   const [query, setQuery] = useState('');
   const [selectedCourtId, setSelectedCourtId] = useState<number | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<ResultFilter>('all');
-  const [scrollToTeams, setScrollToTeams] = useState(false);
+  const [scrollTarget, setScrollTarget] = useState<ScrollTarget>(null);
   
   const teamsRef = useRef<HTMLDivElement>(null);
+  const contactsRef = useRef<HTMLDivElement>(null);
   
   const { results, isLoading, error, search, clearResults } = useSearch();
   const { 
@@ -43,15 +47,18 @@ export default function Home() {
     fetchCourtDetails 
   } = useCourtDetails();
 
-  // Scroll to teams section when flag is set
+  // Scroll to target section when flag is set
   useEffect(() => {
-    if (scrollToTeams && view === 'detail' && teamsRef.current) {
-      setTimeout(() => {
-        teamsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setScrollToTeams(false);
-      }, 100);
+    if (scrollTarget && view === 'detail') {
+      const ref = scrollTarget === 'teams' ? teamsRef : contactsRef;
+      if (ref.current) {
+        setTimeout(() => {
+          ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setScrollTarget(null);
+        }, 100);
+      }
     }
-  }, [scrollToTeams, view, detailTeams]);
+  }, [scrollTarget, view, detailTeams, detailContacts]);
 
   // Handle input change (just updates the query, doesn't search)
   const handleInputChange = useCallback((value: string) => {
@@ -78,12 +85,12 @@ export default function Home() {
   }, [query, search]);
 
   // Handle court selection
-  const handleSelectCourt = useCallback((court: Court, goToTeams: boolean = false) => {
+  const handleSelectCourt = useCallback((court: Court, scrollTo: ScrollTarget = null) => {
     setSelectedCourtId(court.id);
     fetchCourtDetails(court.id);
     setView('detail');
-    if (goToTeams) {
-      setScrollToTeams(true);
+    if (scrollTo) {
+      setScrollTarget(scrollTo);
     }
   }, [fetchCourtDetails]);
 
@@ -92,7 +99,7 @@ export default function Home() {
     if (view === 'detail') {
       setView('results');
       setSelectedCourtId(null);
-      setScrollToTeams(false);
+      setScrollTarget(null);
     } else if (view === 'results') {
       setQuery('');
       clearResults();
@@ -299,6 +306,20 @@ export default function Home() {
                         onCopy={() => setCopiedField('contact')}
                         showAll={activeFilter === 'contacts'}
                       />
+                      {/* View All Contacts button - only show in 'all' filter mode */}
+                      {activeFilter === 'all' && results.contacts.length > 3 && (
+                        <button
+                          onClick={() => {
+                            if (results.courts.length > 0) {
+                              handleSelectCourt(results.courts[0], 'contacts');
+                            }
+                          }}
+                          className="w-full flex items-center justify-between px-3 py-2.5 bg-slate-800/50 hover:bg-slate-800 rounded-lg text-sm text-slate-400 hover:text-slate-300 transition-colors"
+                        >
+                          <span>View All Contacts</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   )}
 
@@ -326,7 +347,7 @@ export default function Home() {
                         count={results.teamsLinks.length}
                         onClick={() => {
                           if (results.courts.length > 0) {
-                            handleSelectCourt(results.courts[0], true);
+                            handleSelectCourt(results.courts[0], 'teams');
                           }
                         }}
                       />
@@ -460,10 +481,12 @@ export default function Home() {
 
               {/* Court Contacts */}
               {!detailCourt.is_circuit && detailContacts.length > 0 && (
-                <CourtContactsStack 
-                  contacts={detailContacts}
-                  onCopy={() => setCopiedField('contact')}
-                />
+                <div ref={contactsRef}>
+                  <CourtContactsStack 
+                    contacts={detailContacts}
+                    onCopy={() => setCopiedField('contact')}
+                  />
+                </div>
               )}
 
               {/* Crown Contacts */}
