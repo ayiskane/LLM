@@ -357,15 +357,17 @@ interface TagProps {
 
 export function Tag({ children, color, size = 'sm' }: TagProps) {
   const sectionColors = theme.colors.section[color];
-  // sm: match the map icon button height (p-1.5 + w-4 = 28px)
-  const sizeClasses = size === 'sm' 
-    ? 'px-2 h-7 text-[9px]' 
-    : 'px-2.5 py-1 text-[10px]';
   
   return (
     <span 
-      className={`${sizeClasses} rounded font-mono inline-flex items-center justify-center`}
-      style={{ background: sectionColors.bg, color: sectionColors.text, letterSpacing: '2px' }}
+      className={`rounded font-mono inline-flex items-center justify-center ${size === 'sm' ? 'text-[9px]' : 'text-[10px]'}`}
+      style={{ 
+        background: sectionColors.bg, 
+        color: sectionColors.text, 
+        letterSpacing: '2px',
+        padding: size === 'sm' ? '6px 8px' : '6px 10px',
+        lineHeight: 1,
+      }}
     >
       {children}
     </span>
