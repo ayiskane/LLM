@@ -165,3 +165,63 @@ export const REGION_NAMES: Record<number, string> = {
 };
 
 
+
+
+// RCC Support Contact Types
+export interface RccSupportRole {
+  id: number;
+  code: string;
+  name: string;
+  description: string | null;
+}
+
+export interface RccSupportOrganization {
+  id: number;
+  name: string;
+  short_name: string | null;
+  website: string | null;
+  general_email: string | null;
+  general_phone: string | null;
+  notes: string | null;
+}
+
+export interface RccSupportContact {
+  id: number;
+  name: string;
+  is_individual: boolean;
+  role_id: number | null;
+  organization_id: number | null;
+  email: string | null;
+  email_secondary: string | null;
+  phone: string | null;
+  centre_short_name: string | null;
+  centres_served: string | null;
+  notes: string | null;
+  is_active: boolean;
+  // Joined fields
+  role_code?: string;
+  role_name?: string;
+  organization_name?: string;
+  organization_short_name?: string;
+}
+
+// RCC Support role codes
+export const RCC_ROLE_CODES = {
+  CTT: 'CTT',   // Community Transition Team
+  CR: 'CR',     // Community Reintegration
+  CIW: 'CIW',   // Community Integration Worker
+  ITRP: 'ITRP', // Integrated Transitional Release Planning
+  ICL: 'ICL',   // Indigenous Cultural Liaison
+  RPO: 'RPO',   // Release Planning Officer
+  CDC: 'CDC',   // Concurrent Disorder Counsellor
+} as const;
+
+export const RCC_ROLE_NAMES: Record<string, string> = {
+  CTT: 'Community Transition Team',
+  CR: 'Community Reintegration',
+  CIW: 'Community Integration Worker',
+  ITRP: 'Integrated Transitional Release Planning',
+  ICL: 'Indigenous Cultural Liaison',
+  RPO: 'Release Planning Officer',
+  CDC: 'Concurrent Disorder Counsellor',
+};
