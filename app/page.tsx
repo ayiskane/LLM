@@ -448,10 +448,25 @@ export default function Home() {
                         style={{ color: theme.colors.text.subtle }}
                       >
                         <GeoAlt className="w-3 h-3" />
-                        <span>{detailCourt.address} {detailCourt.region_code && `· ${detailCourt.region_code} ${detailCourt.region_name}`}</span>
+                        <span>{detailCourt.address}</span>
                       </button>
                     )}
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                      {detailCourt.region_code && (
+                        <span 
+                          className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1"
+                          style={{ 
+                            background: 'rgba(255,255,255,0.05)', 
+                            border: `1px solid ${theme.colors.border.primary}`,
+                            color: theme.colors.text.muted,
+                            letterSpacing: '1px'
+                          }}
+                        >
+                          <span>{detailCourt.region_code}</span>
+                          <span style={{ color: theme.colors.text.disabled }}>|</span>
+                          <span>{detailCourt.region_name}</span>
+                        </span>
+                      )}
                       {detailCourt.has_provincial && <Tag color="emerald">PROVINCIAL</Tag>}
                       {detailCourt.has_supreme && <Tag color="purple">SUPREME</Tag>}
                       {detailCourt.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
