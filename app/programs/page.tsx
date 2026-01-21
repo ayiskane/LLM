@@ -169,6 +169,13 @@ const regions = [
   { id: 5, name: 'Northern' },
 ];
 
+const counts = {
+  all: PROGRAMS.length,
+  RECOVERY: PROGRAMS.filter(p => p.type_code === 'RECOVERY').length,
+  FPS: PROGRAMS.filter(p => p.type_code === 'FPS').length,
+  IJC: PROGRAMS.filter(p => p.type_code === 'IJC').length,
+};
+
 // Inner component that uses useSearchParams
 function ProgramsContent() {
   const searchParams = useSearchParams();
@@ -186,13 +193,6 @@ function ProgramsContent() {
       return true;
     });
   }, [activeFilter, regionFilter]);
-
-  const counts = useMemo(() => ({
-    all: PROGRAMS.length,
-    RECOVERY: PROGRAMS.filter(p => p.type_code === 'RECOVERY').length,
-    FPS: PROGRAMS.filter(p => p.type_code === 'FPS').length,
-    IJC: PROGRAMS.filter(p => p.type_code === 'IJC').length,
-  }), []);
 
   return (
     <>
@@ -314,11 +314,8 @@ function ProgramsLoading() {
         <div className="h-10 w-24 bg-zinc-900 rounded-lg" />
         <div className="h-10 w-24 bg-zinc-900 rounded-lg" />
       </div>
-      <div className="space-y-3">
-        <div className="h-32 bg-zinc-900 rounded-xl" />
-        <div className="h-32 bg-zinc-900 rounded-xl" />
-        <div className="h-32 bg-zinc-900 rounded-xl" />
-      </div>
+      <div className="h-32 bg-zinc-900 rounded-xl" />
+      <div className="h-32 bg-zinc-900 rounded-xl" />
     </div>
   );
 }
