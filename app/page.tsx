@@ -224,13 +224,33 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Courtroom Filter Badge */}
-              {results?.courtroomFilter && (
-                <div className="flex items-center gap-2 px-3 pb-2">
-                  <span className="px-2.5 py-1 bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 text-xs rounded-full flex items-center gap-1.5">
-                    <Video className="w-3 h-3" />
-                    Courtroom {results.courtroomFilter}
-                  </span>
+              {/* Active Filter Badges */}
+              {results && (results.courtroomFilter || results.contactTypeLabel || results.cellTypeFilter || results.regionFilter) && (
+                <div className="flex flex-wrap items-center gap-2 px-3 pb-2">
+                  {results.courtroomFilter && (
+                    <span className="px-2.5 py-1 bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 text-xs rounded-full flex items-center gap-1.5">
+                      <Video className="w-3 h-3" />
+                      CR {results.courtroomFilter}
+                    </span>
+                  )}
+                  {results.contactTypeLabel && (
+                    <span className="px-2.5 py-1 bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 text-xs rounded-full flex items-center gap-1.5">
+                      <Users className="w-3 h-3" />
+                      {results.contactTypeLabel}
+                    </span>
+                  )}
+                  {results.cellTypeFilter && (
+                    <span className="px-2.5 py-1 bg-amber-600/30 border border-amber-500/50 text-amber-300 text-xs rounded-full flex items-center gap-1.5">
+                      <ShieldCheck className="w-3 h-3" />
+                      {results.cellTypeFilter === 'ALL' ? 'Cells' : results.cellTypeFilter + ' Cells'}
+                    </span>
+                  )}
+                  {results.regionFilter && (
+                    <span className="px-2.5 py-1 bg-purple-600/30 border border-purple-500/50 text-purple-300 text-xs rounded-full flex items-center gap-1.5">
+                      <Building2 className="w-3 h-3" />
+                      R{results.regionFilter}
+                    </span>
+                  )}
                 </div>
               )}
 
@@ -313,7 +333,7 @@ export default function Home() {
                       <div className="flex items-center gap-2 px-1">
                         <Video className="w-4 h-4 text-indigo-400" />
                         <h3 className="text-xs font-medium text-slate-400 uppercase tracking-wide">
-                          Courtroom {results.courtroomFilter} Teams Link
+                          CR {results.courtroomFilter} MS Teams
                         </h3>
                       </div>
                       <TeamsList 
