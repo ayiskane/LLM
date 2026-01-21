@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Search, X, ArrowLeft, Loader2 } from 'lucide-react';
+import { Search, X, ArrowLeft, ArrowClockwise } from 'react-bootstrap-icons';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -49,7 +49,7 @@ export function SearchBar({
     <div className="relative">
       <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
         {isLoading ? (
-          <Loader2 className="w-5 h-5 animate-spin" />
+          <ArrowClockwise className="w-5 h-5 animate-spin" />
         ) : (
           <Search className="w-5 h-5" />
         )}
@@ -128,7 +128,7 @@ export function SearchOverlay({
               <div className="flex-1 relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
                   {isLoading ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <ArrowClockwise className="w-4 h-4 animate-spin" />
                   ) : (
                     <Search className="w-4 h-4" />
                   )}
@@ -187,3 +187,4 @@ export function QuickSuggestions({ suggestions, onSelect }: QuickSuggestionsProp
     </div>
   );
 }
+
