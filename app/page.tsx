@@ -410,7 +410,7 @@ export default function Home() {
                 
                 <div className="flex-1 min-w-0">
                   <h1 className={`font-semibold text-white truncate transition-all duration-200 ${isHeaderCollapsed ? 'text-base' : 'text-lg'}`}>
-                    {detailCourt.name}
+                    {detailCourt.name.toLowerCase().includes('court') ? detailCourt.name : `${detailCourt.name} Law Courts`}
                   </h1>
                   <div className={`flex flex-wrap gap-1.5 transition-all duration-200 ${isHeaderCollapsed ? 'mt-0.5' : 'mt-1.5'}`}>
                     {detailCourt.region_code && (
@@ -651,4 +651,5 @@ export default function Home() {
     </div>
   );
 }
+
 
