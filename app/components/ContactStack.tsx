@@ -47,7 +47,7 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
   const contactMap: Record<string, string> = {};
   
   // Priority order for court contacts
-  const courtContactRoles = [
+  const courtContactRoles: number[] = [
     CONTACT_ROLES.CRIMINAL_REGISTRY,
     CONTACT_ROLES.COURT_REGISTRY,
     CONTACT_ROLES.JCM,
@@ -224,7 +224,7 @@ export function TopContactsPreview({
   onCopy?: () => void;
 }) {
   // Priority: Criminal Registry, JCM, Provincial Crown
-  const priorityRoles = [
+  const priorityRoles: number[] = [
     CONTACT_ROLES.CRIMINAL_REGISTRY,
     CONTACT_ROLES.JCM,
     CONTACT_ROLES.CROWN
