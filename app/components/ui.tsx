@@ -384,9 +384,13 @@ export function PillButton({ children, isActive, onClick }: PillButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors"
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors"
       style={isActive 
-        ? { background: theme.colors.accent.gradient, color: 'white' }
+        ? { 
+            background: 'rgba(59,130,246,0.25)', 
+            border: '1px solid rgba(59,130,246,0.4)',
+            color: '#93c5fd'
+          }
         : { 
             background: theme.colors.bg.item, 
             border: `1px solid ${theme.colors.border.accent}`, 
