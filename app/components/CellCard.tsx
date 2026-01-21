@@ -3,13 +3,71 @@
 import { Telephone } from 'react-bootstrap-icons';
 import type { ShellCell } from '@/types';
 
+// Common abbreviations for court names
+const COURT_ABBREVS: Record<string, string> = {
+  'Abbotsford': 'Abbotsford',
+  'Chilliwack': 'Chilliwack',
+  'Kelowna': 'Kelowna',
+  'Kamloops': 'Kamloops',
+  'Nanaimo': 'Nanaimo',
+  'New Westminster': 'New West',
+  'North Vancouver': 'North Van',
+  'Port Coquitlam': 'PoCo',
+  'Prince George': 'Prince George',
+  'Robson Square': 'Robson Sq',
+  'Surrey': 'Surrey',
+  'Vancouver': 'Vancouver',
+  'Victoria': 'Victoria',
+  'Vernon': 'Vernon',
+  'Cranbrook': 'Cranbrook',
+  'Penticton': 'Penticton',
+  'Courtenay': 'Courtenay',
+  'Duncan': 'Duncan',
+  'Salmon Arm': 'Salmon Arm',
+  'Nelson': 'Nelson',
+  'Terrace': 'Terrace',
+  'Prince Rupert': 'Prince Rupert',
+  'Williams Lake': 'Williams Lake',
+  'Fort St John': 'Fort St John',
+  'Dawson Creek': 'Dawson Creek',
+  'Quesnel': 'Quesnel',
+  'Campbell River': 'Campbell River',
+  'Powell River': 'Powell River',
+  'Maple Ridge': 'Maple Ridge',
+  'Richmond': 'Richmond',
+  'Burnaby': 'Burnaby',
+  'Coquitlam': 'Coquitlam',
+  'Langley': 'Langley',
+  'White Rock': 'White Rock',
+};
+
 // Format cell name for display
 function formatCellName(cell: ShellCell): string {
-  if (cell.cell_type === 'courthouse') {
-    return 'Courthouse Cells';
-  }
+  const name = cell.name || '';
   
-  const name = cell.name;
+  // Handle courthouse cells - extract location and format as "Location CH Cells"
+  if (cell.cell_type === 'CH' || cell.cell_type === 'courthouse' || name.toLowerCase().includes('courthouse')) {
+    // Try to extract the location from the name
+    // Common patterns: "Abbotsford Courthouse", "Abbotsford CH", "Abbotsford Cells", etc.
+    let location = name
+      .replace(/\s*(Courthouse|CH|Law Courts?|Provincial|Court|Cells?)\s*/gi, '')
+      .trim();
+    
+    // If we have an abbreviation, use it
+    for (const [full, abbrev] of Object.entries(COURT_ABBREVS)) {
+      if (location.toLowerCase() === full.toLowerCase()) {
+        location = abbrev;
+        break;
+      }
+    }
+    
+    // If location is empty, just show "CH Cells"
+    if (!location) {
+      return 'CH Cells';
+    }
+    
+    return `${location} CH Cells`;
+  }
   
   // Check if it's a PD (Police Department)
   if (name.includes(' PD') || name.includes(' Police')) {
@@ -64,8 +122,8 @@ interface CellsListProps {
 
 export function CellsList({ cells, maxDisplay = 10 }: CellsListProps) {
   // Separate courthouse cells and RCMP/PD cells
-  const chCells = cells.filter(c => c.cell_type === 'courthouse');
-  const policeCells = cells.filter(c => c.cell_type !== 'courthouse');
+  const chCells = cells.filter(c => c.cell_type === 'CH' || c.cell_type === 'courthouse');
+  const policeCells = cells.filter(c => c.cell_type !== 'CH' && c.cell_type !== 'courthouse');
   
   // Sort police cells by name
   policeCells.sort((a, b) => a.name.localeCompare(b.name));
@@ -95,8 +153,8 @@ export function CellsList({ cells, maxDisplay = 10 }: CellsListProps) {
 // Compact cell preview for search results - grouped in one card
 export function CellsPreview({ cells }: { cells: ShellCell[] }) {
   // Get one of each type: police first, then courthouse
-  const policeCell = cells.find(c => c.cell_type !== 'courthouse');
-  const chCell = cells.find(c => c.cell_type === 'courthouse');
+  const policeCell = cells.find(c => c.cell_type !== 'CH' && c.cell_type !== 'courthouse');
+  const chCell = cells.find(c => c.cell_type === 'CH' || c.cell_type === 'courthouse');
   
   const displayCells = [policeCell, chCell].filter((c): c is ShellCell => c !== undefined);
   
@@ -123,4 +181,3 @@ export function CellsPreview({ cells }: { cells: ShellCell[] }) {
 export function CellCard({ cell }: { cell: ShellCell }) {
   return <CellRow cell={cell} />;
 }
-
