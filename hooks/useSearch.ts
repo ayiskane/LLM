@@ -125,7 +125,7 @@ export function useSearch() {
         const { data: bailContactsData } = await supabase
           .from('bail_contacts')
           .select('*, contact_roles(name)')
-          .or(`bail_court_id.eq.${bailCourt.id},region_id.eq.${bailCourt.region_id}`);
+          .or(`bail_court_id.eq.${bailCourt!.id},region_id.eq.${bailCourt!.region_id}`);
         
         if (bailContactsData) {
           bailContacts = bailContactsData.map((bc: any) => ({
@@ -137,7 +137,7 @@ export function useSearch() {
         const { data: bailTeamsData } = await supabase
           .from('teams_links')
           .select('*')
-          .eq('bail_court_id', bailCourt.id);
+          .eq('bail_court_id', bailCourt!.id);
         
         if (bailTeamsData) {
           bailTeamsLinks = bailTeamsData;
@@ -358,3 +358,4 @@ export function useCourtDetails() {
     fetchCourtDetails
   };
 }
+
