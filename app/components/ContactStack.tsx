@@ -44,9 +44,9 @@ function ContactItem({ label, email, category = 'other', onCopy }: {
       style={{ borderLeft: `3px solid ${categoryColors[category]}` }}
       onClick={handleCopy}
     >
-      <div className="text-[9px] font-mono text-slate-400 mb-0.5 uppercase tracking-wide">{label}</div>
+      <div className="text-[9px] text-slate-400 mb-0.5 uppercase tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>{label}</div>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm text-slate-200 break-all">{email}</span>
+        <span className="text-sm text-slate-200 break-all font-mono">{email}</span>
         {copied ? (
           <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
         ) : (
@@ -102,7 +102,7 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
 
   return (
     <div className="space-y-1.5">
-      <h4 className="text-[10px] font-mono text-slate-400 uppercase tracking-wider px-1">Court Contacts</h4>
+      <h4 className="text-[10px] text-slate-400 uppercase tracking-wider px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Court Contacts</h4>
       {orderedContacts.map((contact) => (
         <ContactItem 
           key={contact.label} 
@@ -174,7 +174,7 @@ export function CrownContactsStack({
 
   return (
     <div className="space-y-1.5">
-      <h4 className="text-[10px] font-mono text-slate-400 uppercase tracking-wider px-1">Crown Contacts</h4>
+      <h4 className="text-[10px] text-slate-400 uppercase tracking-wider px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Crown Contacts</h4>
       {crownContacts.map((contact) => (
         <ContactItem 
           key={contact.label}
