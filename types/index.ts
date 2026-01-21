@@ -30,6 +30,7 @@ export interface Contact {
 }
 
 export interface ShellCell {
+  court_name?: string;  // Court name for CH cells display
   id: number;
   name: string;
   cell_type: string;
