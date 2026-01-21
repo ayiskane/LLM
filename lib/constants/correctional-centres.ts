@@ -6,6 +6,8 @@ export interface CorrectionalCentre {
   name: string;
   shortName: string;
   location: string;
+  regionId: number;
+  regionName: string;
   isFederal: boolean;
   centreType: 'provincial' | 'pretrial' | 'women' | 'federal';
   securityLevel?: 'minimum' | 'medium' | 'maximum' | 'multi';
@@ -66,6 +68,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Vancouver Island Regional Correctional Centre',
     shortName: 'VIRCC',
     location: 'Victoria',
+    regionId: 1,
+    regionName: 'Island',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '250-953-4400',
@@ -90,6 +94,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Nanaimo Correctional Centre',
     shortName: 'NCC',
     location: 'Nanaimo',
+    regionId: 1,
+    regionName: 'Island',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '250-756-3300',
@@ -114,6 +120,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Okanagan Correctional Centre',
     shortName: 'OCC',
     location: 'Oliver',
+    regionId: 4,
+    regionName: 'Interior',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '236-216-2000',
@@ -138,6 +146,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Kamloops Regional Correctional Centre',
     shortName: 'KRCC',
     location: 'Kamloops',
+    regionId: 4,
+    regionName: 'Interior',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '250-571-2200',
@@ -163,6 +173,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Prince George Regional Correctional Centre',
     shortName: 'PGRCC',
     location: 'Prince George',
+    regionId: 5,
+    regionName: 'Northern',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '250-960-3001',
@@ -186,6 +198,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Surrey Pretrial Services Centre',
     shortName: 'SPSC',
     location: 'Surrey',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: false,
     centreType: 'pretrial',
     generalPhone: '604-599-4110',
@@ -213,6 +227,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'North Fraser Pretrial Centre',
     shortName: 'NFPC',
     location: 'Port Coquitlam',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: false,
     centreType: 'pretrial',
     generalPhone: '604-468-3500',
@@ -238,6 +254,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Fraser Regional Correctional Centre',
     shortName: 'FRCC',
     location: 'Maple Ridge',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '604-462-9313',
@@ -265,6 +283,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Alouette Correctional Centre for Women',
     shortName: 'ACCW',
     location: 'Maple Ridge',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: false,
     centreType: 'women',
     generalPhone: '604-476-2660',
@@ -292,6 +312,8 @@ export const PROVINCIAL_CENTRES: CorrectionalCentre[] = [
     name: 'Xàws Schó:lha Correctional Centre',
     shortName: 'FMCC',
     location: 'Chilliwack',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: false,
     centreType: 'provincial',
     generalPhone: '604-824-5350',
@@ -316,6 +338,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Fraser Valley Institution',
     shortName: 'FVI',
     location: 'Abbotsford',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'multi',
@@ -333,6 +357,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Kent Institution',
     shortName: 'KENT',
     location: 'Agassiz',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'maximum',
@@ -352,6 +378,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Matsqui Institution',
     shortName: 'MATSQUI',
     location: 'Abbotsford',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'medium',
@@ -368,6 +396,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Mission Institution (Medium)',
     shortName: 'MISSION-MED',
     location: 'Mission',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'medium',
@@ -384,6 +414,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Mission Institution (Minimum)',
     shortName: 'MISSION-MIN',
     location: 'Mission',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'minimum',
@@ -400,6 +432,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Mountain Institution',
     shortName: 'MOUNTAIN',
     location: 'Agassiz',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'medium',
@@ -416,6 +450,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'Pacific Institution',
     shortName: 'PACIFIC',
     location: 'Abbotsford',
+    regionId: 3,
+    regionName: 'Fraser',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'maximum',
@@ -433,6 +469,8 @@ export const FEDERAL_INSTITUTIONS: CorrectionalCentre[] = [
     name: 'William Head Institution',
     shortName: 'WILLIAM-HEAD',
     location: 'Victoria',
+    regionId: 1,
+    regionName: 'Island',
     isFederal: true,
     centreType: 'federal',
     securityLevel: 'minimum',
@@ -473,6 +511,14 @@ export function searchCentres(query: string): CorrectionalCentre[] {
          c.shortName.toLowerCase().includes(q) ||
          c.location.toLowerCase().includes(q)
   );
+}
+
+export function getCentresByRegion(regionId: number): CorrectionalCentre[] {
+  return ALL_CORRECTIONAL_CENTRES.filter(c => c.regionId === regionId);
+}
+
+export function getProvincialCentresByRegion(regionId: number): CorrectionalCentre[] {
+  return PROVINCIAL_CENTRES.filter(c => c.regionId === regionId);
 }
 
 // Centre type labels
