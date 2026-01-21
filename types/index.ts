@@ -85,6 +85,7 @@ export interface SearchResults {
   bailCourt: BailCourt | null;
   bailContacts: BailContact[];
   bailTeamsLinks: TeamsLink[];
+  courtroomFilter?: string | null; // Courtroom number filter (e.g., "204" from "abby 204")
 }
 
 // Region info
