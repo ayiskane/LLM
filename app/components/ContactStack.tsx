@@ -218,11 +218,38 @@ function CrownContactItem({
 // Top 3 contacts for search results preview
 export function TopContactsPreview({ 
   contacts, 
-  onCopy 
+  onCopy,
+  showAll = false
 }: { 
   contacts: Contact[]; 
   onCopy?: () => void;
+  showAll?: boolean;
 }) {
+  if (showAll) {
+    // Show all contacts grouped by type
+    const allContacts = contacts
+      .filter(c => c.email)
+      .map(c => ({
+        label: CONTACT_ROLE_NAMES[c.contact_role_id] || 'Unknown',
+        email: c.email!
+      }));
+
+    if (allContacts.length === 0) return null;
+
+    return (
+      <div className="space-y-1">
+        {allContacts.map((contact, idx) => (
+          <ContactItem 
+            key={`${contact.label}-${idx}`}
+            label={contact.label}
+            email={contact.email}
+            onCopy={onCopy || (() => {})}
+          />
+        ))}
+      </div>
+    );
+  }
+
   // Priority: Criminal Registry, JCM, Provincial Crown
   const priorityRoles: number[] = [
     CONTACT_ROLES.CRIMINAL_REGISTRY,
