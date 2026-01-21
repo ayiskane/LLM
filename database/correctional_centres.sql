@@ -3,7 +3,7 @@
 -- =============================================
 
 -- Drop existing tables if they exist
-DROP TABLE IF EXISTS correctional_centre_contacts CASCADE;
+DROP TABLE IF EXISTS corrections_constants CASCADE;
 DROP TABLE IF EXISTS correctional_centres CASCADE;
 
 -- Main correctional centres table
@@ -20,7 +20,7 @@ CREATE TABLE correctional_centres (
     
     -- Contact Information
     general_phone VARCHAR(50),                     -- Main phone number
-    general_phone_option VARCHAR(20),              -- Phone option to press (e.g., "option 8")
+    general_phone_option VARCHAR(50),              -- Phone option to press (e.g., "option 8")
     general_fax VARCHAR(50),
     
     -- Counsel Designation Notice
@@ -42,8 +42,13 @@ CREATE TABLE correctional_centres (
     visit_hours_virtual VARCHAR(100),              -- e.g., "0845-1115, 1315-1830"
     visit_notes TEXT,                              -- Special instructions
     
-    -- Disclosure
+    -- eDisclosure Information
     disclosure_format VARCHAR(100),                -- e.g., "Hard drive", "USB", "Padlock Hard Drive"
+    accepts_usb BOOLEAN DEFAULT FALSE,             -- USB permitted?
+    accepts_hard_drive BOOLEAN DEFAULT TRUE,       -- External hard drive permitted?
+    accepts_cd_dvd BOOLEAN DEFAULT TRUE,           -- CD/DVD permitted? (being phased out)
+    accepts_paper BOOLEAN DEFAULT TRUE,            -- Paper disclosure (problematic)
+    disclosure_notes TEXT,                         -- Additional disclosure instructions
     
     -- Additional Info
     has_bc_gc_link BOOLEAN DEFAULT FALSE,          -- Has BC Government Corrections link
@@ -74,7 +79,8 @@ INSERT INTO correctional_centres (
     visit_request_phone, visit_request_email, virtual_visit_email, lawyer_callback_email,
     callback_window_1, callback_window_2,
     visit_hours_inperson, visit_hours_virtual, visit_notes,
-    disclosure_format, has_bc_gc_link, notes
+    disclosure_format, accepts_usb, accepts_hard_drive, accepts_cd_dvd, accepts_paper, disclosure_notes,
+    has_bc_gc_link, notes
 ) VALUES
 -- VIRCC - Vancouver Island Regional Correctional Centre
 (
@@ -84,7 +90,8 @@ INSERT INTO correctional_centres (
     '250-953-4433', NULL, NULL, NULL,
     '1000-1035', '1730-1805',
     '0650-21:30', 'Limited', NULL,
-    'Hard drive', TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended.',
+    TRUE, NULL
 ),
 
 -- NCC - Nanaimo Correctional Centre
@@ -95,7 +102,8 @@ INSERT INTO correctional_centres (
     '250-729-7721', NULL, NULL, NULL,
     '1035-1130', '1730-1805',
     '0800-2000', NULL, 'Visits only on weekends. Call 10am-12pm (Tue, Wed, Thu) to book.',
-    NULL, TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended.',
+    TRUE, NULL
 ),
 
 -- OCC - Okanagan Correctional Centre
@@ -106,7 +114,8 @@ INSERT INTO correctional_centres (
     '236-216-2000', NULL, NULL, NULL,
     '1140-1340', '1645-1735',
     '0900-2000', NULL, 'Visit request: ext. 4',
-    NULL, TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended.',
+    TRUE, NULL
 ),
 
 -- KRCC - Kamloops Regional Correctional Centre
@@ -117,7 +126,8 @@ INSERT INTO correctional_centres (
     '250-571-2207', NULL, NULL, NULL,
     '1145-1330', '1800-1830',
     '1230-2100', '1230-2100', 'Virtual visits: Call 12:30-1:30pm or 6:45-7:45pm to book.',
-    NULL, TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended.',
+    TRUE, NULL
 ),
 
 -- PGRCC - Prince George Regional Correctional Centre
@@ -128,7 +138,8 @@ INSERT INTO correctional_centres (
     '250-564-0465', NULL, 'pgrcc.virtualvisits@gov.bc.ca', NULL,
     '1300-1430', NULL,
     '0930-1900', '0930-1900', 'If general fax is down, use CDN line. Records for VB: 250-960-3009',
-    NULL, TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended.',
+    TRUE, NULL
 ),
 
 -- SPSC - Surrey Pretrial Services Centre
@@ -139,7 +150,8 @@ INSERT INTO correctional_centres (
     '604-572-2165', 'SPSC.Visits@gov.bc.ca', 'SPSC.Visits@gov.bc.ca', 'legalaccessspsc@gov.bc.ca',
     '1200-1300', '1730-1800',
     '1300-1900', '0845-1115, 1315-1830', NULL,
-    NULL, TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended. CD drives being phased out.',
+    TRUE, NULL
 ),
 
 -- NFPC - North Fraser Pretrial Centre
@@ -150,7 +162,8 @@ INSERT INTO correctional_centres (
     '604-468-3566', NULL, NULL, NULL,
     '1120-1330', '1730-1810',
     '0830-2020', '1220-1330', 'Limited virtual availability',
-    NULL, TRUE, NULL
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended. CD drives being phased out.',
+    TRUE, NULL
 ),
 
 -- FRCC - Fraser Regional Correctional Centre
@@ -161,7 +174,8 @@ INSERT INTO correctional_centres (
     '604-462-8865', NULL, 'FRCC.virtualvisits@gov.bc.ca', NULL,
     '1130-1330', '1700-1830',
     'Mon-Fri 1300-1500, 1600-1800', 'Limited', 'Call 1-2pm (Mon-Fri) for visit requests.',
-    'Padlock Hard Drive', TRUE, NULL
+    'Padlock Hard Drive', FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Padlock encrypted hard drives required. CD drives being phased out.',
+    TRUE, NULL
 ),
 
 -- ACCW - Alouette Correctional Centre for Women
@@ -172,7 +186,8 @@ INSERT INTO correctional_centres (
     '604-476-2688', 'ACCWAdmin@gov.bc.ca', NULL, NULL,
     '1200-1300', '1830-1900',
     '0945-1900 (varies daily)', 'Weekdays 0945-1145', 'Press 0 for reception, option 3 for message.',
-    'Hard drive', TRUE, NULL
+    'Hard drive', FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Hard drives required. CD drives being phased out.',
+    TRUE, NULL
 ),
 
 -- FMCC / Ford Mountain / Xàws Schó:lha
@@ -183,7 +198,8 @@ INSERT INTO correctional_centres (
     '604-824-5373', NULL, NULL, NULL,
     NULL, NULL,
     'Mon-Fri 0700-1700', 'Mon-Fri 0700-1700', 'Previously known as Ford Mountain Correctional Centre',
-    NULL, TRUE, 'Also known as FORD'
+    NULL, FALSE, TRUE, TRUE, TRUE, 'USB not permitted. Password-protected hard drives recommended.',
+    TRUE, 'Also known as FORD'
 );
 
 -- =============================================
@@ -196,7 +212,8 @@ INSERT INTO correctional_centres (
     visit_request_phone, visit_request_email, virtual_visit_email, lawyer_callback_email,
     callback_window_1, callback_window_2,
     visit_hours_inperson, visit_hours_virtual, visit_notes,
-    disclosure_format, has_bc_gc_link, notes
+    disclosure_format, accepts_usb, accepts_hard_drive, accepts_cd_dvd, accepts_paper, disclosure_notes,
+    has_bc_gc_link, notes
 ) VALUES
 -- Fraser Valley Institution (Women's Federal)
 (
@@ -206,7 +223,8 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, 'Federal women''s institution',
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 ),
 
 -- Kent Institution
@@ -217,7 +235,8 @@ INSERT INTO correctional_centres (
     '604-796-9131', NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, 'Call 1:45-2:45pm for visit requests',
-    'USB', FALSE, NULL
+    'USB', TRUE, TRUE, TRUE, TRUE, 'USB permitted for eDisclosure.',
+    FALSE, NULL
 ),
 
 -- Matsqui Institution
@@ -228,7 +247,8 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, NULL,
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 ),
 
 -- Mission Institution (Medium)
@@ -239,7 +259,8 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, NULL,
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 ),
 
 -- Mission Institution (Minimum)
@@ -250,7 +271,8 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, NULL,
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 ),
 
 -- Mountain Institution
@@ -261,7 +283,8 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, NULL,
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 ),
 
 -- Pacific Institution
@@ -272,7 +295,8 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, 'Multi-level: Maximum and Medium security',
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 ),
 
 -- William Head Institution
@@ -283,14 +307,13 @@ INSERT INTO correctional_centres (
     NULL, NULL, NULL, NULL,
     NULL, NULL,
     NULL, NULL, 'Located in Metchosin area',
-    NULL, FALSE, NULL
+    NULL, TRUE, TRUE, TRUE, TRUE, 'Contact institution for specific disclosure requirements.',
+    FALSE, NULL
 );
 
 -- =============================================
 -- SYSTEM-WIDE CONSTANTS TABLE
 -- =============================================
-
-DROP TABLE IF EXISTS corrections_constants CASCADE;
 
 CREATE TABLE corrections_constants (
     id SERIAL PRIMARY KEY,
@@ -307,7 +330,8 @@ INSERT INTO corrections_constants (key, value, description) VALUES
 ('business_hours', '0800-1600', 'Normal business hours for correctional centres'),
 ('unlock_hours_weekday', '0700-0730', 'Approximate unlock time on weekdays'),
 ('unlock_hours_weekend', '1000', 'Approximate unlock time on weekends'),
-('evening_lock', '2145-2200', 'Evening lock time nightly');
+('evening_lock', '2145-2200', 'Evening lock time nightly'),
+('disclosure_general_provincial', 'External hard drives (password-protected), CD/DVD (being phased out). USB NOT permitted. Paper problematic.', 'General eDisclosure rules for provincial centres');
 
 -- =============================================
 -- VERIFY DATA
@@ -324,3 +348,8 @@ SELECT
     COUNT(*) as count 
 FROM correctional_centres 
 WHERE is_federal = TRUE;
+
+-- Show disclosure info
+SELECT short_name, name, disclosure_format, accepts_usb, disclosure_notes
+FROM correctional_centres
+ORDER BY is_federal, short_name;
