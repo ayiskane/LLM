@@ -592,61 +592,44 @@ export default function Home() {
 
                       {/* Schedule Section */}
                       {(detailBailCourt.triage_time_am || detailBailCourt.triage_time_pm || detailBailCourt.court_start_am || detailBailCourt.cutoff_new_arrests) && (
-                        <div className="space-y-2">
+                        <div className="space-y-1.5">
                           <h4 className="text-[9px] font-medium text-slate-400 uppercase tracking-wide">Schedule</h4>
                           
-                          {/* Schedule Table */}
-                          <div 
-                            className="rounded-lg overflow-hidden"
-                            style={{ background: theme.colors.bg.item, border: `1px solid ${theme.colors.border.subtle}` }}
-                          >
-                            {/* Triage Row */}
+                          {/* Dense Key-Value Grid */}
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            {/* Triage */}
                             {(detailBailCourt.triage_time_am || detailBailCourt.triage_time_pm) && (
-                              <div className="flex items-center px-3 py-2" style={{ borderBottom: `1px solid ${theme.colors.border.subtle}` }}>
-                                <span className="text-xs text-slate-400 w-20">Triage</span>
-                                <div className="flex-1 flex items-center gap-4">
-                                  {detailBailCourt.triage_time_am && (
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="text-[10px] font-medium text-teal-400">AM</span>
-                                      <span className="text-sm text-slate-200">{detailBailCourt.triage_time_am}</span>
-                                    </div>
-                                  )}
-                                  {detailBailCourt.triage_time_pm && (
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="text-[10px] font-medium text-teal-400">PM</span>
-                                      <span className="text-sm text-slate-200">{detailBailCourt.triage_time_pm}</span>
-                                    </div>
-                                  )}
-                                </div>
+                              <div className="px-2 py-1.5 rounded" style={{ background: theme.colors.bg.subtle }}>
+                                <span className="text-slate-500">TRIAGE</span>
+                                <span className="text-slate-200 ml-2">
+                                  {[detailBailCourt.triage_time_am, detailBailCourt.triage_time_pm].filter(Boolean).join(' / ')}
+                                </span>
                               </div>
                             )}
 
-                            {/* Court Row */}
+                            {/* Court */}
                             {(detailBailCourt.court_start_am || detailBailCourt.court_start_pm) && (
-                              <div className="flex items-center px-3 py-2" style={{ borderBottom: detailBailCourt.cutoff_new_arrests ? `1px solid ${theme.colors.border.subtle}` : 'none' }}>
-                                <span className="text-xs text-slate-400 w-20">Court</span>
-                                <div className="flex-1 flex items-center gap-4">
-                                  {detailBailCourt.court_start_am && (
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="text-[10px] font-medium text-teal-400">AM</span>
-                                      <span className="text-sm text-slate-200">{detailBailCourt.court_start_am}</span>
-                                    </div>
-                                  )}
-                                  {detailBailCourt.court_start_pm && (
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="text-[10px] font-medium text-teal-400">PM</span>
-                                      <span className="text-sm text-slate-200">{detailBailCourt.court_start_pm}</span>
-                                    </div>
-                                  )}
-                                </div>
+                              <div className="px-2 py-1.5 rounded" style={{ background: theme.colors.bg.subtle }}>
+                                <span className="text-slate-500">COURT</span>
+                                <span className="text-slate-200 ml-2">
+                                  {[detailBailCourt.court_start_am, detailBailCourt.court_start_pm].filter(Boolean).join(' / ')}
+                                </span>
                               </div>
                             )}
 
-                            {/* Arrest Cutoff Row */}
+                            {/* Cutoff */}
                             {detailBailCourt.cutoff_new_arrests && (
-                              <div className="flex items-center px-3 py-2">
-                                <span className="text-xs text-slate-400 w-20">Cutoff</span>
-                                <span className="text-sm text-slate-200">{detailBailCourt.cutoff_new_arrests}</span>
+                              <div className="px-2 py-1.5 rounded" style={{ background: theme.colors.bg.subtle }}>
+                                <span className="text-slate-500">CUTOFF</span>
+                                <span className="text-slate-200 ml-2">{detailBailCourt.cutoff_new_arrests}</span>
+                              </div>
+                            )}
+
+                            {/* Tuesday Youth In-Custody - Abbotsford specific */}
+                            {detailBailCourt.name?.toLowerCase().includes('fraser') && (
+                              <div className="px-2 py-1.5 rounded" style={{ background: 'rgba(251,191,36,0.1)' }}>
+                                <span className="text-amber-400">TUES</span>
+                                <span className="text-slate-200 ml-2">Youth 9:30 AM</span>
                               </div>
                             )}
                           </div>
