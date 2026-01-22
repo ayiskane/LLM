@@ -74,3 +74,24 @@ export const LOCATION_ALIASES: Record<string, string[]> = {
   'quesnel': ['ques'],
   'williams lake': ['williams', 'wl'],
 };
+
+// ============================================================================
+// BAIL HELPERS
+// ============================================================================
+
+/**
+ * Check if a teams link name indicates VB Triage
+ */
+export function isVBTriageLink(name: string | null | undefined): boolean {
+  if (!name) return false;
+  const lower = name.toLowerCase();
+  return lower.includes('triage') || lower.includes('vb triage');
+}
+
+/**
+ * Get display tag for bail hub
+ */
+export function getBailHubTag(bailCourtName: string | null | undefined): string {
+  if (!bailCourtName) return 'Virtual Bail';
+  return bailCourtName;
+}
