@@ -222,7 +222,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
               ref={bailRef}
               color="teal"
               title="Virtual Bail"
-              count={getBailHubTag(bailCourt)}
+              count={getBailHubTag(bailCourt.name)}
               isExpanded={expandedSection === 'bail'}
               onToggle={() => toggleSection('bail')}
             >
@@ -281,3 +281,4 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
     </div>
   );
 }
+
