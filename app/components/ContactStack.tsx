@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Check, Clipboard, Eye, EyeSlash } from 'react-bootstrap-icons';
 import copy from 'copy-to-clipboard';
 import type { Contact, BailContact } from '@/types';
@@ -18,15 +18,63 @@ const categoryColors: Record<ContactCategory, string> = {
   other: '#71717a',      // zinc
 };
 
-// Section header with eye toggle
+// Hook to detect if any text is truncated
+function useTruncationDetection(deps: unknown[] = []) {
+  const emailRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [hasTruncation, setHasTruncation] = useState(false);
+
+  const registerRef = useCallback((key: string, el: HTMLDivElement | null) => {
+    if (el) {
+      emailRefs.current.set(key, el);
+    } else {
+      emailRefs.current.delete(key);
+    }
+  }, []);
+
+  const checkTruncation = useCallback(() => {
+    let anyTruncated = false;
+    emailRefs.current.forEach((el) => {
+      if (el.scrollWidth > el.offsetWidth) {
+        anyTruncated = true;
+      }
+    });
+    setHasTruncation(anyTruncated);
+  }, []);
+
+  useEffect(() => {
+    // Check on mount and when deps change
+    // Use requestAnimationFrame to ensure layout is complete
+    const rafId = requestAnimationFrame(() => {
+      checkTruncation();
+    });
+
+    // Check on window resize
+    const handleResize = () => {
+      checkTruncation();
+    };
+
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [checkTruncation, ...deps]);
+
+  return { registerRef, hasTruncation, checkTruncation };
+}
+
+// Section header with eye toggle (only shows if truncation detected)
 function SectionHeader({ 
   title, 
   showFull, 
-  onToggle 
+  onToggle,
+  showToggle
 }: { 
   title: string; 
   showFull: boolean; 
   onToggle: () => void;
+  showToggle: boolean;
 }) {
   return (
     <div className="flex items-center justify-between mb-2 px-1">
@@ -36,23 +84,25 @@ function SectionHeader({
       >
         {title}
       </h4>
-      <button
-        onClick={onToggle}
-        className="flex items-center gap-1.5 px-2 py-1 rounded text-[9px] uppercase tracking-wide transition-all"
-        style={{ 
-          fontFamily: 'Inter, sans-serif',
-          background: showFull ? 'rgba(59,130,246,0.15)' : 'transparent',
-          border: `1px solid ${showFull ? 'rgba(59,130,246,0.4)' : theme.colors.border.primary}`,
-          color: showFull ? '#60a5fa' : theme.colors.text.disabled,
-        }}
-      >
-        {showFull ? (
-          <EyeSlash className="w-3 h-3" />
-        ) : (
-          <Eye className="w-3 h-3" />
-        )}
-        <span>{showFull ? 'Truncate' : 'Show full'}</span>
-      </button>
+      {showToggle && (
+        <button
+          onClick={onToggle}
+          className="flex items-center gap-1.5 px-2 py-1 rounded text-[9px] uppercase tracking-wide transition-all"
+          style={{ 
+            fontFamily: 'Inter, sans-serif',
+            background: showFull ? 'rgba(59,130,246,0.15)' : 'transparent',
+            border: `1px solid ${showFull ? 'rgba(59,130,246,0.4)' : theme.colors.border.primary}`,
+            color: showFull ? '#60a5fa' : theme.colors.text.disabled,
+          }}
+        >
+          {showFull ? (
+            <EyeSlash className="w-3 h-3" />
+          ) : (
+            <Eye className="w-3 h-3" />
+          )}
+          <span>{showFull ? 'Truncate' : 'Show full'}</span>
+        </button>
+      )}
     </div>
   );
 }
@@ -63,13 +113,15 @@ function ContactItem({
   email, 
   category = 'other', 
   showFull,
-  onCopy 
+  onCopy,
+  emailRef
 }: { 
   label: string; 
   email: string; 
   category?: ContactCategory;
   showFull: boolean;
   onCopy: () => void;
+  emailRef?: (el: HTMLDivElement | null) => void;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -104,8 +156,9 @@ function ContactItem({
           {label}
         </div>
         <div 
+          ref={emailRef}
           className={`text-[12px] text-slate-200 font-mono leading-relaxed ${
-            showFull ? 'break-all' : 'truncate'
+            showFull ? 'break-all whitespace-normal' : 'truncate'
           }`}
         >
           {email}
@@ -172,6 +225,9 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
     }
   });
 
+  // Truncation detection - only check when not showing full
+  const { registerRef, hasTruncation } = useTruncationDetection([orderedContacts, showFull]);
+
   if (orderedContacts.length === 0) return null;
 
   return (
@@ -179,7 +235,8 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
       <SectionHeader 
         title="Court Contacts" 
         showFull={showFull} 
-        onToggle={() => setShowFull(!showFull)} 
+        onToggle={() => setShowFull(!showFull)}
+        showToggle={hasTruncation || showFull}
       />
       <div className="space-y-2">
         {orderedContacts.map((contact) => (
@@ -189,7 +246,8 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
             email={contact.email}
             category={contact.category}
             showFull={showFull}
-            onCopy={onCopy || (() => {})} 
+            onCopy={onCopy || (() => {})}
+            emailRef={!showFull ? (el) => registerRef(contact.label, el) : undefined}
           />
         ))}
       </div>
@@ -252,6 +310,9 @@ export function CrownContactsStack({
     });
   }
 
+  // Truncation detection
+  const { registerRef, hasTruncation } = useTruncationDetection([crownContacts, showFull]);
+
   if (crownContacts.length === 0) return null;
 
   return (
@@ -259,7 +320,8 @@ export function CrownContactsStack({
       <SectionHeader 
         title="Crown Contacts" 
         showFull={showFull} 
-        onToggle={() => setShowFull(!showFull)} 
+        onToggle={() => setShowFull(!showFull)}
+        showToggle={hasTruncation || showFull}
       />
       <div className="space-y-2">
         {crownContacts.map((contact) => (
@@ -270,6 +332,7 @@ export function CrownContactsStack({
             category={contact.category}
             showFull={showFull}
             onCopy={onCopy || (() => {})}
+            emailRef={!showFull ? (el) => registerRef(contact.label, el) : undefined}
           />
         ))}
       </div>
