@@ -1,54 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* ============================================================================
-   SHADCN CSS VARIABLES - CYBER OCEAN THEME
+   TAILWIND V4 THEME - CYBER OCEAN
    ============================================================================ */
 
-@layer base {
-  :root {
-    /* Background - Deep ocean blue */
-    --background: 222 47% 5%;
-    --foreground: 210 40% 98%;
+@theme {
+  /* Border radius */
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
 
-    /* Card - Slightly lighter than background */
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 98%;
+  /* Colors - using CSS color-mix for HSL */
+  --color-background: oklch(0.13 0.02 250);
+  --color-foreground: oklch(0.98 0.01 250);
+  
+  --color-card: oklch(0.15 0.02 250);
+  --color-card-foreground: oklch(0.98 0.01 250);
+  
+  --color-popover: oklch(0.15 0.02 250);
+  --color-popover-foreground: oklch(0.98 0.01 250);
+  
+  --color-primary: oklch(0.65 0.2 250);
+  --color-primary-foreground: oklch(0.2 0.02 250);
+  
+  --color-secondary: oklch(0.25 0.03 250);
+  --color-secondary-foreground: oklch(0.98 0.01 250);
+  
+  --color-muted: oklch(0.25 0.03 250);
+  --color-muted-foreground: oklch(0.7 0.02 250);
+  
+  --color-accent: oklch(0.25 0.03 250);
+  --color-accent-foreground: oklch(0.98 0.01 250);
+  
+  --color-destructive: oklch(0.45 0.2 25);
+  --color-destructive-foreground: oklch(0.98 0.01 250);
+  
+  --color-border: oklch(0.25 0.03 250);
+  --color-input: oklch(0.25 0.03 250);
+  --color-ring: oklch(0.55 0.2 250);
 
-    /* Popover */
-    --popover: 222 47% 7%;
-    --popover-foreground: 210 40% 98%;
-
-    /* Primary - Electric blue */
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 11%;
-
-    /* Secondary - Slate */
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-
-    /* Muted */
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    /* Accent */
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
-
-    /* Destructive */
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    /* Border, Input, Ring */
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 224 76% 48%;
-
-    /* Radius */
-    --radius: 0.5rem;
-  }
+  /* Animations */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-in-up: fade-in-up 0.3s ease-out;
 }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================ */
 
 @layer base {
   * {
@@ -122,7 +130,6 @@
   background: rgba(59, 130, 246, 0.5);
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
@@ -142,7 +149,7 @@
    ============================================================================ */
 
 .gradient-text {
-  background: linear-gradient(135deg, hsl(var(--primary)), #22d3ee);
+  background: linear-gradient(135deg, var(--color-primary), #22d3ee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -177,12 +184,8 @@
 }
 
 @keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ============================================================================
