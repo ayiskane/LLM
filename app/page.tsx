@@ -9,7 +9,7 @@ import { SearchBar, QuickSuggestions } from '@/app/components/SearchBar';
 import { CourtCard } from '@/app/components/CourtCard';
 import { CourtContactsStack, CrownContactsStack, TopContactsPreview } from '@/app/components/ContactStack';
 import { CellsList, CellsPreview } from '@/app/components/CellCard';
-import { TeamsList } from '@/app/components/TeamsCard';
+import { TeamsList, isVBTriageLink } from '@/app/components/TeamsCard';
 import { CircuitWarning } from '@/app/components/CircuitWarning';
 
 // Shared UI Components
@@ -564,11 +564,16 @@ export default function Home() {
                           )}
                         </div>
                       )}
-                      {detailBailTeams.length > 0 && (
-                        <div>
-                          <TeamsList links={detailBailTeams} onCopyAll={() => setCopiedField('bailteams')} lastUpdated="2025-01-21" filterVBTriage={false} />
-                        </div>
-                      )}
+                      {/* Combine bail teams + VB Triage links from court teams */}
+                      {(() => {
+                        const vbTriageLinks = detailTeams.filter(isVBTriageLink);
+                        const allBailTeams = [...detailBailTeams, ...vbTriageLinks];
+                        return allBailTeams.length > 0 && (
+                          <div>
+                            <TeamsList links={allBailTeams} onCopyAll={() => setCopiedField('bailteams')} lastUpdated="2025-01-21" filterVBTriage={false} />
+                          </div>
+                        );
+                      })()}
                     </div>
                   </Section>
                 )}
