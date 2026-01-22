@@ -167,7 +167,7 @@ export function CellsList({ cells, maxDisplay = 10 }: CellsListProps) {
 
   return (
     <div className="space-y-2">
-      <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}>Sheriff Cells</h4>
+      <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Sheriff Cells</h4>
       <div className="bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden px-4">
         {sortedCells.map((cell) => (
           <CellRow key={cell.id} cell={cell} />
@@ -194,7 +194,7 @@ export function CellsPreview({ cells }: { cells: ShellCell[] }) {
 
   return (
     <div className="space-y-2">
-      <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}>Sheriff Cells</h4>
+      <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Sheriff Cells</h4>
       <div className="bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden px-4">
         {displayCells.map((cell) => (
           <CellRow key={cell.id} cell={cell} />
