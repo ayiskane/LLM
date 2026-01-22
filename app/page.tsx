@@ -357,7 +357,7 @@ export default function Home() {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 px-1">
                         <CameraVideo className="w-4 h-4 text-indigo-400" />
-                        <h3 className="text-xs font-medium uppercase tracking-wide" style={{ color: theme.colors.text.subtle }}>CR {results.courtroomFilter} MS Teams</h3>
+                        <h3 className="text-xs font-medium uppercase" style={{ color: theme.colors.text.subtle, letterSpacing: '1px' }}>CR {results.courtroomFilter} MS Teams</h3>
                       </div>
                       <TeamsList links={results.teamsLinks} onCopyAll={() => showCopiedToast('teams')} />
                     </div>
@@ -365,7 +365,7 @@ export default function Home() {
 
                   {(activeFilter === 'all' || activeFilter === 'contacts') && results.courts.length > 0 && results.contacts.length > 0 && (
                     <div className="space-y-2">
-                      <h3 className="text-xs font-medium uppercase tracking-wide px-1" style={{ color: theme.colors.text.subtle }}>
+                      <h3 className="text-xs font-medium uppercase px-1" style={{ color: theme.colors.text.subtle, letterSpacing: '1px' }}>
                         {activeFilter === 'contacts' ? 'Contacts' : 'Top Contacts'}
                       </h3>
                       {results.courts.filter(court => !court.is_circuit).map((court) => {
@@ -593,7 +593,7 @@ export default function Home() {
                       {/* Schedule Section */}
                       {(detailBailCourt.triage_time_am || detailBailCourt.triage_time_pm || detailBailCourt.court_start_am || detailBailCourt.cutoff_new_arrests) && (
                         <div className="space-y-1.5">
-                          <h4 className="text-xs text-slate-500 uppercase tracking-wide px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Schedule</h4>
+                          <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}>Schedule</h4>
                           
                           {/* Vertical List - Sheriff Cells style */}
                           <div className="bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden divide-y divide-slate-700/50">
