@@ -1,172 +1,301 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import Fuse from 'fuse.js';
-import { useQuery } from '@tanstack/react-query';
-import { fetchSearchIndexData, type SearchIndexData } from '@/lib/api/queries';
-import { LOCATION_ALIASES, SEARCH_CONFIG, CACHE_CONFIG } from '@/lib/config/constants';
-import type { Court, ContactWithRole, ShellCell, TeamsLink } from '@/types';
+import { useState, useCallback, useEffect } from 'react';
+import { createClient } from '@/lib/api/supabase';
+import type { Court, Contact, ShellCell, TeamsLink, BailCourt, BailContact } from '@/types';
+
+// ============================================================================
+// SEARCH RESULTS TYPE
+// ============================================================================
 
 export interface SearchResults {
   courts: Court[];
-  contacts: ContactWithRole[];
+  contacts: Contact[];
   cells: ShellCell[];
   teamsLinks: TeamsLink[];
+  bailCourt: BailCourt | null;
+  bailContacts: BailContact[];
 }
 
-interface FuseInstances {
-  courts: Fuse<Court>;
-  contacts: Fuse<ContactWithRole>;
-  cells: Fuse<ShellCell>;
-  teamsLinks: Fuse<TeamsLink>;
-}
-
-/**
- * Expand location aliases in search query
- */
-function expandAliases(query: string): string {
-  const lowerQuery = query.toLowerCase().trim();
-  
-  // Check for exact alias match
-  if (LOCATION_ALIASES[lowerQuery]) {
-    return LOCATION_ALIASES[lowerQuery];
-  }
-  
-  // Check if query starts with an alias
-  for (const [alias, expanded] of Object.entries(LOCATION_ALIASES)) {
-    if (lowerQuery.startsWith(alias + ' ')) {
-      return expanded + lowerQuery.slice(alias.length);
-    }
-  }
-  
-  return query;
-}
-
-/**
- * Create Fuse.js instances for each data type
- */
-function createFuseInstances(data: SearchIndexData): FuseInstances {
-  return {
-    courts: new Fuse(data.courts, {
-      ...SEARCH_CONFIG.FUSE_OPTIONS,
-      keys: ['name', 'address'],
-    }),
-    contacts: new Fuse(data.contacts, {
-      ...SEARCH_CONFIG.FUSE_OPTIONS,
-      keys: ['role.name', 'email', 'phone'],
-    }),
-    cells: new Fuse(data.cells, {
-      ...SEARCH_CONFIG.FUSE_OPTIONS,
-      keys: ['name'],
-    }),
-    teamsLinks: new Fuse(data.teamsLinks, {
-      ...SEARCH_CONFIG.FUSE_OPTIONS,
-      keys: ['name'],
-    }),
-  };
-}
+// ============================================================================
+// SIMPLE SEARCH HOOK (Supabase only, no Fuse.js)
+// ============================================================================
 
 export function useSearch() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SearchResults>({
-    courts: [],
-    contacts: [],
-    cells: [],
-    teamsLinks: [],
-  });
-  const [isSearching, setIsSearching] = useState(false);
-  
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
-  const fuseRef = useRef<FuseInstances | null>(null);
+  const [results, setResults] = useState<SearchResults | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch search index data using React Query
-  const { data: indexData, isLoading: isLoadingIndex } = useQuery({
-    queryKey: ['searchIndex'],
-    queryFn: fetchSearchIndexData,
-    staleTime: CACHE_CONFIG.STALE_TIME_MS,
-    gcTime: CACHE_CONFIG.GC_TIME_MS,
-  });
+  const supabase = createClient();
 
-  // Create Fuse instances when data changes
-  useEffect(() => {
-    if (indexData) {
-      fuseRef.current = createFuseInstances(indexData);
-    }
-  }, [indexData]);
-
-  // Perform search
-  const performSearch = useCallback((searchQuery: string) => {
-    if (!fuseRef.current || !searchQuery.trim()) {
-      setResults({ courts: [], contacts: [], cells: [], teamsLinks: [] });
-      setIsSearching(false);
+  const search = useCallback(async (searchQuery: string) => {
+    setQuery(searchQuery);
+    
+    if (!searchQuery || searchQuery.trim().length < 2) {
+      setResults(null);
       return;
     }
 
-    setIsSearching(true);
+    setIsLoading(true);
+    setError(null);
 
-    // Expand aliases
-    const expandedQuery = expandAliases(searchQuery);
+    try {
+      const term = searchQuery.trim().toLowerCase();
+      
+      // Search courts by name (simple ILIKE)
+      const { data: courts, error: courtsError } = await supabase
+        .from('courts')
+        .select('*, regions(code, name)')
+        .ilike('name', `%${term}%`)
+        .eq('is_staffed', true)
+        .limit(10);
 
-    // Search each category
-    const courtResults = fuseRef.current.courts.search(expandedQuery);
-    const contactResults = fuseRef.current.contacts.search(expandedQuery);
-    const cellResults = fuseRef.current.cells.search(expandedQuery);
-    const teamsResults = fuseRef.current.teamsLinks.search(expandedQuery);
+      if (courtsError) throw courtsError;
 
-    setResults({
-      courts: courtResults.map(r => r.item).slice(0, SEARCH_CONFIG.MAX_RESULTS),
-      contacts: contactResults.map(r => r.item).slice(0, SEARCH_CONFIG.MAX_RESULTS),
-      cells: cellResults.map(r => r.item).slice(0, SEARCH_CONFIG.MAX_RESULTS),
-      teamsLinks: teamsResults.map(r => r.item).slice(0, SEARCH_CONFIG.MAX_RESULTS),
-    });
+      // Enrich courts with region data
+      const enrichedCourts: Court[] = (courts || []).map((c: any) => ({
+        ...c,
+        region_code: c.regions?.code,
+        region_name: c.regions?.name,
+      }));
 
-    setIsSearching(false);
-  }, []);
+      // If we found courts, get related data for the first one
+      let contacts: Contact[] = [];
+      let cells: ShellCell[] = [];
+      let teamsLinks: TeamsLink[] = [];
+      let bailCourt: BailCourt | null = null;
+      let bailContacts: BailContact[] = [];
 
-  // Debounced search
-  const search = useCallback((newQuery: string) => {
-    setQuery(newQuery);
+      if (enrichedCourts.length > 0) {
+        const courtId = enrichedCourts[0].id;
 
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
+        // Get contacts
+        const { data: contactsData } = await supabase
+          .from('contacts_courts')
+          .select('contact:contacts(*, contact_role:contact_roles(name))')
+          .eq('court_id', courtId);
+
+        if (contactsData) {
+          contacts = contactsData
+            .map((cc: any) => cc.contact)
+            .filter(Boolean)
+            .map((c: any) => ({ ...c, role_name: c.contact_role?.name }));
+        }
+
+        // Get cells
+        const { data: cellsData } = await supabase
+          .from('sheriff_cells_courts')
+          .select('cell:sheriff_cells(*)')
+          .eq('court_id', courtId);
+
+        if (cellsData) {
+          cells = cellsData.map((cc: any) => cc.cell).filter(Boolean);
+        }
+
+        // Get teams links
+        const { data: teamsData } = await supabase
+          .from('teams_links')
+          .select('*')
+          .eq('court_id', courtId);
+
+        if (teamsData) {
+          teamsLinks = teamsData;
+        }
+
+        // Get bail court
+        const court = enrichedCourts[0];
+        if (court.bail_hub_id) {
+          const { data: bailData } = await supabase
+            .from('bail_courts')
+            .select('*')
+            .eq('id', court.bail_hub_id)
+            .single();
+
+          if (bailData) {
+            bailCourt = bailData;
+
+            // Get bail contacts for region
+            const { data: bailContactsData } = await supabase
+              .from('bail_contacts')
+              .select('*, contact_role:contact_roles(name)')
+              .eq('region_id', bailData.region_id);
+
+            if (bailContactsData) {
+              bailContacts = bailContactsData.map((bc: any) => ({
+                ...bc,
+                role_name: bc.contact_role?.name,
+              }));
+            }
+          }
+        }
+      }
+
+      setResults({
+        courts: enrichedCourts,
+        contacts,
+        cells,
+        teamsLinks,
+        bailCourt,
+        bailContacts,
+      });
+    } catch (err) {
+      console.error('Search error:', err);
+      setError('Failed to search');
+      setResults(null);
+    } finally {
+      setIsLoading(false);
     }
+  }, [supabase]);
 
-    if (!newQuery.trim() || newQuery.length < SEARCH_CONFIG.MIN_QUERY_LENGTH) {
-      setResults({ courts: [], contacts: [], cells: [], teamsLinks: [] });
-      return;
-    }
-
-    debounceRef.current = setTimeout(() => {
-      performSearch(newQuery);
-    }, SEARCH_CONFIG.DEBOUNCE_MS);
-  }, [performSearch]);
-
-  // Clear search
   const clearSearch = useCallback(() => {
     setQuery('');
-    setResults({ courts: [], contacts: [], cells: [], teamsLinks: [] });
+    setResults(null);
+    setError(null);
   }, []);
-
-  // Total results count
-  const totalResults = useMemo(() => 
-    results.courts.length + 
-    results.contacts.length + 
-    results.cells.length + 
-    results.teamsLinks.length,
-    [results]
-  );
-
-  // Has results
-  const hasResults = totalResults > 0;
 
   return {
     query,
     results,
+    isLoading,
+    error,
     search,
     clearSearch,
-    isSearching,
-    isLoadingIndex,
-    totalResults,
-    hasResults,
+    hasResults: results !== null && results.courts.length > 0,
   };
+}
+
+// ============================================================================
+// COURT DETAILS HOOK
+// ============================================================================
+
+export interface CourtDetails {
+  court: Court;
+  contacts: Contact[];
+  cells: ShellCell[];
+  teamsLinks: TeamsLink[];
+  bailCourt: BailCourt | null;
+  bailContacts: BailContact[];
+  bailTeamsLinks: TeamsLink[];
+}
+
+export function useCourtDetails(courtId: number | null) {
+  const [data, setData] = useState<CourtDetails | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    if (!courtId) {
+      setData(null);
+      return;
+    }
+
+    const fetchDetails = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        // Fetch court
+        const { data: courtData, error: courtError } = await supabase
+          .from('courts')
+          .select('*, regions(code, name)')
+          .eq('id', courtId)
+          .single();
+
+        if (courtError) throw courtError;
+
+        const court: Court = {
+          ...courtData,
+          region_code: courtData.regions?.code,
+          region_name: courtData.regions?.name,
+        };
+
+        // Fetch contacts
+        const { data: contactsData } = await supabase
+          .from('contacts_courts')
+          .select('contact:contacts(*, contact_role:contact_roles(name))')
+          .eq('court_id', courtId);
+
+        const contacts: Contact[] = (contactsData || [])
+          .map((cc: any) => cc.contact)
+          .filter(Boolean)
+          .map((c: any) => ({ ...c, role_name: c.contact_role?.name }));
+
+        // Fetch cells
+        const { data: cellsData } = await supabase
+          .from('sheriff_cells_courts')
+          .select('cell:sheriff_cells(*)')
+          .eq('court_id', courtId);
+
+        const cells: ShellCell[] = (cellsData || [])
+          .map((cc: any) => cc.cell)
+          .filter(Boolean);
+
+        // Fetch teams links
+        const { data: teamsData } = await supabase
+          .from('teams_links')
+          .select('*')
+          .eq('court_id', courtId);
+
+        const teamsLinks: TeamsLink[] = teamsData || [];
+
+        // Fetch bail info
+        let bailCourt: BailCourt | null = null;
+        let bailContacts: BailContact[] = [];
+        let bailTeamsLinks: TeamsLink[] = [];
+
+        if (court.bail_hub_id) {
+          const { data: bailData } = await supabase
+            .from('bail_courts')
+            .select('*')
+            .eq('id', court.bail_hub_id)
+            .single();
+
+          if (bailData) {
+            bailCourt = bailData;
+
+            // Bail contacts
+            const { data: bcData } = await supabase
+              .from('bail_contacts')
+              .select('*, contact_role:contact_roles(name)')
+              .eq('region_id', bailData.region_id);
+
+            bailContacts = (bcData || []).map((bc: any) => ({
+              ...bc,
+              role_name: bc.contact_role?.name,
+            }));
+
+            // Bail teams links
+            const { data: btData } = await supabase
+              .from('teams_links')
+              .select('*')
+              .eq('bail_court_id', bailData.id);
+
+            bailTeamsLinks = btData || [];
+          }
+        }
+
+        setData({
+          court,
+          contacts,
+          cells,
+          teamsLinks,
+          bailCourt,
+          bailContacts,
+          bailTeamsLinks,
+        });
+      } catch (err) {
+        console.error('Error fetching court details:', err);
+        setError('Failed to load court details');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDetails();
+  }, [courtId, supabase]);
+
+  return { data, isLoading, error };
 }
