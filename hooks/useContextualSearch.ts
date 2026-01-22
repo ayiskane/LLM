@@ -53,8 +53,8 @@ export function useContextualSearch(): UseContextualSearchReturn {
   const [results, setResults] = useState<ContextualResult[]>([]);
   
   const supabase = createClient();
-  const debounceRef = useRef<NodeJS.Timeout>();
-  const initStarted = useRef(false);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const initStarted = useRef<boolean>(false);
 
   // Initialize search index on mount
   useEffect(() => {
