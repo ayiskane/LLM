@@ -67,6 +67,8 @@ export interface BailCourt {
   court_start_pm: string | null;
   court_end: string | null;
   cutoff_new_arrests: string | null;
+  youth_custody_day: string | null;
+  youth_custody_time: string | null;
 }
 
 export interface BailContact {
