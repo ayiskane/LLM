@@ -27,6 +27,15 @@ export const UI_CONFIG = {
   HEADER_EXPAND_THRESHOLD: 30,
 } as const;
 
+// ============================================================================
+// CACHE CONFIG (React Query)
+// ============================================================================
+
+export const CACHE_CONFIG = {
+  STALE_TIME_MS: 5 * 60 * 1000,  // 5 minutes
+  GC_TIME_MS: 30 * 60 * 1000,    // 30 minutes
+} as const;
+
 // Alias for backwards compatibility
 export const UI = UI_CONFIG;
 
