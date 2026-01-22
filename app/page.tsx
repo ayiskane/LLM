@@ -336,7 +336,7 @@ export default function Home() {
                         <CameraVideo className="w-4 h-4 text-indigo-400" />
                         <h3 className="text-xs font-medium uppercase tracking-wide" style={{ color: theme.colors.text.subtle }}>CR {results.courtroomFilter} MS Teams</h3>
                       </div>
-                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} lastUpdated="2025-01-21" />
+                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} />
                     </div>
                   )}
 
@@ -383,7 +383,7 @@ export default function Home() {
 
                   {activeFilter === 'teams' && !results.courtroomFilter && results.teamsLinks.length > 0 && (
                     <div>
-                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} lastUpdated="2025-01-21" />
+                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} />
                     </div>
                   )}
                 </>
@@ -570,7 +570,7 @@ export default function Home() {
                         const allBailTeams = [...detailBailTeams, ...vbTriageLinks];
                         return allBailTeams.length > 0 && (
                           <div>
-                            <TeamsList links={allBailTeams} onCopyAll={() => setCopiedField('bailteams')} lastUpdated="2025-01-21" filterVBTriage={false} />
+                            <TeamsList links={allBailTeams} onCopyAll={() => setCopiedField('bailteams')} filterVBTriage={false} />
                           </div>
                         );
                       })()}
@@ -589,7 +589,7 @@ export default function Home() {
                     onToggle={() => toggleSection('teams')}
                   >
                     <div className="p-3">
-                      <TeamsList links={detailTeams} onCopyAll={() => setCopiedField('teams')} lastUpdated="2025-01-21" />
+                      <TeamsList links={detailTeams} onCopyAll={() => setCopiedField('teams')} />
                     </div>
                   </Section>
                 )}
