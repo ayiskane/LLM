@@ -13,9 +13,11 @@ export function useScrollHeader() {
     const scrollTop = scrollRef.current.scrollTop;
     
     // Hysteresis to prevent flickering
-    if (!isHeaderCollapsed && scrollTop > UI_CONFIG.HEADER_COLLAPSE_THRESHOLD_DOWN) {
+    // Collapse when scrolling DOWN past threshold
+    if (!isHeaderCollapsed && scrollTop > UI_CONFIG.HEADER_COLLAPSE_THRESHOLD) {
       setIsHeaderCollapsed(true);
-    } else if (isHeaderCollapsed && scrollTop < UI_CONFIG.HEADER_COLLAPSE_THRESHOLD_UP) {
+    // Expand when scrolling UP past threshold
+    } else if (isHeaderCollapsed && scrollTop < UI_CONFIG.HEADER_EXPAND_THRESHOLD) {
       setIsHeaderCollapsed(false);
     }
   }, [isHeaderCollapsed]);
