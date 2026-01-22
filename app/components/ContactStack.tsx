@@ -5,7 +5,13 @@ import { Check, Clipboard, Eye, EyeSlash } from 'react-bootstrap-icons';
 import copy from 'copy-to-clipboard';
 import type { Contact, BailContact } from '@/types';
 import { CONTACT_ROLE_NAMES, CONTACT_ROLES } from '@/types';
-import { theme } from '@/lib/theme';
+import { 
+  theme, 
+  textClasses, 
+  iconClasses, 
+  inlineStyles,
+  cn 
+} from '@/lib/theme';
 
 // Category colors for accent bar
 type ContactCategory = 'court' | 'provincial' | 'supreme' | 'bail' | 'other';
@@ -106,7 +112,10 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-center justify-between mb-2 px-1">
-      <h4 className="text-xs text-slate-500 uppercase" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}>
+      <h4 
+        className={textClasses.sectionHeader}
+        style={inlineStyles.sectionHeader}
+      >
         {title}
       </h4>
       {showToggle && (
@@ -121,9 +130,9 @@ function SectionHeader({
           }}
         >
           {showFull ? (
-            <EyeSlash className="w-3 h-3" />
+            <EyeSlash className={iconClasses.xs} />
           ) : (
-            <Eye className="w-3 h-3" />
+            <Eye className={iconClasses.xs} />
           )}
           <span>{showFull ? 'Truncate' : 'Show full'}</span>
         </button>
@@ -176,8 +185,8 @@ function ContactItem({
       {/* Content */}
       <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
         <div 
-          className="text-[9px] text-slate-400 uppercase mb-1"
-          style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}
+          className={textClasses.roleLabel}
+          style={inlineStyles.roleLabelSpaced}
         >
           {label}
         </div>
