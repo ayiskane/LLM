@@ -29,7 +29,8 @@ export function Tag({ children, color, size = 'sm', className }: TagProps) {
       className={cn(
         'inline-flex items-center justify-center rounded font-mono uppercase leading-none border',
         tagColors[color],
-        size === 'sm' ? 'px-2 py-1 text-[9px] tracking-widest' : 'px-2.5 py-1.5 text-[10px] tracking-wide',
+        // Fixed: py-1.5 for both sizes to match region tag
+        size === 'sm' ? 'px-2 py-1.5 text-[9px] tracking-widest' : 'px-2.5 py-1.5 text-[10px] tracking-wide',
         className
       )}
     >

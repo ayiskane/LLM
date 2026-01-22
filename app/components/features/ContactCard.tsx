@@ -1,104 +1,146 @@
 'use client';
 
-import { useState } from 'react';
-import { Clipboard, ClipboardCheck, Telephone, ChevronDown, ChevronUp } from 'react-bootstrap-icons';
-import { Card } from '@/app/components/ui/Card';
-import { cn, textClasses, iconClasses, getRoleLabelProps, getSectionHeaderProps } from '@/lib/config/theme';
-import { formatPhone, formatEmailsForCopy, makeCall, sendEmail } from '@/lib/utils';
+import { useState, useCallback } from 'react';
+import { Clipboard, ClipboardCheck, Eye, EyeSlash } from 'react-bootstrap-icons';
+import { cn, textClasses, iconClasses } from '@/lib/config/theme';
+import { formatEmailsForCopy } from '@/lib/utils';
 import { ROLE_DISPLAY_NAMES, COURT_CONTACT_ROLE_IDS, CROWN_CONTACT_ROLE_IDS } from '@/lib/config/constants';
 import type { ContactWithRole } from '@/types';
 
-interface ContactCardProps {
-  contact: ContactWithRole;
-  onCopy?: (text: string, id: string) => void;  // NOW OPTIONAL
-  isCopied?: (id: string) => boolean;           // NOW OPTIONAL
+// Category colors for accent bar
+type ContactCategory = 'court' | 'provincial' | 'supreme' | 'bail' | 'other';
+
+const categoryColors: Record<ContactCategory, string> = {
+  court: '#60a5fa',      // blue
+  provincial: '#34d399', // emerald
+  supreme: '#a78bfa',    // purple
+  bail: '#fbbf24',       // amber
+  other: '#71717a',      // zinc
+};
+
+// Map role IDs to categories
+function getContactCategory(roleId: number): ContactCategory {
+  if (CROWN_CONTACT_ROLE_IDS.includes(roleId)) return 'provincial';
+  if (COURT_CONTACT_ROLE_IDS.includes(roleId)) return 'court';
+  return 'other';
 }
 
-export function ContactCard({ contact, onCopy, isCopied }: ContactCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+interface ContactCardProps {
+  contact: ContactWithRole;
+  category?: ContactCategory;
+  onCopy?: () => void;
+}
+
+export function ContactCard({ contact, category, onCopy }: ContactCardProps) {
+  const [copied, setCopied] = useState(false);
   const roleDisplayName = ROLE_DISPLAY_NAMES[contact.contact_role_id] || contact.contact_role?.name || 'Contact';
   
   // Get all emails
   const emails = contact.emails?.length ? contact.emails : (contact.email ? [contact.email] : []);
-  const hasMultipleEmails = emails.length > 1;
-  
-  // Format emails for display
-  const displayEmails = emails.join(', ');
   const copyText = formatEmailsForCopy(emails);
-  const isTruncated = displayEmails.length > 40;
+  
+  // Determine category from role if not provided
+  const contactCategory = category || getContactCategory(contact.contact_role_id);
 
-  // Check if copy is enabled
-  const canCopy = onCopy && isCopied;
+  const handleCopy = useCallback(() => {
+    if (copyText) {
+      navigator.clipboard.writeText(copyText);
+      setCopied(true);
+      onCopy?.();
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }, [copyText, onCopy]);
+
+  if (emails.length === 0) return null;
 
   return (
-    <Card className="p-3">
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1 min-w-0">
-          {/* Role label */}
-          <div {...getRoleLabelProps()}>
-            {roleDisplayName}
-          </div>
-          
-          {/* Email(s) */}
-          {emails.length > 0 && (
-            <div className="mt-1">
-              {isExpanded ? (
-                <div className="space-y-0.5">
-                  {emails.map((email, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => sendEmail(email)}
-                      className={cn(textClasses.link, 'text-sm block truncate')}
-                    >
-                      {email}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <span className="text-sm text-slate-300 truncate block">
-                  {isTruncated ? displayEmails.slice(0, 40) + '...' : displayEmails}
-                </span>
-              )}
-            </div>
-          )}
-          
-          {/* Phone */}
-          {contact.phone && (
-            <button
-              onClick={() => makeCall(contact.phone)}
-              className={cn(textClasses.link, 'text-sm mt-1 flex items-center gap-1')}
-            >
-              <Telephone className={iconClasses.xs} />
-              {formatPhone(contact.phone)}
-            </button>
-          )}
+    <div 
+      className="flex items-stretch rounded-lg overflow-hidden cursor-pointer transition-all hover:border-blue-500/40"
+      style={{ 
+        background: 'rgba(59,130,246,0.03)',
+        border: '1px dashed rgba(59,130,246,0.25)',
+      }}
+      onClick={handleCopy}
+    >
+      {/* Color accent bar */}
+      <div 
+        className="w-1 shrink-0"
+        style={{ background: categoryColors[contactCategory] }}
+      />
+      
+      {/* Content */}
+      <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
+        <div 
+          className="text-[9px] text-slate-400 uppercase mb-1 font-mono"
+          style={{ letterSpacing: '1px' }}
+        >
+          {roleDisplayName}
         </div>
-        
-        {/* Actions */}
-        <div className="flex items-center gap-1">
-          {(isTruncated || hasMultipleEmails) && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="p-1.5 rounded hover:bg-slate-700/50 text-slate-400 hover:text-slate-200 transition-colors"
-            >
-              {isExpanded ? <ChevronUp className={iconClasses.sm} /> : <ChevronDown className={iconClasses.sm} />}
-            </button>
-          )}
-          {canCopy && emails.length > 0 && (
-            <button
-              onClick={() => onCopy(copyText, `contact-${contact.id}`)}
-              className="p-1.5 rounded hover:bg-slate-700/50 text-slate-400 hover:text-slate-200 transition-colors"
-            >
-              {isCopied(`contact-${contact.id}`) ? (
-                <ClipboardCheck className={cn(iconClasses.sm, 'text-green-400')} />
-              ) : (
-                <Clipboard className={iconClasses.sm} />
-              )}
-            </button>
-          )}
+        <div 
+          className="text-[12px] text-slate-200 font-mono leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis"
+        >
+          {emails.join(', ')}
         </div>
       </div>
-    </Card>
+      
+      {/* Copy button area */}
+      <div 
+        className="flex items-center justify-center px-3 shrink-0 transition-colors"
+        style={{ 
+          borderLeft: '1px dashed rgba(59,130,246,0.25)',
+          color: copied ? '#34d399' : '#52525b',
+        }}
+      >
+        {copied ? (
+          <ClipboardCheck className={cn(iconClasses.sm, 'text-emerald-400')} />
+        ) : (
+          <Clipboard className={iconClasses.sm} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Section header with eye toggle
+function SectionHeader({ 
+  title, 
+  showFull, 
+  onToggle,
+  showToggle
+}: { 
+  title: string; 
+  showFull: boolean; 
+  onToggle: () => void;
+  showToggle: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between mb-2 px-1">
+      <h4 
+        className={textClasses.sectionHeader}
+        style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}
+      >
+        {title}
+      </h4>
+      {showToggle && (
+        <button
+          onClick={onToggle}
+          className="flex items-center gap-1.5 px-2 py-1 rounded text-xs tracking-wide transition-all"
+          style={{ 
+            fontFamily: 'Inter, sans-serif',
+            background: showFull ? 'rgba(59,130,246,0.15)' : 'transparent',
+            border: `1px solid ${showFull ? 'rgba(59,130,246,0.4)' : 'rgba(51,65,85,0.5)'}`,
+            color: showFull ? '#60a5fa' : '#71717a',
+          }}
+        >
+          {showFull ? (
+            <EyeSlash className={iconClasses.xs} />
+          ) : (
+            <Eye className={iconClasses.xs} />
+          )}
+          <span>{showFull ? 'Truncate' : 'Show full'}</span>
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -106,11 +148,11 @@ export function ContactCard({ contact, onCopy, isCopied }: ContactCardProps) {
 interface ContactStackProps {
   contacts: ContactWithRole[];
   category: 'court' | 'crown';
-  onCopy?: (text: string, id: string) => void;  // NOW OPTIONAL
-  isCopied?: (id: string) => boolean;           // NOW OPTIONAL
+  onCopy?: () => void;
 }
 
-export function ContactStack({ contacts, category, onCopy, isCopied }: ContactStackProps) {
+export function ContactStack({ contacts, category, onCopy }: ContactStackProps) {
+  const [showFull, setShowFull] = useState(false);
   const roleIds = category === 'court' ? COURT_CONTACT_ROLE_IDS : CROWN_CONTACT_ROLE_IDS;
   
   // Filter and sort contacts by role order
@@ -125,19 +167,29 @@ export function ContactStack({ contacts, category, onCopy, isCopied }: ContactSt
   if (filteredContacts.length === 0) return null;
 
   const title = category === 'court' ? 'COURT CONTACTS' : 'CROWN CONTACTS';
+  const contactCategory: ContactCategory = category === 'crown' ? 'provincial' : 'court';
+
+  // Check if any contact has truncated emails
+  const hasTruncation = filteredContacts.some(c => {
+    const emails = c.emails?.length ? c.emails : (c.email ? [c.email] : []);
+    return emails.join(', ').length > 40;
+  });
 
   return (
-    <div className="space-y-2">
-      <h3 {...getSectionHeaderProps()}>
-        {title}
-      </h3>
+    <div className="space-y-1.5">
+      <SectionHeader 
+        title={title} 
+        showFull={showFull} 
+        onToggle={() => setShowFull(!showFull)}
+        showToggle={hasTruncation || showFull}
+      />
       <div className="space-y-2">
         {filteredContacts.map(contact => (
           <ContactCard
             key={contact.id}
             contact={contact}
+            category={contactCategory}
             onCopy={onCopy}
-            isCopied={isCopied}
           />
         ))}
       </div>
