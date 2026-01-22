@@ -404,9 +404,20 @@ export default function Home() {
             className="h-screen flex flex-col overflow-hidden"
           >
             <StickyHeader>
-              {/* Back Button Row */}
-              <div className="flex items-center p-3 pb-2">
-                <BackButton onClick={handleBack} />
+              {/* Back Button + Search Bar Row */}
+              <div className="flex items-center gap-2 p-3 pb-2">
+                <button onClick={handleBack} className="p-2 -ml-1 transition-colors" style={{ color: theme.colors.text.muted }}>
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+                <div className="flex-1">
+                  <SearchBar
+                    value={query}
+                    onChange={handleInputChange}
+                    onSubmit={() => handleSearchSubmit()}
+                    isLoading={isLoading}
+                    onClear={() => { setQuery(''); clearResults(); setView('search'); setActiveFilter('all'); }}
+                  />
+                </div>
               </div>
 
               {/* Title Block - with smooth transition */}
