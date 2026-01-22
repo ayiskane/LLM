@@ -40,6 +40,7 @@ export interface Contact {
   id: number;
   email: string | null;
   emails: string[] | null;
+  phone: string | null;
   contact_role_id: number;
   role_name?: string;
   court_id?: number;
