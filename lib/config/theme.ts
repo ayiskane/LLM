@@ -247,7 +247,6 @@ export const buttonClasses = {
 // Common inline styles
 export const inlineStyles = {
   sectionHeader: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' },
-  roleLabel: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' },  // Default with letter-spacing
   roleLabelSpaced: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' },
   roleLabelNormal: { fontFamily: 'Inter, sans-serif' },
   scheduleLabel: { letterSpacing: '1px' },

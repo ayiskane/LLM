@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Clipboard, ClipboardCheck, Telephone, Envelope, ChevronDown, ChevronUp } from 'react-bootstrap-icons';
 import { Card } from '@/app/components/ui/Card';
-import { cn, textClasses, iconClasses, inlineStyles } from '@/lib/config/theme';
+import { cn, textClasses, iconClasses, getRoleLabelProps, getSectionHeaderProps } from '@/lib/config/theme';
 import { formatPhone, formatEmailsForCopy, makeCall, sendEmail } from '@/lib/utils';
 import { ROLE_DISPLAY_NAMES, COURT_CONTACT_ROLE_IDS, CROWN_CONTACT_ROLE_IDS } from '@/lib/config/constants';
 import type { ContactWithRole } from '@/types';
@@ -32,10 +32,7 @@ export function ContactCard({ contact, onCopy, isCopied }: ContactCardProps) {
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
           {/* Role label */}
-          <div 
-            className={textClasses.roleLabel}
-            style={inlineStyles.roleLabel}
-          >
+          <div {...getRoleLabelProps()}>
             {roleDisplayName}
           </div>
           
@@ -128,10 +125,7 @@ export function ContactStack({ contacts, category, onCopy, isCopied }: ContactSt
 
   return (
     <div className="space-y-2">
-      <h3 
-        className={textClasses.sectionHeader}
-        style={inlineStyles.sectionHeader}
-      >
+      <h3 {...getSectionHeaderProps()}>
         {title}
       </h3>
       <div className="space-y-2">
@@ -147,3 +141,4 @@ export function ContactStack({ contacts, category, onCopy, isCopied }: ContactSt
     </div>
   );
 }
+
