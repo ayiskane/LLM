@@ -421,8 +421,9 @@ export function Toast({ show, message = 'Copied to clipboard' }: ToastProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.2 }}
           className="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 text-white text-sm rounded-lg shadow-lg z-50"
-          style={{ background: theme.colors.accent.gradient }}
+          style={{ background: 'rgba(51, 65, 85, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)' }}
         >
           {message}
         </motion.div>
