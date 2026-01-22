@@ -1,20 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { QueryProvider } from './providers/QueryProvider';
 import { APP_NAME, APP_DESCRIPTION } from '@/lib/config/constants';
 import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mono',
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -28,11 +18,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  themeColor: '#0f172a',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#0a0f1a',
 };
 
 export default function RootLayout({
@@ -41,8 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-slate-950 text-slate-200 antialiased">
+    <html lang="en" className="dark">
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+      </head>
+      <body className={`${inter.className} bg-slate-900 antialiased`}>
         <QueryProvider>
           <main className="min-h-screen">
             {children}

@@ -1,99 +1,145 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Building, ChevronRight } from 'react-bootstrap-icons';
-import { Card } from '@/app/components/ui/Card';
+import { Bank2, ChevronRight } from 'react-bootstrap-icons';
 import { TeamsList } from './TeamsCard';
-import { cn, textClasses, cardClasses, iconClasses, getSectionHeaderProps } from '@/lib/config/theme';
+import { 
+  cn, 
+  textClasses, 
+  cardClasses, 
+  iconClasses, 
+  inlineStyles,
+  colors,
+  getScheduleLabelClass,
+  getSectionHeaderProps,
+} from '@/lib/config/theme';
 import { isVBTriageLink, getBailHubTag } from '@/lib/config/constants';
 import type { BailCourt, BailTeam, TeamsLink, Court } from '@/types';
 
-// Schedule component
+// ============================================================================
+// SCHEDULE ROW COMPONENT (matches backup exactly)
+// ============================================================================
+
+interface ScheduleRowProps {
+  label: string;
+  value: string;
+  isAmber?: boolean;
+}
+
+function ScheduleRow({ label, value, isAmber = false }: ScheduleRowProps) {
+  return (
+    <div className={cardClasses.flexRow}>
+      <span 
+        className={getScheduleLabelClass(isAmber)}
+        style={inlineStyles.scheduleLabel}
+      >
+        {label}
+      </span>
+      <span className={textClasses.monoValue}>{value}</span>
+    </div>
+  );
+}
+
+// ============================================================================
+// BAIL SCHEDULE COMPONENT (matches backup exactly)
+// ============================================================================
+
 interface BailScheduleProps {
   bailCourt: BailCourt;
 }
 
 export function BailSchedule({ bailCourt }: BailScheduleProps) {
-  const scheduleItems = [
-    { label: 'TRIAGE', value: bailCourt.triage_time_am && bailCourt.triage_time_pm 
-      ? `${bailCourt.triage_time_am} / ${bailCourt.triage_time_pm}` 
-      : bailCourt.triage_time_am || bailCourt.triage_time_pm || null 
-    },
-    { label: 'COURT', value: bailCourt.court_start_am && bailCourt.court_start_pm 
-      ? `${bailCourt.court_start_am} / ${bailCourt.court_start_pm}` 
-      : bailCourt.court_start_am || bailCourt.court_start_pm || null 
-    },
-    { label: 'CUTOFF', value: bailCourt.cutoff_new_arrests },
-    { label: 'YOUTH', value: bailCourt.youth_custody_day && bailCourt.youth_custody_time 
-      ? `${bailCourt.youth_custody_day} ${bailCourt.youth_custody_time}` 
-      : null,
-      isAmber: true 
-    },
-  ].filter(item => item.value);
+  const hasSchedule = bailCourt.triage_time_am || bailCourt.triage_time_pm || 
+                      bailCourt.court_start_am || bailCourt.cutoff_new_arrests;
+  
+  if (!hasSchedule) return null;
 
-  if (scheduleItems.length === 0) return null;
+  const headerProps = getSectionHeaderProps();
 
   return (
-    <div className="space-y-2">
-      <h4 {...getSectionHeaderProps()}>
-        SCHEDULE
+    <div className="space-y-1.5">
+      <h4 
+        className={headerProps.className}
+        style={headerProps.style}
+      >
+        Schedule
       </h4>
-      <Card className="divide-y divide-slate-700/50">
-        {scheduleItems.map((item, idx) => (
-          <div key={idx} className="flex justify-between items-center px-3 py-2">
-            <span 
-              className={cn(
-                'text-xs font-mono font-semibold uppercase',
-                item.isAmber ? 'text-amber-400' : 'text-slate-300'
-              )}
-              style={{ letterSpacing: '1px' }}
-            >
-              {item.label}
-            </span>
-            <span className="font-mono text-sm text-slate-400">
-              {item.value}
-            </span>
-          </div>
-        ))}
-      </Card>
+      
+      <div className={cardClasses.containerDivided}>
+        {/* Triage */}
+        {(bailCourt.triage_time_am || bailCourt.triage_time_pm) && (
+          <ScheduleRow 
+            label="Triage" 
+            value={[bailCourt.triage_time_am, bailCourt.triage_time_pm].filter(Boolean).join(' / ')} 
+          />
+        )}
+
+        {/* Court */}
+        {(bailCourt.court_start_am || bailCourt.court_start_pm) && (
+          <ScheduleRow 
+            label="Court" 
+            value={[bailCourt.court_start_am, bailCourt.court_start_pm].filter(Boolean).join(' / ')} 
+          />
+        )}
+
+        {/* Cutoff */}
+        {bailCourt.cutoff_new_arrests && (
+          <ScheduleRow label="Cutoff" value={bailCourt.cutoff_new_arrests} />
+        )}
+
+        {/* Youth In-Custody */}
+        {bailCourt.youth_custody_day && bailCourt.youth_custody_time && (
+          <ScheduleRow 
+            label="Youth" 
+            value={`${bailCourt.youth_custody_day} ${bailCourt.youth_custody_time}`}
+            isAmber 
+          />
+        )}
+      </div>
     </div>
   );
 }
 
-// Link to bail hub court
+// ============================================================================
+// BAIL HUB LINK COMPONENT
+// ============================================================================
+
 interface BailHubLinkProps {
-  court: Court;
-  onClick: () => void;
+  bailCourt: BailCourt;
+  onNavigate: (courtId: number) => void;
 }
 
-export function BailHubLink({ court, onClick }: BailHubLinkProps) {
+export function BailHubLink({ bailCourt, onNavigate }: BailHubLinkProps) {
+  if (!bailCourt.court_id) return null;
+
   return (
     <button
-      onClick={onClick}
-      className={cn(
-        cardClasses.interactive,
-        'w-full p-3 flex items-center justify-between'
-      )}
+      onClick={() => onNavigate(bailCourt.court_id!)}
+      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors"
+      style={{ 
+        background: colors.bg.item, 
+        border: `1px solid ${colors.border.subtle}` 
+      }}
     >
-      <div className="flex items-center gap-2">
-        <Building className={cn(iconClasses.md, 'text-slate-400')} />
-        <span className="text-sm font-medium text-slate-200">
-          {court.name}
-        </span>
-      </div>
-      <ChevronRight className={cn(iconClasses.md, 'text-slate-400')} />
+      <Bank2 className={cn(iconClasses.md, 'text-teal-400')} />
+      <span className="flex-1 text-left text-sm font-medium text-white">
+        {bailCourt.name.replace(' Virtual Bail', '')} Law Courts
+      </span>
+      <ChevronRight className={cn(iconClasses.md, 'text-slate-500')} />
     </button>
   );
 }
 
-// Full bail section content
+// ============================================================================
+// BAIL SECTION CONTENT COMPONENT
+// ============================================================================
+
 interface BailSectionContentProps {
   bailCourt: BailCourt;
   currentCourtId: number;
-  hubCourt?: Court | null;
   bailTeams: BailTeam[];
   courtTeams: TeamsLink[];
-  onNavigateToHub?: () => void;
+  onNavigateToHub?: (courtId: number) => void;
   onCopy?: (text: string, id: string) => void;
   isCopied?: (id: string) => boolean;
 }
@@ -101,21 +147,18 @@ interface BailSectionContentProps {
 export function BailSectionContent({
   bailCourt,
   currentCourtId,
-  hubCourt,
   bailTeams,
   courtTeams,
   onNavigateToHub,
   onCopy,
   isCopied,
 }: BailSectionContentProps) {
-  // Check if current court is the bail hub
-  const isHub = hubCourt?.id === currentCourtId;
+  const isHub = bailCourt.court_id === currentCourtId;
   
   // Combine bail teams with VB Triage links from court teams
   const allBailTeams = useMemo(() => {
-    const vbTriageFromCourt = courtTeams.filter(t => isVBTriageLink(t.name));
+    const vbTriageFromCourt = courtTeams.filter(t => isVBTriageLink(t.name || t.courtroom));
     const combined = [...bailTeams, ...vbTriageFromCourt];
-    // Deduplicate by ID
     const seen = new Set<number>();
     return combined.filter(t => {
       if (seen.has(t.id)) return false;
@@ -125,10 +168,10 @@ export function BailSectionContent({
   }, [bailTeams, courtTeams]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Link to hub court if not the hub */}
-      {!isHub && hubCourt && onNavigateToHub && (
-        <BailHubLink court={hubCourt} onClick={onNavigateToHub} />
+      {!isHub && bailCourt.court_id && onNavigateToHub && (
+        <BailHubLink bailCourt={bailCourt} onNavigate={onNavigateToHub} />
       )}
       
       {/* Schedule */}
@@ -138,6 +181,7 @@ export function BailSectionContent({
       {allBailTeams.length > 0 && (
         <TeamsList
           links={allBailTeams}
+          filterVBTriage={false}
           onCopy={onCopy}
           isCopied={isCopied}
         />
@@ -146,6 +190,4 @@ export function BailSectionContent({
   );
 }
 
-// Get bail hub tag for section title
 export { getBailHubTag };
-

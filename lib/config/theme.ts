@@ -68,23 +68,37 @@ export type SectionColor = keyof typeof sectionColors;
 export type ContactCategory = 'court' | 'provincial' | 'supreme' | 'bail' | 'other';
 
 export const contactCategoryColors: Record<ContactCategory, string> = {
-  court: '#60a5fa',      // blue
-  provincial: '#34d399', // emerald
-  supreme: '#a78bfa',    // purple
-  bail: '#fbbf24',       // amber
-  other: '#71717a',      // zinc
+  court: '#60a5fa',
+  provincial: '#34d399',
+  supreme: '#a78bfa',
+  bail: '#fbbf24',
+  other: '#71717a',
 } as const;
 
 // ============================================================================
-// TEXT CLASSES - NO font-mono on roleLabel (matches backup)
+// TEXT CLASSES - Matches backup exactly
 // ============================================================================
 
 export const textClasses = {
+  // Headers
   sectionHeader: 'text-xs text-slate-500 uppercase px-1',
-  roleLabel: 'text-[9px] text-slate-400 uppercase mb-1',  // NO font-mono
+  roleLabel: 'text-[9px] text-slate-400 uppercase mb-1',
   scheduleLabel: 'text-xs font-mono font-semibold uppercase',
-  muted: 'text-xs text-slate-500',
-  subtle: 'text-sm text-slate-400',
+  lastUpdated: 'text-xs text-slate-500 uppercase',
+  
+  // Body text
+  primary: 'text-white',
+  secondary: 'text-slate-200',
+  muted: 'text-slate-300',
+  subtle: 'text-slate-400',
+  disabled: 'text-slate-500',
+  
+  // Monospace
+  mono: 'font-mono',
+  monoSm: 'text-xs font-mono',
+  monoValue: 'text-slate-400 text-xs font-mono',
+  
+  // Interactive
   link: 'text-blue-400 hover:text-blue-300 transition-colors cursor-pointer',
 } as const;
 
@@ -100,11 +114,16 @@ export const iconClasses = {
 } as const;
 
 // ============================================================================
-// CARD CLASSES
+// CARD CLASSES - Matches backup exactly
 // ============================================================================
 
 export const cardClasses = {
-  interactive: 'bg-slate-800/30 rounded-lg border border-slate-700/50 cursor-pointer hover:bg-slate-800/50 hover:border-slate-600/50 transition-all',
+  container: 'bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden',
+  containerPadded: 'bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden px-4',
+  containerDivided: 'bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden divide-y divide-slate-700/50',
+  interactive: 'cursor-pointer hover:bg-slate-800 transition-colors active:bg-slate-700',
+  row: 'py-3 border-b border-slate-700/30 last:border-b-0',
+  flexRow: 'flex justify-between px-4 py-2.5',
   coupon: 'flex items-stretch rounded-lg overflow-hidden cursor-pointer transition-all hover:border-blue-500/40',
 } as const;
 
@@ -126,6 +145,7 @@ export const inlineStyles = {
   sectionHeader: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' } as const,
   roleLabelSpaced: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' } as const,
   roleLabelNormal: { fontFamily: 'Inter, sans-serif' } as const,
+  scheduleLabel: { letterSpacing: '1px' } as const,
   letterSpacing: {
     wide: { letterSpacing: '1px' } as const,
     wider: { letterSpacing: '2px' } as const,

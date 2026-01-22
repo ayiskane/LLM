@@ -1,7 +1,7 @@
 'use client';
 
 import { GeoAlt } from 'react-bootstrap-icons';
-import { cn, inlineStyles } from '@/lib/config/theme';
+import { cn, colors } from '@/lib/config/theme';
 import { Tag } from '../ui/Tag';
 import { openInMaps } from '@/lib/utils';
 import type { Court } from '@/types';
@@ -20,7 +20,7 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
   if (collapsed) {
     return (
       <div className={cn('flex items-center gap-2 py-2 px-4', className)}>
-        <h1 className="text-sm font-semibold text-white flex-1 truncate uppercase">
+        <h1 className="text-sm font-semibold text-white flex-1 truncate">
           {displayName}
         </h1>
         <div className="flex items-center gap-1 shrink-0">
@@ -31,7 +31,8 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
         {court.address && (
           <button
             onClick={() => openInMaps(court.address)}
-            className="p-1.5 rounded-md bg-slate-800/50 hover:bg-slate-700/50 transition-colors shrink-0"
+            className="p-1.5 rounded-md transition-colors shrink-0"
+            style={{ background: colors.bg.item }}
           >
             <GeoAlt className="w-4 h-4 text-blue-400" />
           </button>
@@ -42,16 +43,17 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
 
   return (
     <div className={cn('py-3 px-4', className)}>
-      <h1 className="text-lg font-semibold text-white uppercase">
+      <h1 className="text-lg font-semibold text-white">
         {displayName}
       </h1>
       
       {court.address && (
         <button
           onClick={() => openInMaps(court.address)}
-          className="flex items-center gap-1.5 text-xs mt-1 text-slate-400 hover:text-blue-400 transition-colors"
+          className="flex items-center gap-1 text-xs mt-1 hover:text-blue-400 transition-colors"
+          style={{ color: colors.text.subtle }}
         >
-          <GeoAlt className="w-3.5 h-3.5" />
+          <GeoAlt className="w-3 h-3" />
           <span>{court.address}</span>
         </button>
       )}
@@ -59,11 +61,16 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
       <div className="flex flex-wrap items-center gap-1.5 mt-2">
         {court.region_code && (
           <span 
-            className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1.5 uppercase bg-slate-800/50 border border-slate-700/50 text-slate-400"
-            style={inlineStyles.letterSpacing.wider}
+            className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase"
+            style={{ 
+              background: 'rgba(255,255,255,0.05)', 
+              border: `1px solid ${colors.border.primary}`,
+              color: colors.text.muted,
+              letterSpacing: '2px'
+            }}
           >
             <span>{court.region_code}</span>
-            <span className="text-slate-600">|</span>
+            <span style={{ color: colors.text.disabled }}>|</span>
             <span>{court.region_name}</span>
           </span>
         )}
