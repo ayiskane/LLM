@@ -91,6 +91,10 @@ export interface TeamsLink {
   source_updated_at?: string | null;
 }
 
+// BailTeam is just a TeamsLink that has bail_court_id set
+// Kept as alias for semantic clarity in code
+export type BailTeam = TeamsLink;
+
 // ============================================================================
 // BAIL
 // ============================================================================
@@ -121,18 +125,6 @@ export interface BailContact {
   availability_id: number | null;
   role_name?: string;
   availability_name?: string;
-}
-
-// BailTeam - for bail_teams table (links to MS Teams)
-export interface BailTeam {
-  id: number;
-  name: string | null;
-  bail_court_id: number;
-  teams_link: string | null;
-  conference_id: string | null;
-  phone: string | null;
-  phone_toll_free: string | null;
-  courtroom?: string | null;
 }
 
 // ============================================================================
@@ -184,7 +176,7 @@ export interface CourtDetails {
   cells: ShellCell[];
   teamsLinks: TeamsLink[];
   bailCourt: BailCourt | null;
-  bailTeams: BailTeam[];
+  bailTeams: TeamsLink[];  // Bail teams are TeamsLinks with bail_court_id
   bailContacts: BailContact[];
   programs: Program[];
 }
@@ -256,4 +248,3 @@ export const REGION_NAMES: Record<number, string> = {
   5: 'Northern',
   6: 'Federal',
 };
-

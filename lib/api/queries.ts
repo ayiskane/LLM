@@ -6,7 +6,6 @@ import type {
   ShellCell,
   TeamsLink,
   BailCourt,
-  BailTeam,
   BailContact,
   Program,
   CourtDetails,
@@ -125,6 +124,18 @@ export async function fetchTeamsLinksByCourtId(courtId: number): Promise<TeamsLi
   return data || [];
 }
 
+// Fetch bail teams - these are teams_links with bail_court_id set
+export async function fetchBailTeamsLinksByBailCourtId(bailCourtId: number): Promise<TeamsLink[]> {
+  const { data, error } = await supabase
+    .from('teams_links')
+    .select('*')
+    .eq('bail_court_id', bailCourtId)
+    .order('name');
+
+  if (error) throw error;
+  return data || [];
+}
+
 // =============================================================================
 // BAIL
 // =============================================================================
@@ -150,23 +161,12 @@ export async function fetchBailCourtById(id: number): Promise<BailCourt | null> 
   return data;
 }
 
-export async function fetchBailTeamsByBailCourtId(bailCourtId: number): Promise<BailTeam[]> {
-  const { data, error } = await supabase
-    .from('bail_teams')
-    .select('*')
-    .eq('bail_court_id', bailCourtId)
-    .order('name');
-
-  if (error) throw error;
-  return data || [];
-}
-
 export async function fetchBailContactsByRegionId(regionId: number): Promise<BailContact[]> {
   const { data, error } = await supabase
     .from('bail_contacts')
     .select('*')
     .eq('region_id', regionId)
-    .order('role');
+    .order('role_id');
 
   if (error) throw error;
   return data || [];
@@ -212,14 +212,14 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   ]);
 
   let bailCourt: BailCourt | null = null;
-  let bailTeams: BailTeam[] = [];
+  let bailTeams: TeamsLink[] = [];
   let bailContacts: BailContact[] = [];
   let programs: Program[] = [];
 
   if (court.bail_hub_id) {
     bailCourt = await fetchBailCourtById(court.bail_hub_id);
     if (bailCourt) {
-      bailTeams = await fetchBailTeamsByBailCourtId(bailCourt.id);
+      bailTeams = await fetchBailTeamsLinksByBailCourtId(bailCourt.id);
     }
   }
 
