@@ -36,7 +36,7 @@ function formatCourtroomName(link: TeamsLink): string {
 }
 
 // Check if this is a VB Triage link (should be filtered from regular Teams list)
-function isVBTriageLink(link: TeamsLink): boolean {
+export function isVBTriageLink(link: TeamsLink): boolean {
   const name = (link.courtroom || link.name || '').toLowerCase();
   return name.includes('vb triage') || name.includes('vbtriage') || name.includes('triage');
 }
