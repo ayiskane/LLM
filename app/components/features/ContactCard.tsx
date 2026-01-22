@@ -5,7 +5,7 @@ import { Clipboard, ClipboardCheck, Telephone, Envelope, ChevronDown, ChevronUp 
 import { Card } from '@/app/components/ui/Card';
 import { cn, textClasses, iconClasses, inlineStyles } from '@/lib/config/theme';
 import { formatPhone, formatEmailsForCopy, makeCall, sendEmail } from '@/lib/utils';
-import { ROLE_DISPLAY_NAMES, COURT_CONTACT_ROLES, CROWN_CONTACT_ROLES } from '@/lib/config/constants';
+import { ROLE_DISPLAY_NAMES, COURT_CONTACT_ROLE_IDS, CROWN_CONTACT_ROLE_IDS } from '@/lib/config/constants';
 import type { ContactWithRole } from '@/types';
 
 interface ContactCardProps {
@@ -16,7 +16,7 @@ interface ContactCardProps {
 
 export function ContactCard({ contact, onCopy, isCopied }: ContactCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const roleDisplayName = ROLE_DISPLAY_NAMES[contact.role_id] || contact.role?.name || 'Contact';
+  const roleDisplayName = ROLE_DISPLAY_NAMES[contact.contact_role_id] || contact.contact_role?.name || 'Contact';
   
   // Get all emails
   const emails = contact.emails?.length ? contact.emails : (contact.email ? [contact.email] : []);
@@ -111,14 +111,14 @@ interface ContactStackProps {
 }
 
 export function ContactStack({ contacts, category, onCopy, isCopied }: ContactStackProps) {
-  const roleOrder = category === 'court' ? COURT_CONTACT_ROLES : CROWN_CONTACT_ROLES;
+  const roleIds = category === 'court' ? COURT_CONTACT_ROLE_IDS : CROWN_CONTACT_ROLE_IDS;
   
   // Filter and sort contacts by role order
   const filteredContacts = contacts
-    .filter(c => roleOrder.includes(c.role_id as typeof roleOrder[number]))
+    .filter(c => roleIds.includes(c.contact_role_id))
     .sort((a, b) => {
-      const aIndex = roleOrder.indexOf(a.role_id as typeof roleOrder[number]);
-      const bIndex = roleOrder.indexOf(b.role_id as typeof roleOrder[number]);
+      const aIndex = roleIds.indexOf(a.contact_role_id);
+      const bIndex = roleIds.indexOf(b.contact_role_id);
       return aIndex - bIndex;
     });
 
