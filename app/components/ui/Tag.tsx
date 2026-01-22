@@ -1,9 +1,9 @@
 'use client';
 
-import { cn, tagColors, getTagClasses } from '@/lib/config/theme';
-import type { TagColor } from '@/lib/config/theme';
+import { cn, sectionColors, getTagStyles } from '@/lib/config/theme';
+import type { SectionColor } from '@/lib/config/theme';
 
-export type { TagColor };
+export type TagColor = SectionColor;
 
 interface TagProps {
   children: React.ReactNode;
@@ -13,8 +13,19 @@ interface TagProps {
 }
 
 export function Tag({ children, color, size = 'sm', className }: TagProps) {
+  const sizeClasses = size === 'sm' 
+    ? 'px-2 py-1.5 text-[9px]' 
+    : 'px-2.5 py-1.5 text-[10px]';
+  
   return (
-    <span className={cn(getTagClasses(color, size), className)}>
+    <span 
+      className={cn(
+        sizeClasses,
+        'rounded font-mono inline-flex items-center justify-center leading-none',
+        className
+      )}
+      style={getTagStyles(color)}
+    >
       {children}
     </span>
   );

@@ -21,6 +21,7 @@ export const colors = {
     cyan: '#22d3ee',
     rose: '#fb7185',
     teal: '#2dd4bf',
+    indigo: '#a5b4fc',
     zinc: '#71717a',
   },
   // Border colors
@@ -46,6 +47,55 @@ export const colors = {
 } as const;
 
 // ============================================================================
+// SECTION COLORS - For Tags and Section components (matches backup)
+// ============================================================================
+
+export const sectionColors = {
+  emerald: {
+    dot: '#34d399',
+    bg: 'rgba(16,185,129,0.15)',
+    text: '#34d399',
+  },
+  blue: {
+    dot: '#60a5fa',
+    bg: 'rgba(59,130,246,0.15)',
+    text: '#60a5fa',
+  },
+  amber: {
+    dot: '#fbbf24',
+    bg: 'rgba(245,158,11,0.15)',
+    text: '#fbbf24',
+  },
+  cyan: {
+    dot: '#22d3ee',
+    bg: 'rgba(34,211,238,0.15)',
+    text: '#22d3ee',
+  },
+  indigo: {
+    dot: '#a5b4fc',
+    bg: 'rgba(99,102,241,0.15)',
+    text: '#a5b4fc',
+  },
+  purple: {
+    dot: '#a78bfa',
+    bg: 'rgba(139,92,246,0.15)',
+    text: '#a78bfa',
+  },
+  teal: {
+    dot: '#2dd4bf',
+    bg: 'rgba(20,184,166,0.15)',
+    text: '#2dd4bf',
+  },
+  rose: {
+    dot: '#fb7185',
+    bg: 'rgba(244,63,94,0.15)',
+    text: '#fb7185',
+  },
+} as const;
+
+export type SectionColor = keyof typeof sectionColors;
+
+// ============================================================================
 // CONTACT CATEGORY COLORS - For accent bars on contact cards
 // ============================================================================
 
@@ -58,23 +108,6 @@ export const contactCategoryColors: Record<ContactCategory, string> = {
   bail: colors.accent.amber,
   other: colors.accent.zinc,
 } as const;
-
-// ============================================================================
-// TAG COLORS - For Tag component
-// ============================================================================
-
-export const tagColors = {
-  emerald: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-  purple: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
-  amber: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-  blue: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-  indigo: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
-  cyan: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-  rose: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-  teal: 'bg-teal-500/15 text-teal-400 border-teal-500/30',
-} as const;
-
-export type TagColor = keyof typeof tagColors;
 
 // ============================================================================
 // TEXT CLASSES - Typography tokens
@@ -173,6 +206,11 @@ export const accordionColors = {
     dot: 'bg-teal-400',
     hover: 'hover:bg-teal-500/10',
   },
+  indigo: {
+    border: 'border-indigo-500/50',
+    dot: 'bg-indigo-400',
+    hover: 'hover:bg-indigo-500/10',
+  },
 } as const;
 
 export type AccordionColor = keyof typeof accordionColors;
@@ -221,13 +259,15 @@ export function getScheduleLabelClass(isAmber = false) {
 }
 
 /**
- * Get tag classes for a given color
+ * Get tag styles for a given color (inline styles, no border - matches backup)
  */
-export function getTagClasses(color: TagColor, size: 'sm' | 'md' = 'sm') {
-  const sizeClasses = size === 'sm' 
-    ? 'px-2 py-1.5 text-[9px] tracking-widest' 
-    : 'px-2.5 py-1.5 text-[10px] tracking-wide';
-  return `inline-flex items-center justify-center rounded font-mono uppercase leading-none border ${tagColors[color]} ${sizeClasses}`;
+export function getTagStyles(color: SectionColor) {
+  const colorConfig = sectionColors[color];
+  return {
+    background: colorConfig.bg,
+    color: colorConfig.text,
+    letterSpacing: '2px',
+  };
 }
 
 /**
