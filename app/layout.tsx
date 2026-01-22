@@ -5,13 +5,13 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'BC Legal Reference',
+  title: 'LLM: Legal Legends Manual',
   description: 'Search BC courts, contacts, and cells',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'BC Legal',
+    title: 'Legal Legends',
   },
 };
 
