@@ -219,7 +219,7 @@ export default function Home() {
   const detailNavButtons = [
     { key: 'contacts', label: 'Contacts', icon: <EnvelopeAt className="w-4 h-4" />, count: detailContacts.length, show: !detailCourt?.is_circuit && detailContacts.length > 0 },
     { key: 'cells', label: 'Cells', icon: <ShieldCheck className="w-4 h-4" />, count: detailCells.length, show: detailCells.length > 0 },
-    { key: 'bail', label: 'Bail', icon: <Bank2 className="w-4 h-4" />, count: detailBailCourt ? 1 : 0, show: !!detailBailCourt },
+    { key: 'bail', label: 'Bail', icon: <Bank2 className="w-4 h-4" />, count: '', show: !!detailBailCourt },
     { key: 'teams', label: 'Teams', icon: <CameraVideo className="w-4 h-4" />, count: detailTeams.length, show: detailTeams.length > 0 },
   ];
 
@@ -514,7 +514,7 @@ export default function Home() {
                   <PillButton key={btn.key} isActive={expandedSection === btn.key} onClick={() => navigateToSection(btn.key as AccordionSection)}>
                     {btn.icon}
                     <span>{btn.label}</span>
-                    <span style={{ color: expandedSection === btn.key ? 'rgba(255,255,255,0.7)' : theme.colors.text.disabled }}>{btn.count}</span>
+                    {btn.count !== '' && <span style={{ color: expandedSection === btn.key ? 'rgba(255,255,255,0.7)' : theme.colors.text.disabled }}>{btn.count}</span>}
                   </PillButton>
                 ))}
               </div>
@@ -566,27 +566,57 @@ export default function Home() {
                     ref={bailRef}
                     color="teal"
                     title="Virtual Bail"
-                    count={detailBailCourt.name}
+                    count=""
                     isExpanded={expandedSection === 'bail'}
                     onToggle={() => toggleSection('bail')}
                   >
                     <div className="p-3 space-y-3">
+                      {/* Bail Hub Name */}
+                      <div className="text-sm font-semibold text-white">
+                        {detailBailCourt.name} Bail Hub
+                      </div>
+
+                      {/* Triage Times */}
                       {(detailBailCourt.triage_time_am || detailBailCourt.triage_time_pm) && (
-                        <div className="grid grid-cols-2 gap-2">
-                          {detailBailCourt.triage_time_am && (
-                            <div className="p-2.5 rounded-lg" style={{ background: theme.colors.bg.item }}>
-                              <div className="text-[9px] mb-1 font-mono uppercase" style={{ color: theme.colors.text.subtle }}>AM Triage</div>
-                              <div className="text-sm" style={{ color: theme.colors.text.secondary }}>{detailBailCourt.triage_time_am}</div>
-                            </div>
-                          )}
-                          {detailBailCourt.triage_time_pm && (
-                            <div className="p-2.5 rounded-lg" style={{ background: theme.colors.bg.item }}>
-                              <div className="text-[9px] mb-1 font-mono uppercase" style={{ color: theme.colors.text.subtle }}>PM Triage</div>
-                              <div className="text-sm" style={{ color: theme.colors.text.secondary }}>{detailBailCourt.triage_time_pm}</div>
-                            </div>
-                          )}
+                        <div className="space-y-1.5">
+                          <h4 className="text-[9px] font-medium text-slate-400 uppercase tracking-wide">Triage Times</h4>
+                          <div className="space-y-1.5">
+                            {detailBailCourt.triage_time_am && (
+                              <div 
+                                className="flex items-center rounded-lg overflow-hidden"
+                                style={{ background: theme.colors.bg.item, border: `1px solid ${theme.colors.border.subtle}` }}
+                              >
+                                <div 
+                                  className="px-3 py-2 text-xs font-medium uppercase"
+                                  style={{ background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', borderRight: `1px solid ${theme.colors.border.subtle}` }}
+                                >
+                                  AM
+                                </div>
+                                <div className="px-3 py-2 text-sm" style={{ color: theme.colors.text.secondary }}>
+                                  {detailBailCourt.triage_time_am}
+                                </div>
+                              </div>
+                            )}
+                            {detailBailCourt.triage_time_pm && (
+                              <div 
+                                className="flex items-center rounded-lg overflow-hidden"
+                                style={{ background: theme.colors.bg.item, border: `1px solid ${theme.colors.border.subtle}` }}
+                              >
+                                <div 
+                                  className="px-3 py-2 text-xs font-medium uppercase"
+                                  style={{ background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', borderRight: `1px solid ${theme.colors.border.subtle}` }}
+                                >
+                                  PM
+                                </div>
+                                <div className="px-3 py-2 text-sm" style={{ color: theme.colors.text.secondary }}>
+                                  {detailBailCourt.triage_time_pm}
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       )}
+
                       {/* Combine bail teams + VB Triage links from court teams (deduplicated) */}
                       {(() => {
                         const vbTriageLinks = detailTeams.filter(isVBTriageLink);
