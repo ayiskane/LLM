@@ -1,10 +1,45 @@
 'use client';
 
 import { useState } from 'react';
-import { CameraVideo, Telephone, Clipboard, Check, ChevronRight, BoxArrowUpRight } from 'react-bootstrap-icons';
+import { MicrosoftTeams, Telephone, Clipboard, Check, ChevronRight, BoxArrowUpRight } from 'react-bootstrap-icons';
 import { Button } from '@/components/ui/button';
 import copy from 'copy-to-clipboard';
 import type { TeamsLink } from '@/types';
+
+// Format courtroom name with CR prefix (but not for JCM FXD)
+function formatCourtroomName(link: TeamsLink): string {
+  const name = link.courtroom || link.name || 'MS Teams';
+  
+  // Don't modify JCM FXD
+  if (name.toLowerCase().includes('jcm') || name.toLowerCase().includes('fxd')) {
+    return name;
+  }
+  
+  // Check if it's already prefixed with CR
+  if (name.toLowerCase().startsWith('cr ') || name.toLowerCase().startsWith('cr-')) {
+    return name;
+  }
+  
+  // Check if it's a number or starts with a number (courtroom number)
+  const numMatch = name.match(/^(\d+)/);
+  if (numMatch) {
+    return `CR ${name}`;
+  }
+  
+  // Check for patterns like "Courtroom 101" and convert to "CR 101"
+  const courtroomMatch = name.match(/^courtroom\s*(\d+)/i);
+  if (courtroomMatch) {
+    return `CR ${courtroomMatch[1]}`;
+  }
+  
+  return name;
+}
+
+// Check if this is a VB Triage link (should be filtered from regular Teams list)
+function isVBTriageLink(link: TeamsLink): boolean {
+  const name = (link.courtroom || link.name || '').toLowerCase();
+  return name.includes('vb triage') || name.includes('vbtriage') || name.includes('triage');
+}
 
 interface TeamsCardProps {
   link: TeamsLink;
@@ -33,13 +68,13 @@ export function TeamsCard({ link, onCopyAll }: TeamsCardProps) {
     }
   };
 
-  const displayName = link.courtroom || link.name || 'MS Teams';
+  const displayName = formatCourtroomName(link);
 
   return (
     <div className="py-2.5 px-3 rounded-lg bg-slate-800/30">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <CameraVideo className="w-4 h-4 text-slate-400 flex-shrink-0" />
+          <MicrosoftTeams className="w-4 h-4 text-slate-400 flex-shrink-0" />
           <span className="text-sm font-medium text-slate-200 truncate">{displayName}</span>
         </div>
         
@@ -50,7 +85,7 @@ export function TeamsCard({ link, onCopyAll }: TeamsCardProps) {
             className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 h-7"
             onClick={handleJoin}
           >
-            <BoxArrowUpRight className="w-3 h-3 mr-1" />
+            <MicrosoftTeams className="w-3 h-3 mr-1" />
             Join
           </Button>
         )}
@@ -110,7 +145,7 @@ export function TeamsLinkCountCard({ count, onClick }: TeamsLinkCountCardProps) 
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <CameraVideo className="w-4 h-4 text-indigo-400" />
+          <MicrosoftTeams className="w-4 h-4 text-indigo-400" />
           <span className="text-sm font-medium text-slate-200">
             {count} MS Teams Link{count !== 1 ? 's' : ''}
           </span>
@@ -125,18 +160,23 @@ export function TeamsLinkCountCard({ count, onClick }: TeamsLinkCountCardProps) 
 interface TeamsListProps {
   links: TeamsLink[];
   onCopyAll?: () => void;
+  filterVBTriage?: boolean;
 }
 
-export function TeamsList({ links, onCopyAll }: TeamsListProps) {
-  if (links.length === 0) return null;
+export function TeamsList({ links, onCopyAll, filterVBTriage = true }: TeamsListProps) {
+  // Filter out VB Triage links by default (they're shown in Virtual Bail section)
+  const filteredLinks = filterVBTriage ? links.filter(link => !isVBTriageLink(link)) : links;
+  
+  if (filteredLinks.length === 0) return null;
 
   return (
     <div className="space-y-1.5">
       <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wide px-1">MS Teams</h4>
-      {links.map((link) => (
+      {filteredLinks.map((link) => (
         <TeamsCard key={link.id} link={link} onCopyAll={onCopyAll} />
       ))}
     </div>
   );
 }
+
 
