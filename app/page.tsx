@@ -220,7 +220,7 @@ export default function Home() {
                 >
                   <Bank2 className="w-7 h-7 text-blue-400" />
                 </div>
-                <h1 className="text-2xl font-bold text-white mb-2">BC Legal Reference</h1>
+                <h1 className="text-2xl font-bold text-white mb-2">LLM: Legal Legends Manual</h1>
                 <p className="text-sm" style={{ color: theme.colors.text.subtle }}>Search courts, contacts, and cells</p>
               </div>
               
