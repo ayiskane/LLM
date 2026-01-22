@@ -92,7 +92,7 @@ export function BailHubLink({ court, onClick }: BailHubLinkProps) {
 // Full bail section content
 interface BailSectionContentProps {
   bailCourt: BailCourt;
-  currentCourtId: string;
+  currentCourtId: number;
   hubCourt?: Court | null;
   bailTeams: BailTeam[];
   courtTeams: TeamsLink[];
@@ -119,7 +119,7 @@ export function BailSectionContent({
     const vbTriageFromCourt = courtTeams.filter(t => isVBTriageLink(t.name));
     const combined = [...bailTeams, ...vbTriageFromCourt];
     // Deduplicate by ID
-    const seen = new Set<string>();
+    const seen = new Set<number>();
     return combined.filter(t => {
       if (seen.has(t.id)) return false;
       seen.add(t.id);
