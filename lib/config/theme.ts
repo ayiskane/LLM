@@ -219,6 +219,9 @@ export const textClasses = {
   mono: 'font-mono',
   monoSm: 'text-xs font-mono',
   monoValue: 'text-slate-400 text-xs font-mono',
+  
+  // Interactive
+  link: 'text-blue-400 hover:text-blue-300 cursor-pointer transition-colors',
 } as const;
 
 // Icon sizes
@@ -244,6 +247,7 @@ export const buttonClasses = {
 // Common inline styles
 export const inlineStyles = {
   sectionHeader: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' },
+  roleLabel: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' },  // Default with letter-spacing
   roleLabelSpaced: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' },
   roleLabelNormal: { fontFamily: 'Inter, sans-serif' },
   scheduleLabel: { letterSpacing: '1px' },
@@ -451,4 +455,5 @@ export const breakpoints = {
 // Type exports
 export type ThemeColors = typeof theme.colors;
 export type CategoryColor = keyof typeof theme.colors.category;
+
 
