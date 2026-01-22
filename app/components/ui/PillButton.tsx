@@ -2,6 +2,20 @@
 
 import { cn } from '@/lib/utils';
 
+// Pill colors from backup theme
+const pillStyles = {
+  active: {
+    background: 'rgba(59,130,246,0.25)',
+    border: '1px solid rgba(59,130,246,0.4)',
+    color: '#93c5fd',
+  },
+  inactive: {
+    background: 'rgba(59,130,246,0.04)',
+    border: '1px solid rgba(59,130,246,0.15)',
+    color: '#a1a1aa',
+  },
+} as const;
+
 interface PillButtonProps {
   children: React.ReactNode;
   isActive?: boolean;
@@ -14,12 +28,10 @@ export function PillButton({ children, isActive = false, onClick, className }: P
     <button
       onClick={onClick}
       className={cn(
-        'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all border',
-        isActive
-          ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
-          : 'bg-slate-800/50 border-slate-700/50 text-slate-400 hover:bg-slate-800 hover:border-slate-600/50',
+        'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors',
         className
       )}
+      style={isActive ? pillStyles.active : pillStyles.inactive}
     >
       {children}
     </button>

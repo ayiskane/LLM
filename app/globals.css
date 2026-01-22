@@ -1,43 +1,43 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   TAILWIND V4 THEME - CYBER OCEAN
+   TAILWIND V4 THEME - CYBER OCEAN (matching backup branch)
    ============================================================================ */
 
 @theme {
   /* Border radius */
-  --radius-lg: 0.5rem;
-  --radius-md: calc(0.5rem - 2px);
-  --radius-sm: calc(0.5rem - 4px);
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
 
-  /* Colors - using CSS color-mix for HSL */
-  --color-background: oklch(0.13 0.02 250);
-  --color-foreground: oklch(0.98 0.01 250);
+  /* Colors - matching backup HSL values */
+  --color-background: hsl(222.2 84% 4.9%);
+  --color-foreground: hsl(210 40% 98%);
   
-  --color-card: oklch(0.15 0.02 250);
-  --color-card-foreground: oklch(0.98 0.01 250);
+  --color-card: hsl(222.2 84% 4.9%);
+  --color-card-foreground: hsl(210 40% 98%);
   
-  --color-popover: oklch(0.15 0.02 250);
-  --color-popover-foreground: oklch(0.98 0.01 250);
+  --color-popover: hsl(222.2 84% 4.9%);
+  --color-popover-foreground: hsl(210 40% 98%);
   
-  --color-primary: oklch(0.65 0.2 250);
-  --color-primary-foreground: oklch(0.2 0.02 250);
+  --color-primary: hsl(217.2 91.2% 59.8%);
+  --color-primary-foreground: hsl(222.2 47.4% 11.2%);
   
-  --color-secondary: oklch(0.25 0.03 250);
-  --color-secondary-foreground: oklch(0.98 0.01 250);
+  --color-secondary: hsl(217.2 32.6% 17.5%);
+  --color-secondary-foreground: hsl(210 40% 98%);
   
-  --color-muted: oklch(0.25 0.03 250);
-  --color-muted-foreground: oklch(0.7 0.02 250);
+  --color-muted: hsl(217.2 32.6% 17.5%);
+  --color-muted-foreground: hsl(215 20.2% 65.1%);
   
-  --color-accent: oklch(0.25 0.03 250);
-  --color-accent-foreground: oklch(0.98 0.01 250);
+  --color-accent: hsl(217.2 32.6% 17.5%);
+  --color-accent-foreground: hsl(210 40% 98%);
   
-  --color-destructive: oklch(0.45 0.2 25);
-  --color-destructive-foreground: oklch(0.98 0.01 250);
+  --color-destructive: hsl(0 62.8% 30.6%);
+  --color-destructive-foreground: hsl(210 40% 98%);
   
-  --color-border: oklch(0.25 0.03 250);
-  --color-input: oklch(0.25 0.03 250);
-  --color-ring: oklch(0.55 0.2 250);
+  --color-border: hsl(217.2 32.6% 17.5%);
+  --color-input: hsl(217.2 32.6% 17.5%);
+  --color-ring: hsl(224.3 76.3% 48%);
 
   /* Animations */
   --animate-fade-in: fade-in 0.2s ease-out;
@@ -81,35 +81,34 @@
   background-size: 40px 40px;
   opacity: 0.2;
   pointer-events: none;
-  z-index: -1;
 }
 
-.orb-1 {
+.cyber-orb-1 {
   position: fixed;
   top: -150px;
   right: -100px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(6, 182, 212, 0.12) 40%, transparent 70%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(6,182,212,0.12) 40%, transparent 70%);
   filter: blur(100px);
   pointer-events: none;
-  z-index: -1;
 }
 
-.orb-2 {
+.cyber-orb-2 {
   position: fixed;
   bottom: -150px;
   left: -100px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 60%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 60%);
   filter: blur(100px);
   pointer-events: none;
-  z-index: -1;
 }
 
 /* ============================================================================
-   SCROLLBAR STYLING
+   SCROLLBAR
    ============================================================================ */
 
 ::-webkit-scrollbar {
@@ -122,85 +121,33 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.3);
+  background: #334155;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.5);
+  background: #475569;
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
-}
-
-/* ============================================================================
-   FOCUS & SELECTION
-   ============================================================================ */
-
-::selection {
-  background: rgba(59, 130, 246, 0.3);
-  color: white;
-}
-
-/* ============================================================================
-   GRADIENT UTILITIES
-   ============================================================================ */
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ============================================================================
-   SAFE AREA (for mobile notches)
-   ============================================================================ */
-
-.safe-area-top {
-  padding-top: env(safe-area-inset-top);
-}
-
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* ============================================================================
-   LOADING SKELETON
-   ============================================================================ */
-
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(59, 130, 246, 0.1) 0%,
-    rgba(59, 130, 246, 0.2) 50%,
-    rgba(59, 130, 246, 0.1) 100%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s ease-in-out infinite;
-  border-radius: 4px;
-}
-
-@keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* ============================================================================
-   PRINT STYLES
-   ============================================================================ */
-
-@media print {
-  .cyber-grid,
-  .orb-1,
-  .orb-2 {
+@media (hover: none) {
+  ::-webkit-scrollbar {
     display: none;
   }
-  
-  body {
-    background: white;
-    color: black;
-  }
+}
+
+/* ============================================================================
+   SAFE AREAS & UTILITIES
+   ============================================================================ */
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
 }

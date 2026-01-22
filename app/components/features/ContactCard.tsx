@@ -8,7 +8,7 @@ import {
   iconClasses, 
   cardClasses,
   couponCardStyles,
-  inlineStyles,
+  getRoleLabelProps,
   getContactCategoryColor,
   getToggleButtonStyles,
   getSectionHeaderProps,
@@ -50,6 +50,7 @@ function ContactItem({
 }: ContactItemProps) {
   const copyText = emails.join(', ');
   const isFieldCopied = isCopied ? isCopied(fieldId) : false;
+  const roleLabelProps = getRoleLabelProps();
 
   const handleCopy = useCallback(() => {
     if (copyText && onCopy) {
@@ -72,8 +73,8 @@ function ContactItem({
       {/* Content */}
       <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
         <div 
-          className={textClasses.roleLabel}
-          style={inlineStyles.letterSpacing.wide}
+          className={roleLabelProps.className}
+          style={roleLabelProps.style}
         >
           {label}
         </div>
@@ -109,9 +110,9 @@ function ContactItem({
         }}
       >
         {isFieldCopied ? (
-          <ClipboardCheck className={cn(iconClasses.sm, 'text-emerald-400')} />
+          <ClipboardCheck className={cn(iconClasses.md, 'text-emerald-400')} />
         ) : (
-          <Clipboard className={iconClasses.sm} />
+          <Clipboard className={iconClasses.md} />
         )}
       </div>
     </div>
@@ -159,7 +160,7 @@ function SectionHeader({
 }
 
 // ============================================================================
-// COURT CONTACTS STACK (Registry, JCM, SC Scheduling, etc.)
+// COURT CONTACTS STACK
 // ============================================================================
 
 interface CourtContactsStackProps {
@@ -171,7 +172,6 @@ interface CourtContactsStackProps {
 export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContactsStackProps) {
   const [showFull, setShowFull] = useState(false);
 
-  // Define contact order and categories
   const contactConfig: { roleId: number; category: ContactCategory; label: string }[] = [
     { roleId: CONTACT_ROLES.CRIMINAL_REGISTRY, category: 'court', label: 'Criminal Registry' },
     { roleId: CONTACT_ROLES.COURT_REGISTRY, category: 'court', label: 'Court Registry' },
@@ -181,11 +181,9 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
     { roleId: CONTACT_ROLES.INTERPRETER, category: 'other', label: 'Interpreter Request' },
   ];
 
-  // Build ordered contact list
   const orderedContacts = useMemo(() => {
     const result: { label: string; emails: string[]; category: ContactCategory; id: number }[] = [];
     
-    // Track criminal registry to skip duplicate court registry
     let criminalRegistryEmails: string[] = [];
     const criminalRegistry = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CRIMINAL_REGISTRY);
     if (criminalRegistry) {
@@ -200,7 +198,6 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
           : (contact.email ? [contact.email] : []);
         
         if (contactEmails.length > 0) {
-          // Skip court registry if same as criminal registry
           if (config.roleId === CONTACT_ROLES.COURT_REGISTRY && 
               criminalRegistryEmails.length > 0 && 
               contactEmails[0] === criminalRegistryEmails[0]) {
@@ -219,7 +216,6 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
     return result;
   }, [contacts]);
 
-  // Check if any contact has truncated emails
   const hasTruncation = orderedContacts.some(c => c.emails.join(', ').length > 40);
 
   if (orderedContacts.length === 0) return null;
@@ -251,7 +247,7 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
 }
 
 // ============================================================================
-// CROWN CONTACTS STACK (Provincial, Bail, Federal Crown)
+// CROWN CONTACTS STACK
 // ============================================================================
 
 interface CrownContactsStackProps {
@@ -264,75 +260,49 @@ interface CrownContactsStackProps {
 export function CrownContactsStack({ contacts, bailContacts, onCopy, isCopied }: CrownContactsStackProps) {
   const [showFull, setShowFull] = useState(false);
 
-  // Build crown contacts list
   const crownContacts = useMemo(() => {
     const result: { label: string; emails: string[]; category: ContactCategory; id: string }[] = [];
 
-    // Provincial Crown
     const provCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CROWN);
     if (provCrown) {
       const emails = provCrown.emails && provCrown.emails.length > 0 
         ? provCrown.emails 
         : (provCrown.email ? [provCrown.email] : []);
       if (emails.length > 0) {
-        result.push({
-          label: 'Provincial Crown',
-          emails,
-          category: 'provincial',
-          id: `prov-crown-${provCrown.id}`,
-        });
+        result.push({ label: 'Provincial Crown', emails, category: 'provincial', id: `prov-crown-${provCrown.id}` });
       }
     }
 
-    // Bail Crown (from bail contacts)
     if (bailContacts) {
       const bailCrown = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.CROWN);
       if (bailCrown?.email) {
-        result.push({
-          label: 'Bail Crown',
-          emails: [bailCrown.email],
-          category: 'bail',
-          id: `bail-crown-${bailCrown.id}`,
-        });
+        result.push({ label: 'Bail Crown', emails: [bailCrown.email], category: 'bail', id: `bail-crown-${bailCrown.id}` });
       }
     }
 
-    // Federal Crown
     const fedCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.FEDERAL_CROWN);
     if (fedCrown) {
       const emails = fedCrown.emails && fedCrown.emails.length > 0 
         ? fedCrown.emails 
         : (fedCrown.email ? [fedCrown.email] : []);
       if (emails.length > 0) {
-        result.push({
-          label: 'Federal Crown',
-          emails,
-          category: 'other',
-          id: `fed-crown-${fedCrown.id}`,
-        });
+        result.push({ label: 'Federal Crown', emails, category: 'other', id: `fed-crown-${fedCrown.id}` });
       }
     }
 
-    // First Nations Crown
     const fnCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.FIRST_NATIONS_CROWN);
     if (fnCrown) {
       const emails = fnCrown.emails && fnCrown.emails.length > 0 
         ? fnCrown.emails 
         : (fnCrown.email ? [fnCrown.email] : []);
       if (emails.length > 0) {
-        result.push({
-          label: 'First Nations Crown',
-          emails,
-          category: 'other',
-          id: `fn-crown-${fnCrown.id}`,
-        });
+        result.push({ label: 'First Nations Crown', emails, category: 'other', id: `fn-crown-${fnCrown.id}` });
       }
     }
 
     return result;
   }, [contacts, bailContacts]);
 
-  // Check if any contact has truncated emails
   const hasTruncation = crownContacts.some(c => c.emails.join(', ').length > 40);
 
   if (crownContacts.length === 0) return null;
@@ -362,9 +332,5 @@ export function CrownContactsStack({ contacts, bailContacts, onCopy, isCopied }:
     </div>
   );
 }
-
-// ============================================================================
-// LEGACY EXPORTS (for backward compatibility)
-// ============================================================================
 
 export { ContactItem as ContactCard };
