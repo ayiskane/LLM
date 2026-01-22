@@ -7,50 +7,62 @@ export const APP_NAME = 'LLM: Legal Legends Manual';
 export const APP_DESCRIPTION = 'Quick reference for BC lawyers - courts, contacts, cells, and bail information';
 export const APP_VERSION = '2.0.0';
 
-// Contact role IDs (match your Supabase contact_roles table)
-export const CONTACT_ROLES = {
-  CRIMINAL_REGISTRY: 'criminal-registry',
-  SC_SCHEDULING: 'sc-scheduling',
-  PROVINCIAL_JCM: 'provincial-jcm',
-  BAIL_JCM: 'bail-jcm',
-  PROVINCIAL_CROWN: 'provincial-crown',
-  FED_CROWN: 'fed-crown',
-  INTERPRETER: 'interpreter',
-  LABC_NAVIGATOR: 'labc-navigator',
+// Contact role IDs (match Supabase contact_roles table)
+export const CONTACT_ROLE_IDS = {
+  CROWN: 1,
+  JCM: 2,
+  SHERIFF_QB: 3,
+  LABC_NAVIGATOR: 5,
+  FEDERAL_CROWN: 6,
+  SC_SCHEDULING: 8,
+  COURT_REGISTRY: 9,
+  CRIMINAL_REGISTRY: 10,
+  INTERPRETER: 11,
+  BAIL_CROWN: 12,
+  BAIL_JCM: 13,
+  TRANSCRIPTS: 14,
+  COORDINATOR_525: 21,
+  FIRST_NATIONS_CROWN: 23,
 } as const;
 
-// Contact categories
-export const CONTACT_CATEGORIES = {
-  COURT: 'court',
-  CROWN: 'crown',
-} as const;
+// Court contact role IDs (in display order)
+export const COURT_CONTACT_ROLE_IDS: number[] = [
+  CONTACT_ROLE_IDS.CRIMINAL_REGISTRY,
+  CONTACT_ROLE_IDS.COURT_REGISTRY,
+  CONTACT_ROLE_IDS.SC_SCHEDULING,
+  CONTACT_ROLE_IDS.JCM,
+  CONTACT_ROLE_IDS.BAIL_JCM,
+  CONTACT_ROLE_IDS.INTERPRETER,
+  CONTACT_ROLE_IDS.TRANSCRIPTS,
+  CONTACT_ROLE_IDS.LABC_NAVIGATOR,
+  CONTACT_ROLE_IDS.SHERIFF_QB,
+  CONTACT_ROLE_IDS.COORDINATOR_525,
+];
 
-// Court contact roles (in display order)
-export const COURT_CONTACT_ROLES = [
-  CONTACT_ROLES.CRIMINAL_REGISTRY,
-  CONTACT_ROLES.SC_SCHEDULING,
-  CONTACT_ROLES.PROVINCIAL_JCM,
-  CONTACT_ROLES.BAIL_JCM,
-  CONTACT_ROLES.INTERPRETER,
-  CONTACT_ROLES.LABC_NAVIGATOR,
-] as const;
+// Crown contact role IDs (in display order)
+export const CROWN_CONTACT_ROLE_IDS: number[] = [
+  CONTACT_ROLE_IDS.CROWN,
+  CONTACT_ROLE_IDS.FEDERAL_CROWN,
+  CONTACT_ROLE_IDS.BAIL_CROWN,
+  CONTACT_ROLE_IDS.FIRST_NATIONS_CROWN,
+];
 
-// Crown contact roles (in display order)
-export const CROWN_CONTACT_ROLES = [
-  CONTACT_ROLES.PROVINCIAL_CROWN,
-  CONTACT_ROLES.FED_CROWN,
-] as const;
-
-// Role display names
-export const ROLE_DISPLAY_NAMES: Record<string, string> = {
-  [CONTACT_ROLES.CRIMINAL_REGISTRY]: 'CRIMINAL REGISTRY',
-  [CONTACT_ROLES.SC_SCHEDULING]: 'SC SCHEDULING',
-  [CONTACT_ROLES.PROVINCIAL_JCM]: 'PROVINCIAL JCM',
-  [CONTACT_ROLES.BAIL_JCM]: 'BAIL JCM',
-  [CONTACT_ROLES.PROVINCIAL_CROWN]: 'PROVINCIAL CROWN',
-  [CONTACT_ROLES.FED_CROWN]: 'FEDERAL CROWN',
-  [CONTACT_ROLES.INTERPRETER]: 'INTERPRETER REQUEST',
-  [CONTACT_ROLES.LABC_NAVIGATOR]: 'LABC NAVIGATOR',
+// Role display names (keyed by numeric ID)
+export const ROLE_DISPLAY_NAMES: Record<number, string> = {
+  [CONTACT_ROLE_IDS.CROWN]: 'PROVINCIAL CROWN',
+  [CONTACT_ROLE_IDS.JCM]: 'JCM',
+  [CONTACT_ROLE_IDS.SHERIFF_QB]: 'SHERIFF QB',
+  [CONTACT_ROLE_IDS.LABC_NAVIGATOR]: 'LABC NAVIGATOR',
+  [CONTACT_ROLE_IDS.FEDERAL_CROWN]: 'FEDERAL CROWN',
+  [CONTACT_ROLE_IDS.SC_SCHEDULING]: 'SC SCHEDULING',
+  [CONTACT_ROLE_IDS.COURT_REGISTRY]: 'COURT REGISTRY',
+  [CONTACT_ROLE_IDS.CRIMINAL_REGISTRY]: 'CRIMINAL REGISTRY',
+  [CONTACT_ROLE_IDS.INTERPRETER]: 'INTERPRETER REQUEST',
+  [CONTACT_ROLE_IDS.BAIL_CROWN]: 'BAIL CROWN',
+  [CONTACT_ROLE_IDS.BAIL_JCM]: 'BAIL JCM',
+  [CONTACT_ROLE_IDS.TRANSCRIPTS]: 'TRANSCRIPTS',
+  [CONTACT_ROLE_IDS.COORDINATOR_525]: '525 COORDINATOR',
+  [CONTACT_ROLE_IDS.FIRST_NATIONS_CROWN]: 'FIRST NATIONS CROWN',
 };
 
 // Location aliases for search
@@ -180,7 +192,7 @@ export const SEARCH_CONFIG = {
   MAX_RESULTS: 50,
   FUSE_OPTIONS: {
     threshold: 0.3,
-    keys: ['name', 'address', 'location'],
+    keys: ['name', 'address', 'search_terms'],
     includeScore: true,
   },
 } as const;
@@ -244,4 +256,18 @@ export function getBailHubTag(bailCourtName: string): string {
   // Fallback: use first word
   const firstWord = bailCourtName.split(' ')[0].toUpperCase().slice(0, 4);
   return `${firstWord} HUB`;
+}
+
+/**
+ * Check if a contact role ID is a court role
+ */
+export function isCourtRole(roleId: number): boolean {
+  return COURT_CONTACT_ROLE_IDS.includes(roleId);
+}
+
+/**
+ * Check if a contact role ID is a crown role
+ */
+export function isCrownRole(roleId: number): boolean {
+  return CROWN_CONTACT_ROLE_IDS.includes(roleId);
 }
