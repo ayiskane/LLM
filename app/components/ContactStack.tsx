@@ -39,8 +39,8 @@ function useTruncationDetection(emails: string[], showFull: boolean) {
 
     emailElements.forEach((el) => {
       const htmlEl = el as HTMLElement;
-      // Add small tolerance (1px) for rounding errors
-      if (htmlEl.scrollWidth > htmlEl.offsetWidth + 1) {
+      // Check if content is wider than visible area (no tolerance - exact check)
+      if (htmlEl.scrollWidth > htmlEl.clientWidth) {
         anyTruncated = true;
       }
     });
@@ -55,17 +55,25 @@ function useTruncationDetection(emails: string[], showFull: boolean) {
       return;
     }
 
-    // Double RAF to ensure fonts and layout are complete
-    let rafId1: number;
-    let rafId2: number;
-    
-    rafId1 = requestAnimationFrame(() => {
-      rafId2 = requestAnimationFrame(() => {
-        checkTruncation();
-      });
-    });
+    // Check after fonts are loaded
+    const checkAfterFonts = async () => {
+      // Wait for fonts to be ready
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+      checkTruncation();
+    };
 
-    // Use ResizeObserver for more reliable resize detection
+    // Initial check with multiple timing strategies
+    checkAfterFonts();
+    
+    // Also check after a short delay (fallback for any timing issues)
+    const timeoutId = setTimeout(checkTruncation, 100);
+    
+    // And after a longer delay for slow font loading
+    const timeoutId2 = setTimeout(checkTruncation, 500);
+
+    // Use ResizeObserver for resize detection
     const resizeObserver = new ResizeObserver(() => {
       checkTruncation();
     });
@@ -75,11 +83,11 @@ function useTruncationDetection(emails: string[], showFull: boolean) {
     }
 
     return () => {
-      cancelAnimationFrame(rafId1);
-      cancelAnimationFrame(rafId2);
+      clearTimeout(timeoutId);
+      clearTimeout(timeoutId2);
       resizeObserver.disconnect();
     };
-  }, [checkTruncation, showFull, emails.join(',')]); // Use joined emails as stable dep
+  }, [checkTruncation, showFull, emails.join(',')]);
 
   return { containerRef, hasTruncation };
 }
@@ -166,7 +174,7 @@ function ContactItem({
       />
       
       {/* Content */}
-      <div className="flex-1 py-2.5 px-3 min-w-0">
+      <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
         <div 
           className="text-[9px] text-slate-400 uppercase tracking-wide mb-1"
           style={{ fontFamily: 'Inter, sans-serif' }}
@@ -176,7 +184,7 @@ function ContactItem({
         <div 
           data-email="true"
           className={`text-[12px] text-slate-200 font-mono leading-relaxed ${
-            showFull ? 'break-all whitespace-normal' : 'truncate'
+            showFull ? 'break-all whitespace-normal' : 'whitespace-nowrap overflow-hidden text-ellipsis'
           }`}
         >
           {email}
