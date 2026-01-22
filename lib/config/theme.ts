@@ -1,7 +1,7 @@
 // ============================================================================
 // LLM: LEGAL LEGENDS MANUAL - THEME CONFIGURATION
 // ============================================================================
-// Centralized theme tokens matching backup branch styling
+// Centralized theme tokens matching backup branch styling exactly
 // ============================================================================
 
 export { cn } from '@/lib/utils';
@@ -34,6 +34,7 @@ export const colors = {
     cardHover: 'rgba(59,130,246,0.06)',
     item: 'rgba(59,130,246,0.04)',
     header: 'rgba(8,11,18,0.95)',
+    subtle: 'rgba(59,130,246,0.02)',
   },
   text: {
     primary: '#ffffff',
@@ -138,7 +139,7 @@ export const couponCardStyles = {
 } as const;
 
 // ============================================================================
-// INLINE STYLES - With Inter font (matches backup)
+// INLINE STYLES - Matches backup exactly
 // ============================================================================
 
 export const inlineStyles = {
@@ -146,6 +147,7 @@ export const inlineStyles = {
   roleLabelSpaced: { fontFamily: 'Inter, sans-serif', letterSpacing: '1px' } as const,
   roleLabelNormal: { fontFamily: 'Inter, sans-serif' } as const,
   scheduleLabel: { letterSpacing: '1px' } as const,
+  regionTag: { letterSpacing: '2px' } as const,
   letterSpacing: {
     wide: { letterSpacing: '1px' } as const,
     wider: { letterSpacing: '2px' } as const,

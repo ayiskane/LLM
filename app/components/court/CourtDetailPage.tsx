@@ -3,14 +3,15 @@
 import { useState, useRef, useCallback } from 'react';
 import { ArrowLeft, EnvelopeAt, ShieldCheck, Bank2, CameraVideo } from 'react-bootstrap-icons';
 import { cn } from '@/lib/utils';
-import { colors } from '@/lib/config/theme';
+import { colors, cardClasses, textClasses, inlineStyles, getSectionHeaderProps } from '@/lib/config/theme';
 import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton, Toast } from '../ui';
 import { CourtHeader } from './CourtHeader';
 import { TeamsList } from '../features/TeamsCard';
 import { CourtContactsStack, CrownContactsStack } from '../features/ContactCard';
-import { CellCard } from '../features/CellCard';
-import { BailSectionContent, getBailHubTag } from '../features/BailCard';
+import { CellList } from '../features/CellCard';
+import { BailSectionContent } from '../features/BailCard';
+import { getBailHubTag } from '@/lib/config/constants';
 import { useCopyToClipboard } from '@/lib/hooks/useCopyToClipboard';
 import type { CourtDetails } from '@/types';
 
@@ -80,12 +81,12 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
     setExpandedSection(prev => prev === section ? null : section);
   }, []);
 
-  // Nav buttons config - count as string to match backup
+  // Nav buttons config
   const navButtons = [
-    { key: 'contacts', label: 'Contacts', icon: <EnvelopeAt className="w-4 h-4" />, count: contacts.length.toString(), show: !court.is_circuit && contacts.length > 0 },
-    { key: 'cells', label: 'Cells', icon: <ShieldCheck className="w-4 h-4" />, count: cells.length.toString(), show: cells.length > 0 },
+    { key: 'contacts', label: 'Contacts', icon: <EnvelopeAt className="w-4 h-4" />, count: contacts.length, show: !court.is_circuit && contacts.length > 0 },
+    { key: 'cells', label: 'Cells', icon: <ShieldCheck className="w-4 h-4" />, count: cells.length, show: cells.length > 0 },
     { key: 'bail', label: 'Bail', icon: <Bank2 className="w-4 h-4" />, count: '', show: !!bailCourt },
-    { key: 'teams', label: 'Teams', icon: <CameraVideo className="w-4 h-4" />, count: teamsLinks.length.toString(), show: teamsLinks.length > 0 },
+    { key: 'teams', label: 'Teams', icon: <CameraVideo className="w-4 h-4" />, count: teamsLinks.length, show: teamsLinks.length > 0 },
   ];
 
   return (
@@ -104,7 +105,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
           <CourtHeader court={court} collapsed={isHeaderCollapsed} />
         </div>
 
-        {/* Quick Nav Pills - count styling matches backup */}
+        {/* Quick Nav Pills */}
         <div className="flex gap-2 px-3 py-2 overflow-x-auto">
           {navButtons.filter(btn => btn.show).map((btn) => (
             <PillButton key={btn.key} isActive={expandedSection === btn.key} onClick={() => navigateToSection(btn.key as AccordionSection)}>
@@ -156,10 +157,8 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
               isExpanded={expandedSection === 'cells'}
               onToggle={() => toggleSection('cells')}
             >
-              <div className="p-3 space-y-2">
-                {cells.map((cell) => (
-                  <CellCard key={cell.id} cell={cell} />
-                ))}
+              <div className="p-3">
+                <CellList cells={cells} />
               </div>
             </Section>
           )}

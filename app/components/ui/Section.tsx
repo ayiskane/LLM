@@ -3,50 +3,7 @@
 import { forwardRef, useState } from 'react';
 import { ChevronDown } from 'react-bootstrap-icons';
 import { cn } from '@/lib/utils';
-
-// Section color configuration
-const sectionColors = {
-  emerald: {
-    dot: 'text-emerald-400',
-    badge: 'bg-emerald-500/15 text-emerald-400',
-    border: 'border-l-emerald-500/50',
-  },
-  blue: {
-    dot: 'text-blue-400',
-    badge: 'bg-blue-500/15 text-blue-400',
-    border: 'border-l-blue-500/50',
-  },
-  amber: {
-    dot: 'text-amber-400',
-    badge: 'bg-amber-500/15 text-amber-400',
-    border: 'border-l-amber-500/50',
-  },
-  purple: {
-    dot: 'text-purple-400',
-    badge: 'bg-purple-500/15 text-purple-400',
-    border: 'border-l-purple-500/50',
-  },
-  indigo: {
-    dot: 'text-indigo-400',
-    badge: 'bg-indigo-500/15 text-indigo-400',
-    border: 'border-l-indigo-500/50',
-  },
-  cyan: {
-    dot: 'text-cyan-400',
-    badge: 'bg-cyan-500/15 text-cyan-400',
-    border: 'border-l-cyan-500/50',
-  },
-  teal: {
-    dot: 'text-teal-400',
-    badge: 'bg-teal-500/15 text-teal-400',
-    border: 'border-l-teal-500/50',
-  },
-  rose: {
-    dot: 'text-rose-400',
-    badge: 'bg-rose-500/15 text-rose-400',
-    border: 'border-l-rose-500/50',
-  },
-} as const;
+import { colors as themeColors, sectionColors } from '@/lib/config/theme';
 
 export type SectionColor = keyof typeof sectionColors;
 
@@ -69,38 +26,53 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
     const isOpen = isExpanded !== undefined ? isExpanded : internalOpen;
     const handleToggle = onToggle ?? (() => setInternalOpen(!internalOpen));
     
-    const colors = sectionColors[color];
+    const colorConfig = sectionColors[color];
 
     return (
       <div
         ref={ref}
-        className={cn(
-          'rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/30',
-          'border-l-2',
-          colors.border,
-          className
-        )}
+        className={cn('rounded-lg overflow-hidden', className)}
+        style={{ 
+          background: themeColors.bg.card, 
+          border: `1px solid ${themeColors.border.primary}` 
+        }}
       >
         {/* Header */}
         <button
           onClick={handleToggle}
-          className={cn(
-            'w-full flex items-center gap-2.5 p-3 transition-colors',
-            'hover:bg-slate-800/50',
-            isOpen && 'bg-slate-800/30'
-          )}
+          className="w-full flex items-center gap-2.5 p-3 transition-colors"
+          style={{ 
+            background: isOpen ? themeColors.bg.cardHover : 'transparent', 
+            borderBottom: `1px solid ${themeColors.border.subtle}` 
+          }}
         >
           {/* Dot indicator */}
-          <span className={cn('text-[8px]', colors.dot)}>●</span>
+          <span className="text-[6px]" style={{ color: colorConfig.dot }}>●</span>
           
           {/* Title */}
-          <span className="flex-1 text-left text-[13px] uppercase tracking-wider text-slate-300 font-medium">
+          <span 
+            className="flex-1 text-left"
+            style={{
+              fontSize: '13px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              color: themeColors.text.secondary,
+              fontWeight: 500,
+            }}
+          >
             {title}
           </span>
           
           {/* Count badge */}
           {count !== undefined && count !== '' && (
-            <span className={cn('px-1.5 py-0.5 rounded text-[10px] font-mono', colors.badge)}>
+            <span 
+              className="px-1.5 py-0.5 rounded text-[10px]"
+              style={{ 
+                fontFamily: 'monospace',
+                background: colorConfig.bg, 
+                color: colorConfig.text 
+              }}
+            >
               {count}
             </span>
           )}
@@ -108,9 +80,10 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
           {/* Chevron */}
           <ChevronDown
             className={cn(
-              'w-4 h-4 text-slate-500 transition-transform duration-200',
+              'w-4 h-4 transition-transform duration-200',
               isOpen && 'rotate-180'
             )}
+            style={{ color: themeColors.text.subtle }}
           />
         </button>
 
@@ -121,7 +94,7 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
             isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
           )}
         >
-          <div className="bg-slate-900/30 border-t border-slate-700/30">
+          <div style={{ background: 'rgba(59,130,246,0.02)' }}>
             {children}
           </div>
         </div>

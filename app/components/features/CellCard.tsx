@@ -1,67 +1,79 @@
 'use client';
 
 import { Telephone } from 'react-bootstrap-icons';
-import { Card } from '@/app/components/ui/Card';
 import { cn, textClasses, iconClasses, cardClasses } from '@/lib/config/theme';
-import { formatPhone, makeCall } from '@/lib/utils';
 import type { ShellCell } from '@/types';
+
+// ============================================================================
+// CELL ROW COMPONENT (matches backup exactly)
+// ============================================================================
+
+interface CellRowProps {
+  cell: ShellCell;
+}
+
+function CellRow({ cell }: CellRowProps) {
+  const handleCall = (phoneNumber: string) => {
+    window.open(`tel:${phoneNumber.replace(/\D/g, '')}`, '_self');
+  };
+
+  return (
+    <div className={cardClasses.row}>
+      <div className={cn(textClasses.secondary, 'text-sm mb-1.5')}>{cell.name}</div>
+      {cell.phones && cell.phones.length > 0 && (
+        <div className="flex items-center gap-3">
+          {cell.phones.map((phone, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleCall(phone)}
+              className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors"
+            >
+              <Telephone className={iconClasses.xs} />
+              <span className="text-xs">{phone}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================================
+// CELL CARD (single cell - for compatibility)
+// ============================================================================
 
 interface CellCardProps {
   cell: ShellCell;
 }
 
 export function CellCard({ cell }: CellCardProps) {
-  const handleCall = (phone: string) => {
-    makeCall(phone);
-  };
-
-  return (
-    <Card className="p-3">
-      <div className="font-medium text-slate-200 text-sm mb-2">
-        {cell.name}
-      </div>
-      
-      {cell.phones && cell.phones.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2">
-          {cell.phones.map((phone, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleCall(phone)}
-              className={cn(
-                'inline-flex items-center gap-1.5 px-2 py-1 rounded',
-                'bg-slate-700/50 text-slate-300 text-sm',
-                'hover:bg-slate-700 hover:text-white transition-colors'
-              )}
-            >
-              <Telephone className={iconClasses.xs} />
-              {formatPhone(phone)}
-            </button>
-          ))}
-        </div>
-      )}
-      
-      {cell.notes && (
-        <div className={cn(textClasses.muted, 'mt-2')}>
-          {cell.notes}
-        </div>
-      )}
-    </Card>
-  );
+  return <CellRow cell={cell} />;
 }
 
-// Cell list component
+// ============================================================================
+// CELL LIST COMPONENT (matches backup - unified container with rows)
+// ============================================================================
+
 interface CellListProps {
   cells: ShellCell[];
+  maxDisplay?: number;
 }
 
-export function CellList({ cells }: CellListProps) {
-  if (cells.length === 0) return null;
+export function CellList({ cells, maxDisplay = 20 }: CellListProps) {
+  const displayCells = cells.slice(0, maxDisplay);
+  
+  if (displayCells.length === 0) return null;
 
   return (
-    <div className="space-y-2">
-      {cells.map(cell => (
-        <CellCard key={cell.id} cell={cell} />
+    <div className={cardClasses.containerPadded}>
+      {displayCells.map((cell) => (
+        <CellRow key={cell.id} cell={cell} />
       ))}
+      {cells.length > maxDisplay && (
+        <div className="text-xs text-slate-500 text-center py-2 border-t border-slate-700/30">
+          +{cells.length - maxDisplay} more
+        </div>
+      )}
     </div>
   );
 }
