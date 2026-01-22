@@ -161,17 +161,35 @@ interface TeamsListProps {
   links: TeamsLink[];
   onCopyAll?: () => void;
   filterVBTriage?: boolean;
+  lastUpdated?: string; // Date string like "Jan 15, 2025" or Date object
 }
 
-export function TeamsList({ links, onCopyAll, filterVBTriage = true }: TeamsListProps) {
+export function TeamsList({ links, onCopyAll, filterVBTriage = true, lastUpdated }: TeamsListProps) {
   // Filter out VB Triage links by default (they're shown in Virtual Bail section)
   const filteredLinks = filterVBTriage ? links.filter(link => !isVBTriageLink(link)) : links;
   
   if (filteredLinks.length === 0) return null;
 
+  // Format the date if provided
+  const formatDate = (date: string | undefined) => {
+    if (!date) return null;
+    try {
+      const d = new Date(date);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch {
+      return date; // Return as-is if already formatted
+    }
+  };
+
+  const displayDate = formatDate(lastUpdated);
+
   return (
     <div className="space-y-1.5">
-      <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wide px-1">MS Teams</h4>
+      {displayDate && (
+        <h4 className="text-xs font-medium text-slate-500 tracking-wide px-1">
+          Last Updated: {displayDate}
+        </h4>
+      )}
       {filteredLinks.map((link) => (
         <TeamsCard key={link.id} link={link} onCopyAll={onCopyAll} />
       ))}
