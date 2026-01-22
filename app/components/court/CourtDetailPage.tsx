@@ -7,7 +7,7 @@ import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton, Toast } from '../ui';
 import { CourtHeader } from './CourtHeader';
 import { TeamsList } from '../features/TeamsCard';
-import { ContactCard } from '../features/ContactCard';
+import { CourtContactsStack, CrownContactsStack } from '../features/ContactCard';
 import { CellCard } from '../features/CellCard';
 import { BailSectionContent, getBailHubTag } from '../features/BailCard';
 import { useCopyToClipboard } from '@/lib/hooks/useCopyToClipboard';
@@ -21,7 +21,7 @@ interface CourtDetailPageProps {
 }
 
 export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) {
-  const { court, contacts, cells, teamsLinks, bailCourt, bailTeams } = courtDetails;
+  const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts } = courtDetails;
   
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contacts');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
@@ -185,15 +185,18 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
               isExpanded={expandedSection === 'contacts'}
               onToggle={() => toggleSection('contacts')}
             >
-              <div className="p-3 space-y-2">
-                {contacts.map((contact) => (
-                  <ContactCard
-                    key={contact.id}
-                    contact={contact}
-                    onCopy={copyToClipboard}
-                    isCopied={isCopied}
-                  />
-                ))}
+              <div className="p-3 space-y-3">
+                <CourtContactsStack 
+                  contacts={contacts} 
+                  onCopy={copyToClipboard}
+                  isCopied={isCopied}
+                />
+                <CrownContactsStack 
+                  contacts={contacts} 
+                  bailContacts={bailContacts}
+                  onCopy={copyToClipboard}
+                  isCopied={isCopied}
+                />
               </div>
             </Section>
           )}
@@ -281,4 +284,3 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
     </div>
   );
 }
-
