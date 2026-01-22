@@ -336,7 +336,7 @@ export default function Home() {
                         <CameraVideo className="w-4 h-4 text-indigo-400" />
                         <h3 className="text-xs font-medium uppercase tracking-wide" style={{ color: theme.colors.text.subtle }}>CR {results.courtroomFilter} MS Teams</h3>
                       </div>
-                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} />
+                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} lastUpdated="2025-01-21" />
                     </div>
                   )}
 
@@ -383,8 +383,7 @@ export default function Home() {
 
                   {activeFilter === 'teams' && !results.courtroomFilter && results.teamsLinks.length > 0 && (
                     <div>
-                      <h3 className="text-xs font-medium uppercase tracking-wide px-1 mb-2" style={{ color: theme.colors.text.subtle }}>MS Teams Links</h3>
-                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} />
+                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} lastUpdated="2025-01-21" />
                     </div>
                   )}
                 </>
@@ -567,8 +566,7 @@ export default function Home() {
                       )}
                       {detailBailTeams.length > 0 && (
                         <div>
-                          <h4 className="text-[9px] font-mono uppercase tracking-wide mb-2" style={{ color: theme.colors.text.subtle }}>Bail MS Teams</h4>
-                          <TeamsList links={detailBailTeams} onCopyAll={() => setCopiedField('bailteams')} />
+                          <TeamsList links={detailBailTeams} onCopyAll={() => setCopiedField('bailteams')} lastUpdated="2025-01-21" filterVBTriage={false} />
                         </div>
                       )}
                     </div>
@@ -586,7 +584,7 @@ export default function Home() {
                     onToggle={() => toggleSection('teams')}
                   >
                     <div className="p-3">
-                      <TeamsList links={detailTeams} onCopyAll={() => setCopiedField('teams')} />
+                      <TeamsList links={detailTeams} onCopyAll={() => setCopiedField('teams')} lastUpdated="2025-01-21" />
                     </div>
                   </Section>
                 )}
