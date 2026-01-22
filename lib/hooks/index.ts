@@ -1,9 +1,12 @@
 'use client';
 
-// Re-export search hooks
-export { useSearch, useCourtDetails } from './useSearch';
-export type { SearchResults, CourtDetails } from './useSearch';
+// Search hook
+export { useSearch } from './useSearch';
+export type { SearchResults } from './useSearch';
 
-// Re-export other hooks
+// Court details hook (React Query with caching)
+export { useCourtDetails } from './useCourtDetails';
+
+// Other hooks
 export { useCopyToClipboard } from './useCopyToClipboard';
 export { useScrollHeader } from './useScrollHeader';

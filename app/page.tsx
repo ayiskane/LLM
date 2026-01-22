@@ -35,7 +35,7 @@ export default function Home() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 mb-4">
-              {error?.message || 'Failed to load court details'}
+              {error || 'Failed to load court details'}
             </p>
             <p className="text-slate-500 text-sm">
               Court ID: {courtId}
