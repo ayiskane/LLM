@@ -1,4 +1,4 @@
-export { ContactCard, ContactStack } from './ContactCard';
+export { ContactCard, CourtContactsStack, CrownContactsStack } from './ContactCard';
 export { CellCard, CellList } from './CellCard';
 export { TeamsCard, TeamsList } from './TeamsCard';
 export { BailSchedule, BailHubLink, BailSectionContent, getBailHubTag } from './BailCard';
