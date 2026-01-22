@@ -106,7 +106,7 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-center justify-between mb-2 px-1">
-      <h4 className="text-xs text-slate-500 uppercase tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <h4 className="text-xs text-slate-500 uppercase" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}>
         {title}
       </h4>
       {showToggle && (
@@ -176,8 +176,8 @@ function ContactItem({
       {/* Content */}
       <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
         <div 
-          className="text-[9px] text-slate-400 uppercase tracking-wide mb-1"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          className="text-[9px] text-slate-400 uppercase mb-1"
+          style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1px' }}
         >
           {label}
         </div>
