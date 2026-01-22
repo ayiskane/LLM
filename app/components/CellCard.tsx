@@ -1,9 +1,19 @@
 'use client';
 
 import { Telephone } from 'react-bootstrap-icons';
+import { 
+  textClasses, 
+  cardClasses, 
+  iconClasses,
+  inlineStyles,
+  cn 
+} from '@/lib/theme';
 import type { ShellCell } from '@/types';
 
-// Common abbreviations for court names
+// ============================================================================
+// CONSTANTS
+// ============================================================================
+
 const COURT_ABBREVS: Record<string, string> = {
   'Abbotsford Law Courts': 'Abbotsford',
   'Chilliwack Law Courts': 'Chilliwack',
@@ -56,14 +66,15 @@ const COURT_ABBREVS: Record<string, string> = {
   'Vernon': 'Vernon',
 };
 
-// Get abbreviated court name
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
 function getCourtAbbrev(courtName: string): string {
-  // Check exact match first
   if (COURT_ABBREVS[courtName]) {
     return COURT_ABBREVS[courtName];
   }
   
-  // Try to extract just the city name
   const cityMatch = courtName.match(/^([A-Za-z\s]+?)(?:\s+(?:Law Courts?|Provincial Court|Court))?$/i);
   if (cityMatch) {
     const city = cityMatch[1].trim();
@@ -76,19 +87,16 @@ function getCourtAbbrev(courtName: string): string {
   return courtName;
 }
 
-// Format cell name for display
 function formatCellName(cell: ShellCell): string {
   const name = cell.name || '';
   
-  // Handle courthouse cells - use court_name if available, otherwise extract from name
+  // Handle courthouse cells
   if (cell.cell_type === 'CH' || cell.cell_type === 'courthouse' || name.toLowerCase().includes('courthouse')) {
-    // If we have the court name from the join, use it
     if (cell.court_name) {
       const abbrev = getCourtAbbrev(cell.court_name);
       return `${abbrev} CH Cells`;
     }
     
-    // Try to extract the location from the cell name
     let location = name
       .replace(/\s*(Courthouse|CH|Law Courts?|Provincial|Court|Cells?)\s*/gi, '')
       .trim();
@@ -98,55 +106,74 @@ function formatCellName(cell: ShellCell): string {
       return `${abbrev} CH Cells`;
     }
     
-    return 'CH Cells';
+    return 'Courthouse Cells';
   }
   
-  // Check if it's a PD (Police Department)
-  if (name.includes(' PD') || name.includes(' Police')) {
-    const baseName = name.replace(' PD', '').replace(' Police', '').replace(' Cells', '').trim();
-    return `${baseName} PD Cells`;
+  // Handle RCMP/PD cells
+  const detachmentMatch = name.match(/^(.+?)\s*(RCMP|Police|PD|Detachment|Cells?)/i);
+  if (detachmentMatch) {
+    const location = detachmentMatch[1].trim();
+    const type = name.toLowerCase().includes('rcmp') ? 'RCMP' : 'PD';
+    return `${location} ${type} Cells`;
   }
   
-  // Check if it's RCMP
-  if (name.includes('RCMP')) {
-    const baseName = name.replace(' RCMP', '').replace(' Cells', '').trim();
-    return `${baseName} RCMP`;
-  }
-  
-  // Default - just return the name
   return name;
 }
+
+// ============================================================================
+// CELL ROW COMPONENT
+// ============================================================================
 
 interface CellRowProps {
   cell: ShellCell;
 }
 
 function CellRow({ cell }: CellRowProps) {
-  const phones = Array.isArray(cell.phones) ? cell.phones : [];
   const displayName = formatCellName(cell);
+  
+  const handleCall = () => {
+    if (cell.phone) {
+      window.open(`tel:${cell.phone.replace(/\D/g, '')}`, '_self');
+    }
+  };
 
   return (
-    <div className="py-3 border-b border-slate-700/30 last:border-b-0">
-      <div className="text-sm text-slate-200 mb-1.5">{displayName}</div>
-      {phones.length > 0 && (
-        <div className="space-y-1">
-          {phones.map((phone, idx) => (
-            <a 
-              key={idx}
-              href={`tel:${phone}`}
-              className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors"
-            >
-              <Telephone className="w-3.5 h-3.5" />
-              <span className="text-sm">{phone}</span>
-            </a>
-          ))}
+    <div className={cardClasses.row}>
+      <div className={cn(textClasses.secondary, 'text-sm mb-1.5')}>{displayName}</div>
+      {cell.phone && (
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleCall}
+            className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors"
+          >
+            <Telephone className={iconClasses.xs} />
+            <span className="text-xs">{cell.phone}</span>
+          </button>
         </div>
       )}
     </div>
   );
 }
 
-// Full list of cells for search results
+// ============================================================================
+// SECTION HEADER COMPONENT
+// ============================================================================
+
+function CellsSectionHeader() {
+  return (
+    <h4 
+      className={textClasses.sectionHeader}
+      style={inlineStyles.roleLabelNormal}
+    >
+      Sheriff Cells
+    </h4>
+  );
+}
+
+// ============================================================================
+// CELLS LIST COMPONENT (Full list for detail view)
+// ============================================================================
+
 interface CellsListProps {
   cells: ShellCell[];
   maxDisplay?: number;
@@ -167,8 +194,8 @@ export function CellsList({ cells, maxDisplay = 10 }: CellsListProps) {
 
   return (
     <div className="space-y-2">
-      <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Sheriff Cells</h4>
-      <div className="bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden px-4">
+      <CellsSectionHeader />
+      <div className={cardClasses.containerPadded}>
         {sortedCells.map((cell) => (
           <CellRow key={cell.id} cell={cell} />
         ))}
@@ -182,8 +209,15 @@ export function CellsList({ cells, maxDisplay = 10 }: CellsListProps) {
   );
 }
 
-// Compact cell preview for search results - grouped in one card
-export function CellsPreview({ cells }: { cells: ShellCell[] }) {
+// ============================================================================
+// CELLS PREVIEW COMPONENT (Compact preview for search results)
+// ============================================================================
+
+interface CellsPreviewProps {
+  cells: ShellCell[];
+}
+
+export function CellsPreview({ cells }: CellsPreviewProps) {
   // Get one of each type: police first, then courthouse
   const policeCell = cells.find(c => c.cell_type !== 'CH' && c.cell_type !== 'courthouse');
   const chCell = cells.find(c => c.cell_type === 'CH' || c.cell_type === 'courthouse');
@@ -194,8 +228,8 @@ export function CellsPreview({ cells }: { cells: ShellCell[] }) {
 
   return (
     <div className="space-y-2">
-      <h4 className="text-xs text-slate-500 uppercase px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Sheriff Cells</h4>
-      <div className="bg-slate-800/30 rounded-lg border border-slate-700/50 overflow-hidden px-4">
+      <CellsSectionHeader />
+      <div className={cardClasses.containerPadded}>
         {displayCells.map((cell) => (
           <CellRow key={cell.id} cell={cell} />
         ))}
@@ -207,9 +241,4 @@ export function CellsPreview({ cells }: { cells: ShellCell[] }) {
       </div>
     </div>
   );
-}
-
-// Legacy export for compatibility
-export function CellCard({ cell }: { cell: ShellCell }) {
-  return <CellRow cell={cell} />;
 }
