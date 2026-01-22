@@ -169,11 +169,16 @@ export default function Home() {
     }
   }, [view, clearResults]);
 
-  const handleCopy = useCallback((text: string, fieldName?: string) => {
-    copy(text);
-    setCopiedField(fieldName || 'copied');
+  // Helper to show toast with auto-dismiss
+  const showCopiedToast = useCallback((fieldName: string = 'copied') => {
+    setCopiedField(fieldName);
     setTimeout(() => setCopiedField(null), 2000);
   }, []);
+
+  const handleCopy = useCallback((text: string, fieldName?: string) => {
+    copy(text);
+    showCopiedToast(fieldName || 'copied');
+  }, [showCopiedToast]);
 
   const handleOpenMap = useCallback((address: string) => {
     const encodedAddress = encodeURIComponent(address);
@@ -354,7 +359,7 @@ export default function Home() {
                         <CameraVideo className="w-4 h-4 text-indigo-400" />
                         <h3 className="text-xs font-medium uppercase tracking-wide" style={{ color: theme.colors.text.subtle }}>CR {results.courtroomFilter} MS Teams</h3>
                       </div>
-                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} />
+                      <TeamsList links={results.teamsLinks} onCopyAll={() => showCopiedToast('teams')} />
                     </div>
                   )}
 
@@ -377,7 +382,7 @@ export default function Home() {
                               </div>
                             </div>
                             <div className="p-3">
-                              <TopContactsPreview contacts={courtContacts} onCopy={() => setCopiedField('contact')} showAll={activeFilter === 'contacts'} />
+                              <TopContactsPreview contacts={courtContacts} onCopy={() => showCopiedToast('contact')} showAll={activeFilter === 'contacts'} />
                             </div>
                             {activeFilter === 'all' && courtContacts.length > 3 && (
                               <button
@@ -401,7 +406,7 @@ export default function Home() {
 
                   {activeFilter === 'teams' && !results.courtroomFilter && results.teamsLinks.length > 0 && (
                     <div>
-                      <TeamsList links={results.teamsLinks} onCopyAll={() => setCopiedField('teams')} />
+                      <TeamsList links={results.teamsLinks} onCopyAll={() => showCopiedToast('teams')} />
                     </div>
                   )}
                 </>
@@ -533,8 +538,8 @@ export default function Home() {
                     onToggle={() => toggleSection('contacts')}
                   >
                     <div className="p-3 space-y-3">
-                      <CourtContactsStack contacts={detailContacts} onCopy={() => setCopiedField('contact')} />
-                      <CrownContactsStack contacts={detailContacts} bailContacts={detailBailContacts} onCopy={() => setCopiedField('crown')} />
+                      <CourtContactsStack contacts={detailContacts} onCopy={() => showCopiedToast('contact')} />
+                      <CrownContactsStack contacts={detailContacts} bailContacts={detailBailContacts} onCopy={() => showCopiedToast('crown')} />
                     </div>
                   </Section>
                 )}
@@ -582,13 +587,16 @@ export default function Home() {
                           )}
                         </div>
                       )}
-                      {/* Combine bail teams + VB Triage links from court teams */}
+                      {/* Combine bail teams + VB Triage links from court teams (deduplicated) */}
                       {(() => {
                         const vbTriageLinks = detailTeams.filter(isVBTriageLink);
-                        const allBailTeams = [...detailBailTeams, ...vbTriageLinks];
+                        // Deduplicate: only add VB Triage links that aren't already in bail teams
+                        const existingIds = new Set(detailBailTeams.map(l => l.id));
+                        const uniqueVbTriageLinks = vbTriageLinks.filter(l => !existingIds.has(l.id));
+                        const allBailTeams = [...detailBailTeams, ...uniqueVbTriageLinks];
                         return allBailTeams.length > 0 && (
                           <div>
-                            <TeamsList links={allBailTeams} onCopyAll={() => setCopiedField('bailteams')} filterVBTriage={false} />
+                            <TeamsList links={allBailTeams} onCopyAll={() => showCopiedToast('bailteams')} filterVBTriage={false} />
                           </div>
                         );
                       })()}
@@ -607,7 +615,7 @@ export default function Home() {
                     onToggle={() => toggleSection('teams')}
                   >
                     <div className="p-3">
-                      <TeamsList links={detailTeams} onCopyAll={() => setCopiedField('teams')} />
+                      <TeamsList links={detailTeams} onCopyAll={() => showCopiedToast('teams')} />
                     </div>
                   </Section>
                 )}
