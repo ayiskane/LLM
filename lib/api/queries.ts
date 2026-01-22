@@ -28,7 +28,7 @@ export async function fetchCourts(): Promise<Court[]> {
   return data || [];
 }
 
-export async function fetchCourtById(id: string): Promise<CourtWithRegion | null> {
+export async function fetchCourtById(id: number): Promise<CourtWithRegion | null> {
   const { data, error } = await supabase
     .from('courts')
     .select(`
@@ -51,27 +51,27 @@ export async function fetchContacts(): Promise<ContactWithRole[]> {
     .from('contacts')
     .select(`
       *,
-      role:contact_roles(*)
+      contact_role:contact_roles(*)
     `)
-    .order('role_id');
+    .order('contact_role_id');
 
   if (error) throw error;
   return data || [];
 }
 
-export async function fetchContactsByCourtId(courtId: string): Promise<ContactWithRole[]> {
+export async function fetchContactsByCourtId(courtId: number): Promise<ContactWithRole[]> {
   const { data, error } = await supabase
     .from('contacts_courts')
     .select(`
       contact:contacts(
         *,
-        role:contact_roles(*)
+        contact_role:contact_roles(*)
       )
     `)
     .eq('court_id', courtId);
 
   if (error) throw error;
-  return data?.map(item => item.contact).filter(Boolean) || [];
+  return data?.map((item: { contact: ContactWithRole }) => item.contact).filter(Boolean) as ContactWithRole[] || [];
 }
 
 // =============================================================================
@@ -88,7 +88,7 @@ export async function fetchCells(): Promise<ShellCell[]> {
   return data || [];
 }
 
-export async function fetchCellsByCourtId(courtId: string): Promise<ShellCell[]> {
+export async function fetchCellsByCourtId(courtId: number): Promise<ShellCell[]> {
   const { data, error } = await supabase
     .from('sheriff_cells_courts')
     .select(`
@@ -97,7 +97,7 @@ export async function fetchCellsByCourtId(courtId: string): Promise<ShellCell[]>
     .eq('court_id', courtId);
 
   if (error) throw error;
-  return data?.map(item => item.cell).filter(Boolean) || [];
+  return data?.map((item: { cell: ShellCell }) => item.cell).filter(Boolean) as ShellCell[] || [];
 }
 
 // =============================================================================
@@ -114,7 +114,7 @@ export async function fetchTeamsLinks(): Promise<TeamsLink[]> {
   return data || [];
 }
 
-export async function fetchTeamsLinksByCourtId(courtId: string): Promise<TeamsLink[]> {
+export async function fetchTeamsLinksByCourtId(courtId: number): Promise<TeamsLink[]> {
   const { data, error } = await supabase
     .from('teams_links')
     .select('*')
@@ -139,7 +139,7 @@ export async function fetchBailCourts(): Promise<BailCourt[]> {
   return data || [];
 }
 
-export async function fetchBailCourtById(id: string): Promise<BailCourt | null> {
+export async function fetchBailCourtById(id: number): Promise<BailCourt | null> {
   const { data, error } = await supabase
     .from('bail_courts')
     .select('*')
@@ -150,7 +150,7 @@ export async function fetchBailCourtById(id: string): Promise<BailCourt | null> 
   return data;
 }
 
-export async function fetchBailTeamsByBailCourtId(bailCourtId: string): Promise<BailTeam[]> {
+export async function fetchBailTeamsByBailCourtId(bailCourtId: number): Promise<BailTeam[]> {
   const { data, error } = await supabase
     .from('bail_teams')
     .select('*')
@@ -161,7 +161,7 @@ export async function fetchBailTeamsByBailCourtId(bailCourtId: string): Promise<
   return data || [];
 }
 
-export async function fetchBailContactsByRegionId(regionId: string): Promise<BailContact[]> {
+export async function fetchBailContactsByRegionId(regionId: number): Promise<BailContact[]> {
   const { data, error } = await supabase
     .from('bail_contacts')
     .select('*')
@@ -186,7 +186,7 @@ export async function fetchPrograms(): Promise<Program[]> {
   return data || [];
 }
 
-export async function fetchProgramsByRegionId(regionId: string): Promise<Program[]> {
+export async function fetchProgramsByRegionId(regionId: number): Promise<Program[]> {
   const { data, error } = await supabase
     .from('programs')
     .select('*')
@@ -201,7 +201,7 @@ export async function fetchProgramsByRegionId(regionId: string): Promise<Program
 // COMBINED QUERIES
 // =============================================================================
 
-export async function fetchCourtDetails(courtId: string): Promise<CourtDetails | null> {
+export async function fetchCourtDetails(courtId: number): Promise<CourtDetails | null> {
   const court = await fetchCourtById(courtId);
   if (!court) return null;
 
