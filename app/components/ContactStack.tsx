@@ -1,17 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { Check, Clipboard } from 'react-bootstrap-icons';
+import { useState, useCallback } from 'react';
+import { Check, Clipboard, Eye, EyeSlash } from 'react-bootstrap-icons';
 import copy from 'copy-to-clipboard';
 import type { Contact, BailContact } from '@/types';
 import { CONTACT_ROLE_NAMES, CONTACT_ROLES } from '@/types';
+import { theme } from '@/lib/theme';
 
-interface ContactStackProps {
-  contacts: Contact[];
-  title?: string;
-}
-
-// Category colors for left border
+// Category colors for accent bar
 type ContactCategory = 'court' | 'provincial' | 'supreme' | 'bail' | 'other';
 
 const categoryColors: Record<ContactCategory, string> = {
@@ -22,35 +18,112 @@ const categoryColors: Record<ContactCategory, string> = {
   other: '#71717a',      // zinc
 };
 
-// Single contact item - tap to copy with colored left border
-function ContactItem({ label, email, category = 'other', onCopy }: { 
+// Section header with eye toggle
+function SectionHeader({ 
+  title, 
+  showFull, 
+  onToggle 
+}: { 
+  title: string; 
+  showFull: boolean; 
+  onToggle: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between mb-2 px-1">
+      <h4 
+        className="text-[10px] text-slate-400 uppercase tracking-wider"
+        style={{ fontFamily: 'Inter, sans-serif' }}
+      >
+        {title}
+      </h4>
+      <button
+        onClick={onToggle}
+        className="flex items-center gap-1.5 px-2 py-1 rounded text-[9px] uppercase tracking-wide transition-all"
+        style={{ 
+          fontFamily: 'Inter, sans-serif',
+          background: showFull ? 'rgba(59,130,246,0.15)' : 'transparent',
+          border: `1px solid ${showFull ? 'rgba(59,130,246,0.4)' : theme.colors.border.primary}`,
+          color: showFull ? '#60a5fa' : theme.colors.text.disabled,
+        }}
+      >
+        {showFull ? (
+          <EyeSlash className="w-3 h-3" />
+        ) : (
+          <Eye className="w-3 h-3" />
+        )}
+        <span>{showFull ? 'Truncate' : 'Show full'}</span>
+      </button>
+    </div>
+  );
+}
+
+// Single contact item with coupon style
+function ContactItem({ 
+  label, 
+  email, 
+  category = 'other', 
+  showFull,
+  onCopy 
+}: { 
   label: string; 
   email: string; 
   category?: ContactCategory;
+  showFull: boolean;
   onCopy: () => void;
 }) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
+  const handleCopy = useCallback(() => {
     copy(email);
     setCopied(true);
     onCopy();
     setTimeout(() => setCopied(false), 2000);
-  };
+  }, [email, onCopy]);
 
   return (
     <div 
-      className="py-2.5 px-3 rounded-lg bg-slate-800/30 hover:bg-slate-800/60 transition-colors cursor-pointer active:bg-slate-700/50"
-      style={{ borderLeft: `3px solid ${categoryColors[category]}` }}
+      className="flex items-stretch rounded-lg overflow-hidden cursor-pointer transition-all hover:border-blue-500/40"
+      style={{ 
+        background: 'rgba(59,130,246,0.03)',
+        border: '1px dashed rgba(59,130,246,0.25)',
+      }}
       onClick={handleCopy}
     >
-      <div className="text-[9px] text-slate-400 mb-0.5 uppercase tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>{label}</div>
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-sm text-slate-200 break-all font-mono">{email}</span>
+      {/* Color accent bar */}
+      <div 
+        className="w-1 flex-shrink-0"
+        style={{ background: categoryColors[category] }}
+      />
+      
+      {/* Content */}
+      <div className="flex-1 py-2.5 px-3 min-w-0">
+        <div 
+          className="text-[9px] text-slate-400 uppercase tracking-wide mb-1"
+          style={{ fontFamily: 'Inter, sans-serif' }}
+        >
+          {label}
+        </div>
+        <div 
+          className={`text-[12px] text-slate-200 font-mono leading-relaxed ${
+            showFull ? 'break-all' : 'truncate'
+          }`}
+        >
+          {email}
+        </div>
+      </div>
+      
+      {/* Copy button area */}
+      <div 
+        className="flex items-center justify-center px-3 flex-shrink-0 transition-colors"
+        style={{ 
+          borderLeft: '1px dashed rgba(59,130,246,0.25)',
+          color: copied ? '#34d399' : '#52525b',
+        }}
+      >
         {copied ? (
-          <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+          <Check className="w-4 h-4" />
         ) : (
-          <Clipboard className="w-4 h-4 text-slate-500 flex-shrink-0" />
+          <Clipboard className="w-4 h-4" />
         )}
       </div>
     </div>
@@ -59,8 +132,9 @@ function ContactItem({ label, email, category = 'other', onCopy }: {
 
 // Court contacts (Registry, JCM, SC Scheduling, Bail JCM)
 export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; onCopy?: () => void }) {
+  const [showFull, setShowFull] = useState(false);
+
   // Define contact order and categories
-  // Order: Court Registry, Criminal Registry, Provincial JCM, Bail JCM, Supreme Scheduling, Interpreter(s)
   const contactConfig: { roleId: number; category: ContactCategory; label: string }[] = [
     { roleId: CONTACT_ROLES.COURT_REGISTRY, category: 'court', label: 'Court Registry' },
     { roleId: CONTACT_ROLES.CRIMINAL_REGISTRY, category: 'court', label: 'Criminal Registry' },
@@ -73,7 +147,7 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
   // Build ordered contact list
   const orderedContacts: { label: string; email: string; category: ContactCategory }[] = [];
   
-  // Track if we've added criminal registry (to potentially skip duplicate court registry)
+  // Track criminal registry to skip duplicate court registry
   let criminalRegistryEmail: string | null = null;
   const criminalRegistry = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CRIMINAL_REGISTRY);
   if (criminalRegistry) {
@@ -85,7 +159,7 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
     if (contact) {
       const email = contact.email || (contact.emails && contact.emails[0]);
       if (email) {
-        // Skip court registry if it's the same as criminal registry
+        // Skip court registry if same as criminal registry
         if (config.roleId === CONTACT_ROLES.COURT_REGISTRY && criminalRegistryEmail && email === criminalRegistryEmail) {
           return;
         }
@@ -102,16 +176,23 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
 
   return (
     <div className="space-y-1.5">
-      <h4 className="text-[10px] text-slate-400 uppercase tracking-wider px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Court Contacts</h4>
-      {orderedContacts.map((contact) => (
-        <ContactItem 
-          key={contact.label} 
-          label={contact.label} 
-          email={contact.email}
-          category={contact.category}
-          onCopy={onCopy || (() => {})} 
-        />
-      ))}
+      <SectionHeader 
+        title="Court Contacts" 
+        showFull={showFull} 
+        onToggle={() => setShowFull(!showFull)} 
+      />
+      <div className="space-y-2">
+        {orderedContacts.map((contact) => (
+          <ContactItem 
+            key={contact.label} 
+            label={contact.label} 
+            email={contact.email}
+            category={contact.category}
+            showFull={showFull}
+            onCopy={onCopy || (() => {})} 
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -126,6 +207,7 @@ export function CrownContactsStack({
   bailContacts?: BailContact[];
   onCopy?: () => void;
 }) {
+  const [showFull, setShowFull] = useState(false);
   const crownContacts: { label: string; email: string; category: ContactCategory }[] = [];
 
   // Provincial Crown
@@ -174,21 +256,28 @@ export function CrownContactsStack({
 
   return (
     <div className="space-y-1.5">
-      <h4 className="text-[10px] text-slate-400 uppercase tracking-wider px-1" style={{ fontFamily: 'Inter, sans-serif' }}>Crown Contacts</h4>
-      {crownContacts.map((contact) => (
-        <ContactItem 
-          key={contact.label}
-          label={contact.label}
-          email={contact.email}
-          category={contact.category}
-          onCopy={onCopy || (() => {})}
-        />
-      ))}
+      <SectionHeader 
+        title="Crown Contacts" 
+        showFull={showFull} 
+        onToggle={() => setShowFull(!showFull)} 
+      />
+      <div className="space-y-2">
+        {crownContacts.map((contact) => (
+          <ContactItem 
+            key={contact.label}
+            label={contact.label}
+            email={contact.email}
+            category={contact.category}
+            showFull={showFull}
+            onCopy={onCopy || (() => {})}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-// Top 3 contacts for search results preview
+// Top contacts for search results preview (no eye toggle, always truncated)
 export function TopContactsPreview({ 
   contacts, 
   onCopy,
@@ -212,7 +301,6 @@ export function TopContactsPreview({
   };
 
   if (showAll) {
-    // Show all contacts grouped by type
     const allContacts = contacts
       .filter(c => c.email)
       .map(c => ({
@@ -224,13 +312,14 @@ export function TopContactsPreview({
     if (allContacts.length === 0) return null;
 
     return (
-      <div className="space-y-1">
+      <div className="space-y-2">
         {allContacts.map((contact, idx) => (
           <ContactItem 
             key={`${contact.label}-${idx}`}
             label={contact.label}
             email={contact.email}
             category={contact.category}
+            showFull={false}
             onCopy={onCopy || (() => {})}
           />
         ))}
@@ -263,18 +352,17 @@ export function TopContactsPreview({
   if (topContacts.length === 0) return null;
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-2">
       {topContacts.map((contact) => (
         <ContactItem 
           key={contact.label}
           label={contact.label}
           email={contact.email}
           category={contact.category}
+          showFull={false}
           onCopy={onCopy || (() => {})}
         />
       ))}
     </div>
   );
 }
-
-
