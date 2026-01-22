@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { Check, Clipboard, Eye, EyeSlash } from 'react-bootstrap-icons';
 import copy from 'copy-to-clipboard';
 import type { Contact, BailContact } from '@/types';
@@ -19,49 +19,69 @@ const categoryColors: Record<ContactCategory, string> = {
 };
 
 // Hook to detect if any text is truncated
-function useTruncationDetection(deps: unknown[] = []) {
-  const emailRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+function useTruncationDetection(emails: string[], showFull: boolean) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [hasTruncation, setHasTruncation] = useState(false);
 
-  const registerRef = useCallback((key: string, el: HTMLDivElement | null) => {
-    if (el) {
-      emailRefs.current.set(key, el);
-    } else {
-      emailRefs.current.delete(key);
-    }
-  }, []);
-
   const checkTruncation = useCallback(() => {
+    // Don't check if showing full - no truncation possible
+    if (showFull) {
+      setHasTruncation(false);
+      return;
+    }
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Find all email elements within this container
+    const emailElements = container.querySelectorAll('[data-email]');
     let anyTruncated = false;
-    emailRefs.current.forEach((el) => {
-      if (el.scrollWidth > el.offsetWidth) {
+
+    emailElements.forEach((el) => {
+      const htmlEl = el as HTMLElement;
+      // Add small tolerance (1px) for rounding errors
+      if (htmlEl.scrollWidth > htmlEl.offsetWidth + 1) {
         anyTruncated = true;
       }
     });
+
     setHasTruncation(anyTruncated);
-  }, []);
+  }, [showFull]);
 
   useEffect(() => {
-    // Check on mount and when deps change
-    // Use requestAnimationFrame to ensure layout is complete
-    const rafId = requestAnimationFrame(() => {
+    // Don't check if showing full
+    if (showFull) {
+      setHasTruncation(false);
+      return;
+    }
+
+    // Double RAF to ensure fonts and layout are complete
+    let rafId1: number;
+    let rafId2: number;
+    
+    rafId1 = requestAnimationFrame(() => {
+      rafId2 = requestAnimationFrame(() => {
+        checkTruncation();
+      });
+    });
+
+    // Use ResizeObserver for more reliable resize detection
+    const resizeObserver = new ResizeObserver(() => {
       checkTruncation();
     });
 
-    // Check on window resize
-    const handleResize = () => {
-      checkTruncation();
-    };
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
 
-    window.addEventListener('resize', handleResize);
-    
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(rafId1);
+      cancelAnimationFrame(rafId2);
+      resizeObserver.disconnect();
     };
-  }, [checkTruncation, ...deps]);
+  }, [checkTruncation, showFull, emails.join(',')]); // Use joined emails as stable dep
 
-  return { registerRef, hasTruncation, checkTruncation };
+  return { containerRef, hasTruncation };
 }
 
 // Section header with eye toggle (only shows if truncation detected)
@@ -114,14 +134,12 @@ function ContactItem({
   category = 'other', 
   showFull,
   onCopy,
-  emailRef
 }: { 
   label: string; 
   email: string; 
   category?: ContactCategory;
   showFull: boolean;
   onCopy: () => void;
-  emailRef?: (el: HTMLDivElement | null) => void;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -156,7 +174,7 @@ function ContactItem({
           {label}
         </div>
         <div 
-          ref={emailRef}
+          data-email="true"
           className={`text-[12px] text-slate-200 font-mono leading-relaxed ${
             showFull ? 'break-all whitespace-normal' : 'truncate'
           }`}
@@ -197,36 +215,43 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
     { roleId: CONTACT_ROLES.INTERPRETER, category: 'other', label: 'Interpreter' },
   ];
 
-  // Build ordered contact list
-  const orderedContacts: { label: string; email: string; category: ContactCategory }[] = [];
-  
-  // Track criminal registry to skip duplicate court registry
-  let criminalRegistryEmail: string | null = null;
-  const criminalRegistry = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CRIMINAL_REGISTRY);
-  if (criminalRegistry) {
-    criminalRegistryEmail = criminalRegistry.email || (criminalRegistry.emails && criminalRegistry.emails[0]) || null;
-  }
-
-  contactConfig.forEach(config => {
-    const contact = contacts.find(c => c.contact_role_id === config.roleId);
-    if (contact) {
-      const email = contact.email || (contact.emails && contact.emails[0]);
-      if (email) {
-        // Skip court registry if same as criminal registry
-        if (config.roleId === CONTACT_ROLES.COURT_REGISTRY && criminalRegistryEmail && email === criminalRegistryEmail) {
-          return;
-        }
-        orderedContacts.push({
-          label: config.label,
-          email,
-          category: config.category,
-        });
-      }
+  // Build ordered contact list with useMemo for stable reference
+  const orderedContacts = useMemo(() => {
+    const result: { label: string; email: string; category: ContactCategory }[] = [];
+    
+    // Track criminal registry to skip duplicate court registry
+    let criminalRegistryEmail: string | null = null;
+    const criminalRegistry = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CRIMINAL_REGISTRY);
+    if (criminalRegistry) {
+      criminalRegistryEmail = criminalRegistry.email || (criminalRegistry.emails && criminalRegistry.emails[0]) || null;
     }
-  });
 
-  // Truncation detection - only check when not showing full
-  const { registerRef, hasTruncation } = useTruncationDetection([orderedContacts, showFull]);
+    contactConfig.forEach(config => {
+      const contact = contacts.find(c => c.contact_role_id === config.roleId);
+      if (contact) {
+        const email = contact.email || (contact.emails && contact.emails[0]);
+        if (email) {
+          // Skip court registry if same as criminal registry
+          if (config.roleId === CONTACT_ROLES.COURT_REGISTRY && criminalRegistryEmail && email === criminalRegistryEmail) {
+            return;
+          }
+          result.push({
+            label: config.label,
+            email,
+            category: config.category,
+          });
+        }
+      }
+    });
+
+    return result;
+  }, [contacts]);
+
+  // Extract just emails for truncation check dependency
+  const emails = useMemo(() => orderedContacts.map(c => c.email), [orderedContacts]);
+
+  // Truncation detection
+  const { containerRef, hasTruncation } = useTruncationDetection(emails, showFull);
 
   if (orderedContacts.length === 0) return null;
 
@@ -238,7 +263,7 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
         onToggle={() => setShowFull(!showFull)}
         showToggle={hasTruncation || showFull}
       />
-      <div className="space-y-2">
+      <div ref={containerRef} className="space-y-2">
         {orderedContacts.map((contact) => (
           <ContactItem 
             key={contact.label} 
@@ -247,7 +272,6 @@ export function CourtContactsStack({ contacts, onCopy }: { contacts: Contact[]; 
             category={contact.category}
             showFull={showFull}
             onCopy={onCopy || (() => {})}
-            emailRef={!showFull ? (el) => registerRef(contact.label, el) : undefined}
           />
         ))}
       </div>
@@ -266,52 +290,61 @@ export function CrownContactsStack({
   onCopy?: () => void;
 }) {
   const [showFull, setShowFull] = useState(false);
-  const crownContacts: { label: string; email: string; category: ContactCategory }[] = [];
 
-  // Provincial Crown
-  const provCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CROWN);
-  if (provCrown?.email) {
-    crownContacts.push({
-      label: 'Provincial Crown',
-      email: provCrown.email,
-      category: 'provincial'
-    });
-  }
+  // Build crown contacts list with useMemo for stable reference
+  const crownContacts = useMemo(() => {
+    const result: { label: string; email: string; category: ContactCategory }[] = [];
 
-  // Bail Crown (from bail contacts)
-  if (bailContacts) {
-    const bailCrown = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.CROWN || bc.role_name === 'Crown');
-    if (bailCrown?.email) {
-      crownContacts.push({
-        label: 'Bail Crown',
-        email: bailCrown.email,
-        category: 'bail'
+    // Provincial Crown
+    const provCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.CROWN);
+    if (provCrown?.email) {
+      result.push({
+        label: 'Provincial Crown',
+        email: provCrown.email,
+        category: 'provincial'
       });
     }
-  }
 
-  // Federal Crown
-  const fedCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.FEDERAL_CROWN);
-  if (fedCrown?.email) {
-    crownContacts.push({
-      label: 'Federal Crown',
-      email: fedCrown.email,
-      category: 'other'
-    });
-  }
+    // Bail Crown (from bail contacts)
+    if (bailContacts) {
+      const bailCrown = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.CROWN || bc.role_name === 'Crown');
+      if (bailCrown?.email) {
+        result.push({
+          label: 'Bail Crown',
+          email: bailCrown.email,
+          category: 'bail'
+        });
+      }
+    }
 
-  // First Nations Crown
-  const fnCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.FIRST_NATIONS_CROWN);
-  if (fnCrown?.email) {
-    crownContacts.push({
-      label: 'First Nations Crown',
-      email: fnCrown.email,
-      category: 'other'
-    });
-  }
+    // Federal Crown
+    const fedCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.FEDERAL_CROWN);
+    if (fedCrown?.email) {
+      result.push({
+        label: 'Federal Crown',
+        email: fedCrown.email,
+        category: 'other'
+      });
+    }
+
+    // First Nations Crown
+    const fnCrown = contacts.find(c => c.contact_role_id === CONTACT_ROLES.FIRST_NATIONS_CROWN);
+    if (fnCrown?.email) {
+      result.push({
+        label: 'First Nations Crown',
+        email: fnCrown.email,
+        category: 'other'
+      });
+    }
+
+    return result;
+  }, [contacts, bailContacts]);
+
+  // Extract just emails for truncation check dependency
+  const emails = useMemo(() => crownContacts.map(c => c.email), [crownContacts]);
 
   // Truncation detection
-  const { registerRef, hasTruncation } = useTruncationDetection([crownContacts, showFull]);
+  const { containerRef, hasTruncation } = useTruncationDetection(emails, showFull);
 
   if (crownContacts.length === 0) return null;
 
@@ -323,7 +356,7 @@ export function CrownContactsStack({
         onToggle={() => setShowFull(!showFull)}
         showToggle={hasTruncation || showFull}
       />
-      <div className="space-y-2">
+      <div ref={containerRef} className="space-y-2">
         {crownContacts.map((contact) => (
           <ContactItem 
             key={contact.label}
@@ -332,7 +365,6 @@ export function CrownContactsStack({
             category={contact.category}
             showFull={showFull}
             onCopy={onCopy || (() => {})}
-            emailRef={!showFull ? (el) => registerRef(contact.label, el) : undefined}
           />
         ))}
       </div>
