@@ -4,41 +4,9 @@ import { useState, useMemo } from 'react';
 import { MicrosoftTeams, Eye, EyeSlash, Clipboard, ClipboardCheck, Telephone } from 'react-bootstrap-icons';
 import { Button } from '@/app/components/ui/Button';
 import { cn, textClasses, iconClasses, inlineStyles } from '@/lib/config/theme';
-import { formatDate, joinTeamsMeeting } from '@/lib/utils';
-import { isVBTriageLink } from '@/lib/config/constants';
+import { joinTeamsMeeting } from '@/lib/utils';
+import { isVBTriageLink, formatCourtroomName } from '@/lib/config/constants';
 import type { TeamsLink, BailTeam } from '@/types';
-
-// ============================================================================
-// HELPER: Format courtroom name (matches backup - ADDS CR prefix)
-// ============================================================================
-
-function formatCourtroomName(link: TeamsLink | BailTeam): string {
-  const name = link.courtroom || link.name || 'MS Teams';
-  
-  // Don't modify JCM FXD or special names
-  if (name.toLowerCase().includes('jcm') || name.toLowerCase().includes('fxd') || name.toLowerCase().includes('triage')) {
-    return name;
-  }
-  
-  // Check if it's already prefixed with CR
-  if (name.toLowerCase().startsWith('cr ') || name.toLowerCase().startsWith('cr-')) {
-    return name;
-  }
-  
-  // Check if it's a number or starts with a number (courtroom number)
-  const numMatch = name.match(/^(\d+)/);
-  if (numMatch) {
-    return `CR ${name}`;
-  }
-  
-  // Check for patterns like "Courtroom 101" and convert to "CR 101"
-  const courtroomMatch = name.match(/^courtroom\s*(\d+)/i);
-  if (courtroomMatch) {
-    return `CR ${courtroomMatch[1]}`;
-  }
-  
-  return name;
-}
 
 // ============================================================================
 // TEAMS CARD COMPONENT
@@ -52,7 +20,7 @@ interface TeamsCardProps {
 }
 
 export function TeamsCard({ link, showDialIn = false, onCopy, isCopied }: TeamsCardProps) {
-  const displayName = formatCourtroomName(link);
+  const displayName = formatCourtroomName(link.courtroom || link.name);
   const hasDialInInfo = link.phone || link.conference_id;
   
   const handleCopyAll = () => {

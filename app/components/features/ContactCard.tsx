@@ -8,13 +8,12 @@ import {
   iconClasses, 
   cardClasses,
   couponCardStyles,
-  getRoleLabelProps,
+  inlineStyles,
   getContactCategoryColor,
   getToggleButtonStyles,
   getSectionHeaderProps,
 } from '@/lib/config/theme';
 import type { ContactCategory } from '@/lib/config/theme';
-import { formatEmailsForCopy } from '@/lib/utils';
 import { CONTACT_ROLES } from '@/lib/config/constants';
 import type { ContactWithRole, BailContact } from '@/types';
 
@@ -26,7 +25,7 @@ type CopyFunction = (text: string, fieldId: string) => void | Promise<boolean>;
 type IsCopiedFunction = (fieldId: string) => boolean;
 
 // ============================================================================
-// CONTACT ITEM (Single coupon-style card)
+// CONTACT ITEM (Single coupon-style card - matches backup exactly)
 // ============================================================================
 
 interface ContactItemProps {
@@ -50,7 +49,6 @@ function ContactItem({
 }: ContactItemProps) {
   const copyText = emails.join(', ');
   const isFieldCopied = isCopied ? isCopied(fieldId) : false;
-  const roleLabelProps = getRoleLabelProps();
 
   const handleCopy = useCallback(() => {
     if (copyText && onCopy) {
@@ -60,21 +58,24 @@ function ContactItem({
 
   return (
     <div 
-      className={cardClasses.coupon}
-      style={couponCardStyles.container}
+      className="flex items-stretch rounded-lg overflow-hidden cursor-pointer transition-all hover:border-blue-500/40"
+      style={{ 
+        background: 'rgba(59,130,246,0.03)',
+        border: '1px dashed rgba(59,130,246,0.25)',
+      }}
       onClick={handleCopy}
     >
       {/* Color accent bar */}
       <div 
-        className="w-1 shrink-0"
+        className="w-1 flex-shrink-0"
         style={{ background: getContactCategoryColor(category) }}
       />
       
       {/* Content */}
       <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
         <div 
-          className={roleLabelProps.className}
-          style={roleLabelProps.style}
+          className={textClasses.roleLabel}
+          style={inlineStyles.roleLabelSpaced}
         >
           {label}
         </div>
@@ -103,16 +104,16 @@ function ContactItem({
       
       {/* Copy button area */}
       <div 
-        className="flex items-center justify-center px-3 shrink-0 transition-colors"
+        className="flex items-center justify-center px-3 flex-shrink-0 transition-colors"
         style={{ 
-          ...couponCardStyles.divider,
+          borderLeft: '1px dashed rgba(59,130,246,0.25)',
           color: isFieldCopied ? '#34d399' : '#52525b',
         }}
       >
         {isFieldCopied ? (
-          <ClipboardCheck className={cn(iconClasses.md, 'text-emerald-400')} />
+          <ClipboardCheck className="w-4 h-4" />
         ) : (
-          <Clipboard className={iconClasses.md} />
+          <Clipboard className="w-4 h-4" />
         )}
       </div>
     </div>
