@@ -51,6 +51,7 @@ export interface TeamsLink {
   teams_link_type_id: number | null;
   type_name?: string;
   bail_court_id?: number | null;
+  source_updated_at?: string | null;
 }
 
 export interface BailCourt {
