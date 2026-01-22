@@ -79,7 +79,8 @@ export const ROLE_DISPLAY_NAMES: Record<number, string> = {
 };
 
 // Group contacts into categories for UI display
-export const COURT_CONTACT_ROLE_IDS = [
+// Typed as readonly number[] to allow .includes() with number values
+export const COURT_CONTACT_ROLE_IDS: readonly number[] = [
   CONTACT_ROLES.CRIMINAL_REGISTRY,
   CONTACT_ROLES.JCM,
   CONTACT_ROLES.BAIL_JCM,
@@ -88,7 +89,7 @@ export const COURT_CONTACT_ROLE_IDS = [
   CONTACT_ROLES.LABC_NAVIGATOR,
 ];
 
-export const CROWN_CONTACT_ROLE_IDS = [
+export const CROWN_CONTACT_ROLE_IDS: readonly number[] = [
   CONTACT_ROLES.CROWN,
   CONTACT_ROLES.FEDERAL_CROWN,
   CONTACT_ROLES.FIRST_NATIONS_CROWN,
