@@ -127,7 +127,7 @@ export function AlphabetNav({
         <div
           className="fixed z-50 pointer-events-none"
           style={{
-            right: 36,
+            right: 48,
             top: containerRef.current
               ? containerRef.current.getBoundingClientRect().top + bubbleY
               : 0,
@@ -135,8 +135,8 @@ export function AlphabetNav({
           }}
         >
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-slate-800 border border-slate-600/50 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl font-bold text-blue-400">
+            <div className="w-14 h-14 bg-slate-800/95 border border-slate-600/50 rounded-2xl flex items-center justify-center shadow-xl backdrop-blur-sm">
+              <span className="text-3xl font-bold text-blue-400">
                 {currentLetter}
               </span>
             </div>
@@ -144,21 +144,23 @@ export function AlphabetNav({
             <div
               className="w-0 h-0"
               style={{
-                borderTop: '8px solid transparent',
-                borderBottom: '8px solid transparent',
-                borderLeft: '8px solid rgb(51, 65, 85)',
+                borderTop: '10px solid transparent',
+                borderBottom: '10px solid transparent',
+                borderLeft: '10px solid rgba(51, 65, 85, 0.95)',
               }}
             />
           </div>
         </div>
       )}
 
-      {/* Alphabet bar - transparent overlay on right edge */}
+      {/* Alphabet bar - rounded card with semi-transparent background */}
       <div
         ref={containerRef}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center px-1.5 py-1 select-none touch-none"
+        className="fixed right-2 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center px-2 py-3 select-none touch-none rounded-2xl backdrop-blur-md"
         style={{
-          background: 'linear-gradient(to left, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 50%, transparent 100%)',
+          background: 'rgba(30, 41, 59, 0.85)',
+          border: '1px solid rgba(71, 85, 105, 0.4)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
         }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -172,11 +174,11 @@ export function AlphabetNav({
             <span
               key={letter}
               className={cn(
-                'text-[10px] leading-[14px] font-semibold transition-colors',
+                'text-[11px] leading-[16px] font-bold transition-colors w-5 text-center',
                 isActive
                   ? 'text-blue-400'
                   : isAvailable
-                  ? 'text-slate-300'
+                  ? 'text-slate-200'
                   : 'text-slate-500'
               )}
             >
