@@ -104,31 +104,31 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
 
   return (
     <>
-      {/* Scrub bubble - positioned outside the card */}
+      {/* Scrub bubble with tail - positioned to the left of the bar */}
       {isDragging && scrubLetter && (
         <div
-          className="fixed z-50 pointer-events-none"
+          className="fixed z-50 pointer-events-none flex items-center"
           style={{
-            right: 56,
+            right: 44,
             top: containerRef.current 
               ? containerRef.current.getBoundingClientRect().top + bubbleY 
               : 0,
             transform: 'translateY(-50%)',
           }}
         >
-          <div className="flex items-center">
-            <div className={alphabetNav.bubble}>
-              <span className="text-xl font-bold text-blue-400">{scrubLetter}</span>
-            </div>
-            <div 
-              className="w-0 h-0 -ml-px"
-              style={{
-                borderTop: '8px solid transparent',
-                borderBottom: '8px solid transparent',
-                borderLeft: '8px solid rgb(30, 41, 59)',
-              }}
-            />
+          {/* Bubble */}
+          <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-600/50 shadow-xl flex items-center justify-center">
+            <span className="text-2xl font-bold text-blue-400">{scrubLetter}</span>
           </div>
+          {/* Tail pointing right */}
+          <div 
+            className="w-0 h-0 -ml-px"
+            style={{
+              borderTop: '10px solid transparent',
+              borderBottom: '10px solid transparent',
+              borderLeft: '10px solid rgb(30, 41, 59)',
+            }}
+          />
         </div>
       )}
 
