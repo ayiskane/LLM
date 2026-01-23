@@ -432,7 +432,7 @@ export function CourtsIndexPage() {
     const container = scrollContainerRef.current;
     if (section && container) {
       const sectionTop = section.offsetTop;
-      container.scrollTo({ top: sectionTop, behavior: 'smooth' });
+      container.scrollTo({ top: sectionTop, behavior: 'instant' });
     }
   }, []);
 
