@@ -153,10 +153,13 @@ export function AlphabetNav({
         </div>
       )}
 
-      {/* Alphabet bar - slim vertical column */}
+      {/* Alphabet bar - transparent overlay on right edge */}
       <div
         ref={containerRef}
-        className="fixed right-0.5 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center py-1 select-none touch-none"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center px-1.5 py-1 select-none touch-none"
+        style={{
+          background: 'linear-gradient(to left, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 50%, transparent 100%)',
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onMouseDown={handleMouseDown}
@@ -173,8 +176,8 @@ export function AlphabetNav({
                 isActive
                   ? 'text-blue-400'
                   : isAvailable
-                  ? 'text-slate-400'
-                  : 'text-slate-600'
+                  ? 'text-slate-300'
+                  : 'text-slate-500'
               )}
             >
               {letter}

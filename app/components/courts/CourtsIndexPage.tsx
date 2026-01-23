@@ -716,7 +716,7 @@ export function CourtsIndexPage() {
         )}
 
         {/* Courts List */}
-        <div className="pr-7 pb-20">
+        <div className="pb-20">
           {groupedCourts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 px-4">
               <GeoAlt className="w-12 h-12 text-slate-700 mb-4" />
