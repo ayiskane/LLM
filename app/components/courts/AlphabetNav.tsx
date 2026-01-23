@@ -109,7 +109,7 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
         <div
           className="fixed z-50 pointer-events-none"
           style={{
-            right: 36,
+            right: 56,
             top: containerRef.current 
               ? containerRef.current.getBoundingClientRect().top + bubbleY 
               : 0,
