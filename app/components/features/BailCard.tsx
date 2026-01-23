@@ -21,8 +21,13 @@ interface ScheduleRowProps {
 function ScheduleRow({ label, value, isAmber = false }: ScheduleRowProps) {
   return (
     <div className={card.flexRow}>
-      <span className={getScheduleLabelClass(isAmber)}>{label}</span>
-      <span className={text.monoValue}>{value}</span>
+      <span 
+        className={getScheduleLabelClass(isAmber)}
+        style={{ letterSpacing: '1px' }}
+      >
+        {label}
+      </span>
+      <span className={text.scheduleValue}>{value}</span>
     </div>
   );
 }
