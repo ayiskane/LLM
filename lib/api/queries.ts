@@ -14,6 +14,15 @@ import type {
 const supabase = createClient();
 
 // =============================================================================
+// TYPE FOR COURTS WITH REGION INFO
+// =============================================================================
+
+export interface CourtWithRegionName extends Court {
+  region_name: string;
+  region_code: string;
+}
+
+// =============================================================================
 // COURTS
 // =============================================================================
 
@@ -39,6 +48,25 @@ export async function fetchCourtById(id: number): Promise<CourtWithRegion | null
 
   if (error) throw error;
   return data;
+}
+
+export async function fetchCourtsWithRegions(): Promise<CourtWithRegionName[]> {
+  const { data, error } = await supabase
+    .from('courts')
+    .select(`
+      *,
+      region:regions(id, name, code)
+    `)
+    .order('name');
+
+  if (error) throw error;
+  
+  // Map the joined data to a flat structure
+  return (data || []).map((court: any) => ({
+    ...court,
+    region_name: court.region?.name ?? 'Unknown',
+    region_code: court.region?.code ?? 'UNK',
+  }));
 }
 
 // =============================================================================

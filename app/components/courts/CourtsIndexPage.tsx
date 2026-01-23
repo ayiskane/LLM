@@ -1,0 +1,445 @@
+'use client';
+
+import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Search, X, Building, GeoAlt } from 'react-bootstrap-icons';
+import { cn, pill, text } from '@/lib/config/theme';
+import { useCourts } from '@/lib/hooks/useCourts';
+import type { CourtWithRegionName } from '@/lib/hooks/useCourts';
+
+// =============================================================================
+// CONSTANTS
+// =============================================================================
+
+const REGIONS = [
+  { id: 0, name: 'All Regions', code: 'ALL' },
+  { id: 1, name: 'Island', code: 'R1' },
+  { id: 2, name: 'Vancouver Coastal', code: 'R2' },
+  { id: 3, name: 'Fraser', code: 'R3' },
+  { id: 4, name: 'Interior', code: 'R4' },
+  { id: 5, name: 'Northern', code: 'R5' },
+] as const;
+
+const REGION_COLORS: Record<number, string> = {
+  1: 'bg-amber-500',
+  2: 'bg-blue-500',
+  3: 'bg-emerald-500',
+  4: 'bg-purple-500',
+  5: 'bg-cyan-500',
+};
+
+// =============================================================================
+// TYPES
+// =============================================================================
+
+interface GroupedCourts {
+  letter: string;
+  courts: CourtWithRegionName[];
+}
+
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
+
+function groupCourtsByLetter(courts: CourtWithRegionName[]): GroupedCourts[] {
+  const grouped = courts.reduce((acc, court) => {
+    const firstChar = court.name.charAt(0).toUpperCase();
+    const letter = /[A-Z]/.test(firstChar) ? firstChar : '#';
+    
+    if (!acc[letter]) {
+      acc[letter] = [];
+    }
+    acc[letter].push(court);
+    return acc;
+  }, {} as Record<string, CourtWithRegionName[]>);
+
+  // Sort letters alphabetically, with # at the end
+  return Object.entries(grouped)
+    .sort(([a], [b]) => {
+      if (a === '#') return 1;
+      if (b === '#') return -1;
+      return a.localeCompare(b);
+    })
+    .map(([letter, courts]) => ({ letter, courts }));
+}
+
+function getAvailableLetters(groups: GroupedCourts[]): string[] {
+  return groups.map(g => g.letter);
+}
+
+// =============================================================================
+// SUB-COMPONENTS
+// =============================================================================
+
+interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+  onClear: () => void;
+}
+
+function SearchBar({ value, onChange, onClear }: SearchBarProps) {
+  return (
+    <div className="relative">
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+        <Search className="w-4 h-4" />
+      </div>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Search courts..."
+        className={cn(
+          'w-full bg-slate-800/50 border border-slate-700/50 rounded-xl',
+          'pl-11 pr-10 py-3 text-sm',
+          'text-slate-200 placeholder:text-slate-500',
+          'focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40',
+          'transition-all duration-200'
+        )}
+      />
+      {value && (
+        <button
+          onClick={onClear}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
+    </div>
+  );
+}
+
+interface RegionFilterProps {
+  selectedRegion: number;
+  onSelect: (regionId: number) => void;
+}
+
+function RegionFilter({ selectedRegion, onSelect }: RegionFilterProps) {
+  return (
+    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
+      {REGIONS.map((region) => (
+        <button
+          key={region.id}
+          onClick={() => onSelect(region.id)}
+          className={cn(
+            pill.base,
+            'flex-shrink-0',
+            selectedRegion === region.id ? pill.active : pill.inactive
+          )}
+        >
+          {region.id !== 0 && (
+            <span className={cn('w-2 h-2 rounded-full', REGION_COLORS[region.id])} />
+          )}
+          {region.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+interface AlphabetNavProps {
+  letters: string[];
+  activeLetter: string | null;
+  onSelect: (letter: string) => void;
+}
+
+function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProps) {
+  const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
+  
+  return (
+    <div className="fixed right-1 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center py-2 px-1 bg-slate-900/80 backdrop-blur-sm rounded-lg">
+      {allLetters.map((letter) => {
+        const isAvailable = letters.includes(letter);
+        const isActive = activeLetter === letter;
+        
+        return (
+          <button
+            key={letter}
+            onClick={() => isAvailable && onSelect(letter)}
+            disabled={!isAvailable}
+            className={cn(
+              'w-5 h-5 flex items-center justify-center text-[10px] font-semibold transition-all',
+              isAvailable 
+                ? isActive 
+                  ? 'text-blue-400 scale-125' 
+                  : 'text-slate-400 hover:text-blue-300'
+                : 'text-slate-700 cursor-default'
+            )}
+          >
+            {letter}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+interface CourtListItemProps {
+  court: CourtWithRegionName;
+  onClick: () => void;
+}
+
+function CourtListItem({ court, onClick }: CourtListItemProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        'w-full text-left px-4 py-3',
+        'flex items-center justify-between gap-3',
+        'border-b border-slate-700/30 last:border-b-0',
+        'active:bg-blue-500/10 transition-colors'
+      )}
+    >
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="text-sm font-medium text-slate-200 truncate">
+            {court.name}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[court.region_id] || 'bg-slate-500')} />
+          <span className="text-xs text-slate-500">{court.region_name}</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-1.5 flex-shrink-0">
+        {court.has_provincial && (
+          <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded bg-emerald-500/15 text-emerald-400">
+            PC
+          </span>
+        )}
+        {court.has_supreme && (
+          <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded bg-purple-500/15 text-purple-400">
+            SC
+          </span>
+        )}
+        {court.is_circuit && (
+          <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded bg-slate-500/15 text-slate-400">
+            Circuit
+          </span>
+        )}
+        <span className="text-slate-600 ml-1">›</span>
+      </div>
+    </button>
+  );
+}
+
+interface LetterSectionProps {
+  letter: string;
+  courts: CourtWithRegionName[];
+  onCourtClick: (courtId: number) => void;
+  sectionRef: (el: HTMLDivElement | null) => void;
+}
+
+function LetterSection({ letter, courts, onCourtClick, sectionRef }: LetterSectionProps) {
+  return (
+    <div ref={sectionRef} id={`section-${letter}`} className="scroll-mt-36">
+      <div className="sticky top-[140px] z-10 px-4 py-2 bg-slate-900/95 backdrop-blur-sm border-b border-blue-500/20">
+        <span className="text-sm font-bold text-blue-400">{letter}</span>
+      </div>
+      <div className="bg-slate-800/20">
+        {courts.map((court) => (
+          <CourtListItem
+            key={court.id}
+            court={court}
+            onClick={() => onCourtClick(court.id)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// =============================================================================
+// MAIN COMPONENT
+// =============================================================================
+
+export function CourtsIndexPage() {
+  const router = useRouter();
+  const { courts, isLoading, error } = useCourts();
+  
+  // State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState(0);
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
+  
+  // Refs for scroll sections
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Filter courts based on search and region
+  const filteredCourts = useMemo(() => {
+    let result = courts;
+
+    // Filter by region
+    if (selectedRegion !== 0) {
+      result = result.filter(court => court.region_id === selectedRegion);
+    }
+
+    // Filter by search
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(court => 
+        court.name.toLowerCase().includes(query) ||
+        court.region_name.toLowerCase().includes(query)
+      );
+    }
+
+    return result;
+  }, [courts, selectedRegion, searchQuery]);
+
+  // Group filtered courts by letter
+  const groupedCourts = useMemo(() => {
+    return groupCourtsByLetter(filteredCourts);
+  }, [filteredCourts]);
+
+  // Get available letters for alphabet nav
+  const availableLetters = useMemo(() => {
+    return getAvailableLetters(groupedCourts);
+  }, [groupedCourts]);
+
+  // Handle alphabet nav click
+  const handleLetterClick = useCallback((letter: string) => {
+    setActiveLetter(letter);
+    const section = sectionRefs.current[letter];
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
+  // Handle court click - navigate to detail
+  const handleCourtClick = useCallback((courtId: number) => {
+    router.push(`/court/${courtId}`);
+  }, [router]);
+
+  // Track scroll position to update active letter
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 160; // Account for sticky header
+      
+      for (const group of groupedCourts) {
+        const section = sectionRefs.current[group.letter];
+        if (section) {
+          const { top, bottom } = section.getBoundingClientRect();
+          const absoluteTop = top + window.scrollY;
+          const absoluteBottom = bottom + window.scrollY;
+          
+          if (scrollPosition >= absoluteTop && scrollPosition < absoluteBottom) {
+            setActiveLetter(group.letter);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [groupedCourts]);
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+          <p className="text-slate-400 text-sm">Loading courts...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center p-4">
+        <div className="text-center">
+          <p className="text-red-400 mb-2">Failed to load courts</p>
+          <p className="text-slate-500 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[hsl(222.2,84%,4.9%)] pb-20">
+      {/* Sticky Header */}
+      <div className="sticky top-0 z-40 bg-[rgba(8,11,18,0.95)] backdrop-blur-md border-b border-blue-500/10">
+        {/* Title */}
+        <div className="px-4 pt-4 pb-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold text-white">BC Courts</h1>
+              <p className="text-xs text-slate-500 mt-0.5">
+                {filteredCourts.length} {filteredCourts.length === 1 ? 'courthouse' : 'courthouses'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-slate-600 uppercase tracking-wider">LLM</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Search */}
+        <div className="px-4 pb-3">
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            onClear={() => setSearchQuery('')}
+          />
+        </div>
+
+        {/* Region Filter */}
+        <div className="px-4 pb-3">
+          <RegionFilter
+            selectedRegion={selectedRegion}
+            onSelect={setSelectedRegion}
+          />
+        </div>
+      </div>
+
+      {/* Alphabet Navigation */}
+      {!searchQuery && (
+        <AlphabetNav
+          letters={availableLetters}
+          activeLetter={activeLetter}
+          onSelect={handleLetterClick}
+        />
+      )}
+
+      {/* Courts List */}
+      <div className="pr-7">
+        {groupedCourts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 px-4">
+            <GeoAlt className="w-12 h-12 text-slate-700 mb-4" />
+            <p className="text-slate-400 text-center">
+              {searchQuery 
+                ? `No courts found for "${searchQuery}"`
+                : 'No courts in this region'
+              }
+            </p>
+            {(searchQuery || selectedRegion !== 0) && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedRegion(0);
+                }}
+                className="mt-4 text-blue-400 text-sm hover:text-blue-300 transition-colors"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
+        ) : (
+          groupedCourts.map((group) => (
+            <LetterSection
+              key={group.letter}
+              letter={group.letter}
+              courts={group.courts}
+              onCourtClick={handleCourtClick}
+              sectionRef={(el) => {
+                sectionRefs.current[group.letter] = el;
+              }}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
+}

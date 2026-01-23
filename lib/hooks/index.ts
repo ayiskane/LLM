@@ -7,6 +7,10 @@ export type { SearchResults } from './useSearch';
 // Court details hook (React Query with caching)
 export { useCourtDetails } from './useCourtDetails';
 
+// Courts list hook (React Query with caching)
+export { useCourts } from './useCourts';
+export type { CourtWithRegionName } from './useCourts';
+
 // Other hooks
 export { useCopyToClipboard } from './useCopyToClipboard';
 export { useScrollHeader } from './useScrollHeader';
