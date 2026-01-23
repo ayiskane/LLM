@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton, Toast } from '../ui';
 import { CourtHeader } from './CourtHeader';
+import { SearchBar } from './SearchBar';
 import { TeamsList } from '../features/TeamsCard';
 import { CourtContactsStack, CrownContactsStack } from '../features/ContactCard';
 import { CellList } from '../features/CellCard';
@@ -19,13 +20,15 @@ type AccordionSection = 'contacts' | 'cells' | 'bail' | 'teams' | null;
 interface CourtDetailPageProps {
   courtDetails: CourtDetails;
   onBack?: () => void;
+  onSearch?: (query: string) => void;
 }
 
-export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) {
+export function CourtDetailPage({ courtDetails, onBack, onSearch }: CourtDetailPageProps) {
   const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts } = courtDetails;
   
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contacts');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { copiedField, copyToClipboard, isCopied } = useCopyToClipboard();
   
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -55,7 +58,6 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
     const ref = section ? refs[section] : null;
     
     if (ref?.current) {
-      // Use requestAnimationFrame to wait for DOM update after section expands
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -68,6 +70,12 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
     setExpandedSection(prev => prev === section ? null : section);
   }, []);
 
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim() && onSearch) {
+      onSearch(searchQuery.trim());
+    }
+  };
+
   const navButtons = [
     { key: 'contacts', label: 'Contacts', icon: <EnvelopeAt className="w-4 h-4" />, count: contacts.length, show: !court.is_circuit && contacts.length > 0 },
     { key: 'cells', label: 'Cells', icon: <ShieldCheck className="w-4 h-4" />, count: cells.length, show: cells.length > 0 },
@@ -78,6 +86,24 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <StickyHeader>
+        {/* Back button + Search bar row */}
+        <div className="flex items-center gap-2 px-3 py-2">
+          <button
+            onClick={onBack}
+            className="p-2 -ml-1 text-slate-400 hover:text-white transition-colors shrink-0"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            onSubmit={handleSearchSubmit}
+            placeholder="Search courts, contacts, cells..."
+            className="flex-1"
+          />
+        </div>
+        
         {/* Court info section */}
         <CourtHeader court={court} collapsed={isHeaderCollapsed} />
         
