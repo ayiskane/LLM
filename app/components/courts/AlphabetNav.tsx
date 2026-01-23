@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { alphabetNav } from '@/lib/config/theme';
 
 interface AlphabetNavProps {
   letters: string[];
@@ -132,26 +133,12 @@ export function AlphabetNav({
           }}
         >
           <div className="flex items-center">
-            <div 
-              className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl"
-              style={{
-                backgroundColor: 'rgba(30, 41, 59, 0.95)',
-                border: '1px solid rgba(100, 116, 139, 0.5)',
-              }}
-            >
+            <div className={alphabetNav.bubble}>
               <span className="text-4xl font-bold text-blue-400">
                 {currentLetter}
               </span>
             </div>
-            <div
-              style={{
-                width: 0,
-                height: 0,
-                borderTop: '12px solid transparent',
-                borderBottom: '12px solid transparent',
-                borderLeft: '12px solid rgba(30, 41, 59, 0.95)',
-              }}
-            />
+            <div className={alphabetNav.pointer} />
           </div>
         </div>
       )}
@@ -159,12 +146,7 @@ export function AlphabetNav({
       {/* Alphabet card */}
       <div
         ref={containerRef}
-        className="fixed right-2 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center px-2.5 py-3 select-none touch-none rounded-xl"
-        style={{
-          backgroundColor: 'rgba(30, 41, 59, 0.9)',
-          border: '1px solid rgba(100, 116, 139, 0.4)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
-        }}
+        className={alphabetNav.card}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onMouseDown={handleMouseDown}
@@ -177,12 +159,12 @@ export function AlphabetNav({
             <span
               key={letter}
               className={cn(
-                'text-xs leading-5 font-bold transition-colors w-5 text-center',
+                alphabetNav.letter,
                 isActive
-                  ? 'text-blue-400'
+                  ? alphabetNav.letterActive
                   : isAvailable
-                  ? 'text-slate-200'
-                  : 'text-slate-600'
+                  ? alphabetNav.letterAvailable
+                  : alphabetNav.letterUnavailable
               )}
             >
               {letter}

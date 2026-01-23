@@ -110,3 +110,17 @@ export function getCategoryAccentClass(category: ContactCategory): string {
 export function getScheduleLabelClass(isAmber = false): string {
   return `${text.scheduleLabel} ${isAmber ? 'text-amber-400' : 'text-slate-300'}`;
 }
+
+// ============================================================================
+// ALPHABET NAVIGATION
+// ============================================================================
+
+export const alphabetNav = {
+  card: 'fixed right-2 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center px-2.5 py-3 select-none touch-none rounded-xl alphabet-nav-card',
+  bubble: 'w-16 h-16 rounded-2xl flex items-center justify-center alphabet-nav-bubble',
+  pointer: 'w-0 h-0 alphabet-nav-pointer',
+  letter: 'text-xs leading-5 font-bold transition-colors w-5 text-center',
+  letterActive: 'text-blue-400',
+  letterAvailable: 'text-slate-200',
+  letterUnavailable: 'text-slate-600',
+} as const;

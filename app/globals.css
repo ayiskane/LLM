@@ -158,3 +158,27 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Chrome, Safari, Opera */
 }
+
+/* ============================================================================
+   ALPHABET NAVIGATION
+   ============================================================================ */
+
+.alphabet-nav-card {
+  background-color: rgba(30, 41, 59, 0.92);
+  border: 1px solid rgba(100, 116, 139, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.alphabet-nav-bubble {
+  background-color: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(100, 116, 139, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.alphabet-nav-pointer {
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid rgba(30, 41, 59, 0.95);
+}
