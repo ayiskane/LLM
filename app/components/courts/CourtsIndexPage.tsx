@@ -283,7 +283,7 @@ function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProps) {
   const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
   
   return (
-    <div className="fixed right-1 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center py-2 px-1 bg-slate-900/80 backdrop-blur-sm rounded-lg">
+    <div className="absolute top-0 bottom-0 right-0 z-20 flex flex-col justify-center py-4 px-1">
       {allLetters.map((letter) => {
         const isAvailable = letters.includes(letter);
         const isActive = activeLetter === letter;
@@ -294,12 +294,12 @@ function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProps) {
             onClick={() => isAvailable && onSelect(letter)}
             disabled={!isAvailable}
             className={cn(
-              'w-5 h-5 flex items-center justify-center text-[10px] font-semibold transition-all',
+              'w-6 h-4 flex items-center justify-center text-[9px] font-semibold transition-all',
               isAvailable 
                 ? isActive 
-                  ? 'text-blue-400 scale-125' 
-                  : 'text-slate-400 hover:text-blue-300'
-                : 'text-slate-700 cursor-default'
+                  ? 'text-blue-400 scale-110' 
+                  : 'text-slate-500 hover:text-blue-300 active:text-blue-400'
+                : 'text-slate-700/50 cursor-default'
             )}
           >
             {letter}
