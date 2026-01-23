@@ -370,8 +370,8 @@ interface LetterSectionProps {
 
 function LetterSection({ letter, courts, onCourtClick, sectionRef }: LetterSectionProps) {
   return (
-    <div ref={sectionRef} id={`section-${letter}`} className="scroll-mt-36">
-      <div className="sticky top-[140px] z-10 px-4 py-2 bg-slate-900/95 backdrop-blur-sm border-b border-blue-500/20">
+    <div ref={sectionRef} id={`section-${letter}`}>
+      <div className="sticky top-0 z-10 px-4 py-2 bg-slate-900/95 backdrop-blur-sm border-b border-blue-500/20">
         <span className="text-sm font-bold text-blue-400">{letter}</span>
       </div>
       <div className="bg-slate-800/20">
@@ -407,6 +407,7 @@ export function CourtsIndexPage() {
   
   // Refs for scroll sections
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Check if any filters are active (for indicator)
   const hasActiveFilters = filters.region !== 0 || filters.courtType !== 'all' || filters.courtLevel !== 'all';
@@ -467,8 +468,10 @@ export function CourtsIndexPage() {
   const handleLetterClick = useCallback((letter: string) => {
     setActiveLetter(letter);
     const section = sectionRefs.current[letter];
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const container = scrollContainerRef.current;
+    if (section && container) {
+      const sectionTop = section.offsetTop;
+      container.scrollTo({ top: sectionTop, behavior: 'smooth' });
     }
   }, []);
 
@@ -479,17 +482,19 @@ export function CourtsIndexPage() {
 
   // Track scroll position to update active letter
   useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 160; // Account for sticky header
+      const scrollTop = container.scrollTop;
       
       for (const group of groupedCourts) {
         const section = sectionRefs.current[group.letter];
         if (section) {
-          const { top, bottom } = section.getBoundingClientRect();
-          const absoluteTop = top + window.scrollY;
-          const absoluteBottom = bottom + window.scrollY;
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
           
-          if (scrollPosition >= absoluteTop && scrollPosition < absoluteBottom) {
+          if (scrollTop >= sectionTop - 10 && scrollTop < sectionBottom - 10) {
             setActiveLetter(group.letter);
             break;
           }
@@ -497,14 +502,14 @@ export function CourtsIndexPage() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
   }, [groupedCourts]);
 
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center">
+      <div className="h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-8 h-8 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
           <p className="text-slate-400 text-sm">Loading courts...</p>
@@ -516,7 +521,7 @@ export function CourtsIndexPage() {
   // Error state
   if (error) {
     return (
-      <div className="min-h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center p-4">
+      <div className="h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center p-4">
         <div className="text-center">
           <p className="text-red-400 mb-2">Failed to load courts</p>
           <p className="text-slate-500 text-sm">{error}</p>
@@ -526,9 +531,9 @@ export function CourtsIndexPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[hsl(222.2,84%,4.9%)] pb-20">
-      {/* Sticky Header */}
-      <div className="sticky top-0 z-40 bg-[rgba(8,11,18,0.95)] backdrop-blur-md border-b border-blue-500/10">
+    <div className="h-screen flex flex-col bg-[hsl(222.2,84%,4.9%)] overflow-hidden">
+      {/* Fixed Header */}
+      <div className="flex-shrink-0 bg-[rgba(8,11,18,0.98)] border-b border-blue-500/10">
         {/* Title */}
         <div className="px-4 pt-4 pb-2">
           <div className="flex items-center justify-between">
@@ -564,51 +569,54 @@ export function CourtsIndexPage() {
         />
       </div>
 
-      {/* Alphabet Navigation */}
-      {!searchQuery && (
-        <AlphabetNav
-          letters={availableLetters}
-          activeLetter={activeLetter}
-          onSelect={handleLetterClick}
-        />
-      )}
-
-      {/* Courts List */}
-      <div className="pr-7">
-        {groupedCourts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 px-4">
-            <GeoAlt className="w-12 h-12 text-slate-700 mb-4" />
-            <p className="text-slate-400 text-center">
-              {searchQuery 
-                ? `No courts found for "${searchQuery}"`
-                : 'No courts match your filters'
-              }
-            </p>
-            {(searchQuery || hasActiveFilters) && (
-              <button
-                onClick={() => {
-                  setSearchQuery('');
-                  clearAllFilters();
-                }}
-                className="mt-4 text-blue-400 text-sm hover:text-blue-300 transition-colors"
-              >
-                Clear filters
-              </button>
-            )}
-          </div>
-        ) : (
-          groupedCourts.map((group) => (
-            <LetterSection
-              key={group.letter}
-              letter={group.letter}
-              courts={group.courts}
-              onCourtClick={handleCourtClick}
-              sectionRef={(el) => {
-                sectionRefs.current[group.letter] = el;
-              }}
-            />
-          ))
+      {/* Scrollable List Container */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative">
+        {/* Alphabet Navigation */}
+        {!searchQuery && (
+          <AlphabetNav
+            letters={availableLetters}
+            activeLetter={activeLetter}
+            onSelect={handleLetterClick}
+          />
         )}
+
+        {/* Courts List */}
+        <div className="pr-7 pb-20">
+          {groupedCourts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 px-4">
+              <GeoAlt className="w-12 h-12 text-slate-700 mb-4" />
+              <p className="text-slate-400 text-center">
+                {searchQuery 
+                  ? `No courts found for "${searchQuery}"`
+                  : 'No courts match your filters'
+                }
+              </p>
+              {(searchQuery || hasActiveFilters) && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    clearAllFilters();
+                  }}
+                  className="mt-4 text-blue-400 text-sm hover:text-blue-300 transition-colors"
+                >
+                  Clear filters
+                </button>
+              )}
+            </div>
+          ) : (
+            groupedCourts.map((group) => (
+              <LetterSection
+                key={group.letter}
+                letter={group.letter}
+                courts={group.courts}
+                onCourtClick={handleCourtClick}
+                sectionRef={(el) => {
+                  sectionRefs.current[group.letter] = el;
+                }}
+              />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
