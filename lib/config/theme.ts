@@ -52,12 +52,12 @@ export const iconSize = {
 } as const;
 
 export const text = {
+  // Headers - use for "COURT CONTACTS", "CROWN CONTACTS", "LAST UPDATED", etc.
   sectionHeader: 'text-xs text-slate-500 uppercase px-1 tracking-wide',
   roleLabel: 'text-[9px] text-slate-400 uppercase mb-1 tracking-wide',
-  scheduleLabel: 'text-sm font-mono font-semibold uppercase',
-  scheduleValue: 'text-slate-400 text-sm font-mono',
-  lastUpdated: 'text-xs text-slate-500 uppercase font-sans',
+  scheduleLabel: 'text-xs font-mono font-semibold uppercase tracking-wide',
   monoValue: 'text-slate-400 text-xs font-mono',
+  // Body text
   primary: 'text-white',
   secondary: 'text-slate-200',
   muted: 'text-slate-300',

@@ -25,13 +25,6 @@ export function TeamsCard({ link, onCopy, isCopied }: TeamsCardProps) {
   const displayName = formatCourtroomName(link.courtroom || link.name);
   const hasDialInInfo = link.phone || link.conference_id;
   
-  /**
-   * Copy format:
-   * {Link}
-   * {phone}
-   * {toll free number}
-   * Conference ID: {conference ID}
-   */
   const handleCopyAll = () => {
     if (!onCopy) return;
     const copyText = [
@@ -52,7 +45,6 @@ export function TeamsCard({ link, onCopy, isCopied }: TeamsCardProps) {
         </div>
         
         <div className="flex items-center gap-2 shrink-0">
-          {/* Per-row dial-in toggle */}
           {hasDialInInfo && (
             <button
               onClick={() => setShowDialIn(!showDialIn)}
@@ -68,7 +60,6 @@ export function TeamsCard({ link, onCopy, isCopied }: TeamsCardProps) {
             </button>
           )}
           
-          {/* Join button */}
           {link.teams_link && (
             <Button variant="join" size="sm" onClick={() => joinTeamsMeeting(link.teams_link)}>
               <MicrosoftTeams className="w-3.5 h-3.5" />
@@ -78,7 +69,6 @@ export function TeamsCard({ link, onCopy, isCopied }: TeamsCardProps) {
         </div>
       </div>
       
-      {/* Dial-in info panel - darker bg, dashed border, monospace */}
       {hasDialInInfo && showDialIn && (
         <div 
           className="mt-2 p-2.5 rounded bg-slate-950/70 border border-dashed border-slate-600/50 cursor-pointer hover:border-slate-500/50 transition-colors"
@@ -152,13 +142,9 @@ export function TeamsList({ links, filterVBTriage = true, onCopy, isCopied }: Te
 
   return (
     <div className="space-y-1.5">
-      {/* Last Updated header - matches backup branch */}
+      {/* Last Updated - uses same style as "Court Contacts" / "Crown Contacts" headers */}
       {lastUpdated && (
-        <div className="px-1 mb-2">
-          <span className={text.lastUpdated}>
-            Last Updated: {lastUpdated}
-          </span>
-        </div>
+        <h4 className={text.sectionHeader}>Last Updated: {lastUpdated}</h4>
       )}
       
       {filteredLinks.map((link) => (
