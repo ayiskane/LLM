@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { MicrosoftTeams, Eye, EyeSlash, Clipboard, ClipboardCheck, Telephone } from 'react-bootstrap-icons';
+import { MicrosoftTeams, Eye, EyeSlash, Clipboard, ClipboardCheck, Telephone, TelephoneOutbound, Hash } from 'react-bootstrap-icons';
 import { cn } from '@/lib/utils';
 import { text, iconSize } from '@/lib/config/theme';
 import { Button } from '@/app/components/ui/Button';
@@ -78,25 +78,31 @@ export function TeamsCard({ link, onCopy, isCopied }: TeamsCardProps) {
         </div>
       </div>
       
-      {/* Dial-in info panel */}
+      {/* Dial-in info panel - darker bg, dashed border, monospace */}
       {hasDialInInfo && showDialIn && (
         <div 
-          className="mt-2 p-2 rounded bg-slate-900/50 cursor-pointer hover:bg-slate-900/70 transition-colors"
+          className="mt-2 p-2.5 rounded bg-slate-950/70 border border-dashed border-slate-600/50 cursor-pointer hover:border-slate-500/50 transition-colors"
           onClick={handleCopyAll}
         >
           <div className="flex items-start justify-between gap-2">
-            <div className="flex-1 min-w-0 space-y-0.5">
+            <div className="flex-1 min-w-0 space-y-1 font-mono text-xs">
               {link.phone && (
-                <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                  <Telephone className={iconSize.xs} />
+                <div className="flex items-center gap-2 text-slate-300">
+                  <Telephone className={cn(iconSize.sm, 'text-slate-500 shrink-0')} />
                   <span>{link.phone}</span>
                 </div>
               )}
               {link.phone_toll_free && (
-                <div className="text-xs text-slate-500 ml-4.5">Toll-free: {link.phone_toll_free}</div>
+                <div className="flex items-center gap-2 text-slate-400">
+                  <TelephoneOutbound className={cn(iconSize.sm, 'text-slate-500 shrink-0')} />
+                  <span>{link.phone_toll_free}</span>
+                </div>
               )}
               {link.conference_id && (
-                <div className={cn(text.monoValue, 'text-slate-400')}>ID: {link.conference_id}</div>
+                <div className="flex items-center gap-2 text-slate-400">
+                  <Hash className={cn(iconSize.sm, 'text-slate-500 shrink-0')} />
+                  <span>Conference ID: {link.conference_id}</span>
+                </div>
               )}
             </div>
             
