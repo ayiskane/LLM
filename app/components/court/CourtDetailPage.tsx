@@ -79,7 +79,7 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
   };
 
   const navButtons = [
-    { key: 'contacts', label: 'Contacts', icon: <EnvelopeAt className="w-4 h-4" />, count: contacts.length, show: !court.is_circuit && contacts.length > 0 },
+    { key: 'contacts', label: 'Contacts', icon: <EnvelopeAt className="w-4 h-4" />, count: contacts.length, show: contacts.length > 0 },
     { key: 'cells', label: 'Cells', icon: <ShieldCheck className="w-4 h-4" />, count: cells.length, show: cells.length > 0 },
     { key: 'bail', label: 'Bail', icon: <Bank2 className="w-4 h-4" />, count: '', show: !!bailCourt },
     { key: 'teams', label: 'Teams', icon: <CameraVideo className="w-4 h-4" />, count: teamsLinks.length, show: teamsLinks.length > 0 },
@@ -141,8 +141,8 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
             />
           )}
 
-          {/* Contacts section */}
-          {!court.is_circuit && contacts.length > 0 && (
+          {/* Contacts section - for circuit courts, shows hub court's contacts */}
+          {contacts.length > 0 && (
             <Section
               ref={contactsRef}
               color="emerald"

@@ -256,8 +256,13 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   const court = await fetchCourtById(courtId);
   if (!court) return null;
 
+  // For circuit courts, fetch contacts from their contact hub
+  const contactSourceId = (court.is_circuit && court.contact_hub_id) 
+    ? court.contact_hub_id 
+    : courtId;
+
   const [contacts, cells, teamsLinks] = await Promise.all([
-    fetchContactsByCourtId(courtId),
+    fetchContactsByCourtId(contactSourceId),
     fetchCellsByCourtId(courtId),
     fetchTeamsLinksByCourtId(courtId),
   ]);
