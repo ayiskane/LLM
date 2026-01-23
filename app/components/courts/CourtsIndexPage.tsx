@@ -67,6 +67,34 @@ function getAvailableLetters(groups: GroupedCourts[]): string[] {
   return groups.map(g => g.letter);
 }
 
+/**
+ * Format court name for display
+ * - If name already contains "Court" → use as-is
+ * - If circuit court → just location name
+ * - If staffed courthouse → add "Law Courts"
+ */
+function getCourtDisplayName(court: CourtWithRegionName): string {
+  const name = court.name;
+  
+  // Already has "Court" in the name (e.g., "Downtown Community Court", "Vancouver Provincial Court")
+  if (name.toLowerCase().includes('court')) {
+    return name;
+  }
+  
+  // Circuit courts - just use location name
+  if (court.is_circuit) {
+    return name;
+  }
+  
+  // Staffed courthouses - add "Law Courts"
+  if (court.has_provincial || court.has_supreme) {
+    return `${name} Law Courts`;
+  }
+  
+  // Fallback
+  return name;
+}
+
 // =============================================================================
 // SUB-COMPONENTS
 // =============================================================================
@@ -179,6 +207,8 @@ interface CourtListItemProps {
 }
 
 function CourtListItem({ court, onClick }: CourtListItemProps) {
+  const displayName = getCourtDisplayName(court);
+  
   return (
     <button
       onClick={onClick}
@@ -192,7 +222,7 @@ function CourtListItem({ court, onClick }: CourtListItemProps) {
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-sm font-medium text-slate-200 truncate">
-            {court.name}
+            {displayName}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -277,7 +307,9 @@ export function CourtsIndexPage() {
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       result = result.filter(court => 
+        const displayName = getCourtDisplayName(court).toLowerCase();
         court.name.toLowerCase().includes(query) ||
+        displayName.includes(query) ||
         court.region_name.toLowerCase().includes(query)
       );
     }
