@@ -132,14 +132,35 @@ export function BailSectionContent({
 }: BailSectionContentProps) {
   const isHub = bailCourt.court_id === currentCourtId;
   
+  // Combine and sort bail teams: VB Triage links first, then courtroom links
   const allBailTeams = useMemo(() => {
+    // Get VB triage links from court teams
     const vbTriageFromCourt = courtTeams.filter(t => isVBTriageLink(t.name || t.courtroom));
+    
+    // Combine all teams
     const combined = [...bailTeams, ...vbTriageFromCourt];
+    
+    // Deduplicate by id
     const seen = new Set<number>();
-    return combined.filter(t => {
+    const unique = combined.filter(t => {
       if (seen.has(t.id)) return false;
       seen.add(t.id);
       return true;
+    });
+    
+    // Sort: VB Triage links first, then others
+    return unique.sort((a, b) => {
+      const aIsTriage = isVBTriageLink(a.name || a.courtroom);
+      const bIsTriage = isVBTriageLink(b.name || b.courtroom);
+      
+      // Triage links come first
+      if (aIsTriage && !bIsTriage) return -1;
+      if (!aIsTriage && bIsTriage) return 1;
+      
+      // Within same type, sort alphabetically by name
+      const aName = a.name || a.courtroom || '';
+      const bName = b.name || b.courtroom || '';
+      return aName.localeCompare(bName);
     });
   }, [bailTeams, courtTeams]);
 
