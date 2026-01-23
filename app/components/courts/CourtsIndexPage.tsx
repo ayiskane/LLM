@@ -197,7 +197,7 @@ function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProps) {
           >
             {letter}
           </button>
-        });
+        );
       })}
     </div>
   );
@@ -311,8 +311,8 @@ export function CourtsIndexPage() {
       result = result.filter(court => {
         const displayName = getCourtDisplayName(court).toLowerCase();
         return court.name.toLowerCase().includes(query) ||
-        displayName.includes(query) ||
-        court.region_name.toLowerCase().includes(query);
+          displayName.includes(query) ||
+          court.region_name.toLowerCase().includes(query);
       });
     }
 
