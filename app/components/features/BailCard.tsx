@@ -27,7 +27,7 @@ function ScheduleRow({ label, value, isAmber = false }: ScheduleRowProps) {
       >
         {label}
       </span>
-      <span className={text.scheduleValue}>{value}</span>
+      <span className={text.monoValue}>{value}</span>
     </div>
   );
 }
