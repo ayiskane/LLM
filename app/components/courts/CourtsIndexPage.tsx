@@ -281,32 +281,133 @@ interface AlphabetNavProps {
 
 function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProps) {
   const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [scrubLetter, setScrubLetter] = useState<string | null>(null);
+  
+  // Calculate which letter based on Y position within the container
+  const getLetterFromY = useCallback((clientY: number) => {
+    const container = containerRef.current;
+    if (!container) return null;
+    
+    const rect = container.getBoundingClientRect();
+    const relativeY = clientY - rect.top;
+    const letterHeight = rect.height / allLetters.length;
+    const index = Math.floor(relativeY / letterHeight);
+    
+    if (index >= 0 && index < allLetters.length) {
+      return allLetters[index];
+    }
+    return null;
+  }, [allLetters]);
+
+  // Handle touch/mouse start
+  const handleStart = useCallback((clientY: number) => {
+    setIsDragging(true);
+    const letter = getLetterFromY(clientY);
+    if (letter && letters.includes(letter)) {
+      setScrubLetter(letter);
+      onSelect(letter);
+    }
+  }, [getLetterFromY, letters, onSelect]);
+
+  // Handle touch/mouse move
+  const handleMove = useCallback((clientY: number) => {
+    if (!isDragging) return;
+    const letter = getLetterFromY(clientY);
+    if (letter) {
+      setScrubLetter(letter);
+      if (letters.includes(letter)) {
+        onSelect(letter);
+      }
+    }
+  }, [isDragging, getLetterFromY, letters, onSelect]);
+
+  // Handle touch/mouse end
+  const handleEnd = useCallback(() => {
+    setIsDragging(false);
+    setScrubLetter(null);
+  }, []);
+
+  // Touch event handlers
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    handleStart(e.touches[0].clientY);
+  }, [handleStart]);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    handleMove(e.touches[0].clientY);
+  }, [handleMove]);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    handleEnd();
+  }, [handleEnd]);
+
+  // Mouse event handlers (for desktop testing)
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    handleStart(e.clientY);
+  }, [handleStart]);
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    handleMove(e.clientY);
+  }, [handleMove]);
+
+  const onMouseUp = useCallback(() => {
+    handleEnd();
+  }, [handleEnd]);
+
+  const onMouseLeave = useCallback(() => {
+    if (isDragging) handleEnd();
+  }, [isDragging, handleEnd]);
   
   return (
-    <div className="absolute top-0 bottom-0 right-0 z-20 flex flex-col justify-center py-4 px-1">
-      {allLetters.map((letter) => {
-        const isAvailable = letters.includes(letter);
-        const isActive = activeLetter === letter;
-        
-        return (
-          <button
-            key={letter}
-            onClick={() => isAvailable && onSelect(letter)}
-            disabled={!isAvailable}
-            className={cn(
-              'w-6 h-4 flex items-center justify-center text-[9px] font-semibold transition-all',
-              isAvailable 
-                ? isActive 
-                  ? 'text-blue-400 scale-110' 
-                  : 'text-slate-500 hover:text-blue-300 active:text-blue-400'
-                : 'text-slate-700/50 cursor-default'
-            )}
-          >
-            {letter}
-          </button>
-        );
-      })}
-    </div>
+    <>
+      {/* Large letter popup when scrubbing */}
+      {isDragging && scrubLetter && (
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
+          <div className="w-20 h-20 rounded-2xl bg-blue-500/90 backdrop-blur-sm flex items-center justify-center shadow-xl">
+            <span className="text-4xl font-bold text-white">{scrubLetter}</span>
+          </div>
+        </div>
+      )}
+      
+      {/* Alphabet sidebar */}
+      <div 
+        ref={containerRef}
+        className="absolute top-0 bottom-0 right-0 z-20 flex flex-col justify-center py-4 px-1 touch-none select-none"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseLeave}
+      >
+        {allLetters.map((letter) => {
+          const isAvailable = letters.includes(letter);
+          const isActive = activeLetter === letter || scrubLetter === letter;
+          
+          return (
+            <div
+              key={letter}
+              className={cn(
+                'w-6 h-4 flex items-center justify-center text-[9px] font-semibold transition-all',
+                isAvailable 
+                  ? isActive 
+                    ? 'text-blue-400 scale-110' 
+                    : 'text-slate-500'
+                  : 'text-slate-700/50'
+              )}
+            >
+              {letter}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 
