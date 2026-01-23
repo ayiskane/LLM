@@ -197,7 +197,7 @@ function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProps) {
           >
             {letter}
           </button>
-        );
+        });
       })}
     </div>
   );
@@ -308,12 +308,12 @@ export function CourtsIndexPage() {
     // Filter by search
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      result = result.filter(court => 
+      result = result.filter(court => {
         const displayName = getCourtDisplayName(court).toLowerCase();
-        court.name.toLowerCase().includes(query) ||
+        return court.name.toLowerCase().includes(query) ||
         displayName.includes(query) ||
-        court.region_name.toLowerCase().includes(query)
-      );
+        court.region_name.toLowerCase().includes(query);
+      });
     }
 
     return result;
