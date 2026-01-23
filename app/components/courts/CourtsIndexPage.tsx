@@ -514,9 +514,6 @@ export function CourtsIndexPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-bold text-white">BC Court Index</h1>
-              <p className="text-xs text-slate-500 mt-0.5">
-                {filteredCourts.length} {filteredCourts.length === 1 ? 'courthouse' : 'courthouses'}
-              </p>
             </div>
           </div>
         </div>
@@ -553,7 +550,7 @@ export function CourtsIndexPage() {
         )}
 
         {/* Courts List */}
-        <div className="pb-20">
+        <div className="pb-8">
           {groupedCourts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 px-4">
               <GeoAlt className="w-12 h-12 text-slate-700 mb-4" />
@@ -588,6 +585,12 @@ export function CourtsIndexPage() {
               />
             ))
           )}
+          {/* Footer with count */}
+          <div className="py-4 text-center">
+            <span className="text-xs text-slate-500">
+              {filteredCourts.length} {filteredCourts.length === 1 ? 'court' : 'courts'}
+            </span>
+          </div>
         </div>
       </div>
     </div>
