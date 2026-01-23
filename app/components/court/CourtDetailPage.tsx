@@ -82,22 +82,17 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <StickyHeader>
-        {onBack && (
-          <div className="flex items-center gap-2 p-3 pb-2">
-            <button onClick={onBack} className="p-2 -ml-1 text-slate-400 hover:text-white transition-colors">
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <span className="text-sm text-slate-400">Back to search</span>
-          </div>
-        )}
-
-        <div className="border-b border-slate-800/50">
-          <CourtHeader court={court} collapsed={isHeaderCollapsed} />
-        </div>
-
-        <div className="flex gap-2 px-3 py-2 overflow-x-auto">
+        {/* Court info section */}
+        <CourtHeader court={court} collapsed={isHeaderCollapsed} />
+        
+        {/* Pill navigation - with top border */}
+        <div className="flex gap-2 px-4 py-2.5 overflow-x-auto border-t border-slate-700/30">
           {navButtons.filter(btn => btn.show).map((btn) => (
-            <PillButton key={btn.key} isActive={expandedSection === btn.key} onClick={() => navigateToSection(btn.key as AccordionSection)}>
+            <PillButton 
+              key={btn.key} 
+              isActive={expandedSection === btn.key} 
+              onClick={() => navigateToSection(btn.key as AccordionSection)}
+            >
               {btn.icon}
               <span>{btn.label}</span>
               {btn.count !== '' && (
@@ -110,8 +105,10 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
         </div>
       </StickyHeader>
 
+      {/* Scrollable content */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto" onScroll={handleScroll}>
         <div className="p-3 space-y-2.5 pb-20">
+          {/* Circuit court notice */}
           {court.is_circuit && court.contact_hub_name && (
             <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm">
               <strong>{court.name}</strong> is a circuit court. Contact information is managed by{' '}
@@ -119,6 +116,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
             </div>
           )}
 
+          {/* Contacts section */}
           {!court.is_circuit && contacts.length > 0 && (
             <Section
               ref={contactsRef}
@@ -135,6 +133,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
             </Section>
           )}
 
+          {/* Cells section */}
           {cells.length > 0 && (
             <Section
               ref={cellsRef}
@@ -150,6 +149,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
             </Section>
           )}
 
+          {/* Bail section */}
           {bailCourt && (
             <Section
               ref={bailRef}
@@ -172,6 +172,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
             </Section>
           )}
 
+          {/* Teams section */}
           {teamsLinks.length > 0 && (
             <Section
               ref={teamsRef}
@@ -187,6 +188,7 @@ export function CourtDetailPage({ courtDetails, onBack }: CourtDetailPageProps) 
             </Section>
           )}
 
+          {/* Access code */}
           {court.access_code && (
             <div
               onClick={() => copyToClipboard(court.access_code!, 'access-code')}
