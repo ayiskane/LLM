@@ -108,9 +108,9 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch }: CourtDetailP
         <CourtHeader court={court} collapsed={isHeaderCollapsed} />
         
         {/* Pill navigation - with top border */}
-        <div className="flex gap-2 px-4 py-2.5 overflow-x-auto border-t border-slate-700/30">
+        <div className="flex gap-1.5 px-3 py-2 border-t border-slate-700/30">
           {navButtons.filter(btn => btn.show).map((btn) => (
-            <PillButton 
+            <PillButton className="flex-1 justify-center" 
               key={btn.key} 
               isActive={expandedSection === btn.key} 
               onClick={() => navigateToSection(btn.key as AccordionSection)}

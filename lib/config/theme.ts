@@ -84,7 +84,7 @@ export const section = {
 } as const;
 
 export const pill = {
-  base: 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-colors',
+  base: 'inline-flex items-center gap-1 px-2 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors',
   active: 'bg-blue-500/25 border border-blue-500/40 text-blue-300',
   inactive: 'bg-blue-500/[0.04] border border-blue-500/15 text-slate-400',
 } as const;
