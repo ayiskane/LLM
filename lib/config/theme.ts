@@ -116,7 +116,7 @@ export function getScheduleLabelClass(isAmber = false): string {
 // ============================================================================
 
 export const alphabetNav = {
-  card: 'fixed right-0.5 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center justify-between gap-0.5 py-2 px-1 select-none touch-none rounded-lg bg-slate-800/25 border border-slate-600/30 shadow-lg backdrop-blur-sm max-h-[75vh]',
+  card: 'fixed right-0.5 top-[140px] bottom-6 z-50 flex flex-col items-center justify-between py-2 px-1 select-none touch-none rounded-lg bg-slate-800/25 border border-slate-600/30 shadow-lg backdrop-blur-sm',
   bubble: 'w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 border border-slate-600/50 shadow-lg',
   letter: 'text-sm font-bold transition-colors w-5 flex-1 flex items-center justify-center leading-none min-h-0',
   letterActive: 'text-blue-400',
