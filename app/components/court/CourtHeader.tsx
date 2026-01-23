@@ -12,19 +12,74 @@ interface CourtHeaderProps {
   className?: string;
 }
 
+/**
+ * Animated court header using GPU-accelerated transforms only.
+ * 
+ * Instead of conditionally rendering different DOM elements (which causes reflow),
+ * we render BOTH states and animate between them using transform/opacity.
+ * This ensures smooth 60fps animations by avoiding layout recalculation.
+ */
 export function CourtHeader({ court, collapsed = false, className }: CourtHeaderProps) {
   const displayName = court.name.toLowerCase().includes('court') 
     ? court.name 
     : `${court.name} Law Courts`;
 
-  // Get region from either nested region object or direct fields
   const region = 'region' in court && court.region 
     ? court.region 
     : (court.region_code ? { code: court.region_code, name: court.region_name || '' } : null);
 
-  if (collapsed) {
-    return (
-      <div className={cn('flex items-center gap-2 py-2 px-4', className)}>
+  return (
+    <div className={cn('relative overflow-hidden', className)}>
+      {/* Expanded header - slides up and fades out when collapsed */}
+      <div 
+        className={cn(
+          'py-3 px-4 transition-all duration-300 ease-out',
+          // GPU-accelerated: transform + opacity only
+          collapsed 
+            ? 'opacity-0 -translate-y-2 pointer-events-none absolute inset-x-0' 
+            : 'opacity-100 translate-y-0'
+        )}
+        style={{ willChange: collapsed ? 'auto' : 'transform, opacity' }}
+      >
+        <h1 className="text-lg font-semibold text-white uppercase tracking-wide">
+          {displayName}
+        </h1>
+        
+        {court.address && (
+          <button
+            onClick={() => openInMaps(court.address)}
+            className="flex items-center gap-1 text-xs mt-1 text-slate-500 hover:text-blue-400 transition-colors"
+          >
+            <GeoAlt className="w-3 h-3" />
+            <span>{court.address}</span>
+          </button>
+        )}
+        
+        <div className="flex flex-wrap items-center gap-1.5 mt-2">
+          {region && (
+            <span className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
+              <span>{region.code}</span>
+              <span className="text-slate-600">|</span>
+              <span>{region.name}</span>
+            </span>
+          )}
+          {court.has_provincial && <Tag color="emerald">PROVINCIAL</Tag>}
+          {court.has_supreme && <Tag color="purple">SUPREME</Tag>}
+          {court.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
+        </div>
+      </div>
+
+      {/* Collapsed header - slides down and fades in when collapsed */}
+      <div 
+        className={cn(
+          'flex items-center gap-2 py-2 px-4 transition-all duration-300 ease-out',
+          // GPU-accelerated: transform + opacity only
+          collapsed 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-2 pointer-events-none absolute inset-x-0'
+        )}
+        style={{ willChange: collapsed ? 'transform, opacity' : 'auto' }}
+      >
         <h1 className="text-sm font-semibold text-white flex-1 truncate uppercase">
           {displayName}
         </h1>
@@ -41,37 +96,6 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
             <GeoAlt className="w-4 h-4 text-blue-400" />
           </button>
         )}
-      </div>
-    );
-  }
-
-  return (
-    <div className={cn('py-3 px-4', className)}>
-      <h1 className="text-lg font-semibold text-white uppercase tracking-wide">
-        {displayName}
-      </h1>
-      
-      {court.address && (
-        <button
-          onClick={() => openInMaps(court.address)}
-          className="flex items-center gap-1 text-xs mt-1 text-slate-500 hover:text-blue-400 transition-colors"
-        >
-          <GeoAlt className="w-3 h-3" />
-          <span>{court.address}</span>
-        </button>
-      )}
-      
-      <div className="flex flex-wrap items-center gap-1.5 mt-2">
-        {region && (
-          <span className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
-            <span>{region.code}</span>
-            <span className="text-slate-600">|</span>
-            <span>{region.name}</span>
-          </span>
-        )}
-        {court.has_provincial && <Tag color="emerald">PROVINCIAL</Tag>}
-        {court.has_supreme && <Tag color="purple">SUPREME</Tag>}
-        {court.is_circuit && <Tag color="amber">CIRCUIT</Tag>}
       </div>
     </div>
   );
