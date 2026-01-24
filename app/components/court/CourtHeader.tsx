@@ -1,6 +1,6 @@
 'use client';
 
-import { GeoAlt } from 'react-bootstrap-icons';
+import { FaLocationDot } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { Tag } from '../ui/Tag';
 import { openInMaps } from '@/lib/utils';
@@ -79,7 +79,7 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
             onClick={() => openInMaps(court.address)}
             className="p-1.5 rounded-md bg-slate-800/50 hover:bg-slate-700/50 transition-colors shrink-0"
           >
-            <GeoAlt className="w-4 h-4 text-blue-400" />
+            <FaLocationDot className="w-4 h-4 text-blue-400" />
           </button>
         )}
       </div>
@@ -98,7 +98,7 @@ export function CourtHeader({ court, collapsed = false, className }: CourtHeader
               onClick={() => openInMaps(court.address)}
               className="flex items-center justify-start gap-1 text-xs mt-1 text-slate-500 hover:text-blue-400 transition-colors text-left"
             >
-              <GeoAlt className="w-3 h-3 shrink-0" />
+              <FaLocationDot className="w-3 h-3 shrink-0" />
               <span className="text-left">{court.address}</span>
             </button>
           )}
