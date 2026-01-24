@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { Search, X, ArrowClockwise } from 'react-bootstrap-icons';
+import { FaMagnifyingGlass, FaXmark, FaArrowsRotate } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 interface SearchBarProps {
@@ -49,9 +49,9 @@ export function SearchBar({
     <div className={cn('relative', className)}>
       <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
         {isLoading ? (
-          <ArrowClockwise className="w-4 h-4 animate-spin" />
+          <FaArrowsRotate className="w-4 h-4 animate-spin" />
         ) : (
-          <Search className="w-4 h-4" />
+          <FaMagnifyingGlass className="w-4 h-4" />
         )}
       </div>
       
@@ -70,7 +70,7 @@ export function SearchBar({
           onClick={handleClear}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-300 transition-colors p-1"
         >
-          <X className="w-4 h-4" />
+          <FaXmark className="w-4 h-4" />
         </button>
       )}
     </div>
