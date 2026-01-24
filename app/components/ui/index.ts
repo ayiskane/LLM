@@ -7,5 +7,8 @@ export { Section, type SectionColor } from './Section';
 export { Tag, CourtTypeTag, type TagColor } from './Tag';
 export { PillButton } from './PillButton';
 export { SearchBar } from './SearchBar';
+export { SearchBarWithFilter } from './SearchBarWithFilter';
+export { FilterChip, FilterGroup, FilterPanel } from './FilterChip';
+export { IndexPageShell, EmptyState, ResultsCount } from './IndexPageShell';
 export { Input } from './Input';
 export { Toast } from './Toast';
