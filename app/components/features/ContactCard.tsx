@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
-import { Clipboard, ClipboardCheck, Eye, EyeSlash } from 'react-bootstrap-icons';
+import { FaClipboard, FaClipboardCheck, FaEye, FaEyeSlash } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { card, text, toggle, iconSize, getCategoryAccentClass, type ContactCategory } from '@/lib/config/theme';
 import { CONTACT_ROLES } from '@/lib/config/constants';
@@ -73,9 +73,9 @@ function ContactItem({
       {/* Copy button area */}
       <div className={cn(card.couponDivider, 'flex items-center justify-center px-3 flex-shrink-0 transition-colors')}>
         {isFieldCopied ? (
-          <ClipboardCheck className={cn(iconSize.md, 'text-emerald-400')} />
+          <FaClipboardCheck className={cn(iconSize.md, 'text-emerald-400')} />
         ) : (
-          <Clipboard className={cn(iconSize.md, 'text-slate-500')} />
+          <FaClipboard className={cn(iconSize.md, 'text-slate-500')} />
         )}
       </div>
     </div>
@@ -105,7 +105,7 @@ function SectionHeader({
           onClick={(e) => { e.stopPropagation(); onToggle(); }}
           className={cn(toggle.base, showFull ? toggle.active : toggle.inactive)}
         >
-          {showFull ? <EyeSlash className={iconSize.xs} /> : <Eye className={iconSize.xs} />}
+          {showFull ? <FaEyeSlash className={iconSize.xs} /> : <FaEye className={iconSize.xs} />}
           <span>{showFull ? 'Truncate' : 'Show full'}</span>
         </button>
       )}
