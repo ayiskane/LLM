@@ -9,6 +9,8 @@ import type {
   BailContact,
   Program,
   CourtDetails,
+  CorrectionsCentre,
+  CorrectionsCentreWithRegion,
 } from '@/types';
 
 const supabase = createClient();
@@ -318,4 +320,57 @@ export async function fetchSearchIndexData(): Promise<SearchIndexData> {
   ]);
 
   return { courts, contacts, cells, teamsLinks };
+}
+
+// =============================================================================
+// CORRECTIONS CENTRES
+// =============================================================================
+
+export async function fetchCorrectionsCentres(): Promise<CorrectionsCentre[]> {
+  const { data, error } = await supabase
+    .from('corrections_centres')
+    .select('*')
+    .order('name');
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function fetchCorrectionsCentresWithRegions(): Promise<CorrectionsCentreWithRegion[]> {
+  const { data, error } = await supabase
+    .from('corrections_centres')
+    .select(`
+      *,
+      region:regions(id, name, code)
+    `)
+    .order('name');
+
+  if (error) throw error;
+  
+  // Map the joined data to a flat structure
+  return (data || []).map((centre: any) => ({
+    ...centre,
+    region_name: centre.region?.name ?? 'Unknown',
+    region_code: centre.region?.code ?? 'UNK',
+  }));
+}
+
+export async function fetchCorrectionsCentreById(id: number): Promise<CorrectionsCentreWithRegion | null> {
+  const { data, error } = await supabase
+    .from('corrections_centres')
+    .select(`
+      *,
+      region:regions(id, name, code)
+    `)
+    .eq('id', id)
+    .single();
+
+  if (error) throw error;
+  if (!data) return null;
+
+  return {
+    ...data,
+    region_name: data.region?.name ?? 'Unknown',
+    region_code: data.region?.code ?? 'UNK',
+  };
 }
