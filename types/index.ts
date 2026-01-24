@@ -132,27 +132,42 @@ export interface BailContact {
 // CORRECTIONS CENTRE
 // ============================================================================
 
-export interface CorrectionsCentre {
+export interface CorrectionalCentre {
   id: number;
   name: string;
   short_name: string | null;
-  region_id: number;
-  city: string;
-  address: string;
-  mailing_address: string | null;
-  phone: string;
-  visit_phone: string | null;
+  location: string;
+  is_federal: boolean;
+  centre_type: 'provincial' | 'pretrial' | 'women' | 'federal';
+  security_level: 'minimum' | 'medium' | 'maximum' | 'multi' | null;
+  general_phone: string;
+  general_phone_option: string | null;
+  general_fax: string | null;
+  cdn_fax: string | null;
+  accepts_cdn_by_fax: boolean;
+  visit_request_phone: string | null;
+  visit_request_email: string | null;
+  virtual_visit_email: string | null;
+  lawyer_callback_email: string | null;
+  callback_1_start: string | null;
+  callback_1_end: string | null;
+  callback_2_start: string | null;
+  callback_2_end: string | null;
+  visit_hours_inperson: string | null;
+  visit_hours_virtual: string | null;
   visit_notes: string | null;
-  security_level: 'secure' | 'medium' | 'open' | 'mixed';
-  is_pretrial: boolean;
-  is_women_only: boolean;
-  gender: 'men' | 'women' | 'all';
+  disclosure_format: string | null;
+  accepts_usb: boolean;
+  accepts_hard_drive: boolean;
+  accepts_cd_dvd: boolean;
+  disclosure_notes: string | null;
+  has_bc_gc_link: boolean;
+  notes: string | null;
 }
 
-export interface CorrectionsCentreWithRegion extends CorrectionsCentre {
-  region_name: string;
-  region_code: string;
-}
+// Legacy alias
+export type CorrectionsCentre = CorrectionalCentre;
+export type CorrectionsCentreWithRegion = CorrectionalCentre;
 
 // ============================================================================
 // REGION
