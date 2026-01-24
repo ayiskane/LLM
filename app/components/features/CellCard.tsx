@@ -1,8 +1,9 @@
 'use client';
 
-import { Telephone } from 'react-bootstrap-icons';
+import { Phone, Clipboard, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { ShellCell } from '@/types';
+import { useState, useCallback } from 'react';
 
 // ============================================================================
 // HELPERS
@@ -15,53 +16,190 @@ function isPoliceCell(cell: ShellCell): boolean {
          !name.includes('courthouse') && !name.includes(' ch ');
 }
 
-function getCellTypeLabel(cell: ShellCell): string {
-  const name = cell.name?.toLowerCase() || '';
-  if (name.includes('rcmp')) return 'RCMP';
-  if (name.includes(' pd') || name.includes('police')) return 'PD';
-  if (cell.cell_type === 'CH' || cell.cell_type === 'courthouse') return 'CH';
-  return '';
+// ============================================================================
+// COPY BUTTON COMPONENT
+// ============================================================================
+
+interface CopyButtonProps {
+  text: string;
+  className?: string;
+}
+
+function CopyButton({ text, className }: CopyButtonProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  }, [text]);
+
+  return (
+    <button
+      onClick={handleCopy}
+      className={cn(
+        "flex items-center justify-center rounded bg-slate-700/50 active:bg-slate-600/50 transition-colors",
+        className
+      )}
+      title="Copy to clipboard"
+    >
+      {copied ? (
+        <Check className="w-3 h-3 text-green-400" />
+      ) : (
+        <Clipboard className="w-3 h-3 text-slate-400" />
+      )}
+    </button>
+  );
 }
 
 // ============================================================================
-// CELL ROW COMPONENT - Phone Pills Design
+// CALL BUTTON COMPONENT
+// ============================================================================
+
+interface CallButtonProps {
+  phone: string;
+  className?: string;
+}
+
+function CallButton({ phone, className }: CallButtonProps) {
+  const handleCall = () => {
+    window.open(`tel:${phone.replace(/\D/g, '')}`, '_self');
+  };
+
+  return (
+    <button
+      onClick={handleCall}
+      className={cn(
+        "flex items-center justify-center rounded bg-green-500/20 active:bg-green-500/30 transition-colors",
+        className
+      )}
+      title="Call"
+    >
+      <Phone className="w-3 h-3 text-green-400" fill="currentColor" />
+    </button>
+  );
+}
+
+// ============================================================================
+// SINGLE PHONE ROW - Inline design with copy/call
+// ============================================================================
+
+interface SinglePhoneRowProps {
+  cell: ShellCell;
+  isPolice: boolean;
+}
+
+function SinglePhoneRow({ cell, isPolice }: SinglePhoneRowProps) {
+  const iconBg = isPolice ? 'bg-amber-500/20' : 'bg-blue-500/20';
+  const iconColor = isPolice ? 'text-amber-400' : 'text-blue-400';
+  const phone = cell.phones?.[0] || '';
+
+  return (
+    <div className="flex items-center gap-3 px-4 py-3">
+      <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", iconBg)}>
+        <Phone className={cn("w-5 h-5", iconColor)} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="text-sm font-medium text-slate-200">{cell.name}</div>
+        <div className="text-xs text-blue-400 font-mono">{phone}</div>
+      </div>
+      <div className="flex items-center gap-1.5">
+        <CopyButton text={phone} className="w-9 h-9 rounded-lg" />
+        <CallButton phone={phone} className="w-9 h-9 rounded-lg" />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// MULTIPLE PHONES ROW - Numbered list design
+// ============================================================================
+
+interface MultiplePhoneRowProps {
+  cell: ShellCell;
+  isPolice: boolean;
+}
+
+function MultiplePhoneRow({ cell, isPolice }: MultiplePhoneRowProps) {
+  const iconBg = isPolice ? 'bg-amber-500/20' : 'bg-blue-500/20';
+  const iconColor = isPolice ? 'text-amber-400' : 'text-blue-400';
+  const phones = cell.phones || [];
+
+  return (
+    <div>
+      {/* Header with icon and name */}
+      <div className="flex items-center gap-3 px-4 py-2.5 border-b border-slate-700/30">
+        <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", iconBg)}>
+          <Phone className={cn("w-5 h-5", iconColor)} />
+        </div>
+        <div className="text-sm font-medium text-slate-200">{cell.name}</div>
+      </div>
+      
+      {/* Phone number rows with numbered badges */}
+      <div className="px-4 py-2 space-y-1.5">
+        {phones.map((phone, idx) => (
+          <div key={idx} className="flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded bg-blue-500/80 flex items-center justify-center text-[10px] text-white font-semibold">
+              {idx + 1}
+            </span>
+            <span className="flex-1 text-xs text-blue-400 font-mono">{phone}</span>
+            <CopyButton text={phone} className="p-1.5" />
+            <CallButton phone={phone} className="p-1.5" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// CELL ROW COMPONENT - Determines single vs multiple display
 // ============================================================================
 
 interface CellRowProps {
   cell: ShellCell;
+  showBorder?: boolean;
 }
 
-function CellRow({ cell }: CellRowProps) {
+function CellRow({ cell, showBorder = true }: CellRowProps) {
   const isPolice = isPoliceCell(cell);
-  const dotColor = isPolice ? 'bg-amber-400' : 'bg-blue-400';
-  
-  const handleCall = (phoneNumber: string) => {
-    window.open(`tel:${phoneNumber.replace(/\D/g, '')}`, '_self');
-  };
+  const phoneCount = cell.phones?.length || 0;
 
-  return (
-    <div className="py-3 border-b border-slate-700/30 last:border-b-0">
-      {/* Cell name with color dot */}
-      <div className="flex items-center gap-2 mb-2">
-        <span className={cn('w-2 h-2 rounded-full shrink-0', dotColor)} />
-        <span className="text-sm text-slate-200">{cell.name}</span>
-      </div>
-      
-      {/* Phone pills */}
-      {cell.phones && cell.phones.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 ml-4">
-          {cell.phones.map((phone, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleCall(phone)}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-slate-700/40 hover:bg-indigo-500/20 text-xs text-slate-300 hover:text-indigo-300 font-mono transition-colors"
-            >
-              <Telephone className="w-2.5 h-2.5" />
-              {phone}
-            </button>
-          ))}
+  if (phoneCount === 0) {
+    // No phones - just show name with icon
+    const iconBg = isPolice ? 'bg-amber-500/20' : 'bg-blue-500/20';
+    const iconColor = isPolice ? 'text-amber-400' : 'text-blue-400';
+    
+    return (
+      <div className={cn(
+        "flex items-center gap-3 px-4 py-3",
+        showBorder && "border-b border-slate-700/30 last:border-b-0"
+      )}>
+        <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", iconBg)}>
+          <Phone className={cn("w-5 h-5", iconColor)} />
         </div>
-      )}
+        <div className="text-sm font-medium text-slate-200">{cell.name}</div>
+        <span className="text-xs text-slate-500 ml-auto">No phone</span>
+      </div>
+    );
+  }
+
+  if (phoneCount === 1) {
+    return (
+      <div className={cn(showBorder && "border-b border-slate-700/30 last:border-b-0")}>
+        <SinglePhoneRow cell={cell} isPolice={isPolice} />
+      </div>
+    );
+  }
+
+  // Multiple phones
+  return (
+    <div className={cn(showBorder && "border-b border-slate-700/30 last:border-b-0")}>
+      <MultiplePhoneRow cell={cell} isPolice={isPolice} />
     </div>
   );
 }
@@ -75,7 +213,7 @@ interface CellCardProps {
 }
 
 export function CellCard({ cell }: CellCardProps) {
-  return <CellRow cell={cell} />;
+  return <CellRow cell={cell} showBorder={false} />;
 }
 
 // ============================================================================
@@ -102,7 +240,7 @@ export function CellList({ cells, maxDisplay = 20 }: CellListProps) {
   const displayCells = sortedCells.slice(0, maxDisplay);
 
   return (
-    <div className="rounded-lg bg-slate-800/30 border border-slate-700/50 px-4">
+    <div className="rounded-xl bg-slate-800/40 border border-slate-700/50 overflow-hidden">
       {displayCells.map((cell) => (
         <CellRow key={cell.id} cell={cell} />
       ))}
