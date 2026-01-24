@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
-import { FaClipboard, FaClipboardCheck, FaEye, FaEyeSlash } from '@/lib/icons';
+import { FaCopy, FaClipboardCheck, FaEye, FaEyeSlash } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { card, text, toggle, iconSize, getCategoryAccentClass, type ContactCategory } from '@/lib/config/theme';
 import { CONTACT_ROLES } from '@/lib/config/constants';
@@ -75,7 +75,7 @@ function ContactItem({
         {isFieldCopied ? (
           <FaClipboardCheck className={cn(iconSize.md, 'text-emerald-400')} />
         ) : (
-          <FaClipboard className={cn(iconSize.md, 'text-slate-500')} />
+          <FaCopy className={cn(iconSize.md, 'text-slate-500')} />
         )}
       </div>
     </div>
