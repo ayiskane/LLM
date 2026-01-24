@@ -41,13 +41,20 @@ export function CircuitCourtAlert({
       </div>
       
       {/* Text */}
-      <p className="flex-1 text-xs text-slate-400 leading-relaxed">
-        Circuit court — contact{' '}
-        <span className="text-amber-400 font-semibold">
-          {hubCourtName}
-        </span>
-        {' '}for inquiries.
-      </p>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs text-slate-400 leading-relaxed">
+          Circuit court — contact{' '}
+          <span className="text-amber-400 font-semibold">
+            {hubCourtName}
+          </span>
+          {' '}for inquiries.
+        </p>
+        {canNavigate && (
+          <p className="text-xs text-slate-500 mt-0.5">
+            Tap to view court details
+          </p>
+        )}
+      </div>
       
       {/* Chevron if navigable */}
       {canNavigate && (
