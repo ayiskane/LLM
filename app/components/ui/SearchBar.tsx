@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, X } from 'react-bootstrap-icons';
+import { FaMagnifyingGlass, FaXmark } from '@/lib/icons';
 import { cn } from '@/lib/config/theme';
 
 interface SearchBarProps {
@@ -25,7 +25,7 @@ export function SearchBar({
   return (
     <div className={cn('relative', className)}>
       <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-        <Search className={compact ? 'w-4 h-4' : 'w-5 h-5'} />
+        <FaMagnifyingGlass className={compact ? 'w-4 h-4' : 'w-5 h-5'} />
       </div>
       <input
         type="text"
@@ -49,7 +49,7 @@ export function SearchBar({
             'text-slate-400 hover:text-slate-200 transition-colors'
           )}
         >
-          <X className={compact ? 'w-4 h-4' : 'w-5 h-5'} />
+          <FaXmark className={compact ? 'w-4 h-4' : 'w-5 h-5'} />
         </button>
       )}
     </div>
