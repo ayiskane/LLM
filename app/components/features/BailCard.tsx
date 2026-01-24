@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Bank2, ChevronRight } from 'react-bootstrap-icons';
+import { FaBuildingColumns, FaChevronRight } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { card, text, iconSize, getScheduleLabelClass } from '@/lib/config/theme';
 import { TeamsList } from './TeamsCard';
@@ -110,7 +110,7 @@ export function BailHubLink({ bailCourt, onNavigate }: BailHubLinkProps) {
       <div className="flex items-center gap-3 px-3 py-3">
         {/* Icon */}
         <div className="w-10 h-10 rounded-lg bg-teal-500/15 flex items-center justify-center shrink-0">
-          <Bank2 className="w-5 h-5 text-teal-400" />
+          <FaBuildingColumns className="w-5 h-5 text-teal-400" />
         </div>
         
         {/* Court info */}
@@ -124,7 +124,7 @@ export function BailHubLink({ bailCourt, onNavigate }: BailHubLinkProps) {
         </div>
         
         {/* Chevron */}
-        <ChevronRight className="w-5 h-5 text-slate-500 shrink-0" />
+        <FaChevronRight className="w-5 h-5 text-slate-500 shrink-0" />
       </div>
     </button>
   );
