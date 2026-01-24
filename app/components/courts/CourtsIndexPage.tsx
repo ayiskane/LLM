@@ -281,7 +281,7 @@ interface CourtListItemProps {
 
 function CourtListItem({ court, onClick }: CourtListItemProps) {
   const displayName = getCourtDisplayName(court);
-  const regionStyle = REGION_COLORS[court.region_id];
+  const region = REGIONS.find(r => r.id === court.region_id);
   
   return (
     <button
@@ -296,23 +296,25 @@ function CourtListItem({ court, onClick }: CourtListItemProps) {
         {displayName}
       </div>
       <div className="flex items-center gap-1.5 flex-wrap">
-        {regionStyle && (
-          <span className={cn('px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded', regionStyle.tag)}>
-            {court.region_name}
+        {region && region.id !== 0 && (
+          <span className="px-2 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
+            <span>{region.code}</span>
+            <span className="text-slate-600">|</span>
+            <span>{region.name}</span>
           </span>
         )}
         {court.has_provincial && (
-          <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded bg-emerald-500/15 text-emerald-400">
+          <span className="px-1.5 py-1 text-[9px] font-bold uppercase tracking-wide rounded bg-emerald-500/15 text-emerald-400">
             PC
           </span>
         )}
         {court.has_supreme && (
-          <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded bg-purple-500/15 text-purple-400">
+          <span className="px-1.5 py-1 text-[9px] font-bold uppercase tracking-wide rounded bg-purple-500/15 text-purple-400">
             SC
           </span>
         )}
         {court.is_circuit && (
-          <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide rounded bg-slate-500/15 text-slate-400">
+          <span className="px-1.5 py-1 text-[9px] font-bold uppercase tracking-wide rounded bg-amber-500/15 text-amber-400">
             Circuit
           </span>
         )}
@@ -320,7 +322,6 @@ function CourtListItem({ court, onClick }: CourtListItemProps) {
     </button>
   );
 }
-
 
 interface LetterSectionProps {
   letter: string;
