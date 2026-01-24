@@ -485,7 +485,7 @@ export function CourtsIndexPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center">
+      <div className="h-[calc(100vh-4rem)] bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-8 h-8 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
           <p className="text-slate-400 text-sm">Loading courts...</p>
@@ -497,7 +497,7 @@ export function CourtsIndexPage() {
   // Error state
   if (error) {
     return (
-      <div className="h-screen bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center p-4">
+      <div className="h-[calc(100vh-4rem)] bg-[hsl(222.2,84%,4.9%)] flex items-center justify-center p-4">
         <div className="text-center">
           <p className="text-red-400 mb-2">Failed to load courts</p>
           <p className="text-slate-500 text-sm">{error}</p>
@@ -507,7 +507,7 @@ export function CourtsIndexPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[hsl(222.2,84%,4.9%)] overflow-hidden">
+    <div className="h-[calc(100vh-4rem)] flex flex-col bg-[hsl(222.2,84%,4.9%)] overflow-hidden">
       {/* Fixed Header */}
       <div className="flex-shrink-0 bg-[rgba(8,11,18,0.98)] border-b border-blue-500/10">
         {/* Title */}
