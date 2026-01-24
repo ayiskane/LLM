@@ -551,7 +551,7 @@ export function CourtsIndexPage() {
         )}
 
         {/* Courts List */}
-        <div className="pb-8">
+        <div className="pb-4">
           {groupedCourts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 px-4">
               <GeoAlt className="w-12 h-12 text-slate-700 mb-4" />
@@ -586,8 +586,8 @@ export function CourtsIndexPage() {
               />
             ))
           )}
-          {/* Footer with count */}
-          <div className="py-4 text-center">
+                    {/* Footer with count */}
+          <div className="py-2 text-center">
             <span className="text-xs text-slate-500">
               {filteredCourts.length} {filteredCourts.length === 1 ? 'court' : 'courts'}
             </span>
