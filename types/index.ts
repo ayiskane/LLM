@@ -129,6 +129,32 @@ export interface BailContact {
 }
 
 // ============================================================================
+// CORRECTIONS CENTRE
+// ============================================================================
+
+export interface CorrectionsCentre {
+  id: number;
+  name: string;
+  short_name: string | null;
+  region_id: number;
+  city: string;
+  address: string;
+  mailing_address: string | null;
+  phone: string;
+  visit_phone: string | null;
+  visit_notes: string | null;
+  security_level: 'secure' | 'medium' | 'open' | 'mixed';
+  is_pretrial: boolean;
+  is_women_only: boolean;
+  gender: 'men' | 'women' | 'all';
+}
+
+export interface CorrectionsCentreWithRegion extends CorrectionsCentre {
+  region_name: string;
+  region_code: string;
+}
+
+// ============================================================================
 // REGION
 // ============================================================================
 
