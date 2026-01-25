@@ -264,7 +264,7 @@ export function CorrectionsIndexPage() {
   }
 
   return (
-    <div className="h-full flex flex-col bg-slate-950 overflow-hidden">
+    <div className="h-full flex flex-col bg-slate-950">
       <div className="flex-shrink-0 bg-slate-950 border-b border-slate-800/50">
         <div className="px-4 pt-4 pb-2">
           <h1 className="text-xl font-bold text-white">BC Corrections Index</h1>
@@ -275,7 +275,7 @@ export function CorrectionsIndexPage() {
         <FilterPanel isOpen={isFilterOpen} filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
       </div>
 
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto relative">
         {!searchQuery && <AlphabetNav letters={availableLetters} activeLetter={activeLetter} onSelect={handleLetterClick} />}
         {groupedCentres.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 px-4">
