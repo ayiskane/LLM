@@ -26,14 +26,20 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
   const [scrubLetter, setScrubLetter] = useState<string | null>(null);
   const [bubbleY, setBubbleY] = useState(0);
 
-  // Precompute which letters to show: available letters get flex-1, first-in-gap gets dot, rest hidden
-  const letterStates = useMemo(() => {
-    return ALL_LETTERS.map((letter, i) => {
-      const isAvailable = letters.includes(letter);
-      if (isAvailable) return 'available';
-      const prevAvailable = i === 0 || letters.includes(ALL_LETTERS[i - 1]);
-      return prevAvailable ? 'dot' : 'hidden';
-    });
+  // Build display items: letters + collapsed dots (no hidden spacers)
+  const displayItems = useMemo(() => {
+    const items: { type: 'letter' | 'dot'; letter: string }[] = [];
+    let inGap = false;
+    for (const letter of ALL_LETTERS) {
+      if (letters.includes(letter)) {
+        items.push({ type: 'letter', letter });
+        inGap = false;
+      } else if (!inGap) {
+        items.push({ type: 'dot', letter });
+        inGap = true;
+      }
+    }
+    return items;
   }, [letters]);
 
   const findNearestAvailable = useCallback((letter: string): string | null => {
@@ -52,14 +58,15 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
     if (!container) return null;
     const rect = container.getBoundingClientRect();
     const relativeY = clientY - rect.top;
-    const letterHeight = rect.height / ALL_LETTERS.length;
-    const index = Math.floor(relativeY / letterHeight);
-    if (index >= 0 && index < ALL_LETTERS.length) {
+    const itemHeight = rect.height / displayItems.length;
+    const index = Math.floor(relativeY / itemHeight);
+    if (index >= 0 && index < displayItems.length) {
       setBubbleY(Math.max(24, Math.min(rect.height - 24, relativeY)));
-      return findNearestAvailable(ALL_LETTERS[index]);
+      const item = displayItems[index];
+      return item.type === 'letter' ? item.letter : findNearestAvailable(item.letter);
     }
     return null;
-  }, [findNearestAvailable]);
+  }, [displayItems, findNearestAvailable]);
 
   const handleStart = useCallback((clientY: number) => {
     setIsDragging(true);
@@ -104,25 +111,21 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
         onMouseUp={handleEnd}
         onMouseLeave={() => { if (isDragging) handleEnd(); }}
       >
-        {ALL_LETTERS.map((letter, i) => {
-          const state = letterStates[i];
-          const isActive = activeLetter === letter || scrubLetter === letter;
-
-          if (state === 'hidden') {
-            return <span key={letter} className="flex-1" />;
-          }
-
-          if (state === 'dot') {
+        {displayItems.map((item, idx) => {
+          if (item.type === 'dot') {
             return (
-              <span key={letter} className={cn(alphabetNav.letter, alphabetNav.letterUnavailable, '!flex-none h-3')}>
-                <DotIcon className="w-1 h-1" />
+              <span key={`dot-${idx}`} className="w-5 h-4 flex items-center justify-center">
+                <DotIcon className="w-1 h-1 text-slate-600" />
               </span>
             );
           }
-
+          const isActive = activeLetter === item.letter || scrubLetter === item.letter;
           return (
-            <span key={letter} className={cn(alphabetNav.letter, isActive ? alphabetNav.letterActive : alphabetNav.letterAvailable)}>
-              {letter}
+            <span
+              key={item.letter}
+              className={cn(alphabetNav.letter, isActive ? alphabetNav.letterActive : alphabetNav.letterAvailable)}
+            >
+              {item.letter}
             </span>
           );
         })}
