@@ -115,8 +115,8 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
         {displayItems.map((item, idx) => {
           if (item.type === 'dot') {
             return (
-              <span key={`dot-${idx}`} className="w-5 h-4 flex items-center justify-center">
-                <DotIcon className="w-1.5 h-1.5 text-slate-600" />
+              <span key={`dot-${idx}`} className={cn(alphabetNav.letter, 'text-slate-600')}>
+                <DotIcon className="w-1.5 h-1.5" />
               </span>
             );
           }
