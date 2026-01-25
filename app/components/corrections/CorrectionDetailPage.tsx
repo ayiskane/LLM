@@ -116,38 +116,24 @@ function CentreHeader({ centre, collapsed }: { centre: CorrectionalCentre; colla
           collapsed ? 'opacity-100' : 'opacity-0 hidden'
         )}>
           {centre.short_name && <Tag color="blue" size="sm">{centre.short_name}</Tag>}
+          {centre.centre_type && centre.centre_type !== 'provincial' && centre.centre_type !== 'federal' && (
+            <Tag color="amber" size="sm">{centre.centre_type.toUpperCase()}</Tag>
+          )}
+          <Tag color={centre.is_federal ? 'purple' : 'emerald'} size="sm">
+            {centre.is_federal ? 'FED' : 'PROV'}
+          </Tag>
         </div>
         
         {/* Map button - only in collapsed */}
-        {centre.address && collapsed && (
+        {collapsed && (
           <button
-            onClick={() => openInMaps(centre.address)}
+            onClick={() => centre.address && openInMaps(centre.address)}
             className="p-1.5 rounded-md bg-slate-800/50 hover:bg-slate-700/50 transition-colors shrink-0"
           >
             <FaLocationDot className="w-4 h-4 text-blue-400" />
           </button>
         )}
       </div>
-      
-      {/* Collapsed: show tags row */}
-      {collapsed && (
-        <div className="flex flex-wrap items-center justify-start gap-1.5 mt-1">
-          {centre.centre_type && centre.centre_type !== 'provincial' && centre.centre_type !== 'federal' && (
-            <Tag color="amber" size="sm">{centre.centre_type.toUpperCase()}</Tag>
-          )}
-          <span className="text-slate-600">|</span>
-          {region && (
-            <span className="px-2 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
-              <span>{region.code}</span>
-              <span className="text-slate-600">|</span>
-              <span>{region.name}</span>
-            </span>
-          )}
-          <Tag color={centre.is_federal ? 'purple' : 'emerald'} size="sm">
-            {centre.is_federal ? 'FEDERAL' : 'PROVINCIAL'}
-          </Tag>
-        </div>
-      )}
       
       {/* Expandable content - uses grid for smooth height animation */}
       <div 
