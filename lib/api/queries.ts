@@ -45,7 +45,7 @@ export async function fetchCourtById(id: number): Promise<CourtWithRegion | null
       region:regions(*)
     `)
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   if (!data) return null;
@@ -59,7 +59,7 @@ export async function fetchCourtById(id: number): Promise<CourtWithRegion | null
       .from('courts')
       .select('id, name')
       .eq('name', data.contact_hub)
-      .single();
+      .maybeSingle();
     
     if (hubCourt) {
       contact_hub_id = hubCourt.id;
@@ -207,7 +207,7 @@ export async function fetchBailCourtById(id: number): Promise<BailCourt | null> 
     .from('bail_courts')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -368,7 +368,7 @@ export async function fetchCorrectionalCentreById(id: number): Promise<Correctio
     .from('correctional_centres')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
