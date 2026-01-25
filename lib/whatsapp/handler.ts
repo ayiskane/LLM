@@ -63,11 +63,11 @@ const showMenu = async (pid: string, to: string) => {
     'View Options',
     [
       { title: 'Lawyers', rows: [
-        { id: 'register_lawyer', title: '👔 Lawyer Registration', description: 'Register as a practising lawyer' },
-        { id: 'verify_as', title: '✅ Verify Articling Student', description: 'Verify an A/S under your supervision' },
+        { id: 'register_lawyer', title: '👔 Lawyer Sign-Up', description: 'Register as a practising lawyer' },
+        { id: 'verify_as', title: '✅ Verify A/S', description: 'Verify an articling student' },
       ]},
       { title: 'Articling Students', rows: [
-        { id: 'register_as', title: '📚 A/S Registration', description: 'Register as an articling student' },
+        { id: 'register_as', title: '📚 A/S Sign-Up', description: 'Register as an articling student' },
         { id: 'upgrade_lawyer', title: '⬆️ Upgrade to Lawyer', description: 'Convert A/S account to Lawyer' },
       ]},
     ]
