@@ -548,7 +548,7 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
   ];
 
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="h-full flex flex-col">
       <StickyHeader>
         {/* Back button + Search bar row */}
         <div className="flex items-center gap-2 px-3 py-2">
@@ -595,7 +595,7 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
       {/* Scrollable Content */}
       <div 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto scroll-smooth"
+        className="flex-1 min-h-0 overflow-y-auto scroll-smooth"
         onScroll={handleScroll}
       >
         <div className="p-3 space-y-2.5 pb-20">
