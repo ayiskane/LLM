@@ -128,6 +128,12 @@ export interface BailContact {
   availability_name?: string;
 }
 
+// Weekend bail court with its associated teams links
+export interface WeekendBailCourtWithTeams {
+  court: BailCourt;
+  teams: TeamsLink[];
+}
+
 // ============================================================================
 // CORRECTIONS CENTRE
 // ============================================================================
@@ -223,8 +229,7 @@ export interface CourtDetails {
   bailTeams: TeamsLink[];  // Bail teams are TeamsLinks with bail_court_id
   bailContacts: BailContact[];
   programs: Program[];
-  weekendBailCourt: BailCourt | null;
-  weekendBailTeams: TeamsLink[];
+  weekendBailCourts: WeekendBailCourtWithTeams[];  // Changed: now array with teams included
 }
 
 // ============================================================================
