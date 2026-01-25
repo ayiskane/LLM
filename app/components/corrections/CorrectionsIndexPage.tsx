@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { FaMagnifyingGlass, FaXmark, FaSliders, FaBuildingShield } from '@/lib/icons';
 import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
 import { cn } from '@/lib/config/theme';
@@ -144,10 +145,10 @@ function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
   );
 }
 
-function CentreListItem({ centre }: { centre: CorrectionalCentre }) {
+function CentreListItem({ centre, onClick }: { centre: CorrectionalCentre; onClick: () => void }) {
   const region = getRegion(centre.location);
   return (
-    <div className="w-full text-left px-4 py-3 border-b border-slate-700/30 last:border-b-0">
+    <button onClick={onClick} className="w-full text-left px-4 py-3 border-b border-slate-700/30 last:border-b-0 hover:bg-slate-800/30 active:bg-slate-800/50 transition-colors">
       <div className="text-sm font-medium text-slate-200 mb-1.5">{centre.name}</div>
       <div className="flex items-center gap-1.5 flex-wrap">
         <span className="px-2 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
@@ -162,12 +163,12 @@ function CentreListItem({ centre }: { centre: CorrectionalCentre }) {
           <span className="px-1.5 py-1 text-[9px] font-mono uppercase tracking-wide rounded bg-slate-700/50 text-slate-400">{centre.short_name}</span>
         )}
       </div>
-    </div>
+    </button>
   );
 }
 
-function LetterSection({ letter, centres, sectionRef }: {
-  letter: string; centres: CorrectionalCentre[]; sectionRef: (el: HTMLDivElement | null) => void;
+function LetterSection({ letter, centres, sectionRef, onCentreClick }: {
+  letter: string; centres: CorrectionalCentre[]; sectionRef: (el: HTMLDivElement | null) => void; onCentreClick: (id: number) => void;
 }) {
   return (
     <div ref={sectionRef} id={`section-${letter}`}>
@@ -175,7 +176,7 @@ function LetterSection({ letter, centres, sectionRef }: {
         <span className="text-sm font-bold text-blue-400">{letter}</span>
       </div>
       <div className="bg-slate-800/20">
-        {centres.map((c) => <CentreListItem key={c.id} centre={c} />)}
+        {centres.map((c) => <CentreListItem key={c.id} centre={c} onClick={() => onCentreClick(c.id)} />)}
       </div>
     </div>
   );
@@ -186,6 +187,7 @@ function LetterSection({ letter, centres, sectionRef }: {
 // =============================================================================
 
 export function CorrectionsIndexPage() {
+  const router = useRouter();
   const { centres, isLoading, error } = useCorrectionalCentres();
   const [filters, setFilters] = useState<Filters>({ region: 0, jurisdiction: 'all' });
   const [searchQuery, setSearchQuery] = useState('');
@@ -196,6 +198,9 @@ export function CorrectionsIndexPage() {
 
   const hasActiveFilters = filters.region !== 0 || filters.jurisdiction !== 'all';
   const clearAllFilters = useCallback(() => { setFilters({ region: 0, jurisdiction: 'all' }); setSearchQuery(''); }, []);
+  const handleCentreClick = useCallback((centreId: number) => {
+    router.push(`/corrections/${centreId}`);
+  }, [router]);
 
   const filteredCentres = useMemo(() => {
     let result = centres;
@@ -283,7 +288,7 @@ export function CorrectionsIndexPage() {
         ) : (
           <>
             {groupedCentres.map((group) => (
-              <LetterSection key={group.letter} letter={group.letter} centres={group.centres} sectionRef={(el) => { sectionRefs.current[group.letter] = el; }} />
+              <LetterSection key={group.letter} letter={group.letter} centres={group.centres} sectionRef={(el) => { sectionRefs.current[group.letter] = el; }} onCentreClick={handleCentreClick} />
             ))}
             <div className="py-3 text-center">
               <span className="text-xs text-slate-500">{filteredCentres.length} {filteredCentres.length === 1 ? 'centre' : 'centres'}</span>
