@@ -43,12 +43,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className={`${inter.className} bg-slate-900 antialiased`}>
+      <body className={`${inter.className} bg-slate-900 antialiased h-screen overflow-hidden`}>
         <QueryProvider>
-          <main className="min-h-screen pb-16">
-            {children}
-          </main>
-          <BottomNav />
+          <div className="h-full flex flex-col">
+            <main className="flex-1 overflow-hidden">
+              {children}
+            </main>
+            <BottomNav />
+          </div>
         </QueryProvider>
       </body>
     </html>
