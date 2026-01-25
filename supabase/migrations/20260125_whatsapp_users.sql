@@ -1,9 +1,4 @@
--- WhatsApp Users table for LLM Registration System
--- Run this in Supabase SQL Editor
-
--- Drop existing table if you need to start fresh (comment out if you have data)
--- DROP TABLE IF EXISTS whatsapp_users;
-
+-- WhatsApp Users Table (with invitation codes)
 CREATE TABLE IF NOT EXISTS whatsapp_users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   phone_number VARCHAR(20) UNIQUE NOT NULL,
@@ -17,9 +12,13 @@ CREATE TABLE IF NOT EXISTS whatsapp_users (
   full_name VARCHAR(255),
   email VARCHAR(255),
   
-  -- PIN and access
-  pin VARCHAR(6),
-  pin_expires_at TIMESTAMP WITH TIME ZONE, -- NULL for lawyers (no expiry)
+  -- PIN and access (8-character alphanumeric)
+  pin VARCHAR(8),
+  pin_expires_at TIMESTAMP WITH TIME ZONE,
+  
+  -- Invitation code (6-character alphanumeric, lawyers only)
+  invitation_code VARCHAR(6) UNIQUE,
+  invited_by UUID REFERENCES whatsapp_users(id),
   
   -- Articling student specific
   firm_name VARCHAR(255),
@@ -31,10 +30,10 @@ CREATE TABLE IF NOT EXISTS whatsapp_users (
   referrer_name VARCHAR(255),
   referrer_phone VARCHAR(20),
   
-  -- Lawyer specific (for upgraded A/S)
+  -- Lawyer specific
   call_date TIMESTAMP WITH TIME ZONE,
   
-  -- Temp data for multi-step flows (JSON string)
+  -- Temp data for multi-step flows
   temp_data TEXT,
   
   -- Timestamps
@@ -42,15 +41,17 @@ CREATE TABLE IF NOT EXISTS whatsapp_users (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Indexes for fast lookups
+-- Indexes
 CREATE INDEX IF NOT EXISTS idx_whatsapp_users_phone ON whatsapp_users(phone_number);
 CREATE INDEX IF NOT EXISTS idx_whatsapp_users_email ON whatsapp_users(email);
 CREATE INDEX IF NOT EXISTS idx_whatsapp_users_type ON whatsapp_users(user_type);
-CREATE INDEX IF NOT EXISTS idx_whatsapp_users_principal ON whatsapp_users(principal_phone);
+CREATE INDEX IF NOT EXISTS idx_whatsapp_users_referrer ON whatsapp_users(referrer_phone);
+CREATE INDEX IF NOT EXISTS idx_whatsapp_users_pin ON whatsapp_users(pin);
+CREATE INDEX IF NOT EXISTS idx_whatsapp_users_invite_code ON whatsapp_users(invitation_code);
 
--- Comments
-COMMENT ON TABLE whatsapp_users IS 'WhatsApp registration system for LLM app';
-COMMENT ON COLUMN whatsapp_users.user_type IS 'lawyer or articling_student';
-COMMENT ON COLUMN whatsapp_users.is_verified IS 'For lawyers: self-confirmed. For A/S: verified by principal';
-COMMENT ON COLUMN whatsapp_users.pin_expires_at IS 'NULL for lawyers (no expiry), date for A/S (max 9 months)';
-COMMENT ON COLUMN whatsapp_users.temp_data IS 'JSON string for storing intermediate data during multi-step flows';
+-- If table already exists, add new columns
+ALTER TABLE whatsapp_users ADD COLUMN IF NOT EXISTS invitation_code VARCHAR(6) UNIQUE;
+ALTER TABLE whatsapp_users ADD COLUMN IF NOT EXISTS invited_by UUID REFERENCES whatsapp_users(id);
+
+-- Update pin column to allow 8 characters (if needed)
+ALTER TABLE whatsapp_users ALTER COLUMN pin TYPE VARCHAR(8);

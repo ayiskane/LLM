@@ -9,9 +9,31 @@ const supabase = createClient(
 const MAX_AS_ACCESS_MONTHS = 9;
 
 // Utilities
-const generatePin = () => {
+const generateCode = (length: number) => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+};
+
+const generateUniquePin = async (): Promise<string> => {
+  let pin: string;
+  let exists = true;
+  while (exists) {
+    pin = generateCode(8);
+    const { data } = await supabase.from('whatsapp_users').select('id').eq('pin', pin).single();
+    exists = !!data;
+  }
+  return pin!;
+};
+
+const generateUniqueInviteCode = async (): Promise<string> => {
+  let code: string;
+  let exists = true;
+  while (exists) {
+    code = generateCode(6);
+    const { data } = await supabase.from('whatsapp_users').select('id').eq('invitation_code', code).single();
+    exists = !!data;
+  }
+  return code!;
 };
 
 const formatDate = (d: Date) => d.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -56,6 +78,16 @@ const findVerifiedLawyerByPhone = async (phone: string) => {
   return data;
 };
 
+// Validate invitation code
+const validateInvitationCode = async (code: string) => {
+  const { data } = await supabase.from('whatsapp_users').select('*')
+    .eq('invitation_code', code.toUpperCase())
+    .eq('user_type', 'lawyer')
+    .eq('is_verified', true)
+    .single();
+  return data;
+};
+
 // Menu
 const showMenu = async (pid: string, to: string) => {
   await sendListMessage(pid, to, '⚖️ LLM Registration',
@@ -63,17 +95,20 @@ const showMenu = async (pid: string, to: string) => {
     'View Options',
     [
       { title: 'Lawyers', rows: [
-        { id: 'register_lawyer', title: '👔 Lawyer Sign-Up', description: 'Register as a practising lawyer' },
+        { id: 'register_lawyer', title: '👔 Register', description: 'Register as a practising lawyer' },
         { id: 'verify_as', title: '✅ Verify A/S', description: 'Verify an articling student' },
       ]},
       { title: 'Articling Students', rows: [
-        { id: 'register_as', title: '📚 A/S Sign-Up', description: 'Register as an articling student' },
+        { id: 'register_as', title: '📚 Register', description: 'Register as an articling student' },
         { id: 'upgrade_lawyer', title: '⬆️ Upgrade to Lawyer', description: 'Convert A/S account to Lawyer' },
       ]},
     ]
   );
-  await sendButtonMessage(pid, to, '🔐 Need your PIN?', 'If you already have an account, fetch your PIN below.',
-    [{ id: 'fetch_pin', title: '🔐 Fetch my PIN' }]
+  await sendButtonMessage(pid, to, '🔐 Account Options', 'Access your account information below.',
+    [
+      { id: 'fetch_pin', title: 'Fetch Access PIN' },
+      { id: 'fetch_invite', title: 'Fetch Invite Code' }
+    ]
   );
 };
 
@@ -94,8 +129,8 @@ export async function handleMessage(msg: MessageData) {
   if (type === 'interactive') {
     switch (text) {
       case 'register_lawyer':
-        await upsertUser(from, { registration_step: 'lawyer_name', user_type: 'lawyer' });
-        return sendTextMessage(pid, from, '👔 *Lawyer Registration*\n\nPlease enter your *full name* as it appears on the LSBC register.');
+        await upsertUser(from, { registration_step: 'lawyer_invite_code', user_type: 'lawyer' });
+        return sendTextMessage(pid, from, '👔 *Lawyer Registration*\n\nPlease enter your *invitation code*.\n\nThis is a 6-character code provided by an existing registered lawyer.');
 
       case 'register_as':
         await upsertUser(from, { registration_step: 'as_name', user_type: 'articling_student' });
@@ -113,6 +148,7 @@ export async function handleMessage(msg: MessageData) {
         return sendTextMessage(pid, from, '⬆️ *Upgrade to Lawyer Status*\n\nPlease enter your *full name* as it appears on your A/S registration.');
 
       case 'fetch_pin': return handleFetchPin(pid, from, user);
+      case 'fetch_invite': return handleFetchInviteCode(pid, from, user);
       case 'confirm_lsbc_yes': return handleLawyerConfirm(pid, from, true);
       case 'confirm_lsbc_no': return handleLawyerConfirm(pid, from, false);
       case 'confirm_as_yes': return handleASVerifyConfirm(pid, from, user, true);
@@ -127,17 +163,28 @@ export async function handleMessage(msg: MessageData) {
   // Text steps
   switch (step) {
     // === LAWYER REGISTRATION ===
-    case 'lawyer_name':
-      await upsertUser(from, { registration_step: 'lawyer_email', full_name: text });
-      return sendTextMessage(pid, from, `Thanks, ${text}!\n\nPlease enter your *email address*.`);
+    // Flow: invitation code → full name → LSBC confirmation
+    case 'lawyer_invite_code': {
+      const inviter = await validateInvitationCode(text);
+      if (!inviter) {
+        return sendTextMessage(pid, from, '❌ *Invalid Invitation Code*\n\nPlease enter a valid 6-character invitation code from a registered lawyer.');
+      }
+      await upsertUser(from, { 
+        registration_step: 'lawyer_name', 
+        temp_data: JSON.stringify({ inviter_id: inviter.id, invite_code: text.toUpperCase() }) 
+      });
+      return sendTextMessage(pid, from, 'Invitation code accepted! ✅\n\nPlease enter your *full name* as it appears on the LSBC register.');
+    }
 
-    case 'lawyer_email':
-      if (!text.includes('@') || !text.includes('.')) return sendTextMessage(pid, from, '❌ Please enter a valid email address.');
-      await upsertUser(from, { registration_step: 'lawyer_confirm', email: text.toLowerCase() });
+    case 'lawyer_name': {
+      const tempData = user?.temp_data ? JSON.parse(user.temp_data) : {};
+      tempData.full_name = text;
+      await upsertUser(from, { registration_step: 'lawyer_confirm', full_name: text, temp_data: JSON.stringify(tempData) });
       return sendButtonMessage(pid, from, '⚖️ LSBC Status',
-        'Do you confirm that you are an *active* member of the Law Society of BC and in *good standing*?\n\n⚠️ Your status will be verified against the LSBC Lawyer Directory at random intervals.',
+        `Thanks, ${text}!\n\nDo you confirm that you are an *active* member of the Law Society of BC and in *good standing*?\n\n⚠️ Your status will be verified against the LSBC Lawyer Directory at random intervals.`,
         [{ id: 'confirm_lsbc_yes', title: '✅ Yes, I confirm' }, { id: 'confirm_lsbc_no', title: '❌ No' }]
       );
+    }
 
     // === A/S REGISTRATION ===
     // Flow: name → email → firm → principal name → referrer name → referrer phone (validated) → end date
@@ -156,45 +203,31 @@ export async function handleMessage(msg: MessageData) {
 
     case 'as_principal_name':
       await upsertUser(from, { registration_step: 'as_referrer_name', principal_name: text });
-      return sendTextMessage(pid, from, 'Please enter your *referrer\'s full name*.\n\n_Your referrer must be a registered lawyer with LLM._');
+      return sendTextMessage(pid, from, 'Please enter your *referrer\'s full name*.\n\nThis must be a registered lawyer who will verify your registration.');
 
-    case 'as_referrer_name': {
-      const temp = JSON.parse(user?.temp_data || '{}');
-      temp.referrer_name = text;
-      await upsertUser(from, { registration_step: 'as_referrer_phone', temp_data: JSON.stringify(temp) });
-      return sendTextMessage(pid, from, `Please enter *${text}'s phone number* (with area code).\n\nExample: 6041234567`);
-    }
+    case 'as_referrer_name':
+      await upsertUser(from, { registration_step: 'as_referrer_phone', temp_data: JSON.stringify({ referrer_name: text }) });
+      return sendTextMessage(pid, from, `Please enter *${text}'s phone number*.\n\nFormat: 10 digits (e.g., 6041234567)`);
 
     case 'as_referrer_phone': {
       const digits = text.replace(/\D/g, '');
       if (digits.length < 10) return sendTextMessage(pid, from, '❌ Please enter a valid phone number (at least 10 digits).');
       
-      // Validate referrer is a registered lawyer
       const referrer = await findVerifiedLawyerByPhone(digits);
-      
       if (!referrer) {
         await upsertUser(from, { registration_step: 'idle', temp_data: null });
-        return sendTextMessage(pid, from, 
-          '❌ *Registration Not Allowed*\n\n' +
-          'Sorry, your referrer must be a registered lawyer with LLM to complete your registration.\n\n' +
-          'Please ask your referrer to register first, then try again.\n\n' +
-          'Type "menu" to return.'
-        );
+        return sendTextMessage(pid, from, '❌ *Registration Not Allowed*\n\nSorry, your referrer must be a registered lawyer with LLM to complete your registration.\n\nPlease ask your referrer to register first, then try again.\n\nType "menu" to return.');
       }
       
-      // Referrer is valid - store referrer info and continue
       const temp = JSON.parse(user?.temp_data || '{}');
       await upsertUser(from, { 
         registration_step: 'as_end_date', 
-        referrer_phone: digits,
-        referrer_name: temp.referrer_name,
         referrer_id: referrer.id,
-        temp_data: null
+        referrer_name: temp.referrer_name,
+        referrer_phone: digits,
+        temp_data: null 
       });
-      return sendTextMessage(pid, from, 
-        'Please enter your *articling end date* (actual work period only).\n\n' +
-        'Format: YYYY-MM-DD\nExample: 2026-06-30'
-      );
+      return sendTextMessage(pid, from, 'Referrer verified! ✅\n\nPlease enter your *articling end date*.\n\nFormat: YYYY-MM-DD');
     }
 
     case 'as_end_date': {
@@ -204,37 +237,41 @@ export async function handleMessage(msg: MessageData) {
 
       const maxDate = new Date(); maxDate.setMonth(maxDate.getMonth() + MAX_AS_ACCESS_MONTHS);
       const expiry = endDate > maxDate ? maxDate : endDate;
-      const pin = generatePin();
+      const pin = await generateUniquePin();
 
+      // Re-fetch user data to get referrer info
+      const freshUser = await getUser(from);
+      
       await upsertUser(from, {
         registration_step: 'idle',
         articling_end_date: endDate.toISOString(),
-        pin_expires_at: expiry.toISOString(),
         pin,
-        is_verified: false,
+        pin_expires_at: expiry.toISOString(),
+        is_verified: false
       });
 
-      const updated = await getUser(from);
+      // Notify referrer
+      if (freshUser?.referrer_phone) {
+        const referrer = await findVerifiedLawyerByPhone(freshUser.referrer_phone);
+        if (referrer) {
+          await sendTextMessage(pid, referrer.phone_number,
+            `📬 *New Verification Request*\n\nArticling student *${freshUser.full_name}* has registered and listed you as their referrer.\n\nPlease verify them using "Verify A/S" in the menu.`
+          );
+        }
+      }
 
       await sendTextMessage(pid, from,
         `✅ *Registration Complete!*\n\n📅 Access expires: ${formatDate(expiry)}\n\n⏳ *Status: PENDING VERIFICATION*\n\nYour PIN will remain *INACTIVE* until your referrer verifies you.`
       );
-      await sendTextMessage(pid, from, `🔐 Your PIN:\n\n${pin}`);
-      await sendTextMessage(pid, from, 'Type "menu" to return.');
-
-      // Notify referrer (the verified lawyer)
-      if (updated?.referrer_phone) {
-        await sendTextMessage(pid, updated.referrer_phone,
-          `📋 *Referral Notification*\n\n${updated.full_name} has registered as an articling student and listed you as their referrer.\n\nIf you are also their principal, type "menu" and select "Verify Articling Student" to activate their account.`
-        );
-      }
-      return;
+      await sendTextMessage(pid, from, `🔐 Your Access PIN:\n\n${pin}`);
+      return sendTextMessage(pid, from, 'Type "menu" to return.');
     }
 
-    // === VERIFY A/S (Lawyer) ===
+    // === VERIFY A/S ===
     case 'verify_student_name': {
-      await upsertUser(from, { registration_step: 'verify_student_phone', temp_data: JSON.stringify({ student_name: text }) });
-      return sendTextMessage(pid, from, `Please enter *${text}'s phone number* (the one they registered with).\n\nExample: 6041234567`);
+      const temp = JSON.parse(user?.temp_data || '{}'); temp.student_name = text;
+      await upsertUser(from, { registration_step: 'verify_student_phone', temp_data: JSON.stringify(temp) });
+      return sendTextMessage(pid, from, `Please enter *${text}'s phone number*.\n\nFormat: 10 digits`);
     }
 
     case 'verify_student_phone': {
@@ -306,23 +343,57 @@ async function handleFetchPin(pid: string, from: string, user: any) {
     : isExpired ? '❌ Status: *EXPIRED*\n\nSelect "Upgrade to Lawyer" if called to the bar.'
     : `✅ Status: *ACTIVE*\n📅 Expires: ${formatDate(expiry!)}`;
 
-  await sendTextMessage(pid, from, `🔐 *Your PIN*\n\n${status}`);
+  await sendTextMessage(pid, from, `🔐 *Your Access PIN*\n\n${status}`);
   await sendTextMessage(pid, from, user.pin);
+  return sendTextMessage(pid, from, 'Type "menu" to return.');
+}
+
+async function handleFetchInviteCode(pid: string, from: string, user: any) {
+  if (!user) {
+    return sendTextMessage(pid, from, '❌ *No Account Found*\n\nType "menu" to register.');
+  }
+
+  if (user.user_type !== 'lawyer' || !user.is_verified) {
+    return sendTextMessage(pid, from, '❌ *Not Available*\n\nInvitation codes are only available for registered lawyers.\n\nType "menu" to return.');
+  }
+
+  if (!user.invitation_code) {
+    return sendTextMessage(pid, from, '❌ *No Invitation Code*\n\nYour account does not have an invitation code. Please contact support.\n\nType "menu" to return.');
+  }
+
+  await sendTextMessage(pid, from, '🎟️ *Your Invitation Code*\n\nShare this code with lawyers who want to register:');
+  await sendTextMessage(pid, from, user.invitation_code);
   return sendTextMessage(pid, from, 'Type "menu" to return.');
 }
 
 async function handleLawyerConfirm(pid: string, from: string, confirmed: boolean) {
   if (!confirmed) {
-    await upsertUser(from, { registration_step: 'idle', user_type: null });
+    await upsertUser(from, { registration_step: 'idle', user_type: null, temp_data: null });
     return sendTextMessage(pid, from, '❌ *Registration Cancelled*\n\nYou must be an active LSBC member.\n\nType "menu" to return.');
   }
-  const pin = generatePin();
-  await upsertUser(from, { registration_step: 'idle', pin, is_verified: true, pin_expires_at: null });
+
+  const user = await getUser(from);
+  const tempData = user?.temp_data ? JSON.parse(user.temp_data) : {};
+
+  const pin = await generateUniquePin();
+  const inviteCode = await generateUniqueInviteCode();
+
+  await upsertUser(from, { 
+    registration_step: 'idle', 
+    pin, 
+    invitation_code: inviteCode,
+    is_verified: true, 
+    pin_expires_at: null,
+    invited_by: tempData.inviter_id || null,
+    temp_data: null
+  });
+
   await sendTextMessage(pid, from,
     `✅ *Registration Complete!*\n\nYour account is now *ACTIVE* with no expiry.\n\n⚠️ Your LSBC status will be verified at random intervals.`
   );
-  await sendTextMessage(pid, from, `🔐 Your PIN:\n\n${pin}`);
-  return sendTextMessage(pid, from, 'Type "menu" to return.');
+  await sendTextMessage(pid, from, `🔐 Your Access PIN:\n\n${pin}`);
+  await sendTextMessage(pid, from, `🎟️ Your Invitation Code:\n\n${inviteCode}`);
+  return sendTextMessage(pid, from, 'Share your invitation code with other lawyers who want to register.\n\nType "menu" to return.');
 }
 
 async function handleASVerifyConfirm(pid: string, from: string, user: any, confirmed: boolean) {
@@ -354,7 +425,7 @@ async function handleASVerifyConfirm(pid: string, from: string, user: any, confi
   await sendTextMessage(pid, student.phone_number,
     `🎉 *Account Activated!*\n\nYour principal has verified you.\n\n📅 Expires: ${formatDate(finalExpiry)}\n\nYour account is now *ACTIVE*.`
   );
-  return sendTextMessage(pid, student.phone_number, `🔐 Your PIN:\n\n${student.pin}`);
+  return sendTextMessage(pid, student.phone_number, `🔐 Your Access PIN:\n\n${student.pin}`);
 }
 
 async function handleOathConfirm(pid: string, from: string, user: any, confirmed: boolean) {
@@ -384,8 +455,17 @@ async function handleUpgradeLSBCConfirm(pid: string, from: string, user: any, co
     return sendTextMessage(pid, from, '❌ *Account Not Found*\n\nNo A/S account found matching your name and email.\n\nIf new, register as a Lawyer instead.\n\nType "menu" to return.');
   }
 
+  // Generate invitation code for new lawyer
+  const inviteCode = await generateUniqueInviteCode();
+
   await supabase.from('whatsapp_users').update({
-    user_type: 'lawyer', is_verified: true, pin_expires_at: null, call_date: temp.call_date, phone_number: from, updated_at: new Date().toISOString()
+    user_type: 'lawyer', 
+    is_verified: true, 
+    pin_expires_at: null, 
+    call_date: temp.call_date, 
+    phone_number: from,
+    invitation_code: inviteCode,
+    updated_at: new Date().toISOString()
   }).eq('id', existingAS.id);
 
   if (existingAS.phone_number !== from) await upsertUser(from, { registration_step: 'idle', temp_data: null });
@@ -393,6 +473,7 @@ async function handleUpgradeLSBCConfirm(pid: string, from: string, user: any, co
   await sendTextMessage(pid, from,
     `🎉 *Congratulations!*\n\nUpgraded to *Lawyer* status.\n\n📅 Expiry: *None*\n\n⚠️ Your LSBC status will be verified at random intervals.`
   );
-  await sendTextMessage(pid, from, `🔐 Your PIN:\n\n${existingAS.pin}`);
-  return sendTextMessage(pid, from, 'Type "menu" to return.');
+  await sendTextMessage(pid, from, `🔐 Your Access PIN:\n\n${existingAS.pin}`);
+  await sendTextMessage(pid, from, `🎟️ Your Invitation Code:\n\n${inviteCode}`);
+  return sendTextMessage(pid, from, 'Share your invitation code with other lawyers who want to register.\n\nType "menu" to return.');
 }
