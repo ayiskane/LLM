@@ -10,6 +10,7 @@ import type {
   Program,
   CourtDetails,
   CorrectionalCentre,
+  WeekendBailCourtWithTeams,
 } from '@/types';
 
 const supabase = createClient();
@@ -224,17 +225,18 @@ export async function fetchBailContactsByRegionId(regionId: number): Promise<Bai
   return data || [];
 }
 
-// Fetch weekend/evening bail court by region (is_daytime = false)
-export async function fetchWeekendBailByRegionId(regionId: number): Promise<BailCourt | null> {
+// Fetch weekend/evening bail courts by region (is_daytime = false)
+// Returns array since regions can have multiple weekend bail courts
+export async function fetchWeekendBailCourtsByRegionId(regionId: number): Promise<BailCourt[]> {
   const { data, error } = await supabase
     .from('bail_courts')
     .select('*')
     .eq('region_id', regionId)
     .eq('is_daytime', false)
-    .maybeSingle();
+    .order('name');
 
   if (error) throw error;
-  return data;
+  return data || [];
 }
 
 // =============================================================================
@@ -266,6 +268,21 @@ export async function fetchProgramsByRegionId(regionId: number): Promise<Program
 // COMBINED QUERIES
 // =============================================================================
 
+// Helper to filter weekend bail courts based on court name
+// Surrey courts get Surrey Region Justice Centre, others get Fraser Region Justice Centre
+function filterWeekendBailCourtsForCourt(
+  weekendCourts: BailCourt[],
+  courtName: string
+): BailCourt[] {
+  const isSurreyCourt = courtName.toLowerCase().includes('surrey');
+  
+  return weekendCourts.filter(wc => {
+    const isSurreyBail = wc.name.toLowerCase().includes('surrey');
+    // Surrey court gets Surrey bail, non-Surrey court gets non-Surrey bail
+    return isSurreyCourt === isSurreyBail;
+  });
+}
+
 export async function fetchCourtDetails(courtId: number): Promise<CourtDetails | null> {
   const court = await fetchCourtById(courtId);
   if (!court) return null;
@@ -285,8 +302,7 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   let bailTeams: TeamsLink[] = [];
   let bailContacts: BailContact[] = [];
   let programs: Program[] = [];
-  let weekendBailCourt: BailCourt | null = null;
-  let weekendBailTeams: TeamsLink[] = [];
+  let weekendBailCourts: WeekendBailCourtWithTeams[] = [];
 
   if (court.bail_hub_id) {
     bailCourt = await fetchBailCourtById(court.bail_hub_id);
@@ -296,20 +312,31 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   }
 
   if (court.region_id) {
-    // Fetch weekend bail, bail contacts, and programs in parallel
-    const [weekendBail, contacts, progs] = await Promise.all([
-      fetchWeekendBailByRegionId(court.region_id),
+    // Fetch weekend bail courts, bail contacts, and programs in parallel
+    const [allWeekendCourts, contacts, progs] = await Promise.all([
+      fetchWeekendBailCourtsByRegionId(court.region_id),
       fetchBailContactsByRegionId(court.region_id),
       fetchProgramsByRegionId(court.region_id),
     ]);
     
-    weekendBailCourt = weekendBail;
     bailContacts = contacts;
     programs = progs;
     
-    // Fetch weekend bail teams if we have a weekend bail court
-    if (weekendBailCourt) {
-      weekendBailTeams = await fetchBailTeamsLinksByBailCourtId(weekendBailCourt.id);
+    // Filter weekend bail courts based on current court
+    // E.g., Surrey courts get Surrey bail, Fraser courts get Fraser bail
+    const filteredWeekendCourts = filterWeekendBailCourtsForCourt(allWeekendCourts, court.name);
+    
+    // Fetch teams for each weekend bail court in parallel
+    if (filteredWeekendCourts.length > 0) {
+      const teamsPromises = filteredWeekendCourts.map(wc => 
+        fetchBailTeamsLinksByBailCourtId(wc.id)
+      );
+      const allTeams = await Promise.all(teamsPromises);
+      
+      weekendBailCourts = filteredWeekendCourts.map((court, index) => ({
+        court,
+        teams: allTeams[index],
+      }));
     }
   }
 
@@ -322,8 +349,7 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
     bailTeams,
     bailContacts,
     programs,
-    weekendBailCourt,
-    weekendBailTeams,
+    weekendBailCourts,
   };
 }
 
