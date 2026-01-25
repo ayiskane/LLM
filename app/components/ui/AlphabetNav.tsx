@@ -6,6 +6,15 @@ import { alphabetNav } from '@/lib/config/theme';
 
 const ALL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
 
+// Period/dot icon from FA Pro 7.1.0 light - 128×512
+function DotIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" fill="currentColor" className={className}>
+      <path d="M64 448c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0 32c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64z"/>
+    </svg>
+  );
+}
+
 interface AlphabetNavProps {
   letters: string[];
   activeLetter: string | null;
@@ -160,7 +169,7 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
                   : alphabetNav.letterUnavailable
               )}
             >
-              {letter}
+              {isAvailable ? letter : <DotIcon className="w-1.5 h-1.5" />}
             </span>
           );
         })}
