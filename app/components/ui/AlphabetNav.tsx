@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { alphabetNav } from '@/lib/config/theme';
 
@@ -27,6 +27,23 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
   const [scrubLetter, setScrubLetter] = useState<string | null>(null);
   const [bubbleY, setBubbleY] = useState(0);
 
+  // Build display items: available letters + single dots for gaps
+  const displayItems = useMemo(() => {
+    const items: { type: 'letter' | 'dot'; letter: string }[] = [];
+    let inGap = false;
+    
+    for (const letter of ALL_LETTERS) {
+      if (letters.includes(letter)) {
+        items.push({ type: 'letter', letter });
+        inGap = false;
+      } else if (!inGap) {
+        items.push({ type: 'dot', letter });
+        inGap = true;
+      }
+    }
+    return items;
+  }, [letters]);
+
   const findNearestAvailable = useCallback((letter: string): string | null => {
     if (letters.includes(letter)) return letter;
     
@@ -51,15 +68,16 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
     
     const rect = container.getBoundingClientRect();
     const relativeY = clientY - rect.top;
-    const letterHeight = rect.height / ALL_LETTERS.length;
-    const index = Math.floor(relativeY / letterHeight);
+    const itemHeight = rect.height / displayItems.length;
+    const index = Math.floor(relativeY / itemHeight);
     
-    if (index >= 0 && index < ALL_LETTERS.length) {
+    if (index >= 0 && index < displayItems.length) {
       setBubbleY(Math.max(24, Math.min(rect.height - 24, relativeY)));
-      return findNearestAvailable(ALL_LETTERS[index]);
+      const item = displayItems[index];
+      return item.type === 'letter' ? item.letter : findNearestAvailable(item.letter);
     }
     return null;
-  }, [findNearestAvailable]);
+  }, [displayItems, findNearestAvailable]);
 
   const handleStart = useCallback((clientY: number) => {
     setIsDragging(true);
@@ -113,7 +131,6 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
 
   return (
     <>
-      {/* Scrub bubble with tail - positioned to the left of the bar */}
       {isDragging && scrubLetter && (
         <div
           className="fixed z-50 pointer-events-none flex items-center"
@@ -125,11 +142,9 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
             transform: 'translateY(-50%)',
           }}
         >
-          {/* Bubble */}
           <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-600/50 shadow-xl flex items-center justify-center">
             <span className="text-2xl font-bold text-blue-400">{scrubLetter}</span>
           </div>
-          {/* Tail pointing right */}
           <div 
             className="w-0 h-0 -ml-px"
             style={{
@@ -141,7 +156,6 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
         </div>
       )}
 
-      {/* Alphabet card */}
       <div
         ref={containerRef}
         className={alphabetNav.card}
@@ -153,28 +167,20 @@ export function AlphabetNav({ letters, activeLetter, onSelect }: AlphabetNavProp
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeave}
       >
-        {ALL_LETTERS.map((letter, index) => {
-          const isAvailable = letters.includes(letter);
-          const isActive = activeLetter === letter || scrubLetter === letter;
-          
-          // Collapse consecutive unavailable letters into single dot
-          if (!isAvailable && index > 0 && !letters.includes(ALL_LETTERS[index - 1])) {
-            return null;
-          }
+        {displayItems.map((item, idx) => {
+          const isActive = item.type === 'letter' && (activeLetter === item.letter || scrubLetter === item.letter);
 
           return (
             <span
-              key={letter}
+              key={item.type === 'letter' ? item.letter : `dot-${idx}`}
               className={cn(
                 alphabetNav.letter,
-                isAvailable
-                  ? isActive
-                    ? alphabetNav.letterActive
-                    : alphabetNav.letterAvailable
+                item.type === 'letter'
+                  ? isActive ? alphabetNav.letterActive : alphabetNav.letterAvailable
                   : alphabetNav.letterUnavailable
               )}
             >
-              {isAvailable ? letter : <DotIcon className="w-1.5 h-1.5" />}
+              {item.type === 'letter' ? item.letter : <DotIcon className="w-1.5 h-1.5" />}
             </span>
           );
         })}
