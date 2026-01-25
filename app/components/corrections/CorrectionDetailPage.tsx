@@ -5,6 +5,7 @@ import { FaArrowLeft, FaPhone, FaClock, FaUsers, FaFolder, FaCheck, FaXmark } fr
 import { cn } from '@/lib/utils';
 import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton } from '../ui';
+import { SearchBar } from '../court/SearchBar';
 import type { CorrectionalCentre } from '@/types';
 
 // =============================================================================
@@ -29,14 +30,27 @@ const LOCATION_TO_REGION: Record<string, { code: string; name: string }> = {
 type AccordionSection = 'contact' | 'callback' | 'visits' | 'disclosure' | null;
 
 // =============================================================================
-// SUBCOMPONENTS
+// CENTRE HEADER
 // =============================================================================
 
-function CentreHeader({ centre }: { centre: CorrectionalCentre }) {
+function CentreHeader({ centre, collapsed }: { centre: CorrectionalCentre; collapsed: boolean }) {
   const region = LOCATION_TO_REGION[centre.location];
   
+  if (collapsed) {
+    return (
+      <div className="px-4 py-2 border-t border-slate-700/30">
+        <div className="flex items-center gap-2">
+          {centre.short_name && (
+            <span className="text-[10px] text-slate-500 font-mono">{centre.short_name}</span>
+          )}
+          <span className="text-sm font-medium text-white truncate">{centre.name}</span>
+        </div>
+      </div>
+    );
+  }
+  
   return (
-    <div className="px-4 pt-4 pb-3">
+    <div className="px-4 pt-2 pb-3">
       <div className="flex items-start justify-between">
         <div>
           {centre.short_name && (
@@ -79,6 +93,10 @@ function CentreHeader({ centre }: { centre: CorrectionalCentre }) {
     </div>
   );
 }
+
+// =============================================================================
+// SECTION COMPONENTS
+// =============================================================================
 
 function ContactSection({ centre }: { centre: CorrectionalCentre }) {
   return (
@@ -250,11 +268,13 @@ function DisclosureSection({ centre }: { centre: CorrectionalCentre }) {
 interface CorrectionDetailPageProps {
   centre: CorrectionalCentre;
   onBack?: () => void;
+  onSearch?: (query: string) => void;
 }
 
-export function CorrectionDetailPage({ centre, onBack }: CorrectionDetailPageProps) {
+export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDetailPageProps) {
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contact');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
   const scrollRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
@@ -295,20 +315,26 @@ export function CorrectionDetailPage({ centre, onBack }: CorrectionDetailPagePro
     setExpandedSection(prev => prev === section ? null : section);
   }, []);
 
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim() && onSearch) {
+      onSearch(searchQuery.trim());
+    }
+  };
+
   // Count callback windows
   const callbackCount = (centre.callback_1_start ? 1 : 0) + (centre.callback_2_start ? 1 : 0);
 
   const navButtons = [
-    { key: 'contact', label: 'Contact', icon: <FaPhone className="w-4 h-4" />, show: true },
-    { key: 'callback', label: 'Callback', icon: <FaClock className="w-4 h-4" />, count: callbackCount || undefined, show: true },
-    { key: 'visits', label: 'Visits', icon: <FaUsers className="w-4 h-4" />, show: true },
-    { key: 'disclosure', label: 'Disclosure', icon: <FaFolder className="w-4 h-4" />, show: true },
+    { key: 'contact', label: 'Contact', icon: <FaPhone className="w-4 h-4" />, count: '', show: true },
+    { key: 'callback', label: 'Callback', icon: <FaClock className="w-4 h-4" />, count: callbackCount || '', show: true },
+    { key: 'visits', label: 'Visits', icon: <FaUsers className="w-4 h-4" />, count: '', show: true },
+    { key: 'disclosure', label: 'Disclosure', icon: <FaFolder className="w-4 h-4" />, count: '', show: true },
   ];
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden bg-slate-950">
+    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
       <StickyHeader>
-        {/* Back button row */}
+        {/* Back button + Search bar row */}
         <div className="flex items-center gap-2 px-3 py-2">
           <button
             onClick={onBack}
@@ -317,44 +343,46 @@ export function CorrectionDetailPage({ centre, onBack }: CorrectionDetailPagePro
             <FaArrowLeft className="w-5 h-5" />
           </button>
           
-          {/* Collapsed header title */}
-          {isHeaderCollapsed && (
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">{centre.name}</p>
-              <p className="text-xs text-slate-500">{centre.short_name || centre.location}</p>
-            </div>
-          )}
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            onSubmit={handleSearchSubmit}
+            placeholder="Search centres..."
+            className="flex-1"
+          />
+        </div>
+        
+        {/* Centre header */}
+        <CentreHeader centre={centre} collapsed={isHeaderCollapsed} />
+        
+        {/* Pill navigation */}
+        <div className="flex gap-1.5 px-3 py-2 border-t border-slate-700/30">
+          {navButtons.filter(btn => btn.show).map((btn) => (
+            <PillButton 
+              className="flex-1 justify-center" 
+              key={btn.key} 
+              isActive={expandedSection === btn.key} 
+              onClick={() => navigateToSection(btn.key as AccordionSection)}
+            >
+              {btn.icon}
+              <span>{btn.label}</span>
+              {btn.count !== '' && (
+                <span className={expandedSection === btn.key ? 'text-white/70' : 'text-slate-500'}>
+                  {btn.count}
+                </span>
+              )}
+            </PillButton>
+          ))}
         </div>
       </StickyHeader>
 
       {/* Scrollable Content */}
       <div 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto"
+        className="flex-1 overflow-y-auto scroll-smooth"
         onScroll={handleScroll}
       >
-        {/* Centre Header */}
-        {!isHeaderCollapsed && <CentreHeader centre={centre} />}
-
-        {/* Navigation Pills */}
-        <div className="flex gap-2 px-4 pb-4 overflow-x-auto">
-          {navButtons.filter(btn => btn.show).map((btn) => (
-            <PillButton
-              key={btn.key}
-              isActive={expandedSection === btn.key}
-              onClick={() => navigateToSection(btn.key as AccordionSection)}
-            >
-              {btn.icon}
-              {btn.label}
-              {btn.count !== undefined && (
-                <span className="ml-1 text-[10px] opacity-70">{btn.count}</span>
-              )}
-            </PillButton>
-          ))}
-        </div>
-
-        {/* Sections */}
-        <div className="px-3 pb-6 space-y-3">
+        <div className="p-3 space-y-2.5 pb-20">
           {/* Contact Section */}
           <Section
             ref={contactRef}
