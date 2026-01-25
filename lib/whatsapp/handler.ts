@@ -45,6 +45,17 @@ const findUserByPhone = async (phone: string) => {
   return data;
 };
 
+// Find verified lawyer by phone (for referrer validation)
+const findVerifiedLawyerByPhone = async (phone: string) => {
+  const digits = phone.replace(/\D/g, '');
+  const { data } = await supabase.from('whatsapp_users').select('*')
+    .or(`phone_number.eq.${digits},phone_number.ilike.%${digits.slice(-10)}`)
+    .eq('user_type', 'lawyer')
+    .eq('is_verified', true)
+    .single();
+  return data;
+};
+
 // Menu
 const showMenu = async (pid: string, to: string) => {
   await sendListMessage(pid, to, '⚖️ LLM Registration',
@@ -115,7 +126,7 @@ export async function handleMessage(msg: MessageData) {
 
   // Text steps
   switch (step) {
-    // LAWYER
+    // === LAWYER REGISTRATION ===
     case 'lawyer_name':
       await upsertUser(from, { registration_step: 'lawyer_email', full_name: text });
       return sendTextMessage(pid, from, `Thanks, ${text}!\n\nPlease enter your *email address*.`);
@@ -128,7 +139,8 @@ export async function handleMessage(msg: MessageData) {
         [{ id: 'confirm_lsbc_yes', title: '✅ Yes, I confirm' }, { id: 'confirm_lsbc_no', title: '❌ No' }]
       );
 
-    // A/S
+    // === A/S REGISTRATION ===
+    // Flow: name → email → firm → principal name → referrer name → referrer phone (validated) → end date
     case 'as_name':
       await upsertUser(from, { registration_step: 'as_email', full_name: text });
       return sendTextMessage(pid, from, `Thanks, ${text}!\n\nPlease enter your *email address*.`);
@@ -140,17 +152,50 @@ export async function handleMessage(msg: MessageData) {
 
     case 'as_firm':
       await upsertUser(from, { registration_step: 'as_principal_name', firm_name: text });
-      return sendTextMessage(pid, from, 'Please enter your *principal/referrer\'s full name*.');
+      return sendTextMessage(pid, from, 'Please enter your *principal\'s full name*.');
 
     case 'as_principal_name':
-      await upsertUser(from, { registration_step: 'as_principal_phone', principal_name: text });
-      return sendTextMessage(pid, from, `Please enter *${text}'s phone number* (with area code).\n\nExample: 6041234567`);
+      await upsertUser(from, { registration_step: 'as_referrer_name', principal_name: text });
+      return sendTextMessage(pid, from, 'Please enter your *referrer\'s full name*.\n\n_Your referrer must be a registered lawyer with LLM._');
 
-    case 'as_principal_phone': {
+    case 'as_referrer_name': {
+      const temp = JSON.parse(user?.temp_data || '{}');
+      temp.referrer_name = text;
+      await upsertUser(from, { registration_step: 'as_referrer_phone', temp_data: JSON.stringify(temp) });
+      return sendTextMessage(pid, from, `Please enter *${text}'s phone number* (with area code).\n\nExample: 6041234567`);
+    }
+
+    case 'as_referrer_phone': {
       const digits = text.replace(/\D/g, '');
       if (digits.length < 10) return sendTextMessage(pid, from, '❌ Please enter a valid phone number (at least 10 digits).');
-      await upsertUser(from, { registration_step: 'as_end_date', principal_phone: digits });
-      return sendTextMessage(pid, from, 'Please enter your *articling end date* (actual work period only).\n\nFormat: YYYY-MM-DD\nExample: 2026-06-30');
+      
+      // Validate referrer is a registered lawyer
+      const referrer = await findVerifiedLawyerByPhone(digits);
+      
+      if (!referrer) {
+        await upsertUser(from, { registration_step: 'idle', temp_data: null });
+        return sendTextMessage(pid, from, 
+          '❌ *Registration Not Allowed*\n\n' +
+          'Sorry, your referrer must be a registered lawyer with LLM to complete your registration.\n\n' +
+          'Please ask your referrer to register first, then try again.\n\n' +
+          'Type "menu" to return.'
+        );
+      }
+      
+      // Referrer is valid - store referrer info and continue
+      const temp = JSON.parse(user?.temp_data || '{}');
+      await upsertUser(from, { 
+        registration_step: 'as_end_date', 
+        referrer_phone: digits,
+        referrer_name: temp.referrer_name,
+        referrer_id: referrer.id,
+        temp_data: null
+      });
+      return sendTextMessage(pid, from, 
+        `✅ Referrer verified: *${referrer.full_name}*\n\n` +
+        'Please enter your *articling end date* (actual work period only).\n\n' +
+        'Format: YYYY-MM-DD\nExample: 2026-06-30'
+      );
     }
 
     case 'as_end_date': {
@@ -170,21 +215,22 @@ export async function handleMessage(msg: MessageData) {
         is_verified: false,
       });
 
-      const updated = await getUser(from); // Re-fetch for notification
+      const updated = await getUser(from);
 
       await sendTextMessage(pid, from,
         `✅ *Registration Complete!*\n\n🔐 Your PIN: *${pin}*\n📅 Access expires: ${formatDate(expiry)}\n\n⏳ *Status: PENDING VERIFICATION*\n\nYour PIN will remain *INACTIVE* until your principal verifies you.\n\nType "menu" to return.`
       );
 
-      if (updated?.principal_phone) {
-        await sendTextMessage(pid, updated.principal_phone,
-          `📋 *Verification Request*\n\n${updated.full_name} has registered as an articling student and listed you as their principal.\n\nIf you are a registered lawyer, type "menu" and select "Verify Articling Student" to activate their account.`
+      // Notify referrer (the verified lawyer)
+      if (updated?.referrer_phone) {
+        await sendTextMessage(pid, updated.referrer_phone,
+          `📋 *Referral Notification*\n\n${updated.full_name} has registered as an articling student and listed you as their referrer.\n\nIf you are also their principal, type "menu" and select "Verify Articling Student" to activate their account.`
         );
       }
       return;
     }
 
-    // VERIFY A/S
+    // === VERIFY A/S (Lawyer) ===
     case 'verify_student_name': {
       await upsertUser(from, { registration_step: 'verify_student_phone', temp_data: JSON.stringify({ student_name: text }) });
       return sendTextMessage(pid, from, `Please enter *${text}'s phone number* (the one they registered with).\n\nExample: 6041234567`);
@@ -216,7 +262,7 @@ export async function handleMessage(msg: MessageData) {
       );
     }
 
-    // UPGRADE
+    // === UPGRADE TO LAWYER ===
     case 'upgrade_name': {
       await upsertUser(from, { registration_step: 'upgrade_email', temp_data: JSON.stringify({ full_name: text }) });
       return sendTextMessage(pid, from, 'Please enter your *email address* (the one you registered with as an A/S).');

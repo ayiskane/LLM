@@ -24,8 +24,12 @@ CREATE TABLE IF NOT EXISTS whatsapp_users (
   -- Articling student specific
   firm_name VARCHAR(255),
   principal_name VARCHAR(255),
-  principal_phone VARCHAR(20),
   articling_end_date TIMESTAMP WITH TIME ZONE,
+  
+  -- Referrer (must be a verified lawyer)
+  referrer_id UUID REFERENCES whatsapp_users(id),
+  referrer_name VARCHAR(255),
+  referrer_phone VARCHAR(20),
   
   -- Lawyer specific (for upgraded A/S)
   call_date TIMESTAMP WITH TIME ZONE,
