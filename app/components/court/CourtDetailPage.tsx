@@ -86,7 +86,7 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
   ];
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-full flex flex-col overflow-hidden">
       <StickyHeader>
         {/* Back button + Search bar row */}
         <div className="flex items-center gap-2 px-3 py-2">
@@ -236,3 +236,4 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
     </div>
   );
 }
+
