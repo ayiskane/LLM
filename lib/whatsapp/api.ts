@@ -1,207 +1,108 @@
 const WHATSAPP_API_URL = 'https://graph.facebook.com/v18.0';
-const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID!;
-const ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN!;
 
-// Send a text message
-export async function sendTextMessage(to: string, message: string): Promise<boolean> {
+export async function sendTextMessage(phoneNumberId: string, to: string, message: string): Promise<boolean> {
+  const token = process.env.WHATSAPP_ACCESS_TOKEN;
+  if (!token) { console.error('WHATSAPP_ACCESS_TOKEN not set'); return false; }
+
   try {
-    const response = await fetch(
-      `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messaging_product: 'whatsapp',
-          recipient_type: 'individual',
-          to: to,
-          type: 'text',
-          text: {
-            preview_url: false,
-            body: message,
-          },
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const error = await response.json();
-      console.error('WhatsApp API Error:', error);
-      return false;
-    }
+    const res = await fetch(`${WHATSAPP_API_URL}/${phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        recipient_type: 'individual',
+        to,
+        type: 'text',
+        text: { preview_url: false, body: message },
+      }),
+    });
+    if (!res.ok) { console.error('WhatsApp API Error:', await res.json()); return false; }
     return true;
-  } catch (error) {
-    console.error('Failed to send WhatsApp message:', error);
-    return false;
-  }
+  } catch (e) { console.error('sendTextMessage error:', e); return false; }
 }
 
-// Send interactive list message (for main menu)
 export async function sendListMessage(
-  to: string,
-  headerText: string,
-  bodyText: string,
-  buttonText: string,
-  sections: Array<{
-    title: string;
-    rows: Array<{ id: string; title: string; description?: string }>;
-  }>
+  phoneNumberId: string, to: string, headerText: string, bodyText: string,
+  buttonText: string, sections: Array<{ title: string; rows: Array<{ id: string; title: string; description?: string }> }>
 ): Promise<boolean> {
-  try {
-    const response = await fetch(
-      `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messaging_product: 'whatsapp',
-          recipient_type: 'individual',
-          to: to,
-          type: 'interactive',
-          interactive: {
-            type: 'list',
-            header: {
-              type: 'text',
-              text: headerText,
-            },
-            body: {
-              text: bodyText,
-            },
-            action: {
-              button: buttonText,
-              sections: sections,
-            },
-          },
-        }),
-      }
-    );
+  const token = process.env.WHATSAPP_ACCESS_TOKEN;
+  if (!token) return false;
 
-    if (!response.ok) {
-      const error = await response.json();
-      console.error('WhatsApp List API Error:', error);
-      return false;
-    }
+  try {
+    const res = await fetch(`${WHATSAPP_API_URL}/${phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        recipient_type: 'individual',
+        to,
+        type: 'interactive',
+        interactive: {
+          type: 'list',
+          header: { type: 'text', text: headerText },
+          body: { text: bodyText },
+          action: { button: buttonText, sections },
+        },
+      }),
+    });
+    if (!res.ok) { console.error('WhatsApp List Error:', await res.json()); return false; }
     return true;
-  } catch (error) {
-    console.error('Failed to send WhatsApp list message:', error);
-    return false;
-  }
+  } catch (e) { console.error('sendListMessage error:', e); return false; }
 }
 
-// Send interactive button message (for confirmations)
 export async function sendButtonMessage(
-  to: string,
-  bodyText: string,
+  phoneNumberId: string, to: string, headerText: string, bodyText: string,
   buttons: Array<{ id: string; title: string }>
 ): Promise<boolean> {
-  try {
-    const response = await fetch(
-      `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messaging_product: 'whatsapp',
-          recipient_type: 'individual',
-          to: to,
-          type: 'interactive',
-          interactive: {
-            type: 'button',
-            body: {
-              text: bodyText,
-            },
-            action: {
-              buttons: buttons.map((btn) => ({
-                type: 'reply',
-                reply: {
-                  id: btn.id,
-                  title: btn.title,
-                },
-              })),
-            },
-          },
-        }),
-      }
-    );
+  const token = process.env.WHATSAPP_ACCESS_TOKEN;
+  if (!token) return false;
 
-    if (!response.ok) {
-      const error = await response.json();
-      console.error('WhatsApp Button API Error:', error);
-      return false;
-    }
+  try {
+    const res = await fetch(`${WHATSAPP_API_URL}/${phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        recipient_type: 'individual',
+        to,
+        type: 'interactive',
+        interactive: {
+          type: 'button',
+          header: { type: 'text', text: headerText },
+          body: { text: bodyText },
+          action: { buttons: buttons.map(b => ({ type: 'reply', reply: { id: b.id, title: b.title } })) },
+        },
+      }),
+    });
+    if (!res.ok) { console.error('WhatsApp Button Error:', await res.json()); return false; }
     return true;
-  } catch (error) {
-    console.error('Failed to send WhatsApp button message:', error);
-    return false;
-  }
+  } catch (e) { console.error('sendButtonMessage error:', e); return false; }
 }
 
-// Extract message data from webhook payload
 export interface MessageData {
   from: string;
-  type: 'text' | 'interactive' | 'button';
-  text?: string;
-  buttonId?: string;
-  listId?: string;
+  phoneNumberId: string;
+  type: 'text' | 'interactive';
+  content: string;
 }
 
 export function extractMessageData(body: any): MessageData | null {
   try {
-    const entry = body.entry?.[0];
-    const changes = entry?.changes?.[0];
-    const value = changes?.value;
-    const messages = value?.messages;
+    const value = body.entry?.[0]?.changes?.[0]?.value;
+    const message = value?.messages?.[0];
+    if (!message) return null;
 
-    if (!messages || messages.length === 0) {
-      return null;
-    }
-
-    const message = messages[0];
     const from = message.from;
+    const phoneNumberId = value.metadata?.phone_number_id;
 
-    // Text message
     if (message.type === 'text') {
-      return {
-        from,
-        type: 'text',
-        text: message.text.body,
-      };
+      return { from, phoneNumberId, type: 'text', content: message.text.body };
     }
-
-    // Interactive message (list selection or button)
     if (message.type === 'interactive') {
-      const interactive = message.interactive;
-      
-      // List reply
-      if (interactive.type === 'list_reply') {
-        return {
-          from,
-          type: 'interactive',
-          listId: interactive.list_reply.id,
-        };
-      }
-      
-      // Button reply
-      if (interactive.type === 'button_reply') {
-        return {
-          from,
-          type: 'button',
-          buttonId: interactive.button_reply.id,
-        };
-      }
+      const i = message.interactive;
+      const content = i.type === 'list_reply' ? i.list_reply.id : i.type === 'button_reply' ? i.button_reply.id : null;
+      if (content) return { from, phoneNumberId, type: 'interactive', content };
     }
-
     return null;
-  } catch (error) {
-    console.error('Failed to extract message data:', error);
-    return null;
-  }
+  } catch (e) { console.error('extractMessageData error:', e); return null; }
 }
