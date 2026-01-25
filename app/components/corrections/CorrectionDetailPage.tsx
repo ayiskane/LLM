@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { FaArrowLeft, FaPhone, FaClock, FaUsers, FaFolder, FaCheck, FaXmark } from '@/lib/icons';
-import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { FaArrowLeft, FaPhone, FaClock, FaUsers, FaCheck, FaXmark, FaCopy, FaLocationDot } from '@/lib/icons';
+import { cn, openInMaps } from '@/lib/utils';
 import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton } from '../ui';
+import { Tag } from '../ui/Tag';
 import { SearchBar } from '../court/SearchBar';
 import type { CorrectionalCentre } from '@/types';
 
@@ -27,7 +29,65 @@ const LOCATION_TO_REGION: Record<string, { code: string; name: string }> = {
   'Prince George': { code: 'R5', name: 'Northern' },
 };
 
-type AccordionSection = 'contact' | 'callback' | 'visits' | 'disclosure' | null;
+type AccordionSection = 'contact' | 'callback' | 'visits' | null;
+
+// =============================================================================
+// COPY BUTTON COMPONENT
+// =============================================================================
+
+function CopyButton({ text, className }: { text: string; className?: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  }, [text]);
+
+  return (
+    <button
+      onClick={handleCopy}
+      className={cn(
+        "flex items-center justify-center rounded bg-slate-700/50 active:bg-slate-600/50 transition-colors",
+        className
+      )}
+      title="Copy to clipboard"
+    >
+      {copied ? (
+        <FaCheck className="w-3 h-3 text-green-400" />
+      ) : (
+        <FaCopy className="w-3 h-3 text-slate-400" />
+      )}
+    </button>
+  );
+}
+
+// =============================================================================
+// CALL BUTTON COMPONENT
+// =============================================================================
+
+function CallButton({ phone, className }: { phone: string; className?: string }) {
+  const handleCall = () => {
+    window.open(`tel:${phone.replace(/\D/g, '')}`, '_self');
+  };
+
+  return (
+    <button
+      onClick={handleCall}
+      className={cn(
+        "flex items-center justify-center rounded bg-green-500/20 active:bg-green-500/30 transition-colors",
+        className
+      )}
+      title="Call"
+    >
+      <FaPhone className="w-3 h-3 text-green-400" />
+    </button>
+  );
+}
 
 // =============================================================================
 // CENTRE HEADER
@@ -40,10 +100,10 @@ function CentreHeader({ centre, collapsed }: { centre: CorrectionalCentre; colla
     return (
       <div className="px-4 py-2 border-t border-slate-700/30">
         <div className="flex items-center gap-2">
-          {centre.short_name && (
-            <span className="text-[10px] text-slate-500 font-mono">{centre.short_name}</span>
-          )}
           <span className="text-sm font-medium text-white truncate">{centre.name}</span>
+          {centre.short_name && (
+            <Tag color="blue" size="sm">{centre.short_name}</Tag>
+          )}
         </div>
       </div>
     );
@@ -51,43 +111,47 @@ function CentreHeader({ centre, collapsed }: { centre: CorrectionalCentre; colla
   
   return (
     <div className="px-4 pt-2 pb-3">
-      <div className="flex items-start justify-between">
-        <div>
-          {centre.short_name && (
-            <p className="text-[10px] text-slate-500 font-mono uppercase tracking-wider mb-1">
-              {centre.short_name}
-            </p>
-          )}
-          <h1 className="text-xl font-bold text-white leading-tight">{centre.name}</h1>
-          <p className="text-sm text-slate-400 mt-1">
-            {centre.location}
-            {region && ` • ${region.code} ${region.name}`}
-          </p>
-        </div>
+      {/* Name with acronym tag */}
+      <div className="flex items-center gap-2">
+        <h1 className="text-lg font-semibold text-white uppercase tracking-wide truncate">
+          {centre.name}
+        </h1>
+        {centre.short_name && (
+          <Tag color="blue" size="sm">{centre.short_name}</Tag>
+        )}
       </div>
-      <div className="flex gap-1.5 mt-3 flex-wrap">
-        <span className={cn(
-          'px-2 py-1 text-[10px] font-bold rounded',
-          centre.is_federal 
-            ? 'bg-purple-500/15 text-purple-400' 
-            : 'bg-emerald-500/15 text-emerald-400'
-        )}>
-          {centre.is_federal ? 'FEDERAL' : 'PROVINCIAL'}
-        </span>
-        {centre.centre_type && centre.centre_type !== 'provincial' && centre.centre_type !== 'federal' && (
-          <span className="px-2 py-1 text-[10px] font-bold rounded bg-amber-500/15 text-amber-400 uppercase">
-            {centre.centre_type}
+      
+      {/* Address - clickable to open in maps */}
+      {centre.address && (
+        <button
+          onClick={() => openInMaps(centre.address)}
+          className="flex items-center justify-start gap-1 text-xs mt-1 text-slate-500 hover:text-blue-400 transition-colors text-left"
+        >
+          <FaLocationDot className="w-3 h-3 shrink-0" />
+          <span className="text-left">{centre.address}</span>
+        </button>
+      )}
+      
+      {/* Region and tags row - matching court details */}
+      <div className="flex flex-wrap items-center justify-start gap-1.5 mt-2 pb-1">
+        {region && (
+          <span className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
+            <span>{region.code}</span>
+            <span className="text-slate-600">|</span>
+            <span>{region.name}</span>
           </span>
+        )}
+        <Tag color={centre.is_federal ? 'purple' : 'emerald'}>
+          {centre.is_federal ? 'FEDERAL' : 'PROVINCIAL'}
+        </Tag>
+        {centre.centre_type && centre.centre_type !== 'provincial' && centre.centre_type !== 'federal' && (
+          <Tag color="amber">{centre.centre_type.toUpperCase()}</Tag>
         )}
         {centre.has_bc_gc_link && (
-          <span className="px-2 py-1 text-[10px] font-bold rounded bg-blue-500/15 text-blue-400">
-            GC LINK
-          </span>
+          <Tag color="blue">GC LINK</Tag>
         )}
         {centre.security_level && (
-          <span className="px-2 py-1 text-[10px] font-bold rounded bg-slate-500/15 text-slate-400 uppercase">
-            {centre.security_level}
-          </span>
+          <Tag color="teal">{centre.security_level.toUpperCase()}</Tag>
         )}
       </div>
     </div>
@@ -95,39 +159,104 @@ function CentreHeader({ centre, collapsed }: { centre: CorrectionalCentre; colla
 }
 
 // =============================================================================
-// SECTION COMPONENTS
+// CONTACT SECTION - Matching Sheriff Cells Style
 // =============================================================================
 
 function ContactSection({ centre }: { centre: CorrectionalCentre }) {
+  const phone = centre.general_phone;
+  const phoneDisplay = centre.general_phone_option 
+    ? `${phone} (${centre.general_phone_option})`
+    : phone;
+
   return (
-    <div className="bg-slate-900/20 divide-y divide-slate-700/30">
-      <a href={`tel:${centre.general_phone}`} className="flex justify-between px-4 py-2.5 hover:bg-slate-800/20 active:bg-slate-800/30">
-        <span className="text-sm text-slate-400">General Phone</span>
-        <span className="text-sm text-blue-400">
-          {centre.general_phone}
-          {centre.general_phone_option && (
-            <span className="text-slate-500 text-xs ml-1">({centre.general_phone_option})</span>
-          )}
-        </span>
-      </a>
-      {centre.general_fax && (
-        <div className="flex justify-between px-4 py-2.5">
-          <span className="text-sm text-slate-400">General Fax</span>
-          <span className="text-sm text-slate-300">{centre.general_fax}</span>
+    <div className="bg-slate-900/20">
+      {/* Phone Row */}
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-700/30">
+        <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+          <FaPhone className="w-5 h-5 text-blue-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-medium text-slate-200">Phone</div>
+          <div className="text-xs text-blue-400 font-mono">{phoneDisplay}</div>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <CopyButton text={phone} className="w-9 h-9 rounded-lg" />
+          <CallButton phone={phone} className="w-9 h-9 rounded-lg" />
+        </div>
+      </div>
+
+      {/* CDN Fax Row */}
+      {centre.cdn_fax && (
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-700/30">
+          <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+            <svg className="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 512 512">
+              <path d="M128 64v96h64V64H128zM64 0H256V192H64V0zM128 256v96h64V256H128zM64 192H256V384H64V192zM320 64v96h64V64H320zm-64-64H448V192H256V0z"/>
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium text-slate-200">
+              <Link href="/faq" className="text-purple-400 hover:text-purple-300 hover:underline">
+                Fax
+              </Link>
+              <span className="text-slate-400"> (CDN)</span>
+              {centre.accepts_cdn_by_fax && (
+                <FaCheck className="w-3 h-3 text-emerald-400 inline ml-1.5" />
+              )}
+            </div>
+            <div className="text-xs text-slate-300 font-mono">{centre.cdn_fax}</div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <CopyButton text={centre.cdn_fax} className="w-9 h-9 rounded-lg" />
+          </div>
         </div>
       )}
-      {centre.cdn_fax && (
-        <div className="flex justify-between px-4 py-2.5">
-          <span className="text-sm text-slate-400">CDN Fax</span>
-          <span className={cn('text-sm', centre.accepts_cdn_by_fax ? 'text-emerald-400' : 'text-slate-300')}>
-            {centre.cdn_fax}
-            {centre.accepts_cdn_by_fax && ' ✓'}
-          </span>
+
+      {/* General Fax Row */}
+      {centre.general_fax && (
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-700/30">
+          <div className="w-10 h-10 rounded-lg bg-slate-700/50 flex items-center justify-center">
+            <svg className="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 512 512">
+              <path d="M128 64v96h64V64H128zM64 0H256V192H64V0zM128 256v96h64V256H128zM64 192H256V384H64V192zM320 64v96h64V64H320zm-64-64H448V192H256V0z"/>
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium text-slate-200">
+              <Link href="/faq" className="text-slate-400 hover:text-slate-300 hover:underline">
+                Fax
+              </Link>
+              <span className="text-slate-500"> (General)</span>
+            </div>
+            <div className="text-xs text-slate-300 font-mono">{centre.general_fax}</div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <CopyButton text={centre.general_fax} className="w-9 h-9 rounded-lg" />
+          </div>
+        </div>
+      )}
+
+      {/* Mailing Address Box - Similar to Conference ID box */}
+      {centre.mailing_address && (
+        <div className="p-4">
+          <div
+            className="p-3 rounded-lg bg-slate-800/30 border border-slate-700/50 cursor-pointer hover:bg-slate-800/50 transition-colors"
+            onClick={() => navigator.clipboard.writeText(centre.mailing_address!)}
+          >
+            <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500 mb-1">
+              Mailing Address
+            </div>
+            <div className="text-sm text-slate-300 whitespace-pre-line">
+              {centre.mailing_address}
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
 }
+
+// =============================================================================
+// CALLBACK SECTION
+// =============================================================================
 
 function CallbackSection({ centre }: { centre: CorrectionalCentre }) {
   const hasCallback1 = centre.callback_1_start && centre.callback_1_end;
@@ -168,6 +297,10 @@ function CallbackSection({ centre }: { centre: CorrectionalCentre }) {
     </div>
   );
 }
+
+// =============================================================================
+// VISITS SECTION
+// =============================================================================
 
 function VisitsSection({ centre }: { centre: CorrectionalCentre }) {
   const hasVisitInfo = centre.visit_hours_inperson || centre.visit_hours_virtual || 
@@ -222,7 +355,11 @@ function VisitsSection({ centre }: { centre: CorrectionalCentre }) {
   );
 }
 
-function DisclosureSection({ centre }: { centre: CorrectionalCentre }) {
+// =============================================================================
+// E-DISCLOSURE SECTION - 3-Column Table, Always Open
+// =============================================================================
+
+function EDisclosureSection({ centre }: { centre: CorrectionalCentre }) {
   const formats = [
     { label: 'USB', accepted: centre.accepts_usb },
     { label: 'Hard Drive', accepted: centre.accepts_hard_drive },
@@ -230,33 +367,55 @@ function DisclosureSection({ centre }: { centre: CorrectionalCentre }) {
   ];
 
   return (
-    <div className="bg-slate-900/20">
-      <table className="w-full text-sm">
-        <tbody>
-          {formats.map((format, idx) => (
-            <tr key={format.label} className={idx < formats.length - 1 ? 'border-b border-slate-700/30' : ''}>
-              <td className="px-4 py-2.5 text-slate-400">{format.label}</td>
-              <td className="px-4 py-2.5 text-right">
-                <span className={cn(
-                  'inline-flex items-center justify-center w-6 h-6 rounded-full',
-                  format.accepted ? 'bg-emerald-500/15' : 'bg-red-500/15'
-                )}>
-                  {format.accepted ? (
-                    <FaCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  ) : (
-                    <FaXmark className="w-3.5 h-3.5 text-red-400" />
-                  )}
-                </span>
-              </td>
+    <div className="rounded-lg overflow-hidden bg-slate-800/30 border border-slate-700/50">
+      {/* Header - not clickable, always open */}
+      <div className="flex items-center gap-2.5 p-3 border-b border-slate-700/30 bg-slate-800/50">
+        <span className="text-[6px] text-cyan-400">●</span>
+        <span className="flex-1 text-left text-[13px] uppercase tracking-wider text-slate-200 font-medium">
+          e-Disclosure
+        </span>
+      </div>
+      
+      {/* 3-Column Table */}
+      <div className="bg-slate-900/20 p-4">
+        <table className="w-full">
+          <thead>
+            <tr>
+              {formats.map((format) => (
+                <th key={format.label} className="text-center pb-2">
+                  <span className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">
+                    {format.label}
+                  </span>
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      {centre.disclosure_notes && (
-        <div className="px-4 py-3 border-t border-slate-700/30">
-          <p className="text-xs text-slate-500">{centre.disclosure_notes}</p>
-        </div>
-      )}
+          </thead>
+          <tbody>
+            <tr>
+              {formats.map((format) => (
+                <td key={format.label} className="text-center py-2">
+                  <span className={cn(
+                    'inline-flex items-center justify-center w-8 h-8 rounded-full',
+                    format.accepted ? 'bg-emerald-500/15' : 'bg-red-500/15'
+                  )}>
+                    {format.accepted ? (
+                      <FaCheck className="w-4 h-4 text-emerald-400" />
+                    ) : (
+                      <FaXmark className="w-4 h-4 text-red-400" />
+                    )}
+                  </span>
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+        
+        {centre.disclosure_notes && (
+          <p className="text-xs text-slate-500 mt-3 pt-3 border-t border-slate-700/30">
+            {centre.disclosure_notes}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
@@ -273,7 +432,7 @@ interface CorrectionDetailPageProps {
 
 export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDetailPageProps) {
   const [expandedSections, setExpandedSections] = useState<Set<AccordionSection>>(
-    new Set(['contact', 'callback', 'visits', 'disclosure'])
+    new Set(['contact', 'callback', 'visits'])
   );
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -282,7 +441,6 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
   const contactRef = useRef<HTMLDivElement>(null);
   const callbackRef = useRef<HTMLDivElement>(null);
   const visitsRef = useRef<HTMLDivElement>(null);
-  const disclosureRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
     const scrollTop = e.currentTarget.scrollTop;
@@ -298,7 +456,6 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
   const navigateToSection = useCallback((section: AccordionSection) => {
     if (!section) return;
     
-    // Ensure section is expanded
     setExpandedSections(prev => {
       const next = new Set(prev);
       next.add(section);
@@ -306,7 +463,7 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
     });
     
     const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
-      contact: contactRef, callback: callbackRef, visits: visitsRef, disclosure: disclosureRef,
+      contact: contactRef, callback: callbackRef, visits: visitsRef,
     };
     
     const ref = refs[section];
@@ -339,14 +496,12 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
     }
   };
 
-  // Count callback windows
   const callbackCount = (centre.callback_1_start ? 1 : 0) + (centre.callback_2_start ? 1 : 0);
 
   const navButtons = [
     { key: 'contact', label: 'Contact', icon: <FaPhone className="w-4 h-4" />, count: '', show: true },
     { key: 'callback', label: 'Callback', icon: <FaClock className="w-4 h-4" />, count: callbackCount || '', show: true },
     { key: 'visits', label: 'Visits', icon: <FaUsers className="w-4 h-4" />, count: '', show: true },
-    { key: 'disclosure', label: 'Disclosure', icon: <FaFolder className="w-4 h-4" />, count: '', show: true },
   ];
 
   return (
@@ -435,16 +590,8 @@ export function CorrectionDetailPage({ centre, onBack, onSearch }: CorrectionDet
             <VisitsSection centre={centre} />
           </Section>
 
-          {/* Disclosure Section */}
-          <Section
-            ref={disclosureRef}
-            title="Disclosure"
-            color="cyan"
-            isExpanded={expandedSections.has('disclosure')}
-            onToggle={() => toggleSection('disclosure')}
-          >
-            <DisclosureSection centre={centre} />
-          </Section>
+          {/* e-Disclosure Section - Always Open, No Accordion */}
+          <EDisclosureSection centre={centre} />
 
           {/* Notes */}
           {centre.notes && (
