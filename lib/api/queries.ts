@@ -224,6 +224,19 @@ export async function fetchBailContactsByRegionId(regionId: number): Promise<Bai
   return data || [];
 }
 
+// Fetch weekend/evening bail court by region (is_daytime = false)
+export async function fetchWeekendBailByRegionId(regionId: number): Promise<BailCourt | null> {
+  const { data, error } = await supabase
+    .from('bail_courts')
+    .select('*')
+    .eq('region_id', regionId)
+    .eq('is_daytime', false)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
+
 // =============================================================================
 // PROGRAMS
 // =============================================================================
@@ -272,6 +285,8 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   let bailTeams: TeamsLink[] = [];
   let bailContacts: BailContact[] = [];
   let programs: Program[] = [];
+  let weekendBailCourt: BailCourt | null = null;
+  let weekendBailTeams: TeamsLink[] = [];
 
   if (court.bail_hub_id) {
     bailCourt = await fetchBailCourtById(court.bail_hub_id);
@@ -281,10 +296,21 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   }
 
   if (court.region_id) {
-    [bailContacts, programs] = await Promise.all([
+    // Fetch weekend bail, bail contacts, and programs in parallel
+    const [weekendBail, contacts, progs] = await Promise.all([
+      fetchWeekendBailByRegionId(court.region_id),
       fetchBailContactsByRegionId(court.region_id),
       fetchProgramsByRegionId(court.region_id),
     ]);
+    
+    weekendBailCourt = weekendBail;
+    bailContacts = contacts;
+    programs = progs;
+    
+    // Fetch weekend bail teams if we have a weekend bail court
+    if (weekendBailCourt) {
+      weekendBailTeams = await fetchBailTeamsLinksByBailCourtId(weekendBailCourt.id);
+    }
   }
 
   return {
@@ -296,6 +322,8 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
     bailTeams,
     bailContacts,
     programs,
+    weekendBailCourt,
+    weekendBailTeams,
   };
 }
 

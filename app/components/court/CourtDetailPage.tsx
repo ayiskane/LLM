@@ -26,7 +26,7 @@ interface CourtDetailPageProps {
 }
 
 export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCourt }: CourtDetailPageProps) {
-  const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts } = courtDetails;
+  const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts, weekendBailCourt, weekendBailTeams } = courtDetails;
   
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contacts');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
@@ -190,6 +190,8 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
                   currentCourtId={court.id}
                   bailTeams={bailTeams}
                   courtTeams={teamsLinks}
+                  weekendBailCourt={weekendBailCourt}
+                  weekendBailTeams={weekendBailTeams}
                   onNavigateToHub={onNavigateToCourt}
                   onCopy={copyToClipboard}
                   isCopied={isCopied}

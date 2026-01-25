@@ -223,6 +223,8 @@ export interface CourtDetails {
   bailTeams: TeamsLink[];  // Bail teams are TeamsLinks with bail_court_id
   bailContacts: BailContact[];
   programs: Program[];
+  weekendBailCourt: BailCourt | null;
+  weekendBailTeams: TeamsLink[];
 }
 
 // ============================================================================

@@ -139,6 +139,8 @@ interface BailSectionContentProps {
   currentCourtId: number;
   bailTeams: BailTeam[];
   courtTeams: TeamsLink[];
+  weekendBailCourt?: BailCourt | null;
+  weekendBailTeams?: TeamsLink[];
   onNavigateToHub?: (courtId: number) => void;
   onCopy?: (text: string, id: string) => void;
   isCopied?: (id: string) => boolean;
@@ -149,6 +151,8 @@ export function BailSectionContent({
   currentCourtId,
   bailTeams,
   courtTeams,
+  weekendBailCourt,
+  weekendBailTeams = [],
   onNavigateToHub,
   onCopy,
   isCopied,
@@ -202,6 +206,19 @@ export function BailSectionContent({
           onCopy={onCopy}
           isCopied={isCopied}
         />
+      )}
+      
+      {/* Weekend/Evening Bail Section */}
+      {weekendBailCourt && weekendBailTeams.length > 0 && (
+        <div className="space-y-1.5">
+          <h4 className={text.sectionHeader}>Weekend / Evening Bail</h4>
+          <TeamsList
+            links={weekendBailTeams}
+            filterVBTriage={false}
+            onCopy={onCopy}
+            isCopied={isCopied}
+          />
+        </div>
       )}
     </div>
   );
