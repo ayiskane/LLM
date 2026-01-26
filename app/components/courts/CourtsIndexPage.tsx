@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaMagnifyingGlass, FaXmark, FaLocationDot, FaSliders } from '@/lib/icons';
 import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
@@ -29,14 +29,7 @@ const REGION_COLORS: Record<number, { dot: string; tag: string }> = {
   5: { dot: 'bg-cyan-500', tag: 'bg-cyan-500/15 text-cyan-400' },
 };
 
-// Region code mapping
-const REGION_CODE: Record<number, string> = {
-  1: 'R1',
-  2: 'R2', 
-  3: 'R3',
-  4: 'R4',
-  5: 'R5',
-};
+const REGION_CODE: Record<number, string> = { 1: 'R1', 2: 'R2', 3: 'R3', 4: 'R4', 5: 'R5' };
 
 // =============================================================================
 // TYPES
@@ -101,12 +94,7 @@ function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Search courts..."
-          className={cn(
-            'w-full bg-slate-800/50 border border-slate-700/50 rounded-xl',
-            'pl-11 pr-10 py-3 text-sm',
-            'text-slate-200 placeholder:text-slate-500',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500/40'
-          )}
+          className="w-full bg-slate-800/50 border border-slate-700/50 rounded-xl pl-11 pr-10 py-3 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
         />
         {value && (
           <button onClick={onClear} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
@@ -118,9 +106,7 @@ function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }
         onClick={onFilterClick}
         className={cn(
           'relative flex items-center justify-center w-12 rounded-xl border transition-all',
-          hasActiveFilters
-            ? 'bg-blue-500/20 border-blue-500/50 text-blue-400'
-            : 'bg-slate-800/50 border-slate-700/50 text-slate-400'
+          hasActiveFilters ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-slate-800/50 border-slate-700/50 text-slate-400'
         )}
       >
         <FaSliders className="w-4 h-4" />
@@ -163,9 +149,7 @@ function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
               onClick={() => onFilterChange({ ...filters, region: region.id })}
               className={cn(
                 'px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5',
-                filters.region === region.id
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                  : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
+                filters.region === region.id ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
               )}
             >
               {region.id !== 0 && <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[region.id]?.dot)} />}
@@ -183,9 +167,7 @@ function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
               onClick={() => onFilterChange({ ...filters, courtType: opt.value })}
               className={cn(
                 'px-2.5 py-1.5 rounded-lg text-xs font-medium',
-                filters.courtType === opt.value
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                  : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
+                filters.courtType === opt.value ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
               )}
             >
               {opt.label}
@@ -202,9 +184,7 @@ function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
               onClick={() => onFilterChange({ ...filters, courtLevel: opt.value })}
               className={cn(
                 'px-2.5 py-1.5 rounded-lg text-xs font-medium',
-                filters.courtLevel === opt.value
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                  : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
+                filters.courtLevel === opt.value ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
               )}
             >
               {opt.label}
@@ -212,11 +192,7 @@ function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
           ))}
         </div>
       </div>
-      {hasFilters && (
-        <button onClick={onClearAll} className="text-xs text-slate-500 hover:text-slate-300">
-          Clear all filters
-        </button>
-      )}
+      {hasFilters && <button onClick={onClearAll} className="text-xs text-slate-500 hover:text-slate-300">Clear all filters</button>}
     </div>
   );
 }
@@ -227,7 +203,7 @@ function LetterSection({ letter, courts, onCourtClick }: {
   onCourtClick: (id: number) => void;
 }) {
   return (
-    <div id={`section-${letter}`}>
+    <div id={`section-${letter}`} data-letter={letter}>
       <div className="sticky top-0 z-10 px-4 py-2 bg-slate-950 border-b border-slate-800/50">
         <span className="text-sm font-bold text-blue-400">{letter}</span>
       </div>
@@ -240,7 +216,6 @@ function LetterSection({ letter, courts, onCourtClick }: {
           >
             <div className="text-sm font-medium text-white mb-1.5">{getCourtDisplayName(court)}</div>
             <div className="flex items-center gap-1.5 flex-wrap">
-              {/* Region tag - mono style matching CorrectionDetailPage */}
               <span className="px-2 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
                 <span>{REGION_CODE[court.region_id] || 'R?'}</span>
                 <span className="text-slate-600">|</span>
@@ -264,10 +239,12 @@ function LetterSection({ letter, courts, onCourtClick }: {
 export function CourtsIndexPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { courts, isLoading, error } = useCourts();
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({
     region: Number(searchParams.get('region')) || 0,
     courtType: (searchParams.get('type') as CourtTypeFilter) || 'all',
@@ -300,17 +277,39 @@ export function CourtsIndexPage() {
     else if (filters.courtLevel === 'sc') result = result.filter(c => c.has_supreme);
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      result = result.filter(c => 
-        c.name.toLowerCase().includes(q) || 
-        getCourtDisplayName(c).toLowerCase().includes(q) ||
-        c.region_name.toLowerCase().includes(q)
-      );
+      result = result.filter(c => c.name.toLowerCase().includes(q) || getCourtDisplayName(c).toLowerCase().includes(q) || c.region_name.toLowerCase().includes(q));
     }
     return result;
   }, [courts, filters, searchQuery]);
 
   const groupedCourts = useMemo(() => groupCourtsByLetter(filteredCourts), [filteredCourts]);
   const availableLetters = useMemo(() => groupedCourts.map(g => g.letter), [groupedCourts]);
+
+  // Track scroll position to update active letter
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || availableLetters.length === 0) return;
+
+    const handleScroll = () => {
+      const sections = container.querySelectorAll('[data-letter]');
+      let currentLetter: string | null = null;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        // Section is "active" if its top is at or above the container top + small offset
+        if (rect.top <= containerRect.top + 50) {
+          currentLetter = section.getAttribute('data-letter');
+        }
+      });
+
+      setActiveLetter(currentLetter || availableLetters[0]);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [availableLetters]);
 
   const handleLetterChange = useCallback((letter: string) => {
     const section = document.getElementById(`section-${letter}`);
@@ -365,7 +364,7 @@ export function CourtsIndexPage() {
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 min-h-0 overflow-y-auto">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto">
         {groupedCourts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 px-4">
             <FaLocationDot className="w-12 h-12 text-slate-700 mb-4" />
@@ -392,7 +391,11 @@ export function CourtsIndexPage() {
 
       {/* Alphabet Nav */}
       {!searchQuery && availableLetters.length > 1 && (
-        <AlphabetNav availableLetters={availableLetters} onLetterChange={handleLetterChange} />
+        <AlphabetNav 
+          availableLetters={availableLetters} 
+          activeLetter={activeLetter}
+          onLetterChange={handleLetterChange} 
+        />
       )}
     </div>
   );
