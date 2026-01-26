@@ -10,13 +10,12 @@ type AccordionSection = 'faxes' | null;
 
 interface FAQItemProps {
   title: string;
-  color: string;
   isExpanded: boolean;
   onToggle: () => void;
   children: React.ReactNode;
 }
 
-function FAQItem({ title, color, isExpanded, onToggle, children }: FAQItemProps) {
+function FAQItem({ title, isExpanded, onToggle, children }: FAQItemProps) {
   return (
     <div className="rounded-lg overflow-hidden bg-slate-800/30 border border-slate-700/50">
       <button
@@ -26,7 +25,6 @@ function FAQItem({ title, color, isExpanded, onToggle, children }: FAQItemProps)
           isExpanded && 'bg-slate-800/50'
         )}
       >
-        <span className={cn('text-[6px]', color)}>●</span>
         <span className="flex-1 text-left text-[13px] uppercase tracking-wider text-slate-200 font-medium">
           {title}
         </span>
@@ -75,7 +73,6 @@ export default function FAQPage() {
         <div className="p-3 space-y-3">
           <FAQItem
             title="Faxes"
-            color="text-blue-400"
             isExpanded={expandedSection === 'faxes'}
             onToggle={() => toggleSection('faxes')}
           >
@@ -107,7 +104,6 @@ export default function FAQPage() {
           {/* 
           <FAQItem
             title="Visits"
-            color="text-amber-400"
             isExpanded={expandedSection === 'visits'}
             onToggle={() => toggleSection('visits')}
           >
@@ -119,3 +115,4 @@ export default function FAQPage() {
     </div>
   );
 }
+
