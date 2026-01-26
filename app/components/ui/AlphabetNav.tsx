@@ -14,8 +14,8 @@ interface AlphabetNavProps {
 /**
  * AlphabetNav - iOS Contacts-style alphabet index scrubber
  * 
- * Positioned absolutely within the scroll container's parent,
- * so it naturally respects the flex layout boundaries.
+ * Uses native event listeners with { passive: false } to properly
+ * prevent default touch behavior without browser warnings.
  */
 export function AlphabetNav({ availableLetters, activeLetter, onLetterChange }: AlphabetNavProps) {
   const barRef = useRef<HTMLDivElement>(null);
@@ -23,6 +23,7 @@ export function AlphabetNav({ availableLetters, activeLetter, onLetterChange }: 
   const [scrubLetter, setScrubLetter] = useState<string | null>(null);
   const [indicatorY, setIndicatorY] = useState<number | null>(null);
   const lastLetterRef = useRef<string | null>(null);
+  const isScrubbingRef = useRef(false); // Ref for native event handlers
 
   // Build display items: available letters with collapsed gaps as dots
   const displayItems = useMemo(() => {
@@ -100,35 +101,57 @@ export function AlphabetNav({ availableLetters, activeLetter, onLetterChange }: 
 
   const startScrub = useCallback((clientY: number) => {
     setIsScrubbing(true);
+    isScrubbingRef.current = true;
     lastLetterRef.current = null;
     handleScrub(clientY);
   }, [handleScrub]);
 
   const endScrub = useCallback(() => {
     setIsScrubbing(false);
+    isScrubbingRef.current = false;
     setScrubLetter(null);
     setIndicatorY(null);
     lastLetterRef.current = null;
   }, []);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    startScrub(e.touches[0].clientY);
-  }, [startScrub]);
+  // Native touch event handlers (added with { passive: false })
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
-    if (isScrubbing) {
-      handleScrub(e.touches[0].clientY);
-    }
-  }, [isScrubbing, handleScrub]);
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      startScrub(e.touches[0].clientY);
+    };
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
-    endScrub();
-  }, [endScrub]);
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      if (isScrubbingRef.current) {
+        handleScrub(e.touches[0].clientY);
+      }
+    };
 
+    const onTouchEnd = (e: TouchEvent) => {
+      e.preventDefault();
+      endScrub();
+    };
+
+    // Add listeners with { passive: false } to allow preventDefault
+    bar.addEventListener('touchstart', onTouchStart, { passive: false });
+    bar.addEventListener('touchmove', onTouchMove, { passive: false });
+    bar.addEventListener('touchend', onTouchEnd, { passive: false });
+    bar.addEventListener('touchcancel', onTouchEnd, { passive: false });
+
+    return () => {
+      bar.removeEventListener('touchstart', onTouchStart);
+      bar.removeEventListener('touchmove', onTouchMove);
+      bar.removeEventListener('touchend', onTouchEnd);
+      bar.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [startScrub, handleScrub, endScrub]);
+
+  // Mouse handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     startScrub(e.clientY);
@@ -165,7 +188,7 @@ export function AlphabetNav({ availableLetters, activeLetter, onLetterChange }: 
         </div>
       )}
 
-      {/* Alphabet bar - absolute within parent, centered in available space */}
+      {/* Alphabet bar */}
       <div
         ref={barRef}
         className={cn(
@@ -176,10 +199,6 @@ export function AlphabetNav({ availableLetters, activeLetter, onLetterChange }: 
           isScrubbing && 'bg-slate-900/80 rounded-l-lg'
         )}
         style={{ touchAction: 'none' }}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onTouchCancel={handleTouchEnd}
         onMouseDown={handleMouseDown}
         role="navigation"
         aria-label="Alphabet index"
