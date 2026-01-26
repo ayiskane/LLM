@@ -360,3 +360,19 @@ export function FaPenLine(props: IconProps) {
 export const FaCircleInfo = FaCircleExclamation;
 export const FaFilter = FaSliders;
 export const FaClipboard = FaCopy;
+
+
+// =============================================================================
+// APP LOGO
+// =============================================================================
+
+// LLM Logo - 1080×906
+export function LLMLogo(props: IconProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 906" fill="currentColor" {...props}>
+      <polygon points="768 210.11 767.37 209.48 628.89 347.97 490 209.08 490 209 423 209 423 529 490 529 490 304.14 628.88 443.01 628.89 443 628.9 443.01 768 303.91 768 624 835 624 835 209 768 209 768 210.11"/>
+      <rect x="548" y="555" width="67" height="68"/>
+      <polygon points="518 555 518 623 422 623 422 589 395 589 395 623 328 623 328 589 301 589 301 623 234 623 234 208 301 208 301 555 328 555 328 208 395 208 395 555 518 555"/>
+    </svg>
+  );
+}
