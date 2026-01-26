@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FaMagnifyingGlass, FaXmark, FaLocationDot, FaSliders, FaChevronDown } from '@/lib/icons';
+import { FaMagnifyingGlass, FaXmark, FaLocationDot, FaSliders } from '@/lib/icons';
 import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
 import { cn } from '@/lib/config/theme';
 import { useCourts } from '@/lib/hooks/useCourts';
@@ -27,6 +27,15 @@ const REGION_COLORS: Record<number, { dot: string; tag: string }> = {
   3: { dot: 'bg-emerald-500', tag: 'bg-emerald-500/15 text-emerald-400' },
   4: { dot: 'bg-purple-500', tag: 'bg-purple-500/15 text-purple-400' },
   5: { dot: 'bg-cyan-500', tag: 'bg-cyan-500/15 text-cyan-400' },
+};
+
+// Region code mapping
+const REGION_CODE: Record<number, string> = {
+  1: 'R1',
+  2: 'R2', 
+  3: 'R3',
+  4: 'R4',
+  5: 'R5',
 };
 
 // =============================================================================
@@ -227,20 +236,20 @@ function LetterSection({ letter, courts, onCourtClick }: {
           <button
             key={court.id}
             onClick={() => onCourtClick(court.id)}
-            className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-800/30 active:bg-slate-800/50 text-left"
+            className="w-full px-4 py-3 hover:bg-slate-800/30 active:bg-slate-800/50 text-left"
           >
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white truncate">{getCourtDisplayName(court)}</div>
-              <div className="flex items-center gap-2 mt-1">
-                <span className={cn('text-[10px] font-medium px-1.5 py-0.5 rounded', REGION_COLORS[court.region_id]?.tag)}>
-                  {court.region_name}
-                </span>
-                {court.has_provincial && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400">PC</span>}
-                {court.has_supreme && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400">SC</span>}
-                {court.is_circuit && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400">Circuit</span>}
-              </div>
+            <div className="text-sm font-medium text-white mb-1.5">{getCourtDisplayName(court)}</div>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {/* Region tag - mono style matching CorrectionDetailPage */}
+              <span className="px-2 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
+                <span>{REGION_CODE[court.region_id] || 'R?'}</span>
+                <span className="text-slate-600">|</span>
+                <span>{court.region_name}</span>
+              </span>
+              {court.has_provincial && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400">PC</span>}
+              {court.has_supreme && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400">SC</span>}
+              {court.is_circuit && <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400">Circuit</span>}
             </div>
-            <FaChevronDown className="w-3 h-3 text-slate-500 -rotate-90 flex-shrink-0" />
           </button>
         ))}
       </div>
@@ -303,7 +312,6 @@ export function CourtsIndexPage() {
   const groupedCourts = useMemo(() => groupCourtsByLetter(filteredCourts), [filteredCourts]);
   const availableLetters = useMemo(() => groupedCourts.map(g => g.letter), [groupedCourts]);
 
-  // OPTIMAL: Use scrollIntoView - most reliable cross-browser
   const handleLetterChange = useCallback((letter: string) => {
     const section = document.getElementById(`section-${letter}`);
     if (section) {
@@ -382,7 +390,7 @@ export function CourtsIndexPage() {
         )}
       </div>
 
-      {/* Alphabet Nav - FIXED position, outside scroll container */}
+      {/* Alphabet Nav */}
       {!searchQuery && availableLetters.length > 1 && (
         <AlphabetNav availableLetters={availableLetters} onLetterChange={handleLetterChange} />
       )}
