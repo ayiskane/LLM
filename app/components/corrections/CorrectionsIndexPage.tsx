@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaMagnifyingGlass, FaXmark, FaSliders, FaBuildingShield } from '@/lib/icons';
-import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
 import { cn } from '@/lib/config/theme';
 import { REGION_COLORS } from '@/lib/config/constants';
 import { useCorrectionalCentres } from '@/lib/hooks/useCorrectionsCentres';
@@ -167,11 +166,11 @@ function CentreListItem({ centre, onClick }: { centre: CorrectionalCentre; onCli
   );
 }
 
-function LetterSection({ letter, centres, sectionRef, onCentreClick }: {
-  letter: string; centres: CorrectionalCentre[]; sectionRef: (el: HTMLDivElement | null) => void; onCentreClick: (id: number) => void;
+function LetterSection({ letter, centres, onCentreClick }: {
+  letter: string; centres: CorrectionalCentre[]; onCentreClick: (id: number) => void;
 }) {
   return (
-    <div ref={sectionRef} id={`section-${letter}`}>
+    <div>
       <div className="sticky top-0 z-10 px-4 py-2 bg-slate-950 border-b border-slate-800/50">
         <span className="text-sm font-bold text-blue-400">{letter}</span>
       </div>
@@ -192,9 +191,6 @@ export function CorrectionsIndexPage() {
   const [filters, setFilters] = useState<Filters>({ region: 0, jurisdiction: 'all' });
   const [searchQuery, setSearchQuery] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [activeLetter, setActiveLetter] = useState<string | null>(null);
-  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const hasActiveFilters = filters.region !== 0 || filters.jurisdiction !== 'all';
   const clearAllFilters = useCallback(() => { setFilters({ region: 0, jurisdiction: 'all' }); setSearchQuery(''); }, []);
@@ -215,31 +211,6 @@ export function CorrectionsIndexPage() {
   }, [centres, filters, searchQuery]);
 
   const groupedCentres = useMemo(() => groupByLetter(filteredCentres), [filteredCentres]);
-  const availableLetters = useMemo(() => groupedCentres.map(g => g.letter), [groupedCentres]);
-
-  const handleLetterClick = useCallback((letter: string) => {
-    setActiveLetter(letter);
-    const section = sectionRefs.current[letter];
-    const container = scrollContainerRef.current;
-    if (section && container) container.scrollTo({ top: section.offsetTop, behavior: 'instant' });
-  }, []);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    const handleScroll = () => {
-      const scrollTop = container.scrollTop;
-      for (const group of groupedCentres) {
-        const section = sectionRefs.current[group.letter];
-        if (section && scrollTop >= section.offsetTop - 10 && scrollTop < section.offsetTop + section.offsetHeight - 10) {
-          setActiveLetter(group.letter);
-          break;
-        }
-      }
-    };
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [groupedCentres]);
 
   if (isLoading) {
     return (
@@ -275,8 +246,7 @@ export function CorrectionsIndexPage() {
         <FilterPanel isOpen={isFilterOpen} filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
       </div>
 
-      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto relative">
-        {!searchQuery && <AlphabetNav letters={availableLetters} activeLetter={activeLetter} onSelect={handleLetterClick} />}
+      <div className="flex-1 min-h-0 overflow-y-auto">
         {groupedCentres.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 px-4">
             <FaBuildingShield className="w-12 h-12 text-slate-700 mb-4" />
@@ -288,7 +258,7 @@ export function CorrectionsIndexPage() {
         ) : (
           <>
             {groupedCentres.map((group) => (
-              <LetterSection key={group.letter} letter={group.letter} centres={group.centres} sectionRef={(el) => { sectionRefs.current[group.letter] = el; }} onCentreClick={handleCentreClick} />
+              <LetterSection key={group.letter} letter={group.letter} centres={group.centres} onCentreClick={handleCentreClick} />
             ))}
             <div className="py-3 text-center">
               <span className="text-xs text-slate-500">{filteredCentres.length} {filteredCentres.length === 1 ? 'centre' : 'centres'}</span>
@@ -299,4 +269,3 @@ export function CorrectionsIndexPage() {
     </div>
   );
 }
-
