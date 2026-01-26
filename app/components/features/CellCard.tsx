@@ -1,6 +1,6 @@
 'use client';
 
-import { FaPhone, FaPhoneSolid, FaCopy, FaCheck } from '@/lib/icons';
+import { FaPhoneSolid, FaCopy, FaCheck, FaBadgeSheriff, FaDungeon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import type { ShellCell } from '@/types';
 import { useState, useCallback } from 'react';
@@ -13,7 +13,25 @@ function isPoliceCell(cell: ShellCell): boolean {
   const cellType = cell.cell_type?.toLowerCase() || '';
   const name = cell.name?.toLowerCase() || '';
   return cellType !== 'ch' && cellType !== 'courthouse' && 
-         !name.includes('courthouse') && !name.includes(' ch ');
+         !name.includes('courthouse') && !name.includes(' ch');
+}
+
+// ============================================================================
+// CELL ICON COMPONENT - Returns appropriate icon based on cell type
+// ============================================================================
+
+interface CellIconProps {
+  isPolice: boolean;
+  className?: string;
+}
+
+function CellIcon({ isPolice, className }: CellIconProps) {
+  if (isPolice) {
+    // PD/RCMP cells - dungeon icon
+    return <FaDungeon className={className} secondaryOpacity={0.4} />;
+  }
+  // Courthouse cells - badge sheriff icon
+  return <FaBadgeSheriff className={className} secondaryOpacity={0.4} />;
 }
 
 // ============================================================================
@@ -101,7 +119,7 @@ function SinglePhoneRow({ cell, isPolice }: SinglePhoneRowProps) {
   return (
     <div className="flex items-center gap-3 px-4 py-3">
       <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", iconBg)}>
-        <FaPhone className={cn("w-5 h-5", iconColor)} />
+        <CellIcon isPolice={isPolice} className={cn("w-5 h-5", iconColor)} />
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-sm font-medium text-slate-200">{cell.name}</div>
@@ -134,7 +152,7 @@ function MultiplePhoneRow({ cell, isPolice }: MultiplePhoneRowProps) {
       {/* Header with icon and name */}
       <div className="flex items-center gap-3 px-4 py-2.5 border-b border-slate-700/30">
         <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", iconBg)}>
-          <FaPhone className={cn("w-5 h-5", iconColor)} />
+          <CellIcon isPolice={isPolice} className={cn("w-5 h-5", iconColor)} />
         </div>
         <div className="text-sm font-medium text-slate-200">{cell.name}</div>
       </div>
@@ -180,7 +198,7 @@ function CellRow({ cell, showBorder = true }: CellRowProps) {
         showBorder && "border-b border-slate-700/30 last:border-b-0"
       )}>
         <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", iconBg)}>
-          <FaPhone className={cn("w-5 h-5", iconColor)} />
+          <CellIcon isPolice={isPolice} className={cn("w-5 h-5", iconColor)} />
         </div>
         <div className="text-sm font-medium text-slate-200">{cell.name}</div>
         <span className="text-xs text-slate-500 ml-auto">No phone</span>
@@ -252,4 +270,3 @@ export function CellList({ cells, maxDisplay = 20 }: CellListProps) {
     </div>
   );
 }
-
