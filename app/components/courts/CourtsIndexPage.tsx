@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaMagnifyingGlass, FaXmark, FaLocationDot, FaSliders } from '@/lib/icons';
 import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
+import { FilterModal } from '@/app/components/ui/FilterModal';
 import { cn } from '@/lib/config/theme';
 import { useCourts } from '@/lib/hooks/useCourts';
 import type { CourtWithRegionName } from '@/lib/hooks/useCourts';
@@ -116,83 +117,74 @@ function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }
   );
 }
 
-function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
-  isOpen: boolean;
+function FilterChip({ label, isActive, onClick, dot }: { label: string; isActive: boolean; onClick: () => void; dot?: string }) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        'px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all',
+        isActive 
+          ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' 
+          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:border-slate-600'
+      )}
+    >
+      {dot && <span className={cn('w-2 h-2 rounded-full', dot)} />}
+      {label}
+    </button>
+  );
+}
+
+function FilterContent({ filters, onFilterChange, onClearAll }: {
   filters: Filters;
   onFilterChange: (filters: Filters) => void;
   onClearAll: () => void;
 }) {
-  if (!isOpen) return null;
-
-  const courtTypeOptions = [
-    { value: 'all' as const, label: 'All Courts' },
-    { value: 'staffed' as const, label: 'Staffed Only' },
-    { value: 'circuit' as const, label: 'Circuit Only' },
-  ];
-
-  const courtLevelOptions = [
-    { value: 'all' as const, label: 'All Levels' },
-    { value: 'pc' as const, label: 'Provincial (PC)' },
-    { value: 'sc' as const, label: 'Supreme (SC)' },
-  ];
-
   const hasFilters = filters.region !== 0 || filters.courtType !== 'all' || filters.courtLevel !== 'all';
 
   return (
-    <div className="border-t border-slate-700/30 bg-slate-900/50 px-4 py-3 space-y-3">
+    <div className="space-y-6">
+      {/* Region */}
       <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Region</label>
-        <div className="flex flex-wrap gap-1.5">
+        <label className="text-xs uppercase tracking-wider text-slate-500 mb-3 block font-medium">Region</label>
+        <div className="flex flex-wrap gap-2">
           {REGIONS.map((region) => (
-            <button
+            <FilterChip
               key={region.id}
+              label={region.name}
+              isActive={filters.region === region.id}
               onClick={() => onFilterChange({ ...filters, region: region.id })}
-              className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5',
-                filters.region === region.id ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-              )}
-            >
-              {region.id !== 0 && <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[region.id]?.dot)} />}
-              {region.name}
-            </button>
+              dot={region.id !== 0 ? REGION_COLORS[region.id]?.dot : undefined}
+            />
           ))}
         </div>
       </div>
+
+      {/* Court Type */}
       <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Court Type</label>
-        <div className="flex gap-1.5">
-          {courtTypeOptions.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => onFilterChange({ ...filters, courtType: opt.value })}
-              className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium',
-                filters.courtType === opt.value ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
+        <label className="text-xs uppercase tracking-wider text-slate-500 mb-3 block font-medium">Court Type</label>
+        <div className="flex flex-wrap gap-2">
+          <FilterChip label="All Courts" isActive={filters.courtType === 'all'} onClick={() => onFilterChange({ ...filters, courtType: 'all' })} />
+          <FilterChip label="Staffed Only" isActive={filters.courtType === 'staffed'} onClick={() => onFilterChange({ ...filters, courtType: 'staffed' })} />
+          <FilterChip label="Circuit Only" isActive={filters.courtType === 'circuit'} onClick={() => onFilterChange({ ...filters, courtType: 'circuit' })} />
         </div>
       </div>
+
+      {/* Court Level */}
       <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Court Level</label>
-        <div className="flex gap-1.5">
-          {courtLevelOptions.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => onFilterChange({ ...filters, courtLevel: opt.value })}
-              className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium',
-                filters.courtLevel === opt.value ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
+        <label className="text-xs uppercase tracking-wider text-slate-500 mb-3 block font-medium">Court Level</label>
+        <div className="flex flex-wrap gap-2">
+          <FilterChip label="All Levels" isActive={filters.courtLevel === 'all'} onClick={() => onFilterChange({ ...filters, courtLevel: 'all' })} />
+          <FilterChip label="Provincial (PC)" isActive={filters.courtLevel === 'pc'} onClick={() => onFilterChange({ ...filters, courtLevel: 'pc' })} />
+          <FilterChip label="Supreme (SC)" isActive={filters.courtLevel === 'sc'} onClick={() => onFilterChange({ ...filters, courtLevel: 'sc' })} />
         </div>
       </div>
-      {hasFilters && <button onClick={onClearAll} className="text-xs text-slate-500 hover:text-slate-300">Clear all filters</button>}
+
+      {/* Clear All */}
+      {hasFilters && (
+        <button onClick={onClearAll} className="w-full py-3 text-sm text-slate-400 hover:text-white border border-slate-700/50 rounded-lg hover:border-slate-600 transition-colors">
+          Clear all filters
+        </button>
+      )}
     </div>
   );
 }
@@ -297,7 +289,6 @@ export function CourtsIndexPage() {
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-        // Section is "active" if its top is at or above the container top + small offset
         if (rect.top <= containerRect.top + 50) {
           currentLetter = section.getAttribute('data-letter');
         }
@@ -307,7 +298,7 @@ export function CourtsIndexPage() {
     };
 
     container.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
     return () => container.removeEventListener('scroll', handleScroll);
   }, [availableLetters]);
 
@@ -356,11 +347,10 @@ export function CourtsIndexPage() {
             value={searchQuery}
             onChange={setSearchQuery}
             onClear={() => setSearchQuery('')}
-            onFilterClick={() => setIsFilterOpen(!isFilterOpen)}
+            onFilterClick={() => setIsFilterOpen(true)}
             hasActiveFilters={hasActiveFilters}
           />
         </div>
-        <FilterPanel isOpen={isFilterOpen} filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
       </div>
 
       {/* Scrollable content */}
@@ -397,6 +387,11 @@ export function CourtsIndexPage() {
           onLetterChange={handleLetterChange} 
         />
       )}
+
+      {/* Filter Modal */}
+      <FilterModal isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} title="Filter Courts">
+        <FilterContent filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
+      </FilterModal>
     </div>
   );
 }
