@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaMagnifyingGlass, FaXmark, FaSliders, FaBuildingShield } from '@/lib/icons';
 import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
+import { FilterModal } from '@/app/components/ui/FilterModal';
 import { cn } from '@/lib/config/theme';
 import { REGION_COLORS } from '@/lib/config/constants';
 import { useCorrectionalCentres } from '@/lib/hooks/useCorrectionsCentres';
@@ -95,50 +96,62 @@ function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }
   );
 }
 
-function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
-  isOpen: boolean; filters: Filters; onFilterChange: (f: Filters) => void; onClearAll: () => void;
+function FilterChip({ label, isActive, onClick, dot }: { label: string; isActive: boolean; onClick: () => void; dot?: string }) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        'px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all',
+        isActive 
+          ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' 
+          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:border-slate-600'
+      )}
+    >
+      {dot && <span className={cn('w-2 h-2 rounded-full', dot)} />}
+      {label}
+    </button>
+  );
+}
+
+function FilterContent({ filters, onFilterChange, onClearAll }: {
+  filters: Filters; onFilterChange: (f: Filters) => void; onClearAll: () => void;
 }) {
-  if (!isOpen) return null;
   const hasFilters = filters.region !== 0 || filters.jurisdiction !== 'all';
 
   return (
-    <div className="border-t border-slate-700/30 bg-slate-900/50 px-4 py-3 space-y-3">
+    <div className="space-y-6">
+      {/* Region */}
       <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Region</label>
-        <div className="flex flex-wrap gap-1.5">
+        <label className="text-xs uppercase tracking-wider text-slate-500 mb-3 block font-medium">Region</label>
+        <div className="flex flex-wrap gap-2">
           {REGIONS.map((r) => (
-            <button
+            <FilterChip
               key={r.id}
+              label={r.name}
+              isActive={filters.region === r.id}
               onClick={() => onFilterChange({ ...filters, region: r.id })}
-              className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5',
-                filters.region === r.id ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-              )}
-            >
-              {r.id !== 0 && <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[r.id]?.dot)} />}
-              {r.name}
-            </button>
+              dot={r.id !== 0 ? REGION_COLORS[r.id]?.dot : undefined}
+            />
           ))}
         </div>
       </div>
+
+      {/* Jurisdiction */}
       <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Jurisdiction</label>
-        <div className="flex gap-1.5">
-          {(['all', 'provincial', 'federal'] as const).map((j) => (
-            <button
-              key={j}
-              onClick={() => onFilterChange({ ...filters, jurisdiction: j })}
-              className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium',
-                filters.jurisdiction === j ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-              )}
-            >
-              {j === 'all' ? 'All' : j.charAt(0).toUpperCase() + j.slice(1)}
-            </button>
-          ))}
+        <label className="text-xs uppercase tracking-wider text-slate-500 mb-3 block font-medium">Jurisdiction</label>
+        <div className="flex flex-wrap gap-2">
+          <FilterChip label="All" isActive={filters.jurisdiction === 'all'} onClick={() => onFilterChange({ ...filters, jurisdiction: 'all' })} />
+          <FilterChip label="Provincial" isActive={filters.jurisdiction === 'provincial'} onClick={() => onFilterChange({ ...filters, jurisdiction: 'provincial' })} />
+          <FilterChip label="Federal" isActive={filters.jurisdiction === 'federal'} onClick={() => onFilterChange({ ...filters, jurisdiction: 'federal' })} />
         </div>
       </div>
-      {hasFilters && <button onClick={onClearAll} className="text-xs text-slate-500 hover:text-slate-300">Clear all filters</button>}
+
+      {/* Clear All */}
+      {hasFilters && (
+        <button onClick={onClearAll} className="w-full py-3 text-sm text-slate-400 hover:text-white border border-slate-700/50 rounded-lg hover:border-slate-600 transition-colors">
+          Clear all filters
+        </button>
+      )}
     </div>
   );
 }
@@ -273,9 +286,8 @@ export function CorrectionsIndexPage() {
           <h1 className="text-xl font-bold text-white">BC Corrections Index</h1>
         </div>
         <div className="px-4 pb-3">
-          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(!isFilterOpen)} hasActiveFilters={hasActiveFilters} />
+          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(true)} hasActiveFilters={hasActiveFilters} />
         </div>
-        <FilterPanel isOpen={isFilterOpen} filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
       </div>
 
       <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto">
@@ -307,6 +319,11 @@ export function CorrectionsIndexPage() {
           onLetterChange={handleLetterChange} 
         />
       )}
+
+      {/* Filter Modal */}
+      <FilterModal isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} title="Filter Centres">
+        <FilterContent filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
+      </FilterModal>
     </div>
   );
 }
