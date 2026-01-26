@@ -158,7 +158,7 @@ function CentreListItem({ centre, onClick }: { centre: CorrectionalCentre; onCli
           {centre.is_federal ? 'Federal' : 'Provincial'}
         </span>
         {centre.short_name && (
-          <span className="px-1.5 py-1 text-[9px] font-mono uppercase tracking-wide rounded bg-slate-700/50 text-slate-400">{centre.short_name}</span>
+          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400">{centre.short_name}</span>
         )}
       </div>
     </button>
