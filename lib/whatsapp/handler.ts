@@ -370,8 +370,10 @@ async function handleFetchPin(pid: string, from: string, user: Record<string, un
     status = '⏳ Status: *Pending Verification*';
   } else if (isExpired) {
     status = '❌ Status: *Expired*\n\nUse "⬆️ Upgrade" if called to the bar.';
+  } else if (expiry) {
+    status = `✓ Status: *Active*\n📅 Expires: ${formatDate(expiry)}`;
   } else {
-    status = `✓ Status: *Active*\n📅 Expires: ${formatDate(expiry!)}`;
+    status = '✓ Status: *Active*';
   }
 
   await sendTextMessage(pid, from, `🔑 *Your Access PIN*\n\n${status}`);
