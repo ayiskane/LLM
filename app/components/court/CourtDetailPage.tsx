@@ -153,7 +153,7 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
             >
               <div className="p-3 space-y-3">
                 <CourtContactsStack contacts={contacts} onCopy={copyToClipboard} isCopied={isCopied} />
-                <CrownContactsStack contacts={contacts} bailContacts={bailContacts} onCopy={copyToClipboard} isCopied={isCopied} />
+                <CrownContactsStack contacts={contacts} onCopy={copyToClipboard} isCopied={isCopied} />
               </div>
             </Section>
           )}
@@ -190,6 +190,8 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
                   currentCourtId={court.id}
                   bailTeams={bailTeams}
                   courtTeams={teamsLinks}
+                  contacts={contacts}
+                  bailContacts={bailContacts}
                   weekendBailCourts={weekendBailCourts}
                   onNavigateToHub={onNavigateToCourt}
                   onCopy={copyToClipboard}
@@ -236,4 +238,5 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
     </div>
   );
 }
+
 
