@@ -150,15 +150,33 @@ export async function fetchCells(): Promise<ShellCell[]> {
 }
 
 export async function fetchCellsByCourtId(courtId: number): Promise<ShellCell[]> {
-  const { data, error } = await supabase
-    .from('sheriff_cells_courts')
-    .select(`
-      cell:sheriff_cells(*)
-    `)
-    .eq('court_id', courtId);
+  // Fetch cells from both sources in parallel:
+  // 1. Junction table (sheriff_cells_courts) - for police cells linked to courts
+  // 2. Direct court_id on sheriff_cells - for courthouse cells
+  const [junctionResult, directResult] = await Promise.all([
+    supabase
+      .from('sheriff_cells_courts')
+      .select(`cell:sheriff_cells(*)`)
+      .eq('court_id', courtId),
+    supabase
+      .from('sheriff_cells')
+      .select('*')
+      .eq('court_id', courtId)
+  ]);
 
-  if (error) throw error;
-  return data?.map((item: { cell: ShellCell }) => item.cell).filter(Boolean) as ShellCell[] || [];
+  if (junctionResult.error) throw junctionResult.error;
+  if (directResult.error) throw directResult.error;
+
+  // Combine and deduplicate by cell ID
+  const junctionCells = junctionResult.data?.map((item: { cell: ShellCell }) => item.cell).filter(Boolean) as ShellCell[] || [];
+  const directCells = directResult.data || [];
+  
+  const cellMap = new Map<number, ShellCell>();
+  [...junctionCells, ...directCells].forEach(cell => {
+    if (cell && cell.id) cellMap.set(cell.id, cell);
+  });
+  
+  return Array.from(cellMap.values());
 }
 
 // =============================================================================
