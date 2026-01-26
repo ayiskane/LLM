@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { FaBuildingColumns, FaChevronRight } from '@/lib/icons';
+import { FaBuildingColumns, FaChevronRight, FaCopy, FaClipboardCheck } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { card, text, getScheduleLabelClass } from '@/lib/config/theme';
 import { TeamsList } from './TeamsCard';
-import { isVBTriageLink, getBailHubTag } from '@/lib/config/constants';
-import type { BailCourt, BailTeam, TeamsLink, WeekendBailCourtWithTeams } from '@/types';
+import { isVBTriageLink, getBailHubTag, CONTACT_ROLES } from '@/lib/config/constants';
+import type { BailCourt, BailTeam, TeamsLink, WeekendBailCourtWithTeams, BailContact, ContactWithRole } from '@/types';
 
 // ============================================================================
 // SCHEDULE ROW COMPONENT
@@ -91,6 +91,86 @@ interface BailHubLinkProps {
   onNavigate: (courtId: number) => void;
 }
 
+// ============================================================================
+// BAIL CONTACTS STACK
+// ============================================================================
+
+interface BailContactsStackProps {
+  contacts: ContactWithRole[];
+  bailContacts: BailContact[];
+  onCopy?: (text: string, id: string) => void;
+  isCopied?: (id: string) => boolean;
+}
+
+function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailContactsStackProps) {
+  const bailContactsList = useMemo(() => {
+    const result: { label: string; email: string; id: string }[] = [];
+
+    // Bail Crown from bailContacts table
+    const bailCrown = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.CROWN);
+    if (bailCrown?.email) {
+      result.push({ label: 'Bail Crown', email: bailCrown.email, id: `bail-crown-${bailCrown.id}` });
+    }
+
+    // Bail JCM from contacts table
+    const bailJcm = contacts.find(c => c.contact_role_id === CONTACT_ROLES.BAIL_JCM);
+    if (bailJcm) {
+      const email = bailJcm.emails?.[0] || bailJcm.email;
+      if (email) {
+        result.push({ label: 'Bail JCM', email, id: `bail-jcm-${bailJcm.id}` });
+      }
+    }
+
+    return result;
+  }, [contacts, bailContacts]);
+
+  if (bailContactsList.length === 0) return null;
+
+  return (
+    <div className="space-y-1.5">
+      <h4 className={text.sectionHeader}>Bail Contacts</h4>
+      <div className="space-y-2">
+        {bailContactsList.map((contact) => {
+          const isFieldCopied = isCopied ? isCopied(contact.id) : false;
+          return (
+            <div 
+              key={contact.id}
+              onClick={() => onCopy?.(contact.email, contact.id)}
+              className={cn(
+                "flex items-stretch rounded-xl overflow-hidden cursor-pointer",
+                "bg-slate-800/40 border border-slate-700/50",
+                "hover:bg-slate-800/60 transition-colors"
+              )}
+            >
+              {/* Color accent bar - teal for bail */}
+              <div className="w-1 flex-shrink-0 bg-teal-500" />
+              
+              {/* Content */}
+              <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
+                <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500 mb-0.5">
+                  {contact.label}
+                </div>
+                <div className="text-[12px] text-slate-200 font-mono leading-relaxed truncate">
+                  {contact.email}
+                </div>
+              </div>
+              
+              {/* Copy button area */}
+              <div className="flex items-center justify-center px-3 flex-shrink-0 border-l border-dashed border-slate-700/50">
+                {isFieldCopied ? (
+                  <FaClipboardCheck className="w-4 h-4 text-emerald-400" />
+                ) : (
+                  <FaCopy className="w-4 h-4 text-slate-500" />
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function BailHubLink({ bailCourt, onNavigate }: BailHubLinkProps) {
   if (!bailCourt.court_id) return null;
 
@@ -156,6 +236,8 @@ interface WeekdayBailContentProps {
   currentCourtId: number;
   bailTeams: TeamsLink[];
   courtTeams: TeamsLink[];
+  contacts: ContactWithRole[];
+  bailContacts: BailContact[];
   onNavigateToHub?: (courtId: number) => void;
   onCopy?: (text: string, id: string) => void;
   isCopied?: (id: string) => boolean;
@@ -166,6 +248,8 @@ function WeekdayBailContent({
   currentCourtId,
   bailTeams,
   courtTeams,
+  contacts,
+  bailContacts,
   onNavigateToHub,
   onCopy,
   isCopied,
@@ -198,6 +282,7 @@ function WeekdayBailContent({
         <BailHubLink bailCourt={bailCourt} onNavigate={onNavigateToHub} />
       )}
       <BailSchedule bailCourt={bailCourt} />
+      <BailContactsStack contacts={contacts} bailContacts={bailContacts} onCopy={onCopy} isCopied={isCopied} />
       {allBailTeams.length > 0 && (
         <TeamsList links={allBailTeams} filterVBTriage={false} onCopy={onCopy} isCopied={isCopied} />
       )}
@@ -252,6 +337,8 @@ interface BailSectionContentProps {
   currentCourtId: number;
   bailTeams: BailTeam[];
   courtTeams: TeamsLink[];
+  contacts: ContactWithRole[];
+  bailContacts: BailContact[];
   weekendBailCourts?: WeekendBailCourtWithTeams[];
   onNavigateToHub?: (courtId: number) => void;
   onCopy?: (text: string, id: string) => void;
@@ -263,6 +350,8 @@ export function BailSectionContent({
   currentCourtId,
   bailTeams,
   courtTeams,
+  contacts,
+  bailContacts,
   weekendBailCourts = [],
   onNavigateToHub,
   onCopy,
@@ -295,6 +384,8 @@ export function BailSectionContent({
           currentCourtId={currentCourtId}
           bailTeams={bailTeams}
           courtTeams={courtTeams}
+          contacts={contacts}
+          bailContacts={bailContacts}
           onNavigateToHub={onNavigateToHub}
           onCopy={onCopy}
           isCopied={isCopied}
@@ -311,3 +402,4 @@ export function BailSectionContent({
 }
 
 export { getBailHubTag };
+
