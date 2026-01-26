@@ -158,7 +158,7 @@ function CentreListItem({ centre, onClick }: { centre: CorrectionalCentre; onCli
           {centre.is_federal ? 'Federal' : 'Provincial'}
         </span>
         {centre.short_name && (
-          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400">{centre.short_name}</span>
+          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400">{centre.short_name}</span>
         )}
       </div>
     </button>
@@ -288,14 +288,14 @@ export function CorrectionsIndexPage() {
             )}
           </div>
         ) : (
-          <>
+          <div className="pb-4">
             {groupedCentres.map((group) => (
               <LetterSection key={group.letter} letter={group.letter} centres={group.centres} onCentreClick={handleCentreClick} />
             ))}
             <div className="py-3 text-center">
               <span className="text-xs text-slate-500">{filteredCentres.length} {filteredCentres.length === 1 ? 'centre' : 'centres'}</span>
             </div>
-          </>
+          </div>
         )}
       </div>
 
