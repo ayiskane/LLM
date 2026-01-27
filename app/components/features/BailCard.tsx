@@ -142,8 +142,8 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
                 "hover:bg-slate-800/60 transition-colors"
               )}
             >
-              {/* Color accent bar - teal for bail */}
-              <div className="w-1 flex-shrink-0 bg-teal-500" />
+              {/* Color accent bar - amber for bail */}
+              <div className="w-1 flex-shrink-0 bg-amber-500" />
               
               {/* Content */}
               <div className="flex-1 py-2.5 px-3 min-w-0 overflow-hidden">
@@ -188,8 +188,8 @@ export function BailHubLink({ bailCourt, onNavigate }: BailHubLinkProps) {
       )}
     >
       <div className="flex items-center gap-3 px-3 py-3">
-        <div className="w-10 h-10 rounded-lg bg-teal-500/15 flex items-center justify-center shrink-0">
-          <FaBuildingColumns className="w-5 h-5 text-teal-400" />
+        <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0">
+          <FaBuildingColumns className="w-5 h-5 text-amber-400" />
         </div>
         <div className="flex-1 min-w-0 text-left">
           <div className="text-sm font-medium text-slate-200 truncate">{courtName}</div>
@@ -218,7 +218,7 @@ function BailTab({ label, isActive, onClick }: BailTabProps) {
       className={cn(
         "flex-1 py-2 px-3 text-sm font-medium rounded-lg transition-all",
         isActive
-          ? "bg-teal-500/20 text-teal-300 border border-teal-500/30"
+          ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
           : "text-slate-400 hover:text-slate-300 hover:bg-slate-800/50"
       )}
     >
@@ -402,4 +402,5 @@ export function BailSectionContent({
 }
 
 export { getBailHubTag };
+
 
