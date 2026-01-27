@@ -37,9 +37,10 @@ export function Tag({ children, color, size = 'sm', className }: TagProps) {
 export function CourtTypeTag({ type }: { type: 'provincial' | 'supreme' | 'circuit' }) {
   const config = {
     provincial: { color: 'emerald' as const, label: 'PC' },
-    supreme: { color: 'purple' as const, label: 'SC' },
+    supreme: { color: 'rose' as const, label: 'SC' },
     circuit: { color: 'amber' as const, label: 'CIR' },
   };
   const { color, label } = config[type];
   return <Tag color={color}>{label}</Tag>;
 }
+
