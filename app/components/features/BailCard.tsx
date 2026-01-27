@@ -15,14 +15,14 @@ import type { BailCourt, BailTeam, TeamsLink, WeekendBailCourtWithTeams, BailCon
 interface ScheduleRowProps {
   label: string;
   value: string;
-  isAmber?: boolean;
+  color?: 'amber' | 'sky';
 }
 
-function ScheduleRow({ label, value, isAmber = false }: ScheduleRowProps) {
+function ScheduleRow({ label, value, color }: ScheduleRowProps) {
   return (
     <div className={card.flexRow}>
       <span 
-        className={getScheduleLabelClass(isAmber)}
+        className={getScheduleLabelClass(color)}
         style={{ letterSpacing: '1px' }}
       >
         {label}
@@ -74,7 +74,7 @@ export function BailSchedule({ bailCourt }: BailScheduleProps) {
           <ScheduleRow 
             label="Youth" 
             value={`${bailCourt.youth_custody_day} ${bailCourt.youth_custody_time}`}
-            isAmber 
+            color="sky"
           />
         )}
       </div>
@@ -402,5 +402,6 @@ export function BailSectionContent({
 }
 
 export { getBailHubTag };
+
 
 
