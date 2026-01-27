@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaScaleBalanced, FaBuildingShield } from '@/lib/icons';
+import { FaScaleBalanced, FaGavel, FaBuildingShield } from '@/lib/icons';
 import { cn } from '@/lib/config/theme';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Courts', icon: FaScaleBalanced },
+  { href: '/bail', label: 'Bail', icon: FaGavel },
   { href: '/corrections', label: 'Corrections', icon: FaBuildingShield },
 ] as const;
 
