@@ -241,11 +241,14 @@ interface BailHubDetailPageProps {
   details: BailHubDetails;
   onBack: () => void;
   onNavigateToCourt: (courtId: number) => void;
+  referrerName?: string | null;  // Name of page user came from
 }
 
-export function BailHubDetailPage({ details, onBack, onNavigateToCourt }: BailHubDetailPageProps) {
+export function BailHubDetailPage({ details, onBack, onNavigateToCourt, referrerName }: BailHubDetailPageProps) {
   const { copyToClipboard, isCopied } = useCopyToClipboard();
   const { bailCourt, region, bailTeams, bailContacts, linkedCourts } = details;
+
+  const backLabel = referrerName ? `Back to ${referrerName}` : 'Back to Bail Hubs';
 
   return (
     <div className="h-full flex flex-col bg-slate-950">
@@ -256,7 +259,7 @@ export function BailHubDetailPage({ details, onBack, onNavigateToCourt }: BailHu
           className="flex items-center gap-2 text-slate-400 hover:text-slate-200 mb-3 transition-colors"
         >
           <FaArrowLeft className="w-4 h-4" />
-          <span className="text-sm">Back to Bail Hubs</span>
+          <span className="text-sm">{backLabel}</span>
         </button>
 
         <h1 className="text-xl font-bold text-white mb-2">{bailCourt.name}</h1>

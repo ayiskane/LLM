@@ -46,6 +46,7 @@ export default function CourtPage() {
       courtDetails={courtDetails}
       onBack={() => router.back()}
       onNavigateToCourt={(courtId) => router.push(`/court/${courtId}`)}
+      onNavigateToBailHub={(bailCourtId, fromName) => router.push(`/bail/${bailCourtId}?from=${encodeURIComponent(fromName)}`)}
     />
   );
 }

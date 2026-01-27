@@ -410,12 +410,14 @@ function WeekendBailContent({ weekendBailCourts, onCopy, isCopied }: WeekendBail
 interface BailSectionContentProps {
   bailCourt: BailCourt;
   currentCourtId: number;
+  currentCourtName: string;
   bailTeams: BailTeam[];
   courtTeams: TeamsLink[];
   contacts: ContactWithRole[];
   bailContacts: BailContact[];
   weekendBailCourts?: WeekendBailCourtWithTeams[];
   onNavigateToHub?: (courtId: number) => void;
+  onNavigateToBailHub?: (bailCourtId: number, fromName: string) => void;
   onCopy?: (text: string, id: string) => void;
   isCopied?: (id: string) => boolean;
 }
@@ -423,12 +425,14 @@ interface BailSectionContentProps {
 export function BailSectionContent({
   bailCourt,
   currentCourtId,
+  currentCourtName,
   bailTeams,
   courtTeams,
   contacts,
   bailContacts,
   weekendBailCourts = [],
   onNavigateToHub,
+  onNavigateToBailHub,
   onCopy,
   isCopied,
 }: BailSectionContentProps) {
@@ -471,6 +475,16 @@ export function BailSectionContent({
           onCopy={onCopy}
           isCopied={isCopied}
         />
+      )}
+
+      {/* View full bail hub details link */}
+      {onNavigateToBailHub && (
+        <button
+          onClick={() => onNavigateToBailHub(bailCourt.id, currentCourtName)}
+          className="w-full text-center text-sm text-blue-400 hover:text-blue-300 py-2 transition-colors"
+        >
+          View full bail hub details →
+        </button>
       )}
     </div>
   );

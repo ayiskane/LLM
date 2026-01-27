@@ -1,13 +1,15 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { BailHubDetailPage } from '@/app/components/bail';
 import { useBailHubDetails } from '@/lib/hooks';
 
 export default function BailHubPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const bailCourtId = params.id ? Number(params.id) : null;
+  const referrerName = searchParams.get('from');
   
   const { data: details, isLoading, error } = useBailHubDetails(bailCourtId);
 
@@ -44,6 +46,7 @@ export default function BailHubPage() {
       details={details}
       onBack={() => router.back()}
       onNavigateToCourt={(courtId) => router.push(`/court/${courtId}`)}
+      referrerName={referrerName}
     />
   );
 }

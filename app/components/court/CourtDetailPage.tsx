@@ -24,9 +24,10 @@ interface CourtDetailPageProps {
   onBack?: () => void;
   onSearch?: (query: string) => void;
   onNavigateToCourt?: (courtId: number) => void;
+  onNavigateToBailHub?: (bailCourtId: number, fromName: string) => void;
 }
 
-export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCourt }: CourtDetailPageProps) {
+export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCourt, onNavigateToBailHub }: CourtDetailPageProps) {
   const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts, weekendBailCourts, jcmFxdSchedule } = courtDetails;
   
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contacts');
@@ -189,12 +190,14 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
                 <BailSectionContent
                   bailCourt={bailCourt}
                   currentCourtId={court.id}
+                  currentCourtName={`${court.name} Law Courts`}
                   bailTeams={bailTeams}
                   courtTeams={teamsLinks}
                   contacts={contacts}
                   bailContacts={bailContacts}
                   weekendBailCourts={weekendBailCourts}
                   onNavigateToHub={onNavigateToCourt}
+                  onNavigateToBailHub={onNavigateToBailHub}
                   onCopy={copyToClipboard}
                   isCopied={isCopied}
                 />
