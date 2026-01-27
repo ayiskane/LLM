@@ -246,6 +246,18 @@ export async function fetchBailContactsByRegionId(regionId: number): Promise<Bai
     .from('bail_contacts')
     .select('*')
     .eq('region_id', regionId)
+    .is('bail_court_id', null)
+    .order('role_id');
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function fetchBailContactsByBailCourtId(bailCourtId: number): Promise<BailContact[]> {
+  const { data, error } = await supabase
+    .from('bail_contacts')
+    .select('*')
+    .eq('bail_court_id', bailCourtId)
     .order('role_id');
 
   if (error) throw error;
@@ -344,19 +356,26 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
   if (court.bail_hub_id) {
     bailCourt = await fetchBailCourtById(court.bail_hub_id);
     if (bailCourt) {
-      bailTeams = await fetchBailTeamsLinksByBailCourtId(bailCourt.id);
+      // Fetch bail teams and bail court-specific contacts in parallel
+      const [teams, courtSpecificContacts] = await Promise.all([
+        fetchBailTeamsLinksByBailCourtId(bailCourt.id),
+        fetchBailContactsByBailCourtId(bailCourt.id),
+      ]);
+      bailTeams = teams;
+      bailContacts = courtSpecificContacts;
     }
   }
 
   if (court.region_id) {
-    // Fetch weekend bail (smart routing for Fraser), bail contacts, and programs in parallel
-    const [weekendBail, contacts, progs] = await Promise.all([
+    // Fetch weekend bail (smart routing for Fraser), region-wide bail contacts, and programs in parallel
+    const [weekendBail, regionContacts, progs] = await Promise.all([
       fetchWeekendBailForCourt(court.region_id, court.id),
       fetchBailContactsByRegionId(court.region_id),
       fetchProgramsByRegionId(court.region_id),
     ]);
     
-    bailContacts = contacts;
+    // Merge bail court-specific contacts with region-wide contacts
+    bailContacts = [...bailContacts, ...regionContacts];
     programs = progs;
     
     // Fetch teams for the weekend bail court

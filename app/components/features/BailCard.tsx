@@ -119,13 +119,19 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
       }
     }
 
-    // 2. Bail Crown (from bailContacts table)
+    // 2. Sheriff VB Coordinator (from bailContacts table)
+    const sheriffCoord = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.SHERIFF_VB_COORDINATOR);
+    if (sheriffCoord?.email) {
+      result.push({ label: 'Sheriff Coordinator', email: sheriffCoord.email, id: `sheriff-coord-${sheriffCoord.id}` });
+    }
+
+    // 3. Bail Crown (from bailContacts table)
     const bailCrown = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.CROWN);
     if (bailCrown?.email) {
       result.push({ label: 'Bail Crown', email: bailCrown.email, id: `bail-crown-${bailCrown.id}` });
     }
 
-    // 3. Federal Crown (from bailContacts table)
+    // 4. Federal Crown (from bailContacts table)
     const fedCrown = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.FEDERAL_CROWN);
     if (fedCrown?.email) {
       result.push({ label: 'Federal Crown', email: fedCrown.email, id: `fed-crown-${fedCrown.id}` });
