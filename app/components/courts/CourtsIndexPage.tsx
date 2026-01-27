@@ -26,7 +26,7 @@ const REGION_COLORS: Record<number, { dot: string; tag: string }> = {
   2: { dot: 'bg-blue-500', tag: 'bg-blue-500/15 text-blue-400' },
   3: { dot: 'bg-emerald-500', tag: 'bg-emerald-500/15 text-emerald-400' },
   4: { dot: 'bg-purple-500', tag: 'bg-purple-500/15 text-purple-400' },
-  5: { dot: 'bg-cyan-500', tag: 'bg-cyan-500/15 text-cyan-400' },
+  5: { dot: 'bg-rose-500', tag: 'bg-rose-500/15 text-rose-400' },
 };
 
 const REGION_CODE: Record<number, string> = { 1: 'R1', 2: 'R2', 3: 'R3', 4: 'R4', 5: 'R5' };
@@ -376,3 +376,4 @@ export function CourtsIndexPage() {
     </div>
   );
 }
+
