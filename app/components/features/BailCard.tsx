@@ -219,9 +219,9 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
         <button
           onClick={handleTeamsClick}
           className={cn(
-            "w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg",
-            "bg-[#5B5FC7] hover:bg-[#4E51B0] active:bg-[#444791]",
-            "text-white text-sm font-medium",
+            "w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-md",
+            "bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700",
+            "text-white text-sm font-medium shadow-sm",
             "transition-colors duration-150"
           )}
         >
@@ -329,12 +329,36 @@ function WeekdayBailContent({
       return true;
     });
     
+    // Helper to extract number from courtroom name (e.g., "CR 201" -> 201)
+    const extractNumber = (name: string): number => {
+      const match = name.match(/\d+/);
+      return match ? parseInt(match[0], 10) : Infinity;
+    };
+    
+    // Helper to check if it's a JCM FXD link
+    const isJcmFxd = (name: string): boolean => {
+      const upper = name.toUpperCase();
+      return upper.includes('JCM') && upper.includes('FXD');
+    };
+    
     return unique.sort((a, b) => {
-      const aIsTriage = isVBTriageLink(a.name || a.courtroom);
-      const bIsTriage = isVBTriageLink(b.name || b.courtroom);
+      const aName = a.name || a.courtroom || '';
+      const bName = b.name || b.courtroom || '';
+      
+      // 1. JCM FXD links come first
+      const aIsJcmFxd = isJcmFxd(aName);
+      const bIsJcmFxd = isJcmFxd(bName);
+      if (aIsJcmFxd && !bIsJcmFxd) return -1;
+      if (!aIsJcmFxd && bIsJcmFxd) return 1;
+      
+      // 2. VB Triage links come second
+      const aIsTriage = isVBTriageLink(aName);
+      const bIsTriage = isVBTriageLink(bName);
       if (aIsTriage && !bIsTriage) return -1;
       if (!aIsTriage && bIsTriage) return 1;
-      return (a.name || a.courtroom || '').localeCompare(b.name || b.courtroom || '');
+      
+      // 3. Sort by number ascending (CR 201 before CR 204)
+      return extractNumber(aName) - extractNumber(bName);
     });
   }, [bailTeams, courtTeams]);
 
