@@ -31,10 +31,10 @@ export default function CourtPage() {
           <p className="text-red-400 mb-2">Failed to load court</p>
           <p className="text-slate-500 text-sm mb-4">{error || 'Court not found'}</p>
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.back()}
             className="text-blue-400 hover:text-blue-300 transition-colors"
           >
-            ← Back to courts
+            ← Go back
           </button>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default function CourtPage() {
   return (
     <CourtDetailPage 
       courtDetails={courtDetails}
-      onBack={() => router.push('/')}
+      onBack={() => router.back()}
       onNavigateToCourt={(courtId) => router.push(`/court/${courtId}`)}
     />
   );

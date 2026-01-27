@@ -29,10 +29,10 @@ export default function BailHubPage() {
           <p className="text-red-400 mb-2">Failed to load bail hub</p>
           <p className="text-slate-500 text-sm mb-4">{error || 'Bail hub not found'}</p>
           <button
-            onClick={() => router.push('/bail')}
+            onClick={() => router.back()}
             className="text-blue-400 hover:text-blue-300 transition-colors"
           >
-            ← Back to bail hubs
+            ← Go back
           </button>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function BailHubPage() {
   return (
     <BailHubDetailPage 
       details={details}
-      onBack={() => router.push('/bail')}
+      onBack={() => router.back()}
       onNavigateToCourt={(courtId) => router.push(`/court/${courtId}`)}
     />
   );
