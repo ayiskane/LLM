@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { card, text, toggle, iconSize, getScheduleLabelClass } from '@/lib/config/theme';
 import { TeamsList } from './TeamsCard';
 import { isVBTriageLink, getBailHubTag, CONTACT_ROLES } from '@/lib/config/constants';
+import { useTruncationDetection } from '@/lib/hooks';
 import type { BailCourt, BailTeam, TeamsLink, WeekendBailCourtWithTeams, BailContact, ContactWithRole } from '@/types';
 
 // ============================================================================
@@ -104,6 +105,7 @@ interface BailContactsStackProps {
 
 function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailContactsStackProps) {
   const [showFull, setShowFull] = useState(false);
+  const { registerRef, hasTruncation } = useTruncationDetection();
   
   const bailContactsList = useMemo(() => {
     const result: { label: string; email: string; id: string }[] = [];
@@ -126,15 +128,13 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
     return result;
   }, [contacts, bailContacts]);
 
-  const hasTruncation = bailContactsList.some(c => c.email.length > 40);
-
   if (bailContactsList.length === 0) return null;
 
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between mb-2 px-1">
         <h4 className={text.sectionHeader}>Bail Contacts</h4>
-        {(hasTruncation || showFull) && (
+        {(!showFull ? hasTruncation : true) && (
           <button
             onClick={(e) => { e.stopPropagation(); setShowFull(!showFull); }}
             className={cn(toggle.base, showFull ? toggle.active : toggle.inactive)}
@@ -165,6 +165,7 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
                   {contact.label}
                 </div>
                 <div 
+                  ref={!showFull ? registerRef : undefined}
                   className={cn(
                     "text-[11px] text-slate-300 font-mono",
                     showFull ? 'break-all whitespace-normal' : 'truncate'

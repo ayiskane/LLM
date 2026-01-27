@@ -14,3 +14,4 @@ export type { CourtWithRegionName } from './useCourts';
 // Other hooks
 export { useCopyToClipboard } from './useCopyToClipboard';
 export { useScrollHeader } from './useScrollHeader';
+export { useTruncationDetection } from './useTruncationDetection';

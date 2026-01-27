@@ -5,6 +5,7 @@ import { FaCopy, FaClipboardCheck, FaEye, FaEyeSlash } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { card, text, toggle, iconSize, getCategoryAccentClass, type ContactCategory } from '@/lib/config/theme';
 import { CONTACT_ROLES } from '@/lib/config/constants';
+import { useTruncationDetection } from '@/lib/hooks';
 import type { ContactWithRole } from '@/types';
 
 // ============================================================================
@@ -26,6 +27,7 @@ interface ContactRowProps {
   onCopy?: CopyFunction;
   isCopied?: IsCopiedFunction;
   fieldId: string;
+  registerTruncationRef?: (element: HTMLElement | null) => void;
 }
 
 function ContactRow({ 
@@ -36,6 +38,7 @@ function ContactRow({
   onCopy,
   isCopied,
   fieldId,
+  registerTruncationRef,
 }: ContactRowProps) {
   const copyText = emails.join(', ');
   const isFieldCopied = isCopied ? isCopied(fieldId) : false;
@@ -66,6 +69,7 @@ function ContactRow({
           {label}
         </div>
         <div 
+          ref={!showFull ? registerTruncationRef : undefined}
           className={cn(
             "text-[11px] text-slate-300 font-mono",
             showFull ? 'break-all whitespace-normal' : 'truncate'
@@ -134,6 +138,7 @@ interface CourtContactsStackProps {
 
 export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContactsStackProps) {
   const [showFull, setShowFull] = useState(false);
+  const { registerRef, hasTruncation } = useTruncationDetection();
 
   const contactConfig: { roleId: number; category: ContactCategory; label: string }[] = [
     { roleId: CONTACT_ROLES.CRIMINAL_REGISTRY, category: 'court', label: 'Criminal Registry' },
@@ -171,8 +176,6 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
     return result;
   }, [contacts]);
 
-  const hasTruncation = orderedContacts.some(c => c.emails.join(', ').length > 40);
-
   if (orderedContacts.length === 0) return null;
 
   return (
@@ -181,7 +184,7 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
         title="Court Contacts" 
         showFull={showFull} 
         onToggle={() => setShowFull(!showFull)}
-        showToggle={hasTruncation || showFull}
+        showToggle={!showFull ? hasTruncation : true}
       />
       <div className={card.divided}>
         {orderedContacts.map((contact) => (
@@ -194,6 +197,7 @@ export function CourtContactsStack({ contacts, onCopy, isCopied }: CourtContacts
             onCopy={onCopy}
             isCopied={isCopied}
             fieldId={`court-contact-${contact.id}`}
+            registerTruncationRef={registerRef}
           />
         ))}
       </div>
@@ -213,6 +217,7 @@ interface CrownContactsStackProps {
 
 export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContactsStackProps) {
   const [showFull, setShowFull] = useState(false);
+  const { registerRef, hasTruncation } = useTruncationDetection();
 
   const crownContacts = useMemo(() => {
     const result: { label: string; emails: string[]; category: ContactCategory; id: string }[] = [];
@@ -244,8 +249,6 @@ export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContacts
     return result;
   }, [contacts]);
 
-  const hasTruncation = crownContacts.some(c => c.emails.join(', ').length > 40);
-
   if (crownContacts.length === 0) return null;
 
   return (
@@ -254,7 +257,7 @@ export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContacts
         title="Crown Contacts" 
         showFull={showFull} 
         onToggle={() => setShowFull(!showFull)}
-        showToggle={hasTruncation || showFull}
+        showToggle={!showFull ? hasTruncation : true}
       />
       <div className={card.divided}>
         {crownContacts.map((contact) => (
@@ -267,6 +270,7 @@ export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContacts
             onCopy={onCopy}
             isCopied={isCopied}
             fieldId={contact.id}
+            registerTruncationRef={registerRef}
           />
         ))}
       </div>
