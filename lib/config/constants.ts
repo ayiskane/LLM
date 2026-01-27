@@ -24,7 +24,7 @@ export const REGION_COLORS: Record<number, { dot: string; tag: string }> = {
   2: { dot: 'bg-blue-500', tag: 'bg-blue-500/15 text-blue-400' },
   3: { dot: 'bg-emerald-500', tag: 'bg-emerald-500/15 text-emerald-400' },
   4: { dot: 'bg-purple-500', tag: 'bg-purple-500/15 text-purple-400' },
-  5: { dot: 'bg-cyan-500', tag: 'bg-cyan-500/15 text-cyan-400' },
+  5: { dot: 'bg-rose-500', tag: 'bg-rose-500/15 text-rose-400' },
 };
 
 // ============================================================================
@@ -118,3 +118,4 @@ export function formatCourtroomName(name: string | null | undefined): string {
   
   return name;
 }
+
