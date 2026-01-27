@@ -305,7 +305,10 @@ export async function fetchProgramsByRegionId(regionId: number): Promise<Program
 export async function fetchJcmFxdScheduleByCourtId(courtId: number): Promise<JcmFxdSchedule | null> {
   const { data, error } = await supabase
     .from('jcm_fxd_schedules')
-    .select('*')
+    .select(`
+      *,
+      teams_link:teams_links(*)
+    `)
     .eq('court_id', courtId)
     .maybeSingle();
 
