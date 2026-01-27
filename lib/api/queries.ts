@@ -45,7 +45,7 @@ export async function fetchCourts(): Promise<Court[]> {
     .select('*')
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -59,7 +59,7 @@ export async function fetchCourtById(id: number): Promise<CourtWithRegion | null
     .eq('id', id)
     .maybeSingle();
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   if (!data) return null;
 
   // If this is a circuit court with a contact_hub, look up the hub court's ID and name
@@ -95,7 +95,7 @@ export async function fetchCourtsWithRegions(): Promise<CourtWithRegionName[]> {
     `)
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   
   return (data || []).map((court: any) => ({
     ...court,
@@ -117,7 +117,7 @@ export async function fetchContacts(): Promise<ContactWithRole[]> {
     `)
     .order('contact_role_id');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -132,7 +132,7 @@ export async function fetchContactsByCourtId(courtId: number): Promise<ContactWi
     `)
     .eq('court_id', courtId);
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data?.map((item: { contact: ContactWithRole }) => item.contact).filter(Boolean) as ContactWithRole[] || [];
 }
 
@@ -146,7 +146,7 @@ export async function fetchCells(): Promise<ShellCell[]> {
     .select('*')
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -165,8 +165,8 @@ export async function fetchCellsByCourtId(courtId: number): Promise<ShellCell[]>
       .eq('court_id', courtId)
   ]);
 
-  if (junctionResult.error) throw junctionResult.error;
-  if (directResult.error) throw directResult.error;
+  if (junctionResult.error) throw new Error(junctionResult.error.message);
+  if (directResult.error) throw new Error(directResult.error.message);
 
   // Combine and deduplicate by cell ID
   const junctionCells = junctionResult.data?.map((item: { cell: ShellCell }) => item.cell).filter(Boolean) as ShellCell[] || [];
@@ -190,7 +190,7 @@ export async function fetchTeamsLinks(): Promise<TeamsLink[]> {
     .select('*')
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -201,7 +201,7 @@ export async function fetchTeamsLinksByCourtId(courtId: number): Promise<TeamsLi
     .eq('court_id', courtId)
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -212,7 +212,7 @@ export async function fetchBailTeamsLinksByBailCourtId(bailCourtId: number): Pro
     .eq('bail_court_id', bailCourtId)
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -226,7 +226,7 @@ export async function fetchBailCourts(): Promise<BailCourt[]> {
     .select('*')
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -237,31 +237,41 @@ export async function fetchBailCourtById(id: number): Promise<BailCourt | null> 
     .eq('id', id)
     .maybeSingle();
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
 
 export async function fetchBailContactsByRegionId(regionId: number): Promise<BailContact[]> {
-  const { data, error } = await supabase
-    .from('bail_contacts')
-    .select('*')
-    .eq('region_id', regionId)
-    .is('bail_court_id', null)
-    .order('role_id');
+  try {
+    const { data, error } = await supabase
+      .from('bail_contacts')
+      .select('*')
+      .eq('region_id', regionId)
+      .is('bail_court_id', null)
+      .order('role_id');
 
-  if (error) throw error;
-  return data || [];
+    if (error) throw new Error(error.message);
+    return data || [];
+  } catch (e) {
+    console.warn('Bail contacts (region) query failed:', e);
+    return [];
+  }
 }
 
 export async function fetchBailContactsByBailCourtId(bailCourtId: number): Promise<BailContact[]> {
-  const { data, error } = await supabase
-    .from('bail_contacts')
-    .select('*')
-    .eq('bail_court_id', bailCourtId)
-    .order('role_id');
+  try {
+    const { data, error } = await supabase
+      .from('bail_contacts')
+      .select('*')
+      .eq('bail_court_id', bailCourtId)
+      .order('role_id');
 
-  if (error) throw error;
-  return data || [];
+    if (error) throw new Error(error.message);
+    return data || [];
+  } catch (e) {
+    console.warn('Bail contacts (court) query failed:', e);
+    return [];
+  }
 }
 
 // Fetch weekend bail court by region - handles Fraser's Surrey/non-Surrey split
@@ -280,7 +290,7 @@ export async function fetchWeekendBailForCourt(regionId: number, courtId: number
     .eq('is_daytime', false)
     .maybeSingle();
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
 
@@ -294,7 +304,7 @@ export async function fetchPrograms(): Promise<Program[]> {
     .select('*')
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -305,7 +315,7 @@ export async function fetchProgramsByRegionId(regionId: number): Promise<Program
     .eq('region_id', regionId)
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -315,17 +325,27 @@ export async function fetchProgramsByRegionId(regionId: number): Promise<Program
 // =============================================================================
 
 export async function fetchJcmFxdScheduleByCourtId(courtId: number): Promise<JcmFxdSchedule | null> {
-  const { data, error } = await supabase
-    .from('jcm_fxd_schedules')
-    .select(`
-      *,
-      teams_link:teams_links(*)
-    `)
-    .eq('court_id', courtId)
-    .maybeSingle();
+  try {
+    const { data, error } = await supabase
+      .from('jcm_fxd_schedules')
+      .select(`
+        *,
+        teams_link:teams_links(*)
+      `)
+      .eq('court_id', courtId)
+      .maybeSingle();
 
-  if (error) throw error;
-  return data;
+    if (error) {
+      // If table doesn't exist yet, return null gracefully
+      if (error.code === '42P01') return null;
+      throw new Error(error.message);
+    }
+    return data;
+  } catch (e) {
+    // If table doesn't exist or other error, return null gracefully
+    console.warn('JCM FXD schedule query failed:', e);
+    return null;
+  }
 }
 
 // COMBINED QUERIES
@@ -431,7 +451,7 @@ export async function fetchCorrectionalCentres(): Promise<CorrectionalCentre[]> 
     .select('*')
     .order('name');
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data || [];
 }
 
@@ -442,6 +462,6 @@ export async function fetchCorrectionalCentreById(id: number): Promise<Correctio
     .eq('id', id)
     .maybeSingle();
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }
