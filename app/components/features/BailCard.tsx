@@ -107,8 +107,12 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
   const [showFull, setShowFull] = useState(false);
   const { registerRef, hasTruncation } = useTruncationDetection();
   
+  // Get sheriff coordinator Teams chat separately
+  const sheriffCoord = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.SHERIFF_VB_COORDINATOR);
+  const sheriffTeamsChat = sheriffCoord?.teams_chat || null;
+  
   const bailContactsList = useMemo(() => {
-    const result: { label: string; email: string; id: string; teamsChat?: string }[] = [];
+    const result: { label: string; email: string; id: string }[] = [];
 
     // 1. Bail JCM first (from contacts table)
     const bailJcm = contacts.find(c => c.contact_role_id === CONTACT_ROLES.BAIL_JCM);
@@ -120,13 +124,11 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
     }
 
     // 2. Sheriff VB Coordinator (from bailContacts table)
-    const sheriffCoord = bailContacts.find(bc => bc.role_id === CONTACT_ROLES.SHERIFF_VB_COORDINATOR);
     if (sheriffCoord?.email) {
       result.push({ 
         label: 'Sheriff Coordinator', 
         email: sheriffCoord.email, 
-        id: `sheriff-coord-${sheriffCoord.id}`,
-        teamsChat: sheriffCoord.teams_chat || undefined
+        id: `sheriff-coord-${sheriffCoord.id}`
       });
     }
 
@@ -143,18 +145,19 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
     }
 
     return result;
-  }, [contacts, bailContacts]);
+  }, [contacts, bailContacts, sheriffCoord]);
 
   if (bailContactsList.length === 0) return null;
 
-  const handleTeamsClick = (teamsChat: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const teamsUrl = `https://teams.microsoft.com/l/chat/0/0?users=${encodeURIComponent(teamsChat)}`;
-    window.open(teamsUrl, '_blank');
+  const handleTeamsClick = () => {
+    if (sheriffTeamsChat) {
+      const teamsUrl = `https://teams.microsoft.com/l/chat/0/0?users=${encodeURIComponent(sheriffTeamsChat)}`;
+      window.open(teamsUrl, '_blank');
+    }
   };
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       <div className="flex items-center justify-between mb-2 px-1">
         <h4 className={text.sectionHeader}>Bail Contacts</h4>
         {(!showFull ? hasTruncation : true) && (
@@ -198,17 +201,6 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
                 </div>
               </div>
               
-              {/* Teams chat button (only for sheriff coordinator with teams_chat) */}
-              {contact.teamsChat && (
-                <button
-                  onClick={(e) => handleTeamsClick(contact.teamsChat!, e)}
-                  className="flex items-center px-2 hover:bg-slate-700/50 transition-colors"
-                  title="Open Teams chat"
-                >
-                  <FaCommentDots className="w-4 h-4 text-purple-400 hover:text-purple-300" />
-                </button>
-              )}
-              
               {/* Copy icon */}
               <div className="flex items-center px-2">
                 {isFieldCopied ? (
@@ -221,6 +213,22 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
           );
         })}
       </div>
+      
+      {/* Teams Chat Button - separate from contact list */}
+      {sheriffTeamsChat && (
+        <button
+          onClick={handleTeamsClick}
+          className={cn(
+            "w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg",
+            "bg-[#5B5FC7] hover:bg-[#4E51B0] active:bg-[#444791]",
+            "text-white text-sm font-medium",
+            "transition-colors duration-150"
+          )}
+        >
+          <FaCommentDots className="w-4 h-4" />
+          <span>Chat with Sheriff Coordinator</span>
+        </button>
+      )}
     </div>
   );
 }
