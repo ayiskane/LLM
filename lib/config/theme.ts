@@ -10,8 +10,8 @@ export { cn } from '@/lib/utils';
 // TYPE DEFINITIONS
 // ============================================================================
 
-export type SectionColor = 'emerald' | 'blue' | 'amber' | 'purple' | 'teal' | 'indigo' | 'cyan' | 'rose';
-export type ContactCategory = 'court' | 'provincial' | 'supreme' | 'bail' | 'other';
+export type SectionColor = 'emerald' | 'blue' | 'amber' | 'purple' | 'teal' | 'indigo' | 'cyan' | 'rose' | 'sky' | 'slate';
+export type ContactCategory = 'court' | 'provincial' | 'federal' | 'supreme' | 'bail' | 'other';
 
 // ============================================================================
 // SECTION COLOR MAPPINGS
@@ -26,6 +26,8 @@ export const sectionColorMap: Record<SectionColor, { badge: string }> = {
   indigo: { badge: 'bg-indigo-500/15 text-indigo-400' },
   cyan: { badge: 'bg-cyan-500/15 text-cyan-400' },
   rose: { badge: 'bg-rose-500/15 text-rose-400' },
+  sky: { badge: 'bg-sky-500/15 text-sky-400' },
+  slate: { badge: 'bg-slate-500/15 text-slate-400' },
 };
 
 // ============================================================================
@@ -35,9 +37,10 @@ export const sectionColorMap: Record<SectionColor, { badge: string }> = {
 export const categoryColorMap: Record<ContactCategory, string> = {
   court: 'bg-blue-400',
   provincial: 'bg-emerald-400',
-  supreme: 'bg-purple-400',
+  federal: 'bg-purple-400',
+  supreme: 'bg-rose-400',
   bail: 'bg-amber-400',
-  other: 'bg-zinc-500',
+  other: 'bg-blue-400',
 };
 
 // ============================================================================
@@ -110,4 +113,5 @@ export function getCategoryAccentClass(category: ContactCategory): string {
 export function getScheduleLabelClass(isAmber = false): string {
   return `${text.scheduleLabel} ${isAmber ? 'text-amber-400' : 'text-slate-300'}`;
 }
+
 
