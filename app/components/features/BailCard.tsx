@@ -152,34 +152,36 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
               key={contact.id}
               onClick={() => onCopy?.(contact.email, contact.id)}
               className={cn(
-                "flex items-center gap-2 px-3 py-2 cursor-pointer group transition-colors",
+                "flex items-stretch cursor-pointer group transition-colors",
                 isFieldCopied ? "bg-emerald-500/10" : "hover:bg-slate-800/50"
               )}
             >
-              {/* Color dot - amber for bail */}
-              <div className="w-1.5 h-4 rounded-full flex-shrink-0 bg-amber-400" />
+              {/* Vertical color bar - amber for bail */}
+              <div className="w-1 flex-shrink-0 bg-amber-400" />
               
-              {/* Label */}
-              <span className="text-[10px] text-slate-500 uppercase tracking-wider w-20 flex-shrink-0 truncate">
-                {contact.label}
-              </span>
-              
-              {/* Email */}
-              <span 
-                className={cn(
-                  "text-[11px] text-slate-300 font-mono flex-1 min-w-0",
-                  showFull ? 'break-all whitespace-normal' : 'truncate'
-                )}
-              >
-                {contact.email}
-              </span>
+              {/* Content: label + email stacked */}
+              <div className="flex-1 py-2 px-3 min-w-0">
+                <div className="text-[9px] text-slate-500 uppercase tracking-wider">
+                  {contact.label}
+                </div>
+                <div 
+                  className={cn(
+                    "text-[11px] text-slate-300 font-mono",
+                    showFull ? 'break-all whitespace-normal' : 'truncate'
+                  )}
+                >
+                  {contact.email}
+                </div>
+              </div>
               
               {/* Copy icon */}
-              {isFieldCopied ? (
-                <FaClipboardCheck className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-              ) : (
-                <FaCopy className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 flex-shrink-0 transition-colors" />
-              )}
+              <div className="flex items-center px-2">
+                {isFieldCopied ? (
+                  <FaClipboardCheck className="w-3.5 h-3.5 text-emerald-400" />
+                ) : (
+                  <FaCopy className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 transition-colors" />
+                )}
+              </div>
             </div>
           );
         })}
@@ -419,6 +421,7 @@ export function BailSectionContent({
 }
 
 export { getBailHubTag };
+
 
 
 
