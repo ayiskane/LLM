@@ -12,6 +12,7 @@ import { TeamsList } from '../features/TeamsCard';
 import { CourtContactsStack, CrownContactsStack } from '../features/ContactCard';
 import { CellList } from '../features/CellCard';
 import { BailSectionContent } from '../features/BailCard';
+import { JcmFxdScheduleCard } from '../features/JcmFxdCard';
 import { getBailHubTag } from '@/lib/config/constants';
 import { useCopyToClipboard } from '@/lib/hooks/useCopyToClipboard';
 import type { CourtDetails } from '@/types';
@@ -26,7 +27,7 @@ interface CourtDetailPageProps {
 }
 
 export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCourt }: CourtDetailPageProps) {
-  const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts, weekendBailCourts } = courtDetails;
+  const { court, contacts, cells, teamsLinks, bailCourt, bailTeams, bailContacts, weekendBailCourts, jcmFxdSchedule } = courtDetails;
   
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contacts');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
@@ -213,6 +214,11 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
             >
               <div className="p-3">
                 <TeamsList links={teamsLinks} onCopy={copyToClipboard} isCopied={isCopied} />
+                {jcmFxdSchedule && (
+                  <div className="mt-3">
+                    <JcmFxdScheduleCard schedule={jcmFxdSchedule} />
+                  </div>
+                )}
               </div>
             </Section>
           )}
