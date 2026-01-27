@@ -319,11 +319,11 @@ function WeekdayBailContent({
   const isHub = bailCourt.court_id === currentCourtId;
   
   const allBailTeams = useMemo(() => {
-    const vbTriageFromCourt = courtTeams.filter(t => isVBTriageLink(t.name || t.courtroom));
-    const combined = [...bailTeams, ...vbTriageFromCourt];
+    // Filter out VB Triage links - only show JCM FXD and courtrooms
+    const filtered = bailTeams.filter(t => !isVBTriageLink(t.name || t.courtroom));
     
     const seen = new Set<number>();
-    const unique = combined.filter(t => {
+    const unique = filtered.filter(t => {
       if (seen.has(t.id)) return false;
       seen.add(t.id);
       return true;
@@ -351,16 +351,10 @@ function WeekdayBailContent({
       if (aIsJcmFxd && !bIsJcmFxd) return -1;
       if (!aIsJcmFxd && bIsJcmFxd) return 1;
       
-      // 2. VB Triage links come second
-      const aIsTriage = isVBTriageLink(aName);
-      const bIsTriage = isVBTriageLink(bName);
-      if (aIsTriage && !bIsTriage) return -1;
-      if (!aIsTriage && bIsTriage) return 1;
-      
-      // 3. Sort by number ascending (CR 201 before CR 204)
+      // 2. Sort by number ascending (CR 201 before CR 204)
       return extractNumber(aName) - extractNumber(bName);
     });
-  }, [bailTeams, courtTeams]);
+  }, [bailTeams]);
 
   return (
     <div className="space-y-3">
