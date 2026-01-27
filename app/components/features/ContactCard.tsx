@@ -220,7 +220,7 @@ export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContacts
     if (fedCrown) {
       const emails = fedCrown.emails?.length ? fedCrown.emails : (fedCrown.email ? [fedCrown.email] : []);
       if (emails.length > 0) {
-        result.push({ label: 'Federal Crown', emails, category: 'other', id: `fed-crown-${fedCrown.id}` });
+        result.push({ label: 'Federal Crown', emails, category: 'federal', id: `fed-crown-${fedCrown.id}` });
       }
     }
 
@@ -228,7 +228,7 @@ export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContacts
     if (fnCrown) {
       const emails = fnCrown.emails?.length ? fnCrown.emails : (fnCrown.email ? [fnCrown.email] : []);
       if (emails.length > 0) {
-        result.push({ label: 'First Nations Crown', emails, category: 'other', id: `fn-crown-${fnCrown.id}` });
+        result.push({ label: 'First Nations Crown', emails, category: 'provincial', id: `fn-crown-${fnCrown.id}` });
       }
     }
 
@@ -266,4 +266,5 @@ export function CrownContactsStack({ contacts, onCopy, isCopied }: CrownContacts
 }
 
 export { ContactItem as ContactCard };
+
 
