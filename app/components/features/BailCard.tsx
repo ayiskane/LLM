@@ -319,11 +319,12 @@ function WeekdayBailContent({
   const isHub = bailCourt.court_id === currentCourtId;
   
   const allBailTeams = useMemo(() => {
-    // Filter out VB Triage links - only show JCM FXD and courtrooms
-    const filtered = bailTeams.filter(t => !isVBTriageLink(t.name || t.courtroom));
+    // Include VB Triage from courtTeams in Virtual Bail
+    const vbTriageFromCourt = courtTeams.filter(t => isVBTriageLink(t.name || t.courtroom));
+    const combined = [...bailTeams, ...vbTriageFromCourt];
     
     const seen = new Set<number>();
-    const unique = filtered.filter(t => {
+    const unique = combined.filter(t => {
       if (seen.has(t.id)) return false;
       seen.add(t.id);
       return true;
@@ -335,26 +336,20 @@ function WeekdayBailContent({
       return match ? parseInt(match[0], 10) : Infinity;
     };
     
-    // Helper to check if it's a JCM FXD link
-    const isJcmFxd = (name: string): boolean => {
-      const upper = name.toUpperCase();
-      return upper.includes('JCM') && upper.includes('FXD');
-    };
-    
     return unique.sort((a, b) => {
       const aName = a.name || a.courtroom || '';
       const bName = b.name || b.courtroom || '';
       
-      // 1. JCM FXD links come first
-      const aIsJcmFxd = isJcmFxd(aName);
-      const bIsJcmFxd = isJcmFxd(bName);
-      if (aIsJcmFxd && !bIsJcmFxd) return -1;
-      if (!aIsJcmFxd && bIsJcmFxd) return 1;
+      // 1. VB Triage links come first
+      const aIsTriage = isVBTriageLink(aName);
+      const bIsTriage = isVBTriageLink(bName);
+      if (aIsTriage && !bIsTriage) return -1;
+      if (!aIsTriage && bIsTriage) return 1;
       
       // 2. Sort by number ascending (CR 201 before CR 204)
       return extractNumber(aName) - extractNumber(bName);
     });
-  }, [bailTeams]);
+  }, [bailTeams, courtTeams]);
 
   return (
     <div className="space-y-3">

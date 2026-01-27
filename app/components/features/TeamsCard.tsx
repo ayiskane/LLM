@@ -121,8 +121,38 @@ interface TeamsListProps {
 
 export function TeamsList({ links, filterVBTriage = true, onCopy, isCopied }: TeamsListProps) {
   const filteredLinks = useMemo(() => {
+    // If not filtering VB Triage (bail section), return links as-is (already sorted by caller)
     if (!filterVBTriage) return links;
-    return links.filter(link => !isVBTriageLink(link.name || link.courtroom));
+    
+    // Filter out triage for MS Teams card
+    let result = links.filter(link => !isVBTriageLink(link.name || link.courtroom));
+    
+    // Helper to extract number from courtroom name (e.g., "CR 201" -> 201)
+    const extractNumber = (name: string): number => {
+      const match = name.match(/\d+/);
+      return match ? parseInt(match[0], 10) : Infinity;
+    };
+    
+    // Helper to check if it's a JCM FXD link
+    const isJcmFxd = (name: string): boolean => {
+      const upper = name.toUpperCase();
+      return upper.includes('JCM') && upper.includes('FXD');
+    };
+    
+    // Sort: JCM FXD first, then by number ascending
+    return [...result].sort((a, b) => {
+      const aName = a.name || a.courtroom || '';
+      const bName = b.name || b.courtroom || '';
+      
+      // 1. JCM FXD links come first
+      const aIsJcmFxd = isJcmFxd(aName);
+      const bIsJcmFxd = isJcmFxd(bName);
+      if (aIsJcmFxd && !bIsJcmFxd) return -1;
+      if (!aIsJcmFxd && bIsJcmFxd) return 1;
+      
+      // 2. Sort by number ascending (CR 201 before CR 204)
+      return extractNumber(aName) - extractNumber(bName);
+    });
   }, [links, filterVBTriage]);
   
   const lastUpdated = useMemo(() => {
