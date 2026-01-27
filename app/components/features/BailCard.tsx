@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { FaBuildingColumns, FaChevronRight, FaCopy, FaClipboardCheck, FaEye, FaEyeSlash, FaMicrosoftTeams } from '@/lib/icons';
+import { FaBuildingColumns, FaChevronRight, FaCopy, FaClipboardCheck, FaEye, FaEyeSlash, FaCommentDots } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { card, text, toggle, iconSize, getScheduleLabelClass } from '@/lib/config/theme';
 import { TeamsList } from './TeamsCard';
@@ -205,7 +205,7 @@ function BailContactsStack({ contacts, bailContacts, onCopy, isCopied }: BailCon
                   className="flex items-center px-2 hover:bg-slate-700/50 transition-colors"
                   title="Open Teams chat"
                 >
-                  <FaMicrosoftTeams className="w-4 h-4 text-purple-400 hover:text-purple-300" />
+                  <FaCommentDots className="w-4 h-4 text-purple-400 hover:text-purple-300" />
                 </button>
               )}
               
