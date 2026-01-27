@@ -221,6 +221,20 @@ export interface Program {
 // COMBINED QUERY RESULT
 // ============================================================================
 
+// ============================================================================
+// JCM FIXED DATE SCHEDULE
+// ============================================================================
+
+export interface JcmFxdSchedule {
+  id: number;
+  court_id: number;
+  days: string | null;        // e.g., "Monday, Thursday" or null for email-only
+  time: string | null;        // e.g., "1:30 PM" or null for email-only
+  email_acceptable: boolean;  // true if email submissions are acceptable
+  email_only: boolean;        // true if there are no in-person appearances (like Chilliwack)
+  notes: string | null;       // any additional notes
+}
+
 export interface CourtDetails {
   court: CourtWithRegion;
   contacts: ContactWithRole[];
@@ -230,7 +244,8 @@ export interface CourtDetails {
   bailTeams: TeamsLink[];  // Bail teams are TeamsLinks with bail_court_id
   bailContacts: BailContact[];
   programs: Program[];
-  weekendBailCourts: WeekendBailCourtWithTeams[];  // Changed: now array with teams included
+  weekendBailCourts: WeekendBailCourtWithTeams[];
+  jcmFxdSchedule: JcmFxdSchedule | null;  // Changed: now array with teams included
 }
 
 // ============================================================================
