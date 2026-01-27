@@ -11,6 +11,7 @@ import type {
   CourtDetails,
   CorrectionalCentre,
   WeekendBailCourtWithTeams,
+  JcmFxdSchedule,
 } from '@/types';
 
 const supabase = createClient();
@@ -297,6 +298,21 @@ export async function fetchProgramsByRegionId(regionId: number): Promise<Program
 }
 
 // =============================================================================
+// =============================================================================
+// JCM FIXED DATE SCHEDULES
+// =============================================================================
+
+export async function fetchJcmFxdScheduleByCourtId(courtId: number): Promise<JcmFxdSchedule | null> {
+  const { data, error } = await supabase
+    .from('jcm_fxd_schedules')
+    .select('*')
+    .eq('court_id', courtId)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
+
 // COMBINED QUERIES
 // =============================================================================
 
@@ -309,10 +325,11 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
     ? court.contact_hub_id 
     : courtId;
 
-  const [contacts, cells, teamsLinks] = await Promise.all([
+  const [contacts, cells, teamsLinks, jcmFxdSchedule] = await Promise.all([
     fetchContactsByCourtId(contactSourceId),
     fetchCellsByCourtId(courtId),
     fetchTeamsLinksByCourtId(courtId),
+    fetchJcmFxdScheduleByCourtId(courtId),
   ]);
 
   let bailCourt: BailCourt | null = null;
@@ -356,6 +373,7 @@ export async function fetchCourtDetails(courtId: number): Promise<CourtDetails |
     bailContacts,
     programs,
     weekendBailCourts,
+    jcmFxdSchedule,
   };
 }
 
