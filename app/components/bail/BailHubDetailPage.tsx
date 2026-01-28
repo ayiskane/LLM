@@ -7,7 +7,7 @@ import { card, text, toggle, iconSize, getScheduleLabelClass } from '@/lib/confi
 import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton, Toast } from '../ui';
 import { TeamsList } from '@/app/components/features/TeamsCard';
-import { CONTACT_ROLES, REGION_COLORS } from '@/lib/config/constants';
+import { CONTACT_ROLES } from '@/lib/config/constants';
 import { useCopyToClipboard, useTruncationDetection } from '@/lib/hooks';
 import type { BailHubDetails, BailContact } from '@/types';
 
@@ -43,23 +43,12 @@ function BailHubHeader({ bailCourt, region, collapsed }: BailHubHeaderProps) {
           {bailCourt.name}
         </h1>
         
-        <div className={cn(
-          'flex items-center gap-1 shrink-0 transition-opacity duration-300',
-          collapsed ? 'opacity-100' : 'opacity-0 hidden'
-        )}>
-          {region && (
-            <span className="px-1.5 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
-              <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[region.id]?.dot)} />
-              <span>{REGION_CODE[region.id] || region.code}</span>
-            </span>
-          )}
-          <span className={cn(
-            'px-1.5 py-1 text-[9px] font-bold uppercase tracking-wide rounded',
-            bailCourt.is_daytime ? 'bg-amber-500/15 text-amber-400' : 'bg-purple-500/15 text-purple-400'
-          )}>
-            {bailCourt.is_daytime ? 'DAY' : 'EVE'}
+        {/* Collapsed: show compact region tag */}
+        {region && collapsed && (
+          <span className="px-1.5 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest shrink-0">
+            <span>{REGION_CODE[region.id] || region.code}</span>
           </span>
-        </div>
+        )}
       </div>
       
       <div className={cn(
@@ -67,23 +56,14 @@ function BailHubHeader({ bailCourt, region, collapsed }: BailHubHeaderProps) {
         collapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'
       )}>
         <div className="overflow-hidden text-left">
+          {/* Region tag - matches CourtHeader exactly (no colored dot) */}
           <div className="flex flex-wrap items-center justify-start gap-1.5 mt-2 pb-1">
             {region && (
               <span className="px-2 py-1.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
-                <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[region.id]?.dot)} />
                 <span>{REGION_CODE[region.id] || region.code}</span>
                 <span className="text-slate-600">|</span>
                 <span>{region.name}</span>
               </span>
-            )}
-            <span className={cn(
-              'px-1.5 py-1 text-[9px] font-bold uppercase tracking-wide rounded',
-              bailCourt.is_daytime ? 'bg-amber-500/15 text-amber-400' : 'bg-purple-500/15 text-purple-400'
-            )}>
-              {bailCourt.is_daytime ? 'Weekday' : 'Evening/Weekend'}
-            </span>
-            {bailCourt.is_hybrid && (
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400">Hybrid</span>
             )}
           </div>
           {bailCourt.notes && (
