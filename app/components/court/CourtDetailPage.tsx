@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
-import { FaArrowLeft, FaAt, FaUserPoliceTie, FaBuildingColumns, FaVideo, FaChevronRight } from '@/lib/icons';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { FaArrowLeft, FaAt, FaUserPoliceTie, FaBuildingColumns, FaVideo, FaChevronRight, FaMagnifyingGlass, FaXmark, FaStarJelly } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { StickyHeader } from '../layouts/StickyHeader';
 import { Section, PillButton, Toast } from '../ui';
 import { CourtHeader } from './CourtHeader';
-import { SearchBar } from './SearchBar';
 import { CircuitCourtAlert } from './CircuitCourtAlert';
 import { TeamsList } from '../features/TeamsCard';
 import { CourtContactsStack, CrownContactsStack } from '../features/ContactCard';
@@ -28,16 +27,42 @@ interface CourtDetailPageProps {
 
 export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCourt, onNavigateToBailHub }: CourtDetailPageProps) {
   const { court, contacts, cells, teamsLinks, bailCourt, jcmFxdSchedule } = courtDetails;
-  
+
   const [expandedSection, setExpandedSection] = useState<AccordionSection>('contacts');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { copiedField, copyToClipboard, isCopied } = useCopyToClipboard();
-  
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const contactsRef = useRef<HTMLDivElement>(null);
   const cellsRef = useRef<HTMLDivElement>(null);
   const teamsRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Focus search input when expanded
+  useEffect(() => {
+    if (isSearchExpanded && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchExpanded]);
+
+  // Close search when clicking outside or pressing Escape
+  const handleSearchBlur = useCallback(() => {
+    if (!searchQuery.trim()) {
+      setIsSearchExpanded(false);
+    }
+  }, [searchQuery]);
+
+  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setSearchQuery('');
+      setIsSearchExpanded(false);
+    } else if (e.key === 'Enter' && searchQuery.trim() && onSearch) {
+      onSearch(searchQuery.trim());
+    }
+  }, [searchQuery, onSearch]);
 
   const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
     const scrollTop = e.currentTarget.scrollTop;
@@ -72,11 +97,10 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
     setExpandedSection(prev => prev === section ? null : section);
   }, []);
 
-  const handleSearchSubmit = () => {
-    if (searchQuery.trim() && onSearch) {
-      onSearch(searchQuery.trim());
-    }
-  };
+  const handleFavoriteToggle = useCallback(() => {
+    setIsFavorite(prev => !prev);
+    // TODO: Implement favorite persistence
+  }, []);
 
   const navButtons = [
     { key: 'contacts', label: 'Contacts', icon: <FaAt className="w-4 h-4" />, count: contacts.length, show: contacts.length > 0 },
@@ -87,7 +111,7 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
   return (
     <div className="h-full flex flex-col">
       <StickyHeader>
-        {/* Back button + Search bar row */}
+        {/* Back button + Search/Favorite row */}
         <div className="flex items-center gap-2 px-3 py-2">
           <button
             onClick={onBack}
@@ -95,14 +119,61 @@ export function CourtDetailPage({ courtDetails, onBack, onSearch, onNavigateToCo
           >
             <FaArrowLeft className="w-5 h-5" />
           </button>
-          
-          <SearchBar
-            value={searchQuery}
-            onChange={setSearchQuery}
-            onSubmit={handleSearchSubmit}
-            placeholder="Search courts, contacts, cells..."
-            className="flex-1"
-          />
+
+          {/* Expandable search bar */}
+          <div className={cn(
+            "flex-1 flex items-center justify-end gap-1 transition-all duration-200"
+          )}>
+            {isSearchExpanded ? (
+              <div className="flex-1 relative animate-in fade-in slide-in-from-right-2 duration-200">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                  <FaMagnifyingGlass className="w-4 h-4" />
+                </div>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onBlur={handleSearchBlur}
+                  onKeyDown={handleSearchKeyDown}
+                  placeholder="Search courts, contacts..."
+                  className="w-full h-9 pl-10 pr-9 bg-slate-800 border border-slate-700 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent rounded-xl"
+                />
+                {searchQuery && (
+                  <button
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      setSearchQuery('');
+                      searchInputRef.current?.focus();
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-300 transition-colors p-1"
+                  >
+                    <FaXmark className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => setIsSearchExpanded(true)}
+                className="p-2 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors"
+              >
+                <FaMagnifyingGlass className="w-5 h-5" />
+              </button>
+            )}
+
+            {/* Favorite button */}
+            <button
+              onClick={handleFavoriteToggle}
+              className={cn(
+                "p-2 rounded-lg transition-colors shrink-0",
+                isFavorite
+                  ? "text-amber-400 hover:text-amber-300"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+              )}
+            >
+              <FaStarJelly className={cn("w-5 h-5", isFavorite && "fill-amber-400")} />
+            </button>
+          </div>
         </div>
         
         {/* Court info section */}
