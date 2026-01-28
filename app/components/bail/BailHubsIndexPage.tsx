@@ -3,7 +3,7 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaMagnifyingGlass, FaXmark, FaSliders, FaScaleBalanced } from '@/lib/icons';
-import { AlphabetNav } from '@/app/components/ui/AlphabetNav';
+import { AlphabetNav, FilterModal } from '@/app/components/ui';
 import { cn } from '@/lib/config/theme';
 import { REGION_COLORS } from '@/lib/config/constants';
 import { useBailCourts, type BailCourtWithRegion } from '@/lib/hooks';
@@ -12,7 +12,7 @@ import { useBailCourts, type BailCourtWithRegion } from '@/lib/hooks';
 // CONSTANTS
 // =============================================================================
 
-const REGIONS = [
+const BAIL_REGIONS = [
   { id: 0, name: 'All Regions', code: 'ALL' },
   { id: 1, name: 'Island', code: 'R1' },
   { id: 2, name: 'Vancouver Coastal', code: 'R2' },
@@ -119,33 +119,31 @@ function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }
   );
 }
 
-function FilterPanel({ isOpen, regionFilter, onRegionChange, onClearAll }: {
-  isOpen: boolean; regionFilter: number; onRegionChange: (r: number) => void; onClearAll: () => void;
+function FilterModalContent({ regionFilter, onRegionChange }: {
+  regionFilter: number; onRegionChange: (r: number) => void;
 }) {
-  if (!isOpen) return null;
-  const hasFilters = regionFilter !== 0;
-
   return (
-    <div className="border-t border-slate-700/30 bg-slate-900/50 px-4 py-3 space-y-3">
+    <div className="space-y-6">
       <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Region</label>
-        <div className="flex flex-wrap gap-1.5">
-          {REGIONS.map((r) => (
+        <label className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-3 block">Region</label>
+        <div className="flex flex-wrap gap-2">
+          {BAIL_REGIONS.map((r) => (
             <button
               key={r.id}
               onClick={() => onRegionChange(r.id)}
               className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5',
-                regionFilter === r.id ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
+                'px-3 py-2 rounded-xl text-sm font-medium flex items-center gap-2 transition-all',
+                regionFilter === r.id 
+                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40' 
+                  : 'bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:border-slate-600'
               )}
             >
-              {r.id !== 0 && r.id !== 6 && <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[r.id]?.dot)} />}
+              {r.id !== 0 && r.id !== 6 && <span className={cn('w-2 h-2 rounded-full', REGION_COLORS[r.id]?.dot)} />}
               {r.name}
             </button>
           ))}
         </div>
       </div>
-      {hasFilters && <button onClick={onClearAll} className="text-xs text-slate-500 hover:text-slate-300">Clear all filters</button>}
     </div>
   );
 }
@@ -292,10 +290,20 @@ export function BailHubsIndexPage() {
         </div>
         {/* Search */}
         <div className="px-4 pb-3">
-          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(!isFilterOpen)} hasActiveFilters={hasActiveFilters} />
+          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(true)} hasActiveFilters={hasActiveFilters} />
         </div>
-        <FilterPanel isOpen={isFilterOpen} regionFilter={regionFilter} onRegionChange={setRegionFilter} onClearAll={clearAllFilters} />
       </div>
+
+      {/* Filter Modal */}
+      <FilterModal
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        title="Filter Bail Hubs"
+        onReset={() => setRegionFilter(0)}
+        hasActiveFilters={hasActiveFilters}
+      >
+        <FilterModalContent regionFilter={regionFilter} onRegionChange={setRegionFilter} />
+      </FilterModal>
 
       {/* Content area with AlphabetNav */}
       <div className="flex-1 min-h-0 relative">
