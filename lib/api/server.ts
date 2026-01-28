@@ -248,24 +248,31 @@ export async function fetchBailCourtsServer(): Promise<BailCourtWithRegion[]> {
 }
 
 export async function fetchBailHubDetailsServer(bailCourtId: number): Promise<BailHubDetails | null> {
-  const { data: bailCourtData, error } = await supabase
+  // Single query with nested selects - fetches bail court and all related data in one round trip
+  const { data: bailCourt, error } = await supabase
     .from('bail_courts')
-    .select(`*, region:regions(id, name, code)`)
+    .select(`
+      *,
+      region:regions(id, name, code),
+      teams_links(*),
+      bail_contacts(*),
+      linked_courts:courts!courts_bail_hub_id_fkey(id, name)
+    `)
     .eq('id', bailCourtId)
-    .limit(1);
+    .limit(1)
+    .single();
 
-  if (error) throw new Error(error.message);
-  const bailCourt = bailCourtData?.[0];
-  if (!bailCourt) return null;
+  if (error || !bailCourt) return null;
 
-  const [teamsRes, contactsRes, regionContactsRes, linkedCourtsRes] = await Promise.all([
-    supabase.from('teams_links').select('*').eq('bail_court_id', bailCourtId).order('name'),
-    supabase.from('bail_contacts').select('*').eq('bail_court_id', bailCourtId).order('role_id'),
-    supabase.from('bail_contacts').select('*').eq('region_id', bailCourt.region_id).is('bail_court_id', null).order('role_id'),
-    supabase.from('courts').select('id, name').eq('bail_hub_id', bailCourtId).order('name'),
-  ]);
+  // Fetch region-level contacts (not tied to specific bail court) in parallel
+  const { data: regionContacts } = await supabase
+    .from('bail_contacts')
+    .select('*')
+    .eq('region_id', bailCourt.region_id)
+    .is('bail_court_id', null)
+    .order('role_id');
 
-  const allContacts = [...(contactsRes.data || []), ...(regionContactsRes.data || [])];
+  const allContacts = [...(bailCourt.bail_contacts || []), ...(regionContacts || [])];
 
   return {
     bailCourt: {
@@ -286,9 +293,9 @@ export async function fetchBailHubDetailsServer(bailCourtId: number): Promise<Ba
       notes: bailCourt.notes,
     },
     region: bailCourt.region || null,
-    bailTeams: teamsRes.data || [],
+    bailTeams: bailCourt.teams_links || [],
     bailContacts: allContacts,
-    linkedCourts: linkedCourtsRes.data || [],
+    linkedCourts: bailCourt.linked_courts || [],
   };
 }
 
