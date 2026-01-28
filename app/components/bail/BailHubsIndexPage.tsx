@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaMagnifyingGlass, FaXmark, FaSliders, FaScaleBalanced } from '@/lib/icons';
-import { AlphabetNav, FilterModal } from '@/app/components/ui';
+import { FaMagnifyingGlass, FaXmark, FaScaleBalanced } from '@/lib/icons';
 import { cn } from '@/lib/config/theme';
 import { REGION_COLORS } from '@/lib/config/constants';
 import { useBailCourts, type BailCourtWithRegion } from '@/lib/hooks';
@@ -12,17 +11,15 @@ import { useBailCourts, type BailCourtWithRegion } from '@/lib/hooks';
 // CONSTANTS
 // =============================================================================
 
-const BAIL_REGIONS = [
-  { id: 0, name: 'All Regions', code: 'ALL' },
-  { id: 1, name: 'Island', code: 'R1' },
-  { id: 2, name: 'Vancouver Coastal', code: 'R2' },
-  { id: 3, name: 'Fraser', code: 'R3' },
-  { id: 4, name: 'Interior', code: 'R4' },
-  { id: 5, name: 'Northern', code: 'R5' },
-  { id: 6, name: 'Federal', code: 'FED' },
-] as const;
-
-const REGION_CODE: Record<number, string> = { 1: 'R1', 2: 'R2', 3: 'R3', 4: 'R4', 5: 'R5', 6: 'FED' };
+const REGIONS_ORDER = [1, 2, 3, 4, 5] as const; // R1-R5 in order
+const REGION_INFO: Record<number, { code: string; name: string }> = {
+  1: { code: 'R1', name: 'Island' },
+  2: { code: 'R2', name: 'Vancouver Coastal' },
+  3: { code: 'R3', name: 'Fraser' },
+  4: { code: 'R4', name: 'Interior' },
+  5: { code: 'R5', name: 'Northern' },
+  6: { code: 'FED', name: 'Federal' },
+};
 
 // =============================================================================
 // TYPES & HELPERS
@@ -35,16 +32,14 @@ function getBailCourtDisplayName(name: string): string {
   return `${name} Law Courts`;
 }
 
-function groupByLetter(courts: BailCourtWithRegion[]) {
-  const grouped = courts.reduce((acc, c) => {
-    const letter = /[A-Z]/.test(c.name[0]) ? c.name[0].toUpperCase() : '#';
-    (acc[letter] ??= []).push(c);
-    return acc;
-  }, {} as Record<string, BailCourtWithRegion[]>);
-
-  return Object.entries(grouped)
-    .sort(([a], [b]) => (a === '#' ? 1 : b === '#' ? -1 : a.localeCompare(b)))
-    .map(([letter, courts]) => ({ letter, courts }));
+function groupByRegion(courts: BailCourtWithRegion[]) {
+  const grouped: Record<number, BailCourtWithRegion[]> = {};
+  courts.forEach(c => {
+    (grouped[c.region_id] ??= []).push(c);
+  });
+  // Sort courts within each region alphabetically
+  Object.values(grouped).forEach(arr => arr.sort((a, b) => a.name.localeCompare(b.name)));
+  return grouped;
 }
 
 // =============================================================================
@@ -90,96 +85,142 @@ function ScheduleTabs({ activeTab, onTabChange, counts }: {
   );
 }
 
-function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }: {
-  value: string; onChange: (v: string) => void; onClear: () => void; onFilterClick: () => void; hasActiveFilters: boolean;
+function SearchBar({ value, onChange, onClear }: {
+  value: string; onChange: (v: string) => void; onClear: () => void;
 }) {
   return (
-    <div className="flex gap-2">
-      <div className="relative flex-1">
-        <FaMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Search bail hubs..."
-          className="w-full bg-slate-800/50 border border-slate-700/50 rounded-xl pl-11 pr-10 py-3 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-        />
-        {value && (
-          <button onClick={onClear} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
-            <FaXmark className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-      <button
-        onClick={onFilterClick}
-        className={cn(
-          'relative flex items-center justify-center w-12 rounded-xl border transition-all',
-          hasActiveFilters ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-slate-800/50 border-slate-700/50 text-slate-400'
-        )}
-      >
-        <FaSliders className="w-4 h-4" />
-        {hasActiveFilters && <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full" />}
-      </button>
+    <div className="relative">
+      <FaMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Search bail hubs..."
+        className="w-full bg-slate-800/50 border border-slate-700/50 rounded-xl pl-11 pr-10 py-3 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+      />
+      {value && (
+        <button onClick={onClear} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+          <FaXmark className="w-4 h-4" />
+        </button>
+      )}
     </div>
   );
 }
 
-function FilterModalContent({ regionFilter, onRegionChange }: {
-  regionFilter: number; onRegionChange: (r: number) => void;
-}) {
+function SectionHeader({ title, code, colorDot }: { title: string; code?: string; colorDot?: string }) {
   return (
-    <div className="space-y-6">
-      <div>
-        <label className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-3 block">Region</label>
-        <div className="flex flex-wrap gap-2">
-          {BAIL_REGIONS.map((r) => (
-            <button
-              key={r.id}
-              onClick={() => onRegionChange(r.id)}
-              className={cn(
-                'px-3 py-2 rounded-xl text-sm font-medium flex items-center gap-2 transition-all',
-                regionFilter === r.id 
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40' 
-                  : 'bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:border-slate-600'
-              )}
-            >
-              {r.id !== 0 && r.id !== 6 && <span className={cn('w-2 h-2 rounded-full', REGION_COLORS[r.id]?.dot)} />}
-              {r.name}
-            </button>
-          ))}
-        </div>
+    <div className="sticky top-0 z-10 px-4 py-2 bg-slate-950 border-b border-slate-800/50">
+      <div className="flex items-center gap-2">
+        {colorDot && <span className={cn('w-2 h-2 rounded-full', colorDot)} />}
+        {code && <span className="text-xs font-mono text-slate-500">{code}</span>}
+        {code && <span className="text-slate-600">|</span>}
+        <span className="text-sm font-bold text-blue-400">{title}</span>
       </div>
     </div>
   );
 }
 
-function BailCourtListItem({ court, onClick }: { court: BailCourtWithRegion; onClick: () => void }) {
+function BailCourtListItem({ court, onClick, showRegion = false }: { 
+  court: BailCourtWithRegion; 
+  onClick: () => void;
+  showRegion?: boolean;
+}) {
+  const region = REGION_INFO[court.region_id];
   return (
     <button onClick={onClick} className="w-full text-left px-4 py-3 border-b border-slate-700/30 last:border-b-0 hover:bg-slate-800/30 active:bg-slate-800/50">
-      <div className="text-sm font-medium text-slate-200 mb-1.5">{getBailCourtDisplayName(court.name)}</div>
-      <div className="flex items-center gap-1.5 flex-wrap">
-        <span className="px-2 py-1 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
-          <span>{REGION_CODE[court.region_id] || 'R?'}</span>
-          <span className="text-slate-600">|</span>
-          <span>{court.region_name}</span>
-        </span>
-      </div>
+      <div className="text-sm font-medium text-slate-200">{getBailCourtDisplayName(court.name)}</div>
+      {showRegion && region && (
+        <div className="flex items-center gap-1.5 mt-1">
+          <span className="px-2 py-0.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
+            <span>{region.code}</span>
+            <span className="text-slate-600">|</span>
+            <span>{region.name}</span>
+          </span>
+        </div>
+      )}
     </button>
   );
 }
 
-function LetterSection({ letter, courts, onCourtClick }: {
-  letter: string; courts: BailCourtWithRegion[]; onCourtClick: (id: number) => void;
+// =============================================================================
+// WEEKDAY LIST - Grouped by Region
+// =============================================================================
+
+function WeekdayList({ courts, onCourtClick }: { 
+  courts: BailCourtWithRegion[]; 
+  onCourtClick: (id: number) => void;
 }) {
+  const grouped = useMemo(() => groupByRegion(courts), [courts]);
+  
   return (
-    <div id={`section-${letter}`} data-letter={letter}>
-      <div className="sticky top-0 z-10 px-4 py-2 bg-slate-950 border-b border-slate-800/50">
-        <span className="text-sm font-bold text-blue-400">{letter}</span>
-      </div>
-      <div className="bg-slate-800/20">
-        {courts.map((c) => <BailCourtListItem key={c.id} court={c} onClick={() => onCourtClick(c.id)} />)}
-      </div>
-    </div>
+    <>
+      {REGIONS_ORDER.map(regionId => {
+        const regionCourts = grouped[regionId];
+        if (!regionCourts?.length) return null;
+        const info = REGION_INFO[regionId];
+        return (
+          <div key={regionId}>
+            <SectionHeader 
+              title={info.name} 
+              code={info.code} 
+              colorDot={REGION_COLORS[regionId]?.dot}
+            />
+            <div className="bg-slate-800/20">
+              {regionCourts.map(c => (
+                <BailCourtListItem key={c.id} court={c} onClick={() => onCourtClick(c.id)} />
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+// =============================================================================
+// WEEKEND LIST - Justice Center + Federal sections
+// =============================================================================
+
+function WeekendList({ courts, onCourtClick }: { 
+  courts: BailCourtWithRegion[]; 
+  onCourtClick: (id: number) => void;
+}) {
+  const { justiceCenters, federal } = useMemo(() => {
+    const jc: BailCourtWithRegion[] = [];
+    const fed: BailCourtWithRegion[] = [];
+    courts.forEach(c => {
+      if (c.region_id === 6) fed.push(c);
+      else jc.push(c);
+    });
+    // Sort alphabetically
+    jc.sort((a, b) => a.name.localeCompare(b.name));
+    fed.sort((a, b) => a.name.localeCompare(b.name));
+    return { justiceCenters: jc, federal: fed };
+  }, [courts]);
+
+  return (
+    <>
+      {justiceCenters.length > 0 && (
+        <div>
+          <SectionHeader title="Justice Center" />
+          <div className="bg-slate-800/20">
+            {justiceCenters.map(c => (
+              <BailCourtListItem key={c.id} court={c} onClick={() => onCourtClick(c.id)} showRegion />
+            ))}
+          </div>
+        </div>
+      )}
+      {federal.length > 0 && (
+        <div>
+          <SectionHeader title="Federal" />
+          <div className="bg-slate-800/20">
+            {federal.map(c => (
+              <BailCourtListItem key={c.id} court={c} onClick={() => onCourtClick(c.id)} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -189,16 +230,10 @@ function LetterSection({ letter, courts, onCourtClick }: {
 
 export function BailHubsIndexPage() {
   const router = useRouter();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { bailCourts, isLoading, error } = useBailCourts();
   const [activeTab, setActiveTab] = useState<ScheduleTab>('weekday');
-  const [regionFilter, setRegionFilter] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [activeLetter, setActiveLetter] = useState<string | null>(null);
 
-  const hasActiveFilters = regionFilter !== 0;
-  const clearAllFilters = useCallback(() => { setRegionFilter(0); setSearchQuery(''); }, []);
   const handleCourtClick = useCallback((courtId: number) => router.push(`/bail/${courtId}`), [router]);
 
   // Count for tabs
@@ -212,8 +247,6 @@ export function BailHubsIndexPage() {
     // Filter by active tab
     if (activeTab === 'weekday') result = result.filter(c => c.is_daytime);
     else result = result.filter(c => !c.is_daytime);
-    // Filter by region
-    if (regionFilter !== 0) result = result.filter(c => c.region_id === regionFilter);
     // Filter by search
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -225,41 +258,7 @@ export function BailHubsIndexPage() {
       );
     }
     return result;
-  }, [bailCourts, activeTab, regionFilter, searchQuery]);
-
-  const groupedCourts = useMemo(() => groupByLetter(filteredCourts), [filteredCourts]);
-  const availableLetters = useMemo(() => groupedCourts.map(g => g.letter), [groupedCourts]);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || availableLetters.length === 0) return;
-
-    const handleScroll = () => {
-      const sections = container.querySelectorAll('[data-letter]');
-      let currentLetter: string | null = null;
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        if (rect.top <= containerRect.top + 50) {
-          currentLetter = section.getAttribute('data-letter');
-        }
-      });
-
-      setActiveLetter(currentLetter || availableLetters[0]);
-    };
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [availableLetters]);
-
-  const handleLetterChange = useCallback((letter: string) => {
-    const section = document.getElementById(`section-${letter}`);
-    if (section) {
-      section.scrollIntoView({ behavior: 'auto', block: 'start' });
-    }
-  }, []);
+  }, [bailCourts, activeTab, searchQuery]);
 
   if (isLoading) {
     return (
@@ -292,7 +291,7 @@ export function BailHubsIndexPage() {
         </div>
         {/* Search */}
         <div className="px-4 pb-2">
-          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(true)} hasActiveFilters={hasActiveFilters} />
+          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} />
         </div>
         {/* Schedule Tabs */}
         <div className="px-4 pb-3">
@@ -300,48 +299,33 @@ export function BailHubsIndexPage() {
         </div>
       </div>
 
-      {/* Filter Modal */}
-      <FilterModal
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-        title="Filter Bail Hubs"
-        onReset={() => setRegionFilter(0)}
-        hasActiveFilters={hasActiveFilters}
-      >
-        <FilterModalContent regionFilter={regionFilter} onRegionChange={setRegionFilter} />
-      </FilterModal>
-
-      {/* Content area with AlphabetNav */}
-      <div className="flex-1 min-h-0 relative">
-        {/* Scrollable content */}
-        <div ref={scrollContainerRef} className="h-full overflow-y-auto">
-          {groupedCourts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 px-4">
-              <FaScaleBalanced className="w-12 h-12 text-slate-700 mb-4" />
-              <p className="text-slate-400 text-center">{searchQuery ? `No bail hubs found for "${searchQuery}"` : 'No bail hubs match your filters'}</p>
-              {(searchQuery || hasActiveFilters) && (
-                <button onClick={clearAllFilters} className="mt-4 text-blue-400 text-sm hover:text-blue-300">Clear filters</button>
-              )}
+      {/* Content */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        {filteredCourts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 px-4">
+            <FaScaleBalanced className="w-12 h-12 text-slate-700 mb-4" />
+            <p className="text-slate-400 text-center">
+              {searchQuery ? `No bail hubs found for "${searchQuery}"` : 'No bail hubs available'}
+            </p>
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="mt-4 text-blue-400 text-sm hover:text-blue-300">
+                Clear search
+              </button>
+            )}
+          </div>
+        ) : (
+          <>
+            {activeTab === 'weekday' ? (
+              <WeekdayList courts={filteredCourts} onCourtClick={handleCourtClick} />
+            ) : (
+              <WeekendList courts={filteredCourts} onCourtClick={handleCourtClick} />
+            )}
+            <div className="py-4 text-center">
+              <span className="text-xs text-slate-500">
+                {filteredCourts.length} bail {filteredCourts.length === 1 ? 'hub' : 'hubs'}
+              </span>
             </div>
-          ) : (
-            <>
-              {groupedCourts.map((group) => (
-                <LetterSection key={group.letter} letter={group.letter} courts={group.courts} onCourtClick={handleCourtClick} />
-              ))}
-              <div className="py-4 text-center">
-                <span className="text-xs text-slate-500">{filteredCourts.length} bail {filteredCourts.length === 1 ? 'hub' : 'hubs'}</span>
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* AlphabetNav */}
-        {!searchQuery && availableLetters.length > 1 && (
-          <AlphabetNav 
-            availableLetters={availableLetters} 
-            activeLetter={activeLetter}
-            onLetterChange={handleLetterChange} 
-          />
+          </>
         )}
       </div>
     </div>
