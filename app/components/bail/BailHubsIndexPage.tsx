@@ -28,8 +28,7 @@ const REGION_CODE: Record<number, string> = { 1: 'R1', 2: 'R2', 3: 'R3', 4: 'R4'
 // TYPES & HELPERS
 // =============================================================================
 
-type ScheduleFilter = 'all' | 'daytime' | 'evening';
-interface Filters { region: number; schedule: ScheduleFilter; }
+type ScheduleTab = 'weekday' | 'weekend';
 
 function groupByLetter(courts: BailCourtWithRegion[]) {
   const grouped = courts.reduce((acc, c) => {
@@ -46,6 +45,45 @@ function groupByLetter(courts: BailCourtWithRegion[]) {
 // =============================================================================
 // SUB-COMPONENTS
 // =============================================================================
+
+function ScheduleTabs({ activeTab, onTabChange, counts }: {
+  activeTab: ScheduleTab;
+  onTabChange: (tab: ScheduleTab) => void;
+  counts: { weekday: number; weekend: number };
+}) {
+  return (
+    <div className="flex gap-2">
+      <button
+        onClick={() => onTabChange('weekday')}
+        className={cn(
+          'flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all',
+          activeTab === 'weekday'
+            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+            : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:bg-slate-800/70'
+        )}
+      >
+        Weekday
+        <span className={cn('ml-1.5 text-xs', activeTab === 'weekday' ? 'text-amber-400/70' : 'text-slate-500')}>
+          {counts.weekday}
+        </span>
+      </button>
+      <button
+        onClick={() => onTabChange('weekend')}
+        className={cn(
+          'flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all',
+          activeTab === 'weekend'
+            ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+            : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:bg-slate-800/70'
+        )}
+      >
+        Evening / Weekend
+        <span className={cn('ml-1.5 text-xs', activeTab === 'weekend' ? 'text-purple-400/70' : 'text-slate-500')}>
+          {counts.weekend}
+        </span>
+      </button>
+    </div>
+  );
+}
 
 function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }: {
   value: string; onChange: (v: string) => void; onClear: () => void; onFilterClick: () => void; hasActiveFilters: boolean;
@@ -81,11 +119,11 @@ function SearchBar({ value, onChange, onClear, onFilterClick, hasActiveFilters }
   );
 }
 
-function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
-  isOpen: boolean; filters: Filters; onFilterChange: (f: Filters) => void; onClearAll: () => void;
+function FilterPanel({ isOpen, regionFilter, onRegionChange, onClearAll }: {
+  isOpen: boolean; regionFilter: number; onRegionChange: (r: number) => void; onClearAll: () => void;
 }) {
   if (!isOpen) return null;
-  const hasFilters = filters.region !== 0 || filters.schedule !== 'all';
+  const hasFilters = regionFilter !== 0;
 
   return (
     <div className="border-t border-slate-700/30 bg-slate-900/50 px-4 py-3 space-y-3">
@@ -95,35 +133,14 @@ function FilterPanel({ isOpen, filters, onFilterChange, onClearAll }: {
           {REGIONS.map((r) => (
             <button
               key={r.id}
-              onClick={() => onFilterChange({ ...filters, region: r.id })}
+              onClick={() => onRegionChange(r.id)}
               className={cn(
                 'px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5',
-                filters.region === r.id ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
+                regionFilter === r.id ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
               )}
             >
               {r.id !== 0 && r.id !== 6 && <span className={cn('w-1.5 h-1.5 rounded-full', REGION_COLORS[r.id]?.dot)} />}
               {r.name}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div>
-        <label className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5 block">Schedule</label>
-        <div className="flex gap-1.5">
-          {[
-            { value: 'all' as const, label: 'All' },
-            { value: 'daytime' as const, label: 'Weekday' },
-            { value: 'evening' as const, label: 'Evening/Weekend' },
-          ].map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => onFilterChange({ ...filters, schedule: opt.value })}
-              className={cn(
-                'px-2.5 py-1.5 rounded-lg text-xs font-medium',
-                filters.schedule === opt.value ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-              )}
-            >
-              {opt.label}
             </button>
           ))}
         </div>
@@ -143,15 +160,6 @@ function BailCourtListItem({ court, onClick }: { court: BailCourtWithRegion; onC
           <span className="text-slate-600">|</span>
           <span>{court.region_name}</span>
         </span>
-        <span className={cn(
-          'px-1.5 py-1 text-[9px] font-bold uppercase tracking-wide rounded',
-          court.is_daytime ? 'bg-amber-500/15 text-amber-400' : 'bg-purple-500/15 text-purple-400'
-        )}>
-          {court.is_daytime ? 'Weekday' : 'Evening/Wknd'}
-        </span>
-        {court.is_hybrid && (
-          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400">Hybrid</span>
-        )}
       </div>
     </button>
   );
@@ -180,20 +188,30 @@ export function BailHubsIndexPage() {
   const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { bailCourts, isLoading, error } = useBailCourts();
-  const [filters, setFilters] = useState<Filters>({ region: 0, schedule: 'all' });
+  const [activeTab, setActiveTab] = useState<ScheduleTab>('weekday');
+  const [regionFilter, setRegionFilter] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
 
-  const hasActiveFilters = filters.region !== 0 || filters.schedule !== 'all';
-  const clearAllFilters = useCallback(() => { setFilters({ region: 0, schedule: 'all' }); setSearchQuery(''); }, []);
+  const hasActiveFilters = regionFilter !== 0;
+  const clearAllFilters = useCallback(() => { setRegionFilter(0); setSearchQuery(''); }, []);
   const handleCourtClick = useCallback((courtId: number) => router.push(`/bail/${courtId}`), [router]);
+
+  // Count for tabs
+  const tabCounts = useMemo(() => ({
+    weekday: bailCourts.filter(c => c.is_daytime).length,
+    weekend: bailCourts.filter(c => !c.is_daytime).length,
+  }), [bailCourts]);
 
   const filteredCourts = useMemo(() => {
     let result = bailCourts;
-    if (filters.region !== 0) result = result.filter(c => c.region_id === filters.region);
-    if (filters.schedule === 'daytime') result = result.filter(c => c.is_daytime);
-    else if (filters.schedule === 'evening') result = result.filter(c => !c.is_daytime);
+    // Filter by active tab
+    if (activeTab === 'weekday') result = result.filter(c => c.is_daytime);
+    else result = result.filter(c => !c.is_daytime);
+    // Filter by region
+    if (regionFilter !== 0) result = result.filter(c => c.region_id === regionFilter);
+    // Filter by search
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(c => 
@@ -203,7 +221,7 @@ export function BailHubsIndexPage() {
       );
     }
     return result;
-  }, [bailCourts, filters, searchQuery]);
+  }, [bailCourts, activeTab, regionFilter, searchQuery]);
 
   const groupedCourts = useMemo(() => groupByLetter(filteredCourts), [filteredCourts]);
   const availableLetters = useMemo(() => groupedCourts.map(g => g.letter), [groupedCourts]);
@@ -268,10 +286,15 @@ export function BailHubsIndexPage() {
         <div className="px-4 pt-4 pb-2">
           <h1 className="text-xl font-bold text-white">BC Bail Hubs</h1>
         </div>
+        {/* Schedule Tabs */}
+        <div className="px-4 pb-3">
+          <ScheduleTabs activeTab={activeTab} onTabChange={setActiveTab} counts={tabCounts} />
+        </div>
+        {/* Search */}
         <div className="px-4 pb-3">
           <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(!isFilterOpen)} hasActiveFilters={hasActiveFilters} />
         </div>
-        <FilterPanel isOpen={isFilterOpen} filters={filters} onFilterChange={setFilters} onClearAll={clearAllFilters} />
+        <FilterPanel isOpen={isFilterOpen} regionFilter={regionFilter} onRegionChange={setRegionFilter} onClearAll={clearAllFilters} />
       </div>
 
       {/* Content area with AlphabetNav */}
