@@ -56,28 +56,28 @@ function ScheduleTabs({ activeTab, onTabChange, counts }: {
       <button
         onClick={() => onTabChange('weekday')}
         className={cn(
-          'flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all',
+          'flex-1 py-1.5 px-3 rounded-lg text-xs font-medium transition-all',
           activeTab === 'weekday'
             ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
             : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:bg-slate-800/70'
         )}
       >
         Weekday
-        <span className={cn('ml-1.5 text-xs', activeTab === 'weekday' ? 'text-amber-400/70' : 'text-slate-500')}>
+        <span className={cn('ml-1.5', activeTab === 'weekday' ? 'text-amber-400/70' : 'text-slate-500')}>
           {counts.weekday}
         </span>
       </button>
       <button
         onClick={() => onTabChange('weekend')}
         className={cn(
-          'flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all',
+          'flex-1 py-1.5 px-3 rounded-lg text-xs font-medium transition-all',
           activeTab === 'weekend'
             ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
             : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:bg-slate-800/70'
         )}
       >
         Evening / Weekend
-        <span className={cn('ml-1.5 text-xs', activeTab === 'weekend' ? 'text-purple-400/70' : 'text-slate-500')}>
+        <span className={cn('ml-1.5', activeTab === 'weekend' ? 'text-purple-400/70' : 'text-slate-500')}>
           {counts.weekend}
         </span>
       </button>
@@ -284,13 +284,13 @@ export function BailHubsIndexPage() {
         <div className="px-4 pt-4 pb-2">
           <h1 className="text-xl font-bold text-white">BC Bail Hubs</h1>
         </div>
+        {/* Search */}
+        <div className="px-4 pb-2">
+          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(true)} hasActiveFilters={hasActiveFilters} />
+        </div>
         {/* Schedule Tabs */}
         <div className="px-4 pb-3">
           <ScheduleTabs activeTab={activeTab} onTabChange={setActiveTab} counts={tabCounts} />
-        </div>
-        {/* Search */}
-        <div className="px-4 pb-3">
-          <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} onFilterClick={() => setIsFilterOpen(true)} hasActiveFilters={hasActiveFilters} />
         </div>
       </div>
 
