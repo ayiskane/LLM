@@ -20,7 +20,7 @@ type AccordionSection = 'schedule' | 'contacts' | 'teams' | 'courts' | null;
 const REGION_CODE: Record<number, string> = { 1: 'R1', 2: 'R2', 3: 'R3', 4: 'R4', 5: 'R5', 6: 'FED' };
 
 // =============================================================================
-// BAIL HUB HEADER - Matches CourtHeader/CentreHeader pattern
+// BAIL HUB HEADER
 // =============================================================================
 
 interface BailHubHeaderProps {
@@ -43,7 +43,6 @@ function BailHubHeader({ bailCourt, region, collapsed }: BailHubHeaderProps) {
           {bailCourt.name}
         </h1>
         
-        {/* Collapsed tags */}
         <div className={cn(
           'flex items-center gap-1 shrink-0 transition-opacity duration-300',
           collapsed ? 'opacity-100' : 'opacity-0 hidden'
@@ -63,7 +62,6 @@ function BailHubHeader({ bailCourt, region, collapsed }: BailHubHeaderProps) {
         </div>
       </div>
       
-      {/* Expandable content */}
       <div className={cn(
         'grid transition-all duration-300 ease-out',
         collapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'
@@ -98,7 +96,7 @@ function BailHubHeader({ bailCourt, region, collapsed }: BailHubHeaderProps) {
 }
 
 // =============================================================================
-// SCHEDULE ROW - Uses theme
+// SCHEDULE ROW
 // =============================================================================
 
 interface ScheduleRowProps {
@@ -119,10 +117,10 @@ function ScheduleRow({ label, value, color }: ScheduleRowProps) {
 }
 
 // =============================================================================
-// SCHEDULE SECTION CONTENT - Uses theme
+// SCHEDULE LIST - Matches BailSchedule pattern from BailCard
 // =============================================================================
 
-function ScheduleContent({ bailCourt }: { bailCourt: BailHubDetails['bailCourt'] }) {
+function ScheduleList({ bailCourt }: { bailCourt: BailHubDetails['bailCourt'] }) {
   const scheduleItems = [
     { label: 'Triage', value: [bailCourt.triage_time_am, bailCourt.triage_time_pm].filter(Boolean).join(' / '), color: undefined },
     { label: 'Court', value: [bailCourt.court_start_am, bailCourt.court_start_pm].filter(Boolean).join(' / '), color: undefined },
@@ -130,13 +128,7 @@ function ScheduleContent({ bailCourt }: { bailCourt: BailHubDetails['bailCourt']
     { label: 'Youth', value: bailCourt.youth_custody_day && bailCourt.youth_custody_time ? `${bailCourt.youth_custody_day} ${bailCourt.youth_custody_time}` : null, color: 'sky' as const },
   ].filter(item => item.value);
 
-  if (scheduleItems.length === 0) {
-    return (
-      <div className="p-4 text-center text-slate-500 text-sm">
-        No schedule information available
-      </div>
-    );
-  }
+  if (scheduleItems.length === 0) return null;
 
   return (
     <div className={card.divided}>
@@ -148,16 +140,16 @@ function ScheduleContent({ bailCourt }: { bailCourt: BailHubDetails['bailCourt']
 }
 
 // =============================================================================
-// CONTACTS SECTION CONTENT - Uses theme
+// BAIL CONTACTS STACK - Matches CourtContactsStack pattern from ContactCard
 // =============================================================================
 
-interface ContactsContentProps {
+interface BailContactsStackProps {
   bailContacts: BailContact[];
   onCopy: (text: string, id: string) => void;
   isCopied: (id: string) => boolean;
 }
 
-function ContactsContent({ bailContacts, onCopy, isCopied }: ContactsContentProps) {
+function BailContactsStack({ bailContacts, onCopy, isCopied }: BailContactsStackProps) {
   const [showFull, setShowFull] = useState(false);
   const { registerRef, hasTruncation } = useTruncationDetection();
 
@@ -190,19 +182,14 @@ function ContactsContent({ bailContacts, onCopy, isCopied }: ContactsContentProp
     }
   };
 
-  if (contactsList.length === 0) {
-    return (
-      <div className="p-4 text-center text-slate-500 text-sm">
-        No contacts available
-      </div>
-    );
-  }
+  if (contactsList.length === 0) return null;
 
   return (
     <div className="space-y-2">
-      {/* Toggle header */}
-      {(!showFull ? hasTruncation : true) && (
-        <div className="flex justify-end px-3 pt-2">
+      {/* Header with toggle - matches ContactCard SectionHeader pattern */}
+      <div className="flex items-center justify-between mb-2 px-1">
+        <h4 className={text.sectionHeader}>Bail Contacts</h4>
+        {(!showFull ? hasTruncation : true) && (
           <button
             onClick={(e) => { e.stopPropagation(); setShowFull(!showFull); }}
             className={cn(toggle.base, showFull ? toggle.active : toggle.inactive)}
@@ -210,10 +197,10 @@ function ContactsContent({ bailContacts, onCopy, isCopied }: ContactsContentProp
             {showFull ? <FaEyeSlash className={iconSize.xs} /> : <FaEye className={iconSize.xs} />}
             <span>{showFull ? 'Truncate' : 'Show full'}</span>
           </button>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Contacts list */}
+      {/* Contact rows - matches ContactRow pattern */}
       <div className={card.divided}>
         {contactsList.map((contact) => {
           const isFieldCopied = isCopied(contact.id);
@@ -271,22 +258,16 @@ function ContactsContent({ bailContacts, onCopy, isCopied }: ContactsContentProp
 }
 
 // =============================================================================
-// LINKED COURTS SECTION CONTENT - Uses theme
+// LINKED COURTS LIST
 // =============================================================================
 
-interface LinkedCourtsContentProps {
+interface LinkedCourtsListProps {
   courts: { id: number; name: string }[];
   onCourtClick: (courtId: number) => void;
 }
 
-function LinkedCourtsContent({ courts, onCourtClick }: LinkedCourtsContentProps) {
-  if (courts.length === 0) {
-    return (
-      <div className="p-4 text-center text-slate-500 text-sm">
-        No linked courts
-      </div>
-    );
-  }
+function LinkedCourtsList({ courts, onCourtClick }: LinkedCourtsListProps) {
+  if (courts.length === 0) return null;
 
   return (
     <div className={card.divided}>
@@ -406,6 +387,7 @@ export function BailHubDetailPage({ details, onBack, onNavigateToCourt, referrer
 
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto scroll-smooth" onScroll={handleScroll}>
         <div className="p-3 space-y-2.5 pb-20">
+          {/* Schedule section - p-3 wrapper matches CourtDetailPage */}
           {hasSchedule && (
             <Section
               ref={scheduleRef}
@@ -414,10 +396,13 @@ export function BailHubDetailPage({ details, onBack, onNavigateToCourt, referrer
               isExpanded={expandedSection === 'schedule'}
               onToggle={() => toggleSection('schedule')}
             >
-              <ScheduleContent bailCourt={bailCourt} />
+              <div className="p-3">
+                <ScheduleList bailCourt={bailCourt} />
+              </div>
             </Section>
           )}
 
+          {/* Contacts section - p-3 wrapper matches CourtDetailPage */}
           {bailContacts.length > 0 && (
             <Section
               ref={contactsRef}
@@ -427,14 +412,17 @@ export function BailHubDetailPage({ details, onBack, onNavigateToCourt, referrer
               isExpanded={expandedSection === 'contacts'}
               onToggle={() => toggleSection('contacts')}
             >
-              <ContactsContent 
-                bailContacts={bailContacts} 
-                onCopy={copyToClipboard} 
-                isCopied={isCopied} 
-              />
+              <div className="p-3">
+                <BailContactsStack 
+                  bailContacts={bailContacts} 
+                  onCopy={copyToClipboard} 
+                  isCopied={isCopied} 
+                />
+              </div>
             </Section>
           )}
 
+          {/* Teams section - p-3 wrapper matches CourtDetailPage */}
           {bailTeams.length > 0 && (
             <Section
               ref={teamsRef}
@@ -450,6 +438,7 @@ export function BailHubDetailPage({ details, onBack, onNavigateToCourt, referrer
             </Section>
           )}
 
+          {/* Courts section - p-3 wrapper matches CourtDetailPage */}
           {linkedCourts.length > 0 && (
             <Section
               ref={courtsRef}
@@ -459,7 +448,9 @@ export function BailHubDetailPage({ details, onBack, onNavigateToCourt, referrer
               isExpanded={expandedSection === 'courts'}
               onToggle={() => toggleSection('courts')}
             >
-              <LinkedCourtsContent courts={linkedCourts} onCourtClick={onNavigateToCourt} />
+              <div className="p-3">
+                <LinkedCourtsList courts={linkedCourts} onCourtClick={onNavigateToCourt} />
+              </div>
             </Section>
           )}
         </div>
