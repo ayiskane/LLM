@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/court/CourtHeaderx';
+export * from '@/app/components/legacy/court/CourtHeader';

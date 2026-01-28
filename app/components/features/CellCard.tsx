@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/features/CellCardx';
+export * from '@/app/components/legacy/features/CellCard';

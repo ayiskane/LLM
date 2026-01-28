@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/AlphabetNavx';
+export * from '@/app/components/legacy/ui/AlphabetNav';

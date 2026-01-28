@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/features/JcmFxdCardx';
+export * from '@/app/components/legacy/features/JcmFxdCard';

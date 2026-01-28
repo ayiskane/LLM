@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/Tagx';
+export * from '@/app/components/legacy/ui/Tag';

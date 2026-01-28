@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/Buttonx';
+export * from '@/app/components/legacy/ui/Button';

@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/FilterModalx';
+export * from '@/app/components/legacy/ui/FilterModal';

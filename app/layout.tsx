@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { QueryProvider } from './providers/QueryProvider';
 import { BottomNavWrapper } from './components/ui/BottomNavWrapper';
 import { APP_NAME, APP_DESCRIPTION } from '@/lib/config/constants';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -47,7 +48,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className={`${inter.className} bg-slate-900 antialiased h-dvh flex flex-col`}>
+      <body className={`${inter.variable} ${jetbrains.variable} bg-slate-900 antialiased h-dvh flex flex-col`}>
         <QueryProvider>
           <main className="flex-1 min-h-0">
             {children}

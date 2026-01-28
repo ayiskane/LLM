@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/PillButtonx';
+export * from '@/app/components/legacy/ui/PillButton';

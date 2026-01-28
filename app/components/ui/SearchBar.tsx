@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/SearchBarx';
+export * from '@/app/components/legacy/ui/SearchBar';

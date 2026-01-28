@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/features/TeamsCardx';
+export * from '@/app/components/legacy/features/TeamsCard';

@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/bail/BailHubDetailPagex';
+export * from '@/app/components/legacy/bail/BailHubDetailPage';

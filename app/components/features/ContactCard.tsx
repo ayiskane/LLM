@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/features/ContactCardx';
+export * from '@/app/components/legacy/features/ContactCard';

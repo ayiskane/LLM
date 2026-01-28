@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/Toastx';
+export * from '@/app/components/legacy/ui/Toast';

@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/Inputx';
+export * from '@/app/components/legacy/ui/Input';

@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/features/BailCardx';
+export * from '@/app/components/legacy/features/BailCard';

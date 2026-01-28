@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/layouts/PageLayoutx';
+export * from '@/app/components/legacy/layouts/PageLayout';

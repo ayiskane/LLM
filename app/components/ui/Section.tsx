@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/Sectionx';
+export * from '@/app/components/legacy/ui/Section';

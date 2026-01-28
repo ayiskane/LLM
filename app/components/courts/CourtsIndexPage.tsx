@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/courts/CourtsIndexPagex';
+export * from '@/app/components/legacy/courts/CourtsIndexPage';

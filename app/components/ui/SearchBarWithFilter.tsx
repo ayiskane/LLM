@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/SearchBarWithFilterx';
+export * from '@/app/components/legacy/ui/SearchBarWithFilter';

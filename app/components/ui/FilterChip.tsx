@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/ui/FilterChipx';
+export * from '@/app/components/legacy/ui/FilterChip';

@@ -1,1 +1,1 @@
-export * from '@/app/components/legacy/court/CircuitCourtAlertx';
+export * from '@/app/components/legacy/court/CircuitCourtAlert';
