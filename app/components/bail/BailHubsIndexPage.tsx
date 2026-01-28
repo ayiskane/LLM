@@ -27,11 +27,6 @@ const REGION_INFO: Record<number, { code: string; name: string }> = {
 
 type ScheduleTab = 'weekday' | 'weekend';
 
-function getBailCourtDisplayName(name: string): string {
-  if (name.toLowerCase().includes('court')) return name;
-  return `${name} Law Courts`;
-}
-
 function groupByRegion(courts: BailCourtWithRegion[]) {
   const grouped: Record<number, BailCourtWithRegion[]> = {};
   courts.forEach(c => {
@@ -128,7 +123,7 @@ function BailCourtListItem({ court, onClick, showRegion = false }: {
   const region = REGION_INFO[court.region_id];
   return (
     <button onClick={onClick} className="w-full text-left px-4 py-3 border-b border-slate-700/30 last:border-b-0 hover:bg-slate-800/30 active:bg-slate-800/50">
-      <div className="text-sm font-medium text-slate-200">{getBailCourtDisplayName(court.name)}</div>
+      <div className="text-sm font-medium text-slate-200">{court.name}</div>
       {showRegion && region && (
         <div className="flex items-center gap-1.5 mt-1">
           <span className="px-2 py-0.5 rounded text-[9px] font-mono leading-none inline-flex items-center gap-1 uppercase bg-white/5 border border-slate-700/50 text-slate-400 tracking-widest">
@@ -252,7 +247,6 @@ export function BailHubsIndexPage() {
       const q = searchQuery.toLowerCase();
       result = result.filter(c => 
         c.name.toLowerCase().includes(q) || 
-        getBailCourtDisplayName(c.name).toLowerCase().includes(q) ||
         c.region_name.toLowerCase().includes(q) ||
         c.notes?.toLowerCase().includes(q)
       );
@@ -294,9 +288,20 @@ export function BailHubsIndexPage() {
           <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={() => setSearchQuery('')} />
         </div>
         {/* Schedule Tabs */}
-        <div className="px-4 pb-3">
+        <div className="px-4 pb-2">
           <ScheduleTabs activeTab={activeTab} onTabChange={setActiveTab} counts={tabCounts} />
         </div>
+        {/* 525 Detention Review - only on weekday */}
+        {activeTab === 'weekday' && (
+          <div className="px-4 pb-3">
+            <button
+              onClick={() => router.push('/bail/525')}
+              className="w-full py-2 px-3 rounded-lg text-xs font-medium bg-slate-800/50 text-slate-300 border border-slate-700/50 hover:bg-slate-800/70 hover:text-slate-200 transition-all text-left"
+            >
+              525 Detention Review
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Content */}
